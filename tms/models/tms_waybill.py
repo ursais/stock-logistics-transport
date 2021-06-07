@@ -307,8 +307,10 @@ class TmsWaybill(models.Model):
     @api.depends('waybill_line_ids')
     def _compute_amount_untaxed(self):
         for waybill in self:
+            amount_untaxed = 0
             for line in waybill.waybill_line_ids:
-                waybill.amount_untaxed += line.price_subtotal
+                amount_untaxed += line.price_subtotal
+            waybill.amount_untaxed = amount_untaxed
 
     @api.depends('waybill_line_ids')
     def _compute_amount_tax(self):
