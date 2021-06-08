@@ -324,6 +324,19 @@
             </graph>
         </field>
     </record>
+        <record id="view_tms_waybill_pivot" model="ir.ui.view">
+         <field name="name">tms.waybill.pivot</field>
+         <field name="model">tms.waybill</field>
+         <field name="arch" type="xml">
+             <pivot string="Pivot">
+                <field name="name" type="row"/>
+                <field name="date_order" type="row"/>
+                <field name="partner_id" type="row"/>
+                <field name="amount_untaxed" type="measure"/>
+                <field name="amount_total" type="measure"/>
+             </pivot>
+         </field>
+    </record>
     <record id="view_tms_waybill_form_cust" model="ir.ui.view">
         <field name="name">tms.waybill.form.readonly.cust</field>
         <field name="model">tms.waybill</field>
@@ -340,7 +353,7 @@
         <field name="name">Waybills</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">tms.waybill</field>
-        <field name="view_mode">tree,form,calendar,graph</field>
+        <field name="view_mode">tree,form,pivot,calendar,graph</field>
         <field name="search_view_id" ref="view_tms_waybill_filter"/>
         <field name="context">{&quot;search_default_user_id&quot;:uid, 'search_default_this_month': 1}</field>
         <field name="help">Waybills</field>

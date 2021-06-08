@@ -169,6 +169,16 @@ class TmsWaybill(models.Model):
         string='Extra Data Fields',
         copy=True,
         states={'confirmed': [('readonly', True)]})
+    route_id = fields.Many2one(
+        'tms.route', required=True,
+        states={'cancel': [('readonly', True)],
+                'closed': [('readonly', True)]})
+    employee_id = fields.Many2one(
+        'hr.employee', 'Driver', required=True,
+        domain=[('driver', '=', True)])
+    unit_id = fields.Many2one(
+        'fleet.vehicle',
+        required=True)
 
     expense_ids = fields.Many2many(
         'tms.expense', compute='_compute_expense_ids', string="Expenses")
