@@ -16,18 +16,17 @@ class TmsExtradataType(models.Model):
         ('float', 'Numeric with decimals'),
         ('date', 'Date'),
         ('datetime', 'Datetime')],
-        required=True,
     )
     apply_on = fields.Selection([
         ('waybill', 'Waybill'),
-        ('unit', 'Unit'), ], required=True, readonly=True
+        ('unit', 'Unit'), ], required=True,
     )
 
     @api.model
     def default_get(self, field):
         res = super().default_get(
             field)
-        active_model = self.env.context['active_model']
+        active_model = self.env.context['active_model_base']
         if active_model == 'fleet.vehicle':
             res['apply_on'] = 'unit'
         elif active_model == 'tms.waybill':

@@ -86,7 +86,6 @@ class TestTmsExpenseLoan(TransactionCase):
         loan.fixed_discount = 10.0
         loan.action_approve()
         loan.action_confirm()
-        loan.move_id.action_post()
         wizard = self.env['tms.wizard.payment'].with_context({
             'active_model': 'tms.expense.loan',
             'active_ids': [loan.id]}).create({
@@ -129,7 +128,6 @@ class TestTmsExpenseLoan(TransactionCase):
         loan.fixed_discount = 10.0
         loan.action_approve()
         loan.action_confirm()
-        loan.move_id.action_post()
         with self.assertRaisesRegex(
                 ValidationError,
                 'You can not delete a Loan in status confirmed or closed'):
