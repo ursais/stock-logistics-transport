@@ -16,33 +16,49 @@ class TmsExpenseLoan(models.Model):
     name = fields.Char()
     date = fields.Date(
         required=True,
-        default=fields.Date.context_today)
+        default=fields.Date.context_today
+    )
     date_confirmed = fields.Date(
         readonly=True,
         related='move_id.date',
     )
     employee_id = fields.Many2one(
-        'hr.employee', 'Driver', required=True)
+        comodel_name='hr.employee',
+        string='Driver',
+        required=True,
+    )
     expense_ids = fields.Many2many(
-        'tms.expense.line', readonly=True)
+        'tms.expense.line', readonly=True
+    )
     state = fields.Selection(
-        [('draft', 'Draft'),
-         ('authorized', 'Waiting for authorization'),
-         ('approved', 'Approved'),
-         ('confirmed', 'Confirmed'),
-         ('closed', 'Closed'),
-         ('cancel', 'Cancelled'), ],
+        selection=[
+            ('draft', 'Draft'),
+            ('authorized', 'Waiting for authorization'),
+            ('approved', 'Approved'),
+            ('confirmed', 'Confirmed'),
+            ('closed', 'Closed'),
+            ('cancel', 'Cancelled'),
+        ],
         tracking=True,
         readonly=True,
-        default='draft')
-    discount_method = fields.Selection([
-        ('each', 'Each Travel Expense Record'),
-        ('weekly', 'Weekly'),
-        ('fortnightly', 'Fortnightly'),
-        ('monthly', 'Monthly')], required=True)
-    discount_type = fields.Selection([
-        ('fixed', 'Fixed'),
-        ('percent', 'Loan Percentage'), ], required=True)
+        default='draft',
+    )
+    discount_method = fields.Selection(
+        selection=[
+            ('each', 'Each Travel Expense Record'),
+            ('weekly', 'Weekly'),
+            ('fortnightly', 'Fortnightly'),
+            ('monthly', 'Monthly'),
+        ],
+        required=True,
+    )
+    discount_type = fields.Selection(
+        selection=[
+            ('fixed', 'Fixed'),
+            ('percent', 'Loan Percentage'),
+        ],
+        required=True,
+    )
     notes = fields.Text()
     origin = fields.Char()
     amount = fields.Float(required=True)
