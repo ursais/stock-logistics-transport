@@ -49,4 +49,26 @@
         </field>
     </record>
     <menuitem action="tms_open_view_employee_list" id="menu_tms_open_view_employee_list" name="Drivers" parent="tms.menu_tms_settings" sequence="3"/>
+
+
+    <record id="view_employee_tms_inherit_form" model="ir.ui.view">
+        <field name="name">hr.employee.tms.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='emergency_contact']" position="after">
+                <field name="NSS"/>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']/group/group[7]" position="after">
+            <group string="certificates">
+                <field name="validity"/>
+                <field name="trustworthy"/>
+                <field name="eye_exam"/>
+                <field name="no_criminal_record"/>
+                <field name="fumigation_certificate"/>
+            </group>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>

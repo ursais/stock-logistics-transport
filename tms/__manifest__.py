@@ -59,6 +59,7 @@
         'report/travel_instructions_letter.xml',
         'report/expense_report.xml',
         'data/ir_config_parameter.xml',
+        'views/fleet_vehicle_log_services_view.xml',
     ],
     'demo': [
         'demo/ir_sequence.xml',
