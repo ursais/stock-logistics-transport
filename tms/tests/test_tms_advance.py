@@ -126,7 +126,6 @@ class TestTmsAdvance(TransactionCase):
         self.operating_unit.credit_limit = 3000.0
         advance.action_approve()
         advance.action_confirm()
-        advance.move_id.action_post()
         wizard = self.env['tms.wizard.payment'].with_context({
             'active_model': 'tms.advance',
             'active_ids': [advance.id]}).create({
