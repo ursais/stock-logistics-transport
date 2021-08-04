@@ -18,7 +18,9 @@ class FleetVehicle(models.Model):
          ('trailer', 'Trailer'),
          ('dolly', 'Dolly'),
          ('other', 'Other')],
-        string='Unit Fleet Type')
+        default='tractor',
+        string='Unit Fleet Type',
+    )
     notes = fields.Text()
     employee_id = fields.Many2one(
         'hr.employee',
