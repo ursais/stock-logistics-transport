@@ -49,6 +49,7 @@
                         <field attrs="{'readonly':[('state','in',('confirmed', 'cancel'))]}" context="{'search_default_customer':1, 'show_address': 1}" name="arrival_address_id" options="{&quot;always_reload&quot;: True}"/>
                         <field attrs="{'readonly':[('state','in',('confirmed', 'cancel'))]}" name="upload_point"/>
                         <field attrs="{'readonly':[('state','in',('confirmed', 'cancel'))]}" name="download_point"/>
+                        <field name="coordinates"/>
                     </group>
                     <notebook colspan="4">
                         <page string="Lines">

@@ -172,6 +172,7 @@ class TmsWaybill(models.Model):
 
     expense_ids = fields.Many2many(
         'tms.expense', compute='_compute_expense_ids', string="Expenses")
+    coordinates = fields.Text()
 
     @api.depends('travel_ids')
     def _compute_expense_ids(self):

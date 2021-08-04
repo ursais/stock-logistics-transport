@@ -35,6 +35,13 @@ class HrEmployee(models.Model):
     license_valid_from = fields.Date()
     license_expiration = fields.Date()
     outsourcing = fields.Boolean(string='Outsourcing?')
+    NSS = fields.Integer()
+    validity = fields.Date()
+    trustworthy = fields.Date()
+    anti_doping_validity = fields.Date()
+    eye_exam = fields.Date()
+    no_criminal_record = fields.Date()
+    fumigation_certificate = fields.Date()
 
     @api.depends('license_expiration')
     def _compute_days_to_expire(self):

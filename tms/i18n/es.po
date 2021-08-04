@@ -6,15 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-01 15:38+0000\n"
-"PO-Revision-Date: 2021-07-01 16:17-0500\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
-"Language: es_MX\n"
+"POT-Creation-Date: 2021-07-07 20:53+0000\n"
+"PO-Revision-Date: 2021-07-07 16:00-0500\n"
+"Language: es\n"
 "X-Generator: Poedit 3.0\n"
 
 #. module: tms
@@ -152,6 +146,11 @@ msgstr "<span>GASTOS</span>"
 #: model_terms:ir.ui.view,arch_db:tms.expense_report
 msgid "<span>Income by km:</span>"
 msgstr "<span>Ingresos por km:</span>"
+
+#. module: tms
+#: model_terms:ir.ui.view,arch_db:tms.fleet_vehicle_form_inherit_tms
+msgid "<span>Kg</span>"
+msgstr ""
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.expense_report
@@ -331,7 +330,7 @@ msgstr "<strong>Unidad:</strong>"
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.expense_report
 msgid "<strong>Vat: </strong>"
-msgstr "<strong>Vat: </strong>"
+msgstr "<strong>RFC: </strong>"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.travel_instructions_letter_header
@@ -471,6 +470,11 @@ msgstr "Se ha producido un error en la creación del movimiento contable. "
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_taxes__account_analytic_id
 msgid "Analytic account"
 msgstr "Cuenta analítica"
+
+#. module: tms
+#: model:ir.model.fields,field_description:tms.field_hr_employee__anti_doping_validity
+msgid "Anti Doping Validity"
+msgstr "Vigencia Anti-Doping"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_product_product__apply_for_salary
@@ -918,7 +922,7 @@ msgstr "Última lectura"
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_expense__current_odometer
 msgid "Current Real"
-msgstr "lectura real"
+msgstr "Lectura real"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_travel__partner_ids
@@ -1093,6 +1097,7 @@ msgstr "Realizar envio"
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_engine__display_name
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_log_fuel__display_name
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_log_fuel_prepaid__display_name
+#: model:ir.model.fields,field_description:tms.field_fleet_vehicle_log_services__display_name
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_odometer__display_name
 #: model:ir.model.fields,field_description:tms.field_hr_employee__display_name
 #: model:ir.model.fields,field_description:tms.field_operating_unit__display_name
@@ -1381,7 +1386,7 @@ msgstr "Fecha final"
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_travel__date_end_real
 msgid "End Real"
-msgstr "Final real"
+msgstr "Fecha terminada"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_travel__date_end
@@ -1561,6 +1566,11 @@ msgid "Factor"
 msgstr "Factor"
 
 #. module: tms
+#: model:ir.model.fields,field_description:tms.field_hr_employee__eye_exam
+msgid "Eye Exam"
+msgstr "Examen optomedico"
+
+#. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form_expense
 msgid "Factor Driver"
@@ -1579,12 +1589,12 @@ msgstr "Tipo de factor"
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_factor_form
 msgid "Factors"
-msgstr "Factor"
+msgstr "Factores"
 
 #. module: tms
 #: model:ir.model,name:tms.model_tms_factor
 msgid "Factors to calculate Payment (Driver/Supplier) "
-msgstr ""
+msgstr "Factor para calcular pago (Chofer/Proveedor)"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_expense__amount_made_up_expense
@@ -1700,7 +1710,7 @@ msgstr "Marco"
 #: model:product.product,name:tms.product_freight
 #: model:product.template,name:tms.product_freight_product_template
 msgid "Freight"
-msgstr "Transportables"
+msgstr "Flete"
 
 #. module: tms
 #: model:ir.model.fields.selection,name:tms.selection__product_template__tms_product_category__freight
@@ -1871,6 +1881,11 @@ msgid "GPS"
 msgstr "GPS"
 
 #. module: tms
+#: model:ir.model.fields,field_description:tms.field_hr_employee__fumigation_certificate
+msgid "Fumigation Certificate"
+msgstr "Certificado fumigación"
+
+#. module: tms
 #: model:ir.model.fields,help:tms.field_tms_place__latitude
 msgid "GPS Latitude"
 msgstr "GPS Latitud"
@@ -1923,6 +1938,11 @@ msgstr "Da el estado de la carta de porte."
 #, python-format
 msgid "Google Maps is not available."
 msgstr "Google Maps no está disponible."
+
+#. module: tms
+#: model:ir.model.fields,field_description:tms.field_fleet_vehicle__GPS_platform
+msgid "Gps Platform"
+msgstr "Plataforma GPS"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_loan_filter
@@ -1978,6 +1998,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_engine__id
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_log_fuel__id
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_log_fuel_prepaid__id
+#: model:ir.model.fields,field_description:tms.field_fleet_vehicle_log_services__id
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_odometer__id
 #: model:ir.model.fields,field_description:tms.field_hr_employee__id
 #: model:ir.model.fields,field_description:tms.field_operating_unit__id
@@ -2020,7 +2041,7 @@ msgstr ""
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_operating_unit__ieps_product_id
 msgid "IEPS Product"
-msgstr "IEPS Product"
+msgstr "Producto IEPS"
 
 #. module: tms
 #: model:ir.model.fields,help:tms.field_fleet_vehicle_log_fuel__message_needaction
@@ -2263,6 +2284,7 @@ msgstr "CARTA DE INSTRUCCIONES:"
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_engine____last_update
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_log_fuel____last_update
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_log_fuel_prepaid____last_update
+#: model:ir.model.fields,field_description:tms.field_fleet_vehicle_log_services____last_update
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_odometer____last_update
 #: model:ir.model.fields,field_description:tms.field_hr_employee____last_update
 #: model:ir.model.fields,field_description:tms.field_operating_unit____last_update
@@ -2416,7 +2438,7 @@ msgstr "Lineas"
 #. module: tms
 #: model:ir.model.fields,help:tms.field_tms_expense__move_id
 msgid "Link to the automatically generated Journal Items."
-msgstr "Link to the automatically generated Journal Items."
+msgstr ""
 
 #. module: tms
 #: model:ir.model.fields,help:tms.field_tms_expense_loan__move_id
@@ -2461,6 +2483,11 @@ msgstr "Programación de fecha de carga"
 #: model:ir.model.fields,field_description:tms.field_tms_waybill__date_up_docs_real
 msgid "Load Docs Real"
 msgstr "Cargar documentos reales"
+
+#. module: tms
+#: model:ir.model.fields,field_description:tms.field_fleet_vehicle__Loading_capacity
+msgid "Loading Capacity"
+msgstr ""
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_expense_line__loan_id
@@ -2701,6 +2728,11 @@ msgid "No."
 msgstr "No."
 
 #. module: tms
+#: model:ir.model.fields,field_description:tms.field_hr_employee__no_criminal_record
+msgid "No Criminal Record"
+msgstr "Antecedentes no penales"
+
+#. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.expense_report
 msgid "No. Guide"
 msgstr "No. Guía"
@@ -2766,6 +2798,11 @@ msgstr "Notas de ruta"
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form
 msgid "Notes..."
 msgstr "Notas..."
+
+#. module: tms
+#: model:ir.model.fields,field_description:tms.field_hr_employee__NSS
+msgid "Nss"
+msgstr "NSS"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_log_fuel__message_needaction_counter
@@ -2945,7 +2982,7 @@ msgstr "Fecha de orden"
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_waybill__partner_order_id
 msgid "Ordering Contact"
-msgstr "contacto operativo"
+msgstr "Contacto operativo"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_expense_loan__origin
@@ -3400,6 +3437,16 @@ msgstr "Secuencia"
 #: model_terms:ir.ui.view,arch_db:tms.operating_unit_form
 msgid "Sequences for TMS"
 msgstr "Secuencia para TMS"
+
+#. module: tms
+#: model:ir.model.fields,field_description:tms.field_fleet_vehicle__serial_number
+msgid "Serial Number"
+msgstr "Número de Serie"
+
+#. module: tms
+#: model:ir.model,name:tms.model_fleet_vehicle_log_services
+msgid "Services for vehicles"
+msgstr "Servicios para los vehículos"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.fleet_vehicke_log_fuel_view_form
@@ -3944,7 +3991,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form_expense
 msgid "Transportable"
-msgstr "Transporte"
+msgstr "Transportables"
 
 #. module: tms
 #: model:ir.model,name:tms.model_tms_transportable
@@ -4071,6 +4118,11 @@ msgstr "Viajes"
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
 msgid "Travels for Driver"
 msgstr "Viajes por conductor"
+
+#. module: tms
+#: model:ir.model.fields,field_description:tms.field_hr_employee__trustworthy
+msgid "Trustworthy"
+msgstr "De confianza"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_extradata__type
@@ -4209,7 +4261,7 @@ msgstr "Contador de mensajes no leídos"
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_log_fuel__product_uom_id
 msgid "UoM"
-msgstr "UoM"
+msgstr "UdM"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_waybill__date_up_docs_sched
@@ -4252,6 +4304,8 @@ msgid "Used to define if this person will be used as a Driver"
 msgstr "Se utiliza para definir si esta persona se utilizará como conductor"
 
 #. module: tms
+#: model:ir.model.fields,field_description:tms.field_fleet_vehicle_log_services__validity
+#: model:ir.model.fields,field_description:tms.field_hr_employee__validity
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_unit_kit_form
 msgid "Validity"
 msgstr "Validez"
@@ -4690,6 +4744,11 @@ msgid "aa"
 msgstr "aa"
 
 #. module: tms
+#: model_terms:ir.ui.view,arch_db:tms.view_employee_tms_inherit_form
+msgid "certificates"
+msgstr ""
+
+#. module: tms
 #: code:addons/tms/models/tms_factor.py:0
 #, python-format
 msgid "the amount isnt between of any ranges"
@@ -4699,4 +4758,4 @@ msgstr "la cantidad no está entre ningún rango"
 #: model:ir.model.fields,field_description:tms.field_tms_factor__waybill_id
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_transportable_line__waybill_id
 msgid "waybill"
-msgstr "hoja de ruta"
+msgstr "Carta Porte"
