@@ -28,7 +28,7 @@ class TmsWaybillLine(models.Model):
     price_subtotal = fields.Float(
         compute='_compute_amount_line',
         string='Subtotal')
-    tax_amount = fields.Float()
+    tax_amount = fields.Float(compute='_compute_amount_line')
     tax_ids = fields.Many2many(
         'account.tax', string='Taxes',
         domain='[("type_tax_use", "=", "sale")]')
