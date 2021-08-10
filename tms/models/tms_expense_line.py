@@ -105,7 +105,7 @@ class TmsExpenseLine(models.Model):
             taxes = rec.tax_ids.compute_all(
                 rec.unit_price, rec.expense_id.currency_id,
                 rec.product_qty,
-                rec.expense_id.employee_id.address_home_id)
+                rec.expense_id.employee_id.sudo().address_home_id)
             if taxes['taxes']:
                 for tax in taxes['taxes']:
                     rec.tax_amount += tax['amount']
