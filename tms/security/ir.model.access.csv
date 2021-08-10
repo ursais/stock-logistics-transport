@@ -49,6 +49,7 @@ traffic_fleet_vehicle_tag,access_fleet_vehicle_tag,fleet.model_fleet_vehicle_tag
 traffic_fleet_vehicle_state,access_fleet_vehicle_state,fleet.model_fleet_vehicle_state,group_traffic,1,1,1,0
 traffic_tms_expense,access_tms_expense,model_tms_expense,group_traffic,1,1,1,0
 traffic_tms_expense_line,access_tms_expense_line,model_tms_expense_line,group_traffic,1,1,1,0
+traffic_tms_expense_loan,access_tms_expense_loan,model_tms_expense_loan,group_traffic,1,1,1,0
 traffic_tms_unit_kit,access_tms_unit_kit,model_tms_unit_kit,group_traffic,1,1,1,0
 traffic_tms_resource_resource,traffic_tms_resource_resource,resource.model_resource_resource,group_traffic,1,0,1,0
 traffic_tms_fleet_vehicle_model,traffic_tms_fleet_vehicle_model,fleet.model_fleet_vehicle_model,group_traffic,1,1,1,0
