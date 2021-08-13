@@ -5,6 +5,12 @@
         <field name="priority">50</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//button[@name='generate_random_barcode']" position="attributes">
+              <attribute name="groups">hr.group_hr_user</attribute>
+            </xpath>
+            <xpath expr="//button[@name='%(hr.hr_employee_print_badge)d']" position="attributes">
+              <attribute name="groups">hr.group_hr_user</attribute>
+            </xpath>
             <notebook position="inside">
                 <page string="TMS">
                     <group>
