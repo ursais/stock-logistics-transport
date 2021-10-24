@@ -95,4 +95,3 @@ expenses_tms_factor,expenses_tms_factor,model_tms_factor,group_expenses,1,1,1,1
 expenses_tms_waybill_line,expenses_tms_waybill_line,model_tms_waybill_line,group_expenses,1,0,0,0
 expenses_tms_waybill_taxes,expenses_tms_waybill_taxes,model_tms_waybill_taxes,group_expenses,1,0,0,0
 access_tms_wizard_invoice,access_tms_wizard_invoice,model_tms_wizard_invoice,base.group_user,1,1,1,1
-access_tms_wizard_payment,access_tms_wizard_payment,model_tms_wizard_payment,base.group_user,1,1,1,1

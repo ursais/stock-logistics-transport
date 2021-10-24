@@ -93,6 +93,7 @@
                         <field name="paid"/>
                         <field name="expense_id"/>
                         <field name="payment_move_id"/>
+                        <field name="payment_id"/>
                     </group>      
                 </page>
              

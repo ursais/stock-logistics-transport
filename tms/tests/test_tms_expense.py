@@ -1,7 +1,7 @@
 # Copyright 2018, Jarsa Sistemas, S.A. de C.V.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import TransactionCase, Form
 from odoo.exceptions import ValidationError
 
 
@@ -103,19 +103,16 @@ class TestTmsExpense(TransactionCase):
             'name': 'Test Bank',
             'type': 'bank',
             'code': 'TESTBANK',
+            'operating_unit_id': self.operating_unit.id,
         })
         self.waybill.travel_ids.mapped('advance_ids').action_approve()
         self.waybill.travel_ids.mapped('advance_ids').action_authorized()
         self.waybill.travel_ids.mapped('advance_ids').action_confirm()
-        self.env['tms.wizard.payment'].with_context({
-            'active_ids': self.waybill.travel_ids.mapped(
-                'advance_ids').mapped('id'),
-            'active_model': 'tms.advance',
-        }).create({
-            'amount_total': sum(self.travel.advance_ids.mapped('amount')),
-            'date': '2018-09-03',
-            'journal_id': self.bank_account.id,
-        }).make_payment()
+        wizard = Form(self.env['account.payment.register'].with_context(
+            active_model='tms.advance',
+            active_ids=self.waybill.travel_ids.mapped('advance_ids').ids
+        )).save()
+        wizard.action_create_payments()
 
         # Confirm travel
         for travel in self.waybill.travel_ids:

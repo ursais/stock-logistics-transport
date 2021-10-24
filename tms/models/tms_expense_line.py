@@ -1,6 +1,6 @@
 # Copyright 2012, Israel Cruz Argil, Argil Consulting
 # Copyright 2016, Jarsa Sistemas, S.A. de C.V.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
@@ -103,9 +103,9 @@ class TmsExpenseLine(models.Model):
     def _compute_tax_amount(self):
         for rec in self:
             taxes = rec.tax_ids.compute_all(
-                rec.unit_price, rec.expense_id.currency_id,
-                rec.product_qty,
-                rec.expense_id.employee_id.sudo().address_home_id)
+                price_unit=rec.unit_price, currency=rec.expense_id.currency_id,
+                quantity=rec.product_qty,
+                partner=rec.expense_id.employee_id.sudo().address_home_id)
             if taxes['taxes']:
                 for tax in taxes['taxes']:
                     rec.tax_amount += tax['amount']

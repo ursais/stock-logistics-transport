@@ -135,7 +135,7 @@
     <template id="travel_instructions_letter_translate">
         <t t-call="report.html_container">
             <t t-as="doc_id" t-foreach="doc_ids">
-                <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'tms.travel_instructions_letter')"/>
+                <t t-call="tms.travel_instructions_letter" t-lang="doc.partner_id.lang"/>
             </t>
         </t>
     </template>

@@ -1,10 +1,10 @@
 # Copyright 2012, Israel Cruz Argil, Argil Consulting
 # Copyright 2016, Jarsa Sistemas, S.A. de C.V.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 {
     'name': 'Freight Management',
-    'version': '14.0.1.0.1',
+    'version': '15.0.1.0.1',
     'category': 'Transport',
     'author': 'Jarsa Sistemas, Argil Consulting',
     'website': 'https://www.jarsa.com.mx/page/transport-management-system',
@@ -21,7 +21,7 @@
         ],
     },
     'summary': 'Management System for Carriers, Trucking and other companies',
-    'license': 'AGPL-3',
+    'license': 'LGPL-3',
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
@@ -54,7 +54,7 @@
         'views/tms_route_note_view.xml',
         'data/product_product_data.xml',
         'data/operating_unit.xml',
-        'wizards/tms_wizard_payment_view.xml',
+        'wizards/account_payment_register_view.xml',
         'wizards/tms_wizard_invoice_view.xml',
         'report/travel_instructions_letter.xml',
         'report/expense_report.xml',

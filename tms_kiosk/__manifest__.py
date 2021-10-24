@@ -1,5 +1,5 @@
 # Copyright 2018, Jarsa Sistemas, S.A. de C.v.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
     'name': 'TMS Kiosk Mode for Entrance Validation',
     'summary': 'Validate entrance of trucks in kiosk mode.',
@@ -7,7 +7,7 @@
     'category': 'TMS',
     'website': 'https://www.jarsa.com.mx/',
     'author': 'Jarsa Sistemas, S.A. de C.v.',
-    'license': 'AGPL-3',
+    'license': 'LGPL-3',
     'installable': False,
     'depends': [
         'tms',

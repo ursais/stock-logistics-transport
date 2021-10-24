@@ -1,5 +1,5 @@
 # Copyright 2016, Jarsa Sistemas, S.A. de C.V.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 {
     'name': 'Highway tollstations',
@@ -8,7 +8,7 @@
     'website': 'https://www.jarsa.com.mx',
     'category': 'Transport',
     'version': '12.0.1.0.0',
-    "license": "AGPL-3",
+    "license": "LGPL-3",
     'depends': ['tms'],
     'data': [
         'views/tms_expense_line_view.xml',

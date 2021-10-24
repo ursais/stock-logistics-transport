@@ -1,6 +1,6 @@
 # Copyright 2012, Israel Cruz Argil, Argil Consulting
 # Copyright 2016, Jarsa Sistemas, S.A. de C.V.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 from __future__ import division
 
@@ -160,6 +160,10 @@ class TmsExpense(models.Model):
     payment_move_id = fields.Many2one(
         'account.move', string='Payment Entry',
         readonly=True,)
+    payment_id = fields.Many2one(
+        'account.payment',
+        readonly=True,
+    )
     travel_days = fields.Char(
         compute='_compute_travel_days',
     )
@@ -632,7 +636,7 @@ class TmsExpense(models.Model):
             # the line not be an invoice
             # TODO: Fix this, this only works when the expense has 1 tax
             taxes = line.tax_ids.compute_all(
-                line.price_subtotal, rec.currency_id)['taxes']
+                price_unit=line.price_subtotal, currency=rec.currency_id)['taxes']
             for tax in taxes:
                 tax_account = tax['account_id']
                 tax_amount = line.tax_amount

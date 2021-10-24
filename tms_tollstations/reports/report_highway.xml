@@ -161,7 +161,7 @@
         <template id="report_highway_translate">
             <t t-call="report.html_container">
                 <t t-as="doc_id" t-foreach="doc_ids">
-                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'tms_tollstations.report_highway')"/>
+                    <t t-call="tms_tollstations.report_highway" t-lang="doc.partner_id.lang"/>
                 </t>
             </t>
         </template>

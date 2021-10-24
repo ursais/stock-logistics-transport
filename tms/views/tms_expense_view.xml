@@ -155,6 +155,7 @@
                                 <group>
                                     <field name='paid'/>
                                     <field name='payment_move_id'/>
+                                    <field name="payment_id"/>
                                 </group>
                             </group>
                         </page>

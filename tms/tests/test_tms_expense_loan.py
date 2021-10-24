@@ -1,9 +1,9 @@
 # Copyright 2016, Jarsa Sistemas, S.A. de C.V.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 # pylint: skip-file
 
 from odoo.exceptions import ValidationError
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import TransactionCase, Form
 
 
 class TestTmsExpenseLoan(TransactionCase):
@@ -34,6 +34,7 @@ class TestTmsExpenseLoan(TransactionCase):
             'name': 'Test Bank',
             'type': 'bank',
             'code': 'TESTBANK',
+            'operating_unit_id': self.operating_unit.id,
         })
 
     def create_expense_loan(self):
@@ -86,13 +87,9 @@ class TestTmsExpenseLoan(TransactionCase):
         loan.fixed_discount = 10.0
         loan.action_approve()
         loan.action_confirm()
-        wizard = self.env['tms.wizard.payment'].with_context({
-            'active_model': 'tms.expense.loan',
-            'active_ids': [loan.id]}).create({
-                'journal_id': self.journal_id.id,
-                'amount_total': loan.amount,
-            })
-        wizard.make_payment()
+        wizard = Form(self.env['account.payment.register'].with_context(
+            active_model='tms.expense.loan', active_ids=loan.ids)).save()
+        wizard.action_create_payments()
         loan.action_cancel()
 
     def test_50_tms_expense_loan_action_confirm(self):

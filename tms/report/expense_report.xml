@@ -262,7 +262,7 @@
     <template id="expense_report_translate">
         <t t-call="report.html_container">
             <t t-as="doc_id" t-foreach="doc_ids">
-                <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'tms.expense_report')"/>
+                <t t-call="tms.expense_report" t-lang="doc.partner_id.lang"/>
             </t>
         </t>
     </template>

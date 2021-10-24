@@ -1,6 +1,6 @@
 # Copyright 2012, Israel Cruz Argil, Argil Consulting
 # Copyright 2016, Jarsa Sistemas, S.A. de C.V.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 from odoo import _, api, exceptions, fields, models
 from odoo.exceptions import ValidationError
@@ -19,6 +19,7 @@ class TmsExpenseLoan(models.Model):
         default=fields.Date.context_today
     )
     date_confirmed = fields.Date(
+        string="Confirmed Date",
         readonly=True,
         related='move_id.date',
     )
@@ -82,6 +83,10 @@ class TmsExpenseLoan(models.Model):
         string="Payment Entry",
         readonly=True,
         ondelete='restrict',)
+    payment_id = fields.Many2one(
+        'account.payment',
+        readonly=True,
+    )
     currency_id = fields.Many2one(
         'res.currency',
         'Currency',

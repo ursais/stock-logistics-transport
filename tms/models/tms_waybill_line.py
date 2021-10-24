@@ -1,6 +1,6 @@
 # Copyright 2012, Israel Cruz Argil, Argil Consulting
 # Copyright 2016, Jarsa Sistemas, S.A. de C.V.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 from __future__ import division
 
@@ -58,8 +58,8 @@ class TmsWaybillLine(models.Model):
             price_discount = (
                 rec.unit_price * ((100.00 - rec.discount) / 100))
             taxes = rec.tax_ids.compute_all(
-                price_discount, rec.waybill_id.currency_id,
-                rec.product_qty, rec.product_id,
-                rec.waybill_id.partner_id)
+                price_unit=price_discount, currency=rec.waybill_id.currency_id,
+                quantity=rec.product_qty, product=rec.product_id,
+                partner=rec.waybill_id.partner_id)
             rec.price_subtotal = taxes['total_excluded']
             rec.tax_amount = taxes['total_included'] - taxes['total_excluded']

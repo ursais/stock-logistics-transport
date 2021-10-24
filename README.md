@@ -1,7 +1,7 @@
-[![License: AGPL-3](https://img.shields.io/badge/licence-AGPL--3-blue.svg)](http://www.gnu.org/licenses/agpl-3.0-standalone.html)
-[![Build Status](https://travis-ci.org/Jarsa/transport-management-system.svg?branch=12.0)](https://travis-ci.org/Jarsa/transport-management-system)
-[![Coverage Status](https://coveralls.io/repos/github/Jarsa/transport-management-system/badge.svg?branch=12.0&refresh=1)](https://coveralls.io/github/Jarsa/transport-management-system?branch=12.0)
-[![codecov](https://codecov.io/gh/Jarsa/transport-management-system/branch/12.0/graph/badge.svg)](https://codecov.io/gh/Jarsa/transport-management-system)
+[![License: LGPL-3](https://img.shields.io/badge/licence-LGPL--3-blue.svg)](http://www.gnu.org/licenses/lgpl-3.0-standalone.html)
+[![Build Status](https://travis-ci.org/Jarsa/transport-management-system.svg?branch=15.0)](https://travis-ci.org/Jarsa/transport-management-system)
+[![Coverage Status](https://coveralls.io/repos/github/Jarsa/transport-management-system/badge.svg?branch=15.0&refresh=1)](https://coveralls.io/github/Jarsa/transport-management-system?branch=15.0)
+[![codecov](https://codecov.io/gh/Jarsa/transport-management-system/branch/15.0/graph/badge.svg)](https://codecov.io/gh/Jarsa/transport-management-system)
 
 Freight Management System
 ==========================
