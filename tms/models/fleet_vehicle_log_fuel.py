@@ -46,8 +46,9 @@ class FleetVehicleLogFuel(models.Model):
         string="Subtotal", compute='_compute_price_subtotal')
     invoice_id = fields.Many2one(
         'account.move', string='Invoice', readonly=True)
-    invoice_paid = fields.Boolean(
-        compute='_compute_invoiced_paid')
+    payment_state = fields.Selection(
+        related="invoice_id.payment_state",
+    )
     operating_unit_id = fields.Many2one(
         'operating.unit', string='Operating Unit')
     notes = fields.Char()
@@ -168,13 +169,6 @@ class FleetVehicleLogFuel(models.Model):
     def _onchange_travel(self):
         self.vehicle_id = self.travel_id.unit_id
         self.employee_id = self.travel_id.employee_id
-
-    @api.depends('invoice_id')
-    def _compute_invoiced_paid(self):
-        for rec in self:
-            rec.invoice_paid = (
-                rec.invoice_id and
-                rec.invoice_id.invoice_payment_state == 'paid')
 
     def _amount_to_text(self, product_qty):
         # TODO Use the Odoo method in the currency

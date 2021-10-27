@@ -19,7 +19,7 @@
         <field name="view_mode">form</field>
         <field name="target">new</field>
         <field name="binding_model_id" ref="model_tms_waybill"/>
-        <field name="binding_view_types">form</field>
+        <field name="binding_view_types">list,form</field>
     </record>
     <record id="action_fuel_log_wizard_invoice" model="ir.actions.act_window">
         <field name="name">Create Customer Invoice</field>
@@ -27,6 +27,6 @@
         <field name="view_mode">form</field>
         <field name="target">new</field>
         <field name="binding_model_id" ref="model_fleet_vehicle_log_fuel"/>
-        <field name="binding_view_types">form</field>
+        <field name="binding_view_types">list,form</field>
     </record>
 </odoo>

@@ -44,6 +44,7 @@
                 <field name="paid"/>
                 <field name="state"/>
                 <button icon="fa-arrow-right" name="action_approve" states="draft" string="Approve" type="object"/>
+                <button icon="fa-arrow-right" name="action_authorized" states="authorized" string="To Authorize" type="object"/>
                 <button icon="fa-check" name="action_confirm" states="approved" string="Confirm" type="object"/>
             </tree>
         </field>

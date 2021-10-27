@@ -1,0 +1,1815 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="base.state_jp_jp-01" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-01</field>
+    </record>
+    <record id="base.state_tr_01" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-01</field>
+    </record>
+    <record id="base.state_pt_pt-01" model="res.country.state">
+        <field name="l10n_mx_edi_code">PT-01</field>
+    </record>
+    <record id="base.state_ec_01" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-A</field>
+    </record>
+    <record id="base.state_pe_01" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-AMA</field>
+    </record>
+    <record id="base.state_cl_02" model="res.country.state">
+        <field name="l10n_mx_edi_code">CL-AN</field>
+    </record>
+    <record id="base.state_jp_jp-02" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-02</field>
+    </record>
+    <record id="base.state_ec_02" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-B</field>
+    </record>
+    <record id="base.state_pt_pt-02" model="res.country.state">
+        <field name="l10n_mx_edi_code">PT-02</field>
+    </record>
+    <record id="base.state_ec_03" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-F</field>
+    </record>
+    <record id="base.state_jp_jp-03" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-03</field>
+    </record>
+    <record id="base.state_cl_03" model="res.country.state">
+        <field name="l10n_mx_edi_code">CL-AT</field>
+    </record>
+    <record id="base.state_pt_pt-03" model="res.country.state">
+        <field name="l10n_mx_edi_code">PT-03</field>
+    </record>
+    <record id="base.state_cl_04" model="res.country.state">
+        <field name="l10n_mx_edi_code">CL-CO</field>
+    </record>
+    <record id="base.state_jp_jp-04" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-04</field>
+    </record>
+    <record id="base.state_pe_04" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-ARE</field>
+    </record>
+    <record id="base.state_ec_04" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-C</field>
+    </record>
+    <record id="base.state_pt_pt-05" model="res.country.state">
+        <field name="l10n_mx_edi_code">PT-05</field>
+    </record>
+    <record id="base.state_jp_jp-05" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-05</field>
+    </record>
+    <record id="base.state_tr_05" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-05</field>
+    </record>
+    <record id="base.state_ec_05" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-X</field>
+    </record>
+    <record id="base.state_pe_05" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-AYA</field>
+    </record>
+    <record id="base.state_ec_06" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-H</field>
+    </record>
+    <record id="base.state_pe_06" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-CAJ</field>
+    </record>
+    <record id="base.state_pt_pt-06" model="res.country.state">
+        <field name="l10n_mx_edi_code">PT-06</field>
+    </record>
+    <record id="base.state_tr_06" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-06</field>
+    </record>
+    <record id="base.state_jp_jp-06" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-06</field>
+    </record>
+    <record id="base.state_tr_07" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-07</field>
+    </record>
+    <record id="base.state_ec_07" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-O</field>
+    </record>
+    <record id="base.state_jp_jp-07" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-07</field>
+    </record>
+    <record id="base.state_pe_08" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-CUS</field>
+    </record>
+    <record id="base.state_jp_jp-08" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-08</field>
+    </record>
+    <record id="base.state_ec_08" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-E</field>
+    </record>
+    <record id="base.state_tr_08" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-08</field>
+    </record>
+    <record id="base.state_pt_pt-08" model="res.country.state">
+        <field name="l10n_mx_edi_code">PT-08</field>
+    </record>
+    <record id="base.state_ec_09" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-G</field>
+    </record>
+    <record id="base.state_pt_pt-09" model="res.country.state">
+        <field name="l10n_mx_edi_code">PT-09</field>
+    </record>
+    <record id="base.state_jp_jp-09" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-09</field>
+    </record>
+    <record id="base.state_pe_09" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-HUV</field>
+    </record>
+    <record id="base.state_pt_pt-10" model="res.country.state">
+        <field name="l10n_mx_edi_code">PT-10</field>
+    </record>
+    <record id="base.state_jp_jp-10" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-10</field>
+    </record>
+    <record id="base.state_ec_10" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-I</field>
+    </record>
+    <record id="base.state_pt_pt-11" model="res.country.state">
+        <field name="l10n_mx_edi_code">PT-11</field>
+    </record>
+    <record id="base.state_tr_11" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-11</field>
+    </record>
+    <record id="base.state_pe_11" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-ICA</field>
+    </record>
+    <record id="base.state_jp_jp-11" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-11</field>
+    </record>
+    <record id="base.state_ec_11" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-L</field>
+    </record>
+    <record id="base.state_pt_pt-12" model="res.country.state">
+        <field name="l10n_mx_edi_code">PT-12</field>
+    </record>
+    <record id="base.state_pe_12" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-JUN</field>
+    </record>
+    <record id="base.state_jp_jp-12" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-12</field>
+    </record>
+    <record id="base.state_ec_12" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-R</field>
+    </record>
+    <record id="base.state_cl_12" model="res.country.state">
+        <field name="l10n_mx_edi_code">CL-MA</field>
+    </record>
+    <record id="base.state_pe_13" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-LAL</field>
+    </record>
+    <record id="base.state_ec_13" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-M</field>
+    </record>
+    <record id="base.state_pt_pt-13" model="res.country.state">
+        <field name="l10n_mx_edi_code">PT-13</field>
+    </record>
+    <record id="base.state_tr_13" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-13</field>
+    </record>
+    <record id="base.state_jp_jp-13" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-13</field>
+    </record>
+    <record id="base.state_ec_14" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-S</field>
+    </record>
+    <record id="base.state_tr_14" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-14</field>
+    </record>
+    <record id="base.state_pe_14" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-LAM</field>
+    </record>
+    <record id="base.state_jp_jp-14" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-14</field>
+    </record>
+    <record id="base.state_jp_jp-15" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-15</field>
+    </record>
+    <record id="base.state_ec_15" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-N</field>
+    </record>
+    <record id="base.state_tr_15" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-15</field>
+    </record>
+    <record id="base.state_pe_15" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-LIM</field>
+    </record>
+    <record id="base.state_cl_15" model="res.country.state">
+        <field name="l10n_mx_edi_code">CL-AP</field>
+    </record>
+    <record id="base.state_pt_pt-16" model="res.country.state">
+        <field name="l10n_mx_edi_code">PT-16</field>
+    </record>
+    <record id="base.state_ec_16" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-Y</field>
+    </record>
+    <record id="base.state_jp_jp-16" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-16</field>
+    </record>
+    <record id="base.state_pe_16" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-LOR</field>
+    </record>
+    <record id="base.state_tr_16" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-16</field>
+    </record>
+    <record id="base.state_pt_pt-17" model="res.country.state">
+        <field name="l10n_mx_edi_code">PT-17</field>
+    </record>
+    <record id="base.state_jp_jp-17" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-17</field>
+    </record>
+    <record id="base.state_pe_17" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-MDD</field>
+    </record>
+    <record id="base.state_ec_17" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-P</field>
+    </record>
+    <record id="base.state_ec_18" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-T</field>
+    </record>
+    <record id="base.state_pe_18" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-MOQ</field>
+    </record>
+    <record id="base.state_pt_pt-18" model="res.country.state">
+        <field name="l10n_mx_edi_code">PT-18</field>
+    </record>
+    <record id="base.state_jp_jp-18" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-18</field>
+    </record>
+    <record id="base.state_jp_jp-19" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-19</field>
+    </record>
+    <record id="base.state_ec_19" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-Z</field>
+    </record>
+    <record id="base.state_pe_19" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-PAS</field>
+    </record>
+    <record id="base.state_pe_20" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-PIU</field>
+    </record>
+    <record id="base.state_ec_20" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-W</field>
+    </record>
+    <record id="base.state_tr_20" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-20</field>
+    </record>
+    <record id="base.state_jp_jp-20" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-20</field>
+    </record>
+    <record id="base.state_jp_jp-21" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-21</field>
+    </record>
+    <record id="base.state_ec_21" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-U</field>
+    </record>
+    <record id="base.state_pe_21" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-PUN</field>
+    </record>
+    <record id="base.state_tr_22" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-22</field>
+    </record>
+    <record id="base.state_jp_jp-22" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-22</field>
+    </record>
+    <record id="base.state_ec_22" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-D</field>
+    </record>
+    <record id="base.state_jp_jp-23" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-23</field>
+    </record>
+    <record id="base.state_pe_23" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-TAC</field>
+    </record>
+    <record id="base.state_ec_23" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-SD</field>
+    </record>
+    <record id="base.state_tr_24" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-24</field>
+    </record>
+    <record id="base.state_pe_24" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-TUM</field>
+    </record>
+    <record id="base.state_jp_jp-24" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-24</field>
+    </record>
+    <record id="base.state_ec_24" model="res.country.state">
+        <field name="l10n_mx_edi_code">EC-SE</field>
+    </record>
+    <record id="base.state_tr_25" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-25</field>
+    </record>
+    <record id="base.state_pe_25" model="res.country.state">
+        <field name="l10n_mx_edi_code">PE-UCA</field>
+    </record>
+    <record id="base.state_jp_jp-25" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-25</field>
+    </record>
+    <record id="base.state_jp_jp-26" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-26</field>
+    </record>
+    <record id="base.state_jp_jp-27" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-27</field>
+    </record>
+    <record id="base.state_tr_27" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-27</field>
+    </record>
+    <record id="base.state_jp_jp-28" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-28</field>
+    </record>
+    <record id="base.state_tr_28" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-28</field>
+    </record>
+    <record id="base.state_jp_jp-29" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-29</field>
+    </record>
+    <record id="base.state_jp_jp-30" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-30</field>
+    </record>
+    <record id="base.state_tr_30" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-30</field>
+    </record>
+    <record id="base.state_tr_31" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-31</field>
+    </record>
+    <record id="base.state_jp_jp-31" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-31</field>
+    </record>
+    <record id="base.state_jp_jp-32" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-32</field>
+    </record>
+    <record id="base.state_tr_32" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-32</field>
+    </record>
+    <record id="base.state_jp_jp-33" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-33</field>
+    </record>
+    <record id="base.state_jp_jp-34" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-34</field>
+    </record>
+    <record id="base.state_jp_jp-35" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-35</field>
+    </record>
+    <record id="base.state_jp_jp-36" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-36</field>
+    </record>
+    <record id="base.state_tr_36" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-36</field>
+    </record>
+    <record id="base.state_tr_37" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-37</field>
+    </record>
+    <record id="base.state_jp_jp-37" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-37</field>
+    </record>
+    <record id="base.state_tr_38" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-38</field>
+    </record>
+    <record id="base.state_jp_jp-38" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-38</field>
+    </record>
+    <record id="base.state_jp_jp-39" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-39</field>
+    </record>
+    <record id="base.state_jp_jp-40" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-40</field>
+    </record>
+    <record id="base.state_jp_jp-41" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-41</field>
+    </record>
+    <record id="base.state_tr_41" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-41</field>
+    </record>
+    <record id="base.state_jp_jp-42" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-42</field>
+    </record>
+    <record id="base.state_tr_42" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-42</field>
+    </record>
+    <record id="base.state_jp_jp-43" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-43</field>
+    </record>
+    <record id="base.state_tr_44" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-44</field>
+    </record>
+    <record id="base.state_jp_jp-44" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-44</field>
+    </record>
+    <record id="base.state_tr_45" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-45</field>
+    </record>
+    <record id="base.state_jp_jp-45" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-45</field>
+    </record>
+    <record id="base.state_jp_jp-46" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-46</field>
+    </record>
+    <record id="base.state_tr_47" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-47</field>
+    </record>
+    <record id="base.state_jp_jp-47" model="res.country.state">
+        <field name="l10n_mx_edi_code">JP-47</field>
+    </record>
+    <record id="base.state_tr_52" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-52</field>
+    </record>
+    <record id="base.state_tr_53" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-53</field>
+    </record>
+    <record id="base.state_tr_54" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-54</field>
+    </record>
+    <record id="base.state_tr_55" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-55</field>
+    </record>
+    <record id="base.state_tr_56" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-56</field>
+    </record>
+    <record id="base.state_tr_57" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-57</field>
+    </record>
+    <record id="base.state_tr_58" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-58</field>
+    </record>
+    <record id="base.state_tr_60" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-60</field>
+    </record>
+    <record id="base.state_tr_61" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-61</field>
+    </record>
+    <record id="base.state_tr_62" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-62</field>
+    </record>
+    <record id="base.state_tr_65" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-65</field>
+    </record>
+    <record id="base.state_tr_66" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-66</field>
+    </record>
+    <record id="base.state_tr_67" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-67</field>
+    </record>
+    <record id="base.state_tr_68" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-68</field>
+    </record>
+    <record id="base.state_tr_69" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-69</field>
+    </record>
+    <record id="base.state_tr_70" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-70</field>
+    </record>
+    <record id="base.state_tr_72" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-72</field>
+    </record>
+    <record id="base.state_tr_75" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-75</field>
+    </record>
+    <record id="base.state_tr_77" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-77</field>
+    </record>
+    <record id="base.state_tr_79" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-79</field>
+    </record>
+    <record id="base.state_tr_80" model="res.country.state">
+        <field name="l10n_mx_edi_code">TR-80</field>
+    </record>
+    <record id="base.state_ar_a" model="res.country.state">
+        <field name="l10n_mx_edi_code">AR-A</field>
+    </record>
+    <record id="base.state_ca_ab" model="res.country.state">
+        <field name="l10n_mx_edi_code">CA-AB</field>
+    </record>
+    <record id="base.RO_AB" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-AB</field>
+    </record>
+    <record id="base.state_br_ac" model="res.country.state">
+        <field name="l10n_mx_edi_code">BR-AC</field>
+    </record>
+    <record id="base.state_id_ac" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-AC</field>
+    </record>
+    <record id="base.state_au_1" model="res.country.state">
+        <field name="l10n_mx_edi_code">AU-ACT</field>
+    </record>
+    <record id="base.state_et_2" model="res.country.state">
+        <field name="l10n_mx_edi_code">ET-AF</field>
+    </record>
+    <record id="base.state_mx_ags" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-AGU</field>
+    </record>
+    <record id="base.state_ae_aj" model="res.country.state">
+        <field name="l10n_mx_edi_code">AE-AJ</field>
+    </record>
+    <record id="base.state_us_2" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-AK</field>
+    </record>
+    <record id="base.state_us_1" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-AL</field>
+    </record>
+    <record id="base.state_br_al" model="res.country.state">
+        <field name="l10n_mx_edi_code">BR-AL</field>
+    </record>
+    <record id="base.state_br_am" model="res.country.state">
+        <field name="l10n_mx_edi_code">BR-AM</field>
+    </record>
+    <record id="base.state_co_29" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-AMA</field>
+    </record>
+    <record id="base.state_co_01" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-ANT</field>
+    </record>
+    <record id="base.state_in_ap" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-AP</field>
+    </record>
+    <record id="base.state_in_ar" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-AR</field>
+    </record>
+    <record id="base.state_us_4" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-AR</field>
+    </record>
+    <record id="base.RO_AR" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-AR</field>
+    </record>
+    <record id="base.state_co_25" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-ARA</field>
+    </record>
+    <record id="base.state_in_as" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-AS</field>
+    </record>
+    <record id="base.state_eg_asn" model="res.country.state">
+        <field name="l10n_mx_edi_code">EG-ASN</field>
+    </record>
+    <record id="base.state_eg_ast" model="res.country.state">
+        <field name="l10n_mx_edi_code">EG-AST</field>
+    </record>
+    <record id="base.state_nz_auk" model="res.country.state">
+        <field name="l10n_mx_edi_code">NZ-AUK</field>
+    </record>
+    <record id="base.state_gt_ave" model="res.country.state">
+        <field name="l10n_mx_edi_code">GT-AV</field>
+    </record>
+    <record id="base.state_us_3" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-AZ</field>
+    </record>
+    <record id="base.state_DO_02" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-02</field>
+    </record>
+    <record id="base.state_ar_b" model="res.country.state">
+        <field name="l10n_mx_edi_code">AR-B</field>
+    </record>
+    <record id="base.state_br_ba" model="res.country.state">
+        <field name="l10n_mx_edi_code">BR-BA</field>
+    </record>
+    <record id="base.state_id_ba" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-BA</field>
+    </record>
+    <record id="base.state_DO_04" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-04</field>
+    </record>
+    <record id="base.state_ca_bc" model="res.country.state">
+        <field name="l10n_mx_edi_code">CA-BC</field>
+    </record>
+    <record id="base.state_mx_bc" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-BCN</field>
+    </record>
+    <record id="base.state_mx_bcs" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-BCS</field>
+    </record>
+    <record id="base.state_id_be" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-BE</field>
+    </record>
+    <record id="base.RO_BH" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-BH</field>
+    </record>
+    <record id="base.state_nz_bop" model="res.country.state">
+        <field name="l10n_mx_edi_code">NZ-BOP</field>
+    </record>
+    <record id="base.state_in_br" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-BR</field>
+    </record>
+    <record id="base.state_id_bt" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-BT</field>
+    </record>
+    <record id="base.state_gt_bve" model="res.country.state">
+        <field name="l10n_mx_edi_code">GT-BV</field>
+    </record>
+    <record id="base.state_ie_4" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-CO</field>
+    </record>
+    <record id="base.state_us_5" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-CA</field>
+    </record>
+    <record id="base.state_co_06" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-CAL</field>
+    </record>
+    <record id="base.state_mx_camp" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-CAM</field>
+    </record>
+    <record id="base.state_nz_can" model="res.country.state">
+        <field name="l10n_mx_edi_code">NZ-CAN</field>
+    </record>
+    <record id="base.state_co_26" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-CAS</field>
+    </record>
+    <record id="base.state_co_08" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-CAU</field>
+    </record>
+    <record id="base.state_ie_3" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-CE</field>
+    </record>
+    <record id="base.state_es_ce" model="res.country.state">
+        <field name="l10n_mx_edi_code">ES-CE</field>
+    </record>
+    <record id="base.state_co_09" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-CES</field>
+    </record>
+    <record id="base.state_in_ch" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-CH</field>
+    </record>
+    <record id="base.state_mx_chih" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-CHH</field>
+    </record>
+    <record id="base.state_mx_chis" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-CHP</field>
+    </record>
+    <record id="base.RO_CJ" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-CJ</field>
+    </record>
+    <record id="base.state_gt_cmt" model="res.country.state">
+        <field name="l10n_mx_edi_code">GT-CM</field>
+    </record>
+    <record id="base.state_ie_2" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-CN</field>
+    </record>
+    <record id="base.state_us_6" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-CO</field>
+    </record>
+    <record id="base.state_mx_coah" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-COA</field>
+    </record>
+    <record id="base.state_mx_col" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-COL</field>
+    </record>
+    <record id="base.state_gt_cqm" model="res.country.state">
+        <field name="l10n_mx_edi_code">GT-CQ</field>
+    </record>
+    <record id="base.state_A" model="res.country.state">
+        <field name="l10n_mx_edi_code">CR-A</field>
+    </record>
+    <record id="base.state_C" model="res.country.state">
+        <field name="l10n_mx_edi_code">CR-C</field>
+    </record>
+    <record id="base.state_G" model="res.country.state">
+        <field name="l10n_mx_edi_code">CR-G</field>
+    </record>
+    <record id="base.state_H" model="res.country.state">
+        <field name="l10n_mx_edi_code">CR-H</field>
+    </record>
+    <record id="base.state_P" model="res.country.state">
+        <field name="l10n_mx_edi_code">CR-P</field>
+    </record>
+    <record id="base.state_us_7" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-CT</field>
+    </record>
+    <record id="base.state_co_11" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-CUN</field>
+    </record>
+    <record id="base.RO_CV" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-CV</field>
+    </record>
+    <record id="base.state_ie_1" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-CW</field>
+    </record>
+    <record id="base.state_ie_8" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-D</field>
+    </record>
+    <record id="base.state_ar_d" model="res.country.state">
+        <field name="l10n_mx_edi_code">AR-D</field>
+    </record>
+    <record id="base.state_us_9" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-DC</field>
+    </record>
+    <record id="base.state_us_8" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-DE</field>
+    </record>
+    <record id="base.state_br_df" model="res.country.state">
+        <field name="l10n_mx_edi_code">BR-DF</field>
+    </record>
+    <record id="base.state_mx_df" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-CMX</field>
+    </record>
+    <record id="base.RO_DJ" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-DJ</field>
+    </record>
+    <record id="base.state_ie_7" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-DL</field>
+    </record>
+    <record id="base.state_in_dl" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-DL</field>
+    </record>
+    <record id="base.state_in_dn" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-DN</field>
+    </record>
+    <record id="base.state_et_5" model="res.country.state">
+        <field name="l10n_mx_edi_code">ET-DD</field>
+    </record>
+    <record id="base.state_nl_dr" model="res.country.state">
+        <field name="l10n_mx_edi_code">NL-DR</field>
+    </record>
+    <record id="base.state_DO_06" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-06</field>
+    </record>
+    <record id="base.state_mx_dgo" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-DUR</field>
+    </record>
+    <record id="base.state_za_ec" model="res.country.state">
+        <field name="l10n_mx_edi_code">ZA-EC</field>
+    </record>
+    <record id="base.state_ee_37" model="res.country.state">
+        <field name="l10n_mx_edi_code">EE-37</field>
+    </record>
+    <record id="base.state_ee_39" model="res.country.state">
+        <field name="l10n_mx_edi_code">EE-39</field>
+    </record>
+    <record id="base.state_ee_44" model="res.country.state">
+        <field name="l10n_mx_edi_code">EE-45</field>
+    </record>
+    <record id="base.state_ee_70" model="res.country.state">
+        <field name="l10n_mx_edi_code">EE-71</field>
+    </record>
+    <record id="base.state_ee_74" model="res.country.state">
+        <field name="l10n_mx_edi_code">EE-74</field>
+    </record>
+    <record id="base.state_ee_78" model="res.country.state">
+        <field name="l10n_mx_edi_code">EE-79</field>
+    </record>
+    <record id="base.state_ee_82" model="res.country.state">
+        <field name="l10n_mx_edi_code">EE-81</field>
+    </record>
+    <record id="base.state_ee_84" model="res.country.state">
+        <field name="l10n_mx_edi_code">EE-84</field>
+    </record>
+    <record id="base.state_DO_08" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-08</field>
+    </record>
+    <record id="base.state_gt_epr" model="res.country.state">
+        <field name="l10n_mx_edi_code">GT-PR</field>
+    </record>
+    <record id="base.state_gt_esc" model="res.country.state">
+        <field name="l10n_mx_edi_code">GT-ES</field>
+    </record>
+    <record id="base.state_DO_09" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-09</field>
+    </record>
+    <record id="base.state_ar_f" model="res.country.state">
+        <field name="l10n_mx_edi_code">AR-F</field>
+    </record>
+    <record id="base.state_fi_05" model="res.country.state">
+        <field name="l10n_mx_edi_code">FI-05</field>
+    </record>
+    <record id="base.state_fi_07" model="res.country.state">
+        <field name="l10n_mx_edi_code">FI-07</field>
+    </record>
+    <record id="base.state_fi_08" model="res.country.state">
+        <field name="l10n_mx_edi_code">FI-08</field>
+    </record>
+    <record id="base.state_fi_09" model="res.country.state">
+        <field name="l10n_mx_edi_code">FI-09</field>
+    </record>
+    <record id="base.state_fi_10" model="res.country.state">
+        <field name="l10n_mx_edi_code">FI-10</field>
+    </record>
+    <record id="base.state_fi_11" model="res.country.state">
+        <field name="l10n_mx_edi_code">FI-11</field>
+    </record>
+    <record id="base.state_fi_12" model="res.country.state">
+        <field name="l10n_mx_edi_code">FI-12</field>
+    </record>
+    <record id="base.state_fi_13" model="res.country.state">
+        <field name="l10n_mx_edi_code">FI-13</field>
+    </record>
+    <record id="base.state_fi_14" model="res.country.state">
+        <field name="l10n_mx_edi_code">FI-14</field>
+    </record>
+    <record id="base.state_fi_15" model="res.country.state">
+        <field name="l10n_mx_edi_code">FI-15</field>
+    </record>
+    <record id="base.state_fi_17" model="res.country.state">
+        <field name="l10n_mx_edi_code">FI-17</field>
+    </record>
+    <record id="base.state_fi_18" model="res.country.state">
+        <field name="l10n_mx_edi_code">FI-18</field>
+    </record>
+    <record id="base.state_fi_19" model="res.country.state">
+        <field name="l10n_mx_edi_code">FI-19</field>
+    </record>
+    <record id="base.state_nl_fl" model="res.country.state">
+        <field name="l10n_mx_edi_code">NL-FL</field>
+    </record>
+    <record id="base.state_us_10" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-FL</field>
+    </record>
+    <record id="base.state_za_fs" model="res.country.state">
+        <field name="l10n_mx_edi_code">ZA-FS</field>
+    </record>
+    <record id="base.state_ie_9" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-G</field>
+    </record>
+    <record id="base.state_ar_g" model="res.country.state">
+        <field name="l10n_mx_edi_code">AR-G</field>
+    </record>
+    <record id="base.state_in_ga" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-GA</field>
+    </record>
+    <record id="base.state_us_11" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-GA</field>
+    </record>
+    <record id="base.state_nl_ge" model="res.country.state">
+        <field name="l10n_mx_edi_code">NL-GE</field>
+    </record>
+    <record id="base.state_nz_gis" model="res.country.state">
+        <field name="l10n_mx_edi_code">NZ-GIS</field>
+    </record>
+    <record id="base.state_in_gj" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-GJ</field>
+    </record>
+    <record id="base.RO_GJ" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-GJ</field>
+    </record>
+    <record id="base.state_id_go" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-GO</field>
+    </record>
+    <record id="base.state_nl_gr" model="res.country.state">
+        <field name="l10n_mx_edi_code">NL-GR</field>
+    </record>
+    <record id="base.RO_GR" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-GR</field>
+    </record>
+    <record id="base.state_mx_gro" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-GRO</field>
+    </record>
+    <record id="base.state_za_gt" model="res.country.state">
+        <field name="l10n_mx_edi_code">ZA-GP</field>
+    </record>
+    <record id="base.state_mx_gto" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-GUA</field>
+    </record>
+    <record id="base.state_gt_gua" model="res.country.state">
+        <field name="l10n_mx_edi_code">GT-GU</field>
+    </record>
+    <record id="base.state_co_31" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-GUV</field>
+    </record>
+    <record id="base.state_ar_h" model="res.country.state">
+        <field name="l10n_mx_edi_code">AR-H</field>
+    </record>
+    <record id="base.state_DO_30" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-30</field>
+    </record>
+    <record id="base.RO_HD" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-HD</field>
+    </record>
+    <record id="base.state_DO_19" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-19</field>
+    </record>
+    <record id="base.state_us_12" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-HI</field>
+    </record>
+    <record id="base.state_mx_hgo" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-HID</field>
+    </record>
+    <record id="base.state_nz_hkb" model="res.country.state">
+        <field name="l10n_mx_edi_code">NZ-HKB</field>
+    </record>
+    <record id="base.state_in_hp" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-HP</field>
+    </record>
+    <record id="base.RO_HR" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-HR</field>
+    </record>
+    <record id="base.state_in_hr" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-HR</field>
+    </record>
+    <record id="base.state_gt_hue" model="res.country.state">
+        <field name="l10n_mx_edi_code">GT-HU</field>
+    </record>
+    <record id="base.state_co_13" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-HUI</field>
+    </record>
+    <record id="base.state_us_16" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-IA</field>
+    </record>
+    <record id="base.state_us_13" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-ID</field>
+    </record>
+    <record id="base.RO_IF" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-IF</field>
+    </record>
+    <record id="base.state_us_14" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-IL</field>
+    </record>
+    <record id="base.state_us_15" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-IN</field>
+    </record>
+    <record id="base.state_DO_10" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-10</field>
+    </record>
+    <record id="base.state_gt_iza" model="res.country.state">
+        <field name="l10n_mx_edi_code">GT-IZ</field>
+    </record>
+    <record id="base.state_ar_j" model="res.country.state">
+        <field name="l10n_mx_edi_code">AR-J</field>
+    </record>
+    <record id="base.state_id_ja" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-JA</field>
+    </record>
+    <record id="base.state_gt_jal" model="res.country.state">
+        <field name="l10n_mx_edi_code">GT-JA</field>
+    </record>
+    <record id="base.state_mx_jal" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-JAL</field>
+    </record>
+    <record id="base.state_id_jb" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-JB</field>
+    </record>
+    <record id="base.state_in_jh" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-JH</field>
+    </record>
+    <record id="base.state_my_jhr" model="res.country.state">
+        <field name="l10n_mx_edi_code">MY-01</field>
+    </record>
+    <record id="base.state_id_ji" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-JI</field>
+    </record>
+    <record id="base.state_in_jk" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-JK</field>
+    </record>
+    <record id="base.state_id_jt" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-JT</field>
+    </record>
+    <record id="base.state_gt_jut" model="res.country.state">
+        <field name="l10n_mx_edi_code">GT-JU</field>
+    </record>
+    <record id="base.state_ar_k" model="res.country.state">
+        <field name="l10n_mx_edi_code">AR-K</field>
+    </record>
+    <record id="base.state_in_ka" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-KA</field>
+    </record>
+    <record id="base.state_id_kb" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-KB</field>
+    </record>
+    <record id="base.state_my_kdh" model="res.country.state">
+        <field name="l10n_mx_edi_code">MY-02</field>
+    </record>
+    <record id="base.state_ie_11" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-KE</field>
+    </record>
+    <record id="base.state_id_ki" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-KI</field>
+    </record>
+    <record id="base.state_ie_12" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-KK</field>
+    </record>
+    <record id="base.state_in_kl" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-KL</field>
+    </record>
+    <record id="base.state_id_kr" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-KR</field>
+    </record>
+    <record id="base.state_id_ks" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-KS</field>
+    </record>
+    <record id="base.state_us_17" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-KS</field>
+    </record>
+    <record id="base.state_id_kt" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-KT</field>
+    </record>
+    <record id="base.state_my_ktn" model="res.country.state">
+        <field name="l10n_mx_edi_code">MY-03</field>
+    </record>
+    <record id="base.state_id_ku" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-KU</field>
+    </record>
+    <record id="base.state_ie_10" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-KY</field>
+    </record>
+    <record id="base.state_us_18" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-KY</field>
+    </record>
+    <record id="base.state_ar_l" model="res.country.state">
+        <field name="l10n_mx_edi_code">AR-L</field>
+    </record>
+    <record id="base.state_us_19" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-LA</field>
+    </record>
+    <record id="base.state_id_la" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-LA</field>
+    </record>
+    <record id="base.state_DO_11" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-11</field>
+    </record>
+    <record id="base.state_co_14" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-LAG</field>
+    </record>
+    <record id="base.state_ie_15" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-LD</field>
+    </record>
+    <record id="base.state_in_ld" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-LD</field>
+    </record>
+    <record id="base.state_ie_16" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-LH</field>
+    </record>
+    <record id="base.state_nl_li" model="res.country.state">
+        <field name="l10n_mx_edi_code">NL-LI</field>
+    </record>
+    <record id="base.state_ie_5" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-LK</field>
+    </record>
+    <record id="base.state_ie_14" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-LM</field>
+    </record>
+    <record id="base.state_es_lo" model="res.country.state">
+        <field name="l10n_mx_edi_code">ES-RI</field>
+    </record>
+    <record id="base.state_za_lp" model="res.country.state">
+        <field name="l10n_mx_edi_code">ZA-LP</field>
+    </record>
+    <record id="base.state_DO_12" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-12</field>
+    </record>
+    <record id="base.state_ie_13" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-LS</field>
+    </record>
+    <record id="base.state_lt_al" model="res.country.state">
+        <field name="l10n_mx_edi_code">LT-AL</field>
+    </record>
+    <record id="base.state_lt_ku" model="res.country.state">
+        <field name="l10n_mx_edi_code">LT-KU</field>
+    </record>
+    <record id="base.state_lt_ut" model="res.country.state">
+        <field name="l10n_mx_edi_code">LT-UT</field>
+    </record>
+    <record id="base.state_lt_vl" model="res.country.state">
+        <field name="l10n_mx_edi_code">LT-VL</field>
+    </record>
+    <record id="base.state_DO_13" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-13</field>
+    </record>
+    <record id="base.state_lv_001" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-001</field>
+    </record>
+    <record id="base.state_lv_002" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-002</field>
+    </record>
+    <record id="base.state_lv_003" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-003</field>
+    </record>
+    <record id="base.state_lv_005" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-005</field>
+    </record>
+    <record id="base.state_lv_009" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-009</field>
+    </record>
+    <record id="base.state_lv_010" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-010</field>
+    </record>
+    <record id="base.state_lv_013" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-013</field>
+    </record>
+    <record id="base.state_lv_014" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-014</field>
+    </record>
+    <record id="base.state_lv_015" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-015</field>
+    </record>
+    <record id="base.state_lv_016" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-016</field>
+    </record>
+    <record id="base.state_lv_020" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-020</field>
+    </record>
+    <record id="base.state_lv_021" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-021</field>
+    </record>
+    <record id="base.state_lv_024" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-024</field>
+    </record>
+    <record id="base.state_lv_025" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-025</field>
+    </record>
+    <record id="base.state_lv_026" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-026</field>
+    </record>
+    <record id="base.state_lv_027" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-027</field>
+    </record>
+    <record id="base.state_lv_029" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-029</field>
+    </record>
+    <record id="base.state_lv_033" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-033</field>
+    </record>
+    <record id="base.state_lv_034" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-034</field>
+    </record>
+    <record id="base.state_lv_038" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-038</field>
+    </record>
+    <record id="base.state_lv_039" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-039</field>
+    </record>
+    <record id="base.state_lv_040" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-040</field>
+    </record>
+    <record id="base.state_lv_041" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-041</field>
+    </record>
+    <record id="base.state_lv_043" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-043</field>
+    </record>
+    <record id="base.state_lv_046" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-046</field>
+    </record>
+    <record id="base.state_lv_058" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-058</field>
+    </record>
+    <record id="base.state_lv_059" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-059</field>
+    </record>
+    <record id="base.state_lv_067" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-067</field>
+    </record>
+    <record id="base.state_lv_068" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-068</field>
+    </record>
+    <record id="base.state_lv_069" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-069</field>
+    </record>
+    <record id="base.state_lv_074" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-075</field>
+    </record>
+    <record id="base.state_lv_087" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-087</field>
+    </record>
+    <record id="base.state_lv_088" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-088</field>
+    </record>
+    <record id="base.state_lv_089" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-089</field>
+    </record>
+    <record id="base.state_lv_091" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-091</field>
+    </record>
+    <record id="base.state_lv_093" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-093</field>
+    </record>
+    <record id="base.state_lv_094" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-094</field>
+    </record>
+    <record id="base.state_lv_097" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-097</field>
+    </record>
+    <record id="base.state_lv_099" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-099</field>
+    </record>
+    <record id="base.state_lv_101" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-101</field>
+    </record>
+    <record id="base.state_lv_105" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-105</field>
+    </record>
+    <record id="base.state_lv_106" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-106</field>
+    </record>
+    <record id="base.state_lv_110" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-110</field>
+    </record>
+    <record id="base.state_lv_jel" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-JEL</field>
+    </record>
+    <record id="base.state_lv_vmr" model="res.country.state">
+        <field name="l10n_mx_edi_code">LV-VMR</field>
+    </record>
+    <record id="base.state_ar_m" model="res.country.state">
+        <field name="l10n_mx_edi_code">AR-M</field>
+    </record>
+    <record id="base.state_us_34" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-MA</field>
+    </record>
+    <record id="base.state_id_ma" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-ML</field>
+    </record>
+    <record id="base.state_co_15" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-MAG</field>
+    </record>
+    <record id="base.state_ca_mb" model="res.country.state">
+        <field name="l10n_mx_edi_code">CA-MB</field>
+    </record>
+    <record id="base.state_nz_mbh" model="res.country.state">
+        <field name="l10n_mx_edi_code">NZ-MBH</field>
+    </record>
+    <record id="base.state_DO_15" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-15</field>
+    </record>
+    <record id="base.state_us_33" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-MD</field>
+    </record>
+    <record id="base.state_es_ml" model="res.country.state">
+        <field name="l10n_mx_edi_code">ES-ML</field>
+    </record>
+    <record id="base.state_us_20" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-ME</field>
+    </record>
+    <record id="base.state_co_16" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-MET</field>
+    </record>
+    <record id="base.state_mx_mex" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-MEX</field>
+    </record>
+    <record id="base.state_br_mg" model="res.country.state">
+        <field name="l10n_mx_edi_code">BR-MG</field>
+    </record>
+    <record id="base.state_in_mh" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-MH</field>
+    </record>
+    <record id="base.state_ie_18" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-MH</field>
+    </record>
+    <record id="base.state_us_35" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-MI</field>
+    </record>
+    <record id="base.state_mx_mich" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-MIC</field>
+    </record>
+    <record id="base.state_in_ml" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-ML</field>
+    </record>
+    <record id="base.state_my_mlk" model="res.country.state">
+        <field name="l10n_mx_edi_code">MY-04</field>
+    </record>
+    <record id="base.state_ie_19" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-MN</field>
+    </record>
+    <record id="base.state_in_mn" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-MN</field>
+    </record>
+    <record id="base.state_us_36" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-MN</field>
+    </record>
+    <record id="base.state_ie_17" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-MO</field>
+    </record>
+    <record id="base.state_us_38" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-MO</field>
+    </record>
+    <record id="base.state_mx_mor" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-MOR</field>
+    </record>
+    <record id="base.state_za_mp" model="res.country.state">
+        <field name="l10n_mx_edi_code">ZA-MP</field>
+    </record>
+    <record id="base.state_in_mp" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-MP</field>
+    </record>
+    <record id="base.state_DO_29" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-29</field>
+    </record>
+    <record id="base.state_br_ms" model="res.country.state">
+        <field name="l10n_mx_edi_code">BR-MS</field>
+    </record>
+    <record id="base.state_us_37" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-MS</field>
+    </record>
+    <record id="base.state_br_mt" model="res.country.state">
+        <field name="l10n_mx_edi_code">BR-MT</field>
+    </record>
+    <record id="base.state_us_21" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-MT</field>
+    </record>
+    <record id="base.state_id_mu" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-MU</field>
+    </record>
+    <record id="base.state_nz_mwt" model="res.country.state">
+        <field name="l10n_mx_edi_code">NZ-MWT</field>
+    </record>
+    <record id="base.state_in_mz" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-MZ</field>
+    </record>
+    <record id="base.state_ar_n" model="res.country.state">
+        <field name="l10n_mx_edi_code">AR-N</field>
+    </record>
+    <record id="base.state_mx_nay" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-NAY</field>
+    </record>
+    <record id="base.state_id_nb" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-NB</field>
+    </record>
+    <record id="base.state_ca_nb" model="res.country.state">
+        <field name="l10n_mx_edi_code">CA-NB</field>
+    </record>
+    <record id="base.state_nl_nb" model="res.country.state">
+        <field name="l10n_mx_edi_code">NL-NB</field>
+    </record>
+    <record id="base.state_za_nc" model="res.country.state">
+        <field name="l10n_mx_edi_code">ZA-NC</field>
+    </record>
+    <record id="base.state_us_28" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-NC</field>
+    </record>
+    <record id="base.state_us_29" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-ND</field>
+    </record>
+    <record id="base.state_us_22" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-NE</field>
+    </record>
+    <record id="base.state_nl_nh" model="res.country.state">
+        <field name="l10n_mx_edi_code">NL-NH</field>
+    </record>
+    <record id="base.state_us_24" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-NH</field>
+    </record>
+    <record id="base.state_us_25" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-NJ</field>
+    </record>
+    <record id="base.state_ca_nl" model="res.country.state">
+        <field name="l10n_mx_edi_code">CA-NL</field>
+    </record>
+    <record id="base.state_za_nl" model="res.country.state">
+        <field name="l10n_mx_edi_code">ZA-KZN</field>
+    </record>
+    <record id="base.state_in_nl" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-NL</field>
+    </record>
+    <record id="base.state_mx_nl" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-NLE</field>
+    </record>
+    <record id="base.state_us_26" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-NM</field>
+    </record>
+    <record id="base.state_no_03" model="res.country.state">
+        <field name="l10n_mx_edi_code">NO-03</field>
+    </record>
+    <record id="base.state_no_11" model="res.country.state">
+        <field name="l10n_mx_edi_code">NO-11</field>
+    </record>
+    <record id="base.state_no_18" model="res.country.state">
+        <field name="l10n_mx_edi_code">NO-18</field>
+    </record>
+    <record id="base.state_no_30" model="res.country.state">
+        <field name="l10n_mx_edi_code">NO-30</field>
+    </record>
+    <record id="base.state_no_34" model="res.country.state">
+        <field name="l10n_mx_edi_code">NO-34</field>
+    </record>
+    <record id="base.state_no_38" model="res.country.state">
+        <field name="l10n_mx_edi_code">NO-38</field>
+    </record>
+    <record id="base.state_no_42" model="res.country.state">
+        <field name="l10n_mx_edi_code">NO-42</field>
+    </record>
+    <record id="base.state_no_46" model="res.country.state">
+        <field name="l10n_mx_edi_code">NO-46</field>
+    </record>
+    <record id="base.state_ca_ns" model="res.country.state">
+        <field name="l10n_mx_edi_code">CA-NS</field>
+    </record>
+    <record id="base.state_co_18" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-NSA</field>
+    </record>
+    <record id="base.state_my_nsn" model="res.country.state">
+        <field name="l10n_mx_edi_code">MY-05</field>
+    </record>
+    <record id="base.state_nz_nsn" model="res.country.state">
+        <field name="l10n_mx_edi_code">NZ-NSN</field>
+    </record>
+    <record id="base.state_au_2" model="res.country.state">
+        <field name="l10n_mx_edi_code">AU-NSW</field>
+    </record>
+    <record id="base.state_id_nt" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-NT</field>
+    </record>
+    <record id="base.state_ca_nt" model="res.country.state">
+        <field name="l10n_mx_edi_code">CA-NT</field>
+    </record>
+    <record id="base.state_au_3" model="res.country.state">
+        <field name="l10n_mx_edi_code">AU-NT</field>
+    </record>
+    <record id="base.state_nz_ntl" model="res.country.state">
+        <field name="l10n_mx_edi_code">NZ-NTL</field>
+    </record>
+    <record id="base.state_ca_nu" model="res.country.state">
+        <field name="l10n_mx_edi_code">CA-NU</field>
+    </record>
+    <record id="base.state_us_23" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-NV</field>
+    </record>
+    <record id="base.state_us_27" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-NY</field>
+    </record>
+    <record id="base.state_mx_oax" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-OAX</field>
+    </record>
+    <record id="base.state_us_30" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-OH</field>
+    </record>
+    <record id="base.state_us_31" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-OK</field>
+    </record>
+    <record id="base.state_ca_on" model="res.country.state">
+        <field name="l10n_mx_edi_code">CA-ON</field>
+    </record>
+    <record id="base.state_us_32" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-OR</field>
+    </record>
+    <record id="base.RO_OT" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-OT</field>
+    </record>
+    <record id="base.state_nz_ota" model="res.country.state">
+        <field name="l10n_mx_edi_code">NZ-OTA</field>
+    </record>
+    <record id="base.state_nl_ov" model="res.country.state">
+        <field name="l10n_mx_edi_code">NL-OV</field>
+    </record>
+    <record id="base.state_ie_20" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-OY</field>
+    </record>
+    <record id="base.state_ar_p" model="res.country.state">
+        <field name="l10n_mx_edi_code">AR-P</field>
+    </record>
+    <record id="base.state_us_39" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-PA</field>
+    </record>
+    <record id="base.state_id_pa" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-PP</field>
+    </record>
+    <record id="base.state_id_pb" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-PB</field>
+    </record>
+    <record id="base.state_in_pb" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-PB</field>
+    </record>
+    <record id="base.state_br_pe" model="res.country.state">
+        <field name="l10n_mx_edi_code">BR-PE</field>
+    </record>
+    <record id="base.state_ca_pe" model="res.country.state">
+        <field name="l10n_mx_edi_code">CA-PE</field>
+    </record>
+    <record id="base.state_DO_16" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-16</field>
+    </record>
+    <record id="base.state_DO_17" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-17</field>
+    </record>
+    <record id="base.RO_PH" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-PH</field>
+    </record>
+    <record id="base.state_my_phg" model="res.country.state">
+        <field name="l10n_mx_edi_code">MY-06</field>
+    </record>
+    <record id="base.state_my_pls" model="res.country.state">
+        <field name="l10n_mx_edi_code">MY-09</field>
+    </record>
+    <record id="base.state_my_png" model="res.country.state">
+        <field name="l10n_mx_edi_code">MY-07</field>
+    </record>
+    <record id="base.state_DO_18" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-18</field>
+    </record>
+    <record id="base.state_my_prk" model="res.country.state">
+        <field name="l10n_mx_edi_code">MY-08</field>
+    </record>
+    <record id="base.state_mx_pue" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-PUE</field>
+    </record>
+    <record id="base.state_co_27" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-PUT</field>
+    </record>
+    <record id="base.state_in_py" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-PY</field>
+    </record>
+    <record id="base.state_ca_qc" model="res.country.state">
+        <field name="l10n_mx_edi_code">CA-QC</field>
+    </record>
+    <record id="base.state_au_4" model="res.country.state">
+        <field name="l10n_mx_edi_code">AU-QLD</field>
+    </record>
+    <record id="base.state_gt_que" model="res.country.state">
+        <field name="l10n_mx_edi_code">GT-QZ</field>
+    </record>
+    <record id="base.state_mx_qro" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-QUE</field>
+    </record>
+    <record id="base.state_gt_ret" model="res.country.state">
+        <field name="l10n_mx_edi_code">GT-RE</field>
+    </record>
+    <record id="base.state_us_40" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-RI</field>
+    </record>
+    <record id="base.state_id_ri" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-RI</field>
+    </record>
+    <record id="base.state_co_20" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-RIS</field>
+    </record>
+    <record id="base.state_br_rj" model="res.country.state">
+        <field name="l10n_mx_edi_code">BR-RJ</field>
+    </record>
+    <record id="base.state_in_rj" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-RJ</field>
+    </record>
+    <record id="base.state_ie_21" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-RN</field>
+    </record>
+    <record id="base.state_br_rn" model="res.country.state">
+        <field name="l10n_mx_edi_code">BR-RN</field>
+    </record>
+    <record id="base.state_mx_q_roo" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-ROO</field>
+    </record>
+    <record id="base.state_br_rr" model="res.country.state">
+        <field name="l10n_mx_edi_code">BR-RR</field>
+    </record>
+    <record id="base.state_br_rs" model="res.country.state">
+        <field name="l10n_mx_edi_code">BR-RS</field>
+    </record>
+    <record id="base.state_ar_s" model="res.country.state">
+        <field name="l10n_mx_edi_code">AR-S</field>
+    </record>
+    <record id="base.state_es_s" model="res.country.state">
+        <field name="l10n_mx_edi_code">ES-CB</field>
+    </record>
+    <record id="base.state_au_5" model="res.country.state">
+        <field name="l10n_mx_edi_code">AU-SA</field>
+    </record>
+    <record id="base.state_id_sa" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-SA</field>
+    </record>
+    <record id="base.state_co_21" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-SAN</field>
+    </record>
+    <record id="base.RO_SB" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-SB</field>
+    </record>
+    <record id="base.state_my_sbh" model="res.country.state">
+        <field name="l10n_mx_edi_code">MY-12</field>
+    </record>
+    <record id="base.state_us_41" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-SC</field>
+    </record>
+    <record id="base.state_br_sc" model="res.country.state">
+        <field name="l10n_mx_edi_code">BR-SC</field>
+    </record>
+    <record id="base.state_us_42" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-SD</field>
+    </record>
+    <record id="base.state_br_se" model="res.country.state">
+        <field name="l10n_mx_edi_code">BR-SE</field>
+    </record>
+    <record id="base.state_id_sg" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-SG</field>
+    </record>
+    <record id="base.state_my_sgr" model="res.country.state">
+        <field name="l10n_mx_edi_code">MY-10</field>
+    </record>
+    <record id="base.state_mx_sin" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-SIN</field>
+    </record>
+    <record id="base.state_DO_22" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-22</field>
+    </record>
+    <record id="base.state_ca_sk" model="res.country.state">
+        <field name="l10n_mx_edi_code">CA-SK</field>
+    </record>
+    <record id="base.state_in_sk" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-SK</field>
+    </record>
+    <record id="base.state_mx_slp" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-SLP</field>
+    </record>
+    <record id="base.RO_SM" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-SM</field>
+    </record>
+    <record id="base.state_gt_sma" model="res.country.state">
+        <field name="l10n_mx_edi_code">GT-SM</field>
+    </record>
+    <record id="base.state_id_sn" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-SN</field>
+    </record>
+    <record id="base.state_ie_22" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-SO</field>
+    </record>
+    <record id="base.state_mx_son" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-SON</field>
+    </record>
+    <record id="base.state_id_sr" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-SR</field>
+    </record>
+    <record id="base.state_gt_sro" model="res.country.state">
+        <field name="l10n_mx_edi_code">GT-SR</field>
+    </record>
+    <record id="base.state_id_st" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-ST</field>
+    </record>
+    <record id="base.state_DO_25" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-25</field>
+    </record>
+    <record id="base.state_nz_stl" model="res.country.state">
+        <field name="l10n_mx_edi_code">NZ-STL</field>
+    </record>
+    <record id="base.state_co_22" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-SUC</field>
+    </record>
+    <record id="base.RO_SV" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-SV</field>
+    </record>
+    <record id="base.state_my_swk" model="res.country.state">
+        <field name="l10n_mx_edi_code">MY-13</field>
+    </record>
+    <record id="base.state_mx_tab" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-TAB</field>
+    </record>
+    <record id="base.state_mx_tamps" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-TAM</field>
+    </record>
+    <record id="base.state_au_6" model="res.country.state">
+        <field name="l10n_mx_edi_code">AU-TAS</field>
+    </record>
+    <record id="base.state_nz_tas" model="res.country.state">
+        <field name="l10n_mx_edi_code">NZ-TAS</field>
+    </record>
+    <record id="base.state_et_11" model="res.country.state">
+        <field name="l10n_mx_edi_code">ET-TI</field>
+    </record>
+    <record id="base.state_nz_tki" model="res.country.state">
+        <field name="l10n_mx_edi_code">NZ-TKI</field>
+    </record>
+    <record id="base.RO_TL" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-TL</field>
+    </record>
+    <record id="base.state_mx_tlax" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-TLA</field>
+    </record>
+    <record id="base.state_in_tn" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-TN</field>
+    </record>
+    <record id="base.state_us_43" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-TN</field>
+    </record>
+    <record id="base.state_br_to" model="res.country.state">
+        <field name="l10n_mx_edi_code">BR-TO</field>
+    </record>
+    <record id="base.state_co_23" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-TOL</field>
+    </record>
+    <record id="base.state_in_tr" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-TR</field>
+    </record>
+    <record id="base.state_ie_23" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-TA</field>
+    </record>
+    <record id="base.RO_TR" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-TR</field>
+    </record>
+    <record id="base.state_my_trg" model="res.country.state">
+        <field name="l10n_mx_edi_code">MY-11</field>
+    </record>
+    <record id="base.state_in_ts" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-TG</field>
+    </record>
+    <record id="base.state_us_44" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-TX</field>
+    </record>
+    <record id="base.state_ar_u" model="res.country.state">
+        <field name="l10n_mx_edi_code">AR-U</field>
+    </record>
+    <record id="base.state_in_uk" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-UT</field>
+    </record>
+    <record id="base.state_in_up" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-UP</field>
+    </record>
+    <record id="base.state_us_45" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-UT</field>
+    </record>
+    <record id="base.state_nl_ut" model="res.country.state">
+        <field name="l10n_mx_edi_code">NL-UT</field>
+    </record>
+    <record id="base.state_ar_v" model="res.country.state">
+        <field name="l10n_mx_edi_code">AR-V</field>
+    </record>
+    <record id="base.state_us_47" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-VA</field>
+    </record>
+    <record id="base.state_co_24" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-VAC</field>
+    </record>
+    <record id="base.state_DO_27" model="res.country.state">
+        <field name="l10n_mx_edi_code">DO-27</field>
+    </record>
+    <record id="base.state_mx_ver" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-VER</field>
+    </record>
+    <record id="base.state_au_7" model="res.country.state">
+        <field name="l10n_mx_edi_code">AU-VIC</field>
+    </record>
+    <record id="base.state_co_33" model="res.country.state">
+        <field name="l10n_mx_edi_code">CO-VID</field>
+    </record>
+    <record id="base.RO_VN" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-VN</field>
+    </record>
+    <record id="base.state_vn_VN-28" model="res.country.state">
+        <field name="l10n_mx_edi_code">VN-28</field>
+    </record>
+    <record id="base.state_vn_VN-30" model="res.country.state">
+        <field name="l10n_mx_edi_code">VN-30</field>
+    </record>
+    <record id="base.state_vn_VN-41" model="res.country.state">
+        <field name="l10n_mx_edi_code">VN-41</field>
+    </record>
+    <record id="base.state_vn_VN-44" model="res.country.state">
+        <field name="l10n_mx_edi_code">VN-44</field>
+    </record>
+    <record id="base.RO_VS" model="res.country.state">
+        <field name="l10n_mx_edi_code">RO-VS</field>
+    </record>
+    <record id="base.state_us_46" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-VT</field>
+    </record>
+    <record id="base.state_ar_w" model="res.country.state">
+        <field name="l10n_mx_edi_code">AR-W</field>
+    </record>
+    <record id="base.state_au_8" model="res.country.state">
+        <field name="l10n_mx_edi_code">AU-WA</field>
+    </record>
+    <record id="base.state_us_48" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-WA</field>
+    </record>
+    <record id="base.state_in_wb" model="res.country.state">
+        <field name="l10n_mx_edi_code">IN-WB</field>
+    </record>
+    <record id="base.state_za_wc" model="res.country.state">
+        <field name="l10n_mx_edi_code">ZA-WC</field>
+    </record>
+    <record id="base.state_ie_6" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-WD</field>
+    </record>
+    <record id="base.state_nz_wgn" model="res.country.state">
+        <field name="l10n_mx_edi_code">NZ-WGN</field>
+    </record>
+    <record id="base.state_ie_24" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-WH</field>
+    </record>
+    <record id="base.state_us_50" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-WI</field>
+    </record>
+    <record id="base.state_nz_wko" model="res.country.state">
+        <field name="l10n_mx_edi_code">NZ-WKO</field>
+    </record>
+    <record id="base.state_nz_wtc" model="res.country.state">
+        <field name="l10n_mx_edi_code">NZ-WTC</field>
+    </record>
+    <record id="base.state_us_49" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-WV</field>
+    </record>
+    <record id="base.state_ie_26" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-WW</field>
+    </record>
+    <record id="base.state_ie_25" model="res.country.state">
+        <field name="l10n_mx_edi_code">IE-WX</field>
+    </record>
+    <record id="base.state_us_51" model="res.country.state">
+        <field name="l10n_mx_edi_code">US-WY</field>
+    </record>
+    <record id="base.state_ar_y" model="res.country.state">
+        <field name="l10n_mx_edi_code">AR-Y</field>
+    </record>
+    <record id="base.state_id_yo" model="res.country.state">
+        <field name="l10n_mx_edi_code">ID-YO</field>
+    </record>
+    <record id="base.state_ca_yt" model="res.country.state">
+        <field name="l10n_mx_edi_code">CA-YT</field>
+    </record>
+    <record id="base.state_mx_yuc" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-YUC</field>
+    </record>
+    <record id="base.state_ar_z" model="res.country.state">
+        <field name="l10n_mx_edi_code">AR-Z</field>
+    </record>
+    <record id="base.state_gt_zac" model="res.country.state">
+        <field name="l10n_mx_edi_code">GT-ZA</field>
+    </record>
+    <record id="base.state_mx_zac" model="res.country.state">
+        <field name="l10n_mx_edi_code">MX-ZAC</field>
+    </record>
+    <record id="base.state_nl_ze" model="res.country.state">
+        <field name="l10n_mx_edi_code">NL-ZE</field>
+    </record>
+    <record id="base.state_nl_zh" model="res.country.state">
+        <field name="l10n_mx_edi_code">NL-ZH</field>
+    </record>    
+</odoo>

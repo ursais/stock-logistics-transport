@@ -217,12 +217,6 @@ class TmsAdvance(models.Model):
 
     def action_pay(self):
         for rec in self:
-            bank = self.env['account.journal'].search(
-                [('type', '=', 'bank')])[0]
-            wiz = self.env['tms.wizard.payment'].with_context(
-                active_model='tms.advance', active_ids=[rec.id]).create({
-                    'journal_id': bank.id,
-                    'amount_total': rec.amount,
-                    'date': rec.date,
-                })
-            wiz.make_payment()
+            wiz = self.env['account.payment.register'].with_context(
+                active_model='tms.advance', active_ids=rec.ids).create({})
+            wiz.action_create_payments()

@@ -861,7 +861,7 @@ class TmsExpense(models.Model):
                     'product_uom_id': (
                         fuel_log.product_id.uom_id.id),
                     'unit_price': fuel_log.price_total,
-                    'is_invoice': fuel_log.invoice_paid,
+                    'is_invoice': bool(fuel_log.invoice_id),
                     'invoice_id': fuel_log.invoice_id.id,
                     'control': True,
                     'partner_id': fuel_log.vendor_id.id or False,

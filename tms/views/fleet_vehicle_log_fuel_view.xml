@@ -56,7 +56,7 @@
                                 </group>
                                 <group>
                                     <field name="invoice_id" readonly='1'/>
-                                    <field name="invoice_paid" readonly='1'/>
+                                    <field name="payment_state" readonly='1'/>
                                 </group>
                                 <group>
                                     <field name="expense_id" readonly="1" attrs="{'invisible': [('expense_id', '=', False)]}"/>
