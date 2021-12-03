@@ -36,7 +36,6 @@ class TmsExpenseLine(models.Model):
             'expense_line_id': res.id})
         return res
 
-    @api.multi
     def write(self, values):
         for rec in self:
             res = super().write(values)
@@ -51,7 +50,6 @@ class TmsExpenseLine(models.Model):
                     'expense_line_id': rec.id})
         return res
 
-    @api.multi
     def unlink(self):
         for rec in self:
             tolls = self.env['tms.toll.data'].search(
@@ -61,7 +59,6 @@ class TmsExpenseLine(models.Model):
                 'expense_line_id': False})
         return super().unlink()
 
-    @api.multi
     def sort_expense_lines(self):
         for rec in self:
             ordered_lines = sorted(

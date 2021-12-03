@@ -7,14 +7,15 @@
         <field name='arch' type='xml'>
             <xpath expr="//group[1]" position="after">
                 <group>
-                    <field name="tollstation_ids" nolabel='1' attrs="{'invisible':[('line_type','not in', ['tollstations'])]}" domain="[('num_tag', '=', tollstation_tag), ('state', '=', 'open')]">
+                    <field name="tollstation_ids" nolabel='1' attrs="{'invisible':[('line_type','not in', ['tollstations'])]}" 
+                    domain="[('num_tag', '=', tollstation_tag), ('state', '=', 'open')]">
                         <tree>
                             <field name="name"/>
                             <field name="date"/>
                             <field name="import_rate"/>
                         </tree>
                     </field>
-                    <field name='tollstation_tag' invisible='1'/>
+                    <field name='tollstation_tag' invisible='0'/>
                 </group>
             </xpath>
         </field>

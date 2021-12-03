@@ -7,9 +7,8 @@ import os
 from datetime import datetime
 
 import pytz
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 from odoo.exceptions import ValidationError
-
 
 class TmsTollImport(models.TransientModel):
     _name = 'tms.toll.import'
@@ -19,10 +18,9 @@ class TmsTollImport(models.TransientModel):
         string='Upload the data',
         required=True)
 
-    @api.multi
     def update_tollstation_expense(self):
         txt_extension = os.path.splitext(self.filename)[1].lower()
-        if txt_extension == '.txt' or txt_extension == '.dat':
+        if txt_extension in ('.txt', '.dat'):
             try:
                 document = base64.b64decode(self.file)
                 lines = document.split('\n')

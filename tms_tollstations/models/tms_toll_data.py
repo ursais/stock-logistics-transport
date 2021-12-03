@@ -4,7 +4,6 @@
 
 from odoo import fields, models
 
-
 class TmsTollData(models.Model):
     _name = 'tms.toll.data'
     _order = 'date asc'
