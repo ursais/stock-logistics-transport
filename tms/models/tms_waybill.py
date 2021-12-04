@@ -258,17 +258,17 @@ class TmsWaybill(models.Model):
                 else:
                     for record in waybill.transportable_line_ids:
                         waybill.product_qty = record.quantity
-                        if (record.transportable_uom_id.category_id.name ==
-                                _('Volume')):
+                        weight_categ = self.env.ref('uom.product_uom_categ_kgm')
+                        volume_categ = self.env.ref('uom.product_uom_categ_vol')
+                        if record.transportable_uom_id.category_id == volume_categ:
                             waybill.product_volume += record.quantity
-                        elif (record.transportable_uom_id.category_id.name ==
-                                _('Weight')):
+                        elif record.transportable_uom_id.category_id == weight_categ:
                             waybill.product_weight += record.quantity
-                        total_get_amount += (
-                            waybill.customer_factor_ids.get_amount(
-                                waybill.product_weight, waybill.distance_route,
-                                waybill.distance_real, waybill.product_qty,
-                                waybill.product_volume, waybill.amount_total))
+                    total_get_amount += (
+                        waybill.customer_factor_ids.get_amount(
+                            waybill.product_weight, waybill.distance_route,
+                            waybill.distance_real, waybill.product_qty,
+                            waybill.product_volume, waybill.amount_total))
             return total_get_amount
 
     def _compute_amount_all(self, category):

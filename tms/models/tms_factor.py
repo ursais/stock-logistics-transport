@@ -79,9 +79,13 @@ class TmsFactor(models.Model):
 
     def get_amount(self, weight=0.0, distance=0.0, distance_real=0.0, qty=0.0,
                    volume=0.0, income=0.0, employee=False):
-        factor_list = {'weight': weight, 'distance': distance,
-                       'distance_real': distance_real, 'qty': qty,
-                       'volume': volume}
+        factor_list = {
+            'weight': weight,
+            'distance': distance,
+            'distance_real': distance_real,
+            'qty': qty,
+            'volume': volume,
+        }
         amount = 0.0
         for rec in self:
             if rec.factor_type == 'travel':
@@ -99,7 +103,7 @@ class TmsFactor(models.Model):
                     if rec.factor_type == key:
                         if rec.range_start <= value <= rec.range_end:
                             amount += rec.factor * value
-                        elif rec.range_start == 0 and rec.range_end == 0:
+                        elif not rec.range_start and not rec.range_end:
                             amount += rec.factor * value
                 if amount == 0.0:
                     raise ValidationError(
