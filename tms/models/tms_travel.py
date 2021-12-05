@@ -141,10 +141,11 @@ class TmsTravel(models.Model):
     @api.depends('date_start')
     def _compute_date_end(self):
         for rec in self:
+            date_end = False
             if rec.date_start:
-                rec.date_end = rec.date_start + timedelta(
+                date_end = rec.date_start + timedelta(
                     hours=rec.route_id.travel_time)
-            rec.date_end = False
+            rec.date_end = date_end
 
     @api.depends('date_start', 'date_end')
     def _compute_travel_duration(self):
