@@ -63,7 +63,8 @@ class FleetVehicle(models.Model):
             ("TPAF13", "Servicio auxiliar de servicios de arrastre, arrastre y salvamento, y depósito de vehículos en"
                        " las vías generales de comunicación."),
             ("TPAF14", "Servicio de paquetería y mensajería en las vías generales de comunicación."),
-            ("TPAF15", "Transporte especial para el tránsito de grúas industriales con peso máximo de 90 toneladas."),
+            ("TPAF15", "Transporte especial para el tránsito de grúas industriales " +
+                "con peso máximo de 90 toneladas."),
             ("TPAF16", "Servicio federal para empresas arrendadoras servicio público federal."),
             ("TPAF17", "Empresas trasladistas de vehículos nuevos."),
             ("TPAF18", "Empresas fabricantes o distribuidoras de vehículos nuevos."),

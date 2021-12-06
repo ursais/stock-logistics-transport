@@ -10,6 +10,7 @@ import pytz
 from odoo import _, fields, models
 from odoo.exceptions import ValidationError
 
+
 class TmsTollImport(models.TransientModel):
     _name = 'tms.toll.import'
 

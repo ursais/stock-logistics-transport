@@ -24,9 +24,9 @@ class AccountPaymentRegister(models.TransientModel):
 
     def get_context(self, records):
         return {
-                'active_model': 'account.move',
-                'active_ids': records.mapped('move_id').ids,
-            }
+            'active_model': 'account.move',
+            'active_ids': records.mapped('move_id').ids,
+        }
 
     def _create_payments(self):
         active_model = self._context.get('active_model')

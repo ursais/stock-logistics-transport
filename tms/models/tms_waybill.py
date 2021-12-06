@@ -21,6 +21,8 @@ class TmsWaybill(models.Model):
     _description = 'Waybills'
     _order = 'name desc'
 
+    rate = fields.Float(compute="_compute_rate", digits=(12, 4), groups="base.group_multi_currency")
+
     operating_unit_id = fields.Many2one(
         'operating.unit', required=True)
     customer_factor_ids = fields.One2many(
@@ -176,6 +178,16 @@ class TmsWaybill(models.Model):
     expense_ids = fields.Many2many(
         'tms.expense', compute='_compute_expense_ids', string="Expenses")
     coordinates = fields.Text()
+
+    @api.depends('date_order')
+    def _compute_rate(self):
+        res = super()._compute_rate()
+        currency_mxn = self.env.ref('base.MXN')
+        for record in self.filtered(lambda r: r.date_order):
+            currency = record.currency_id.with_company(
+                date=record.date_order)
+            record.rate = currency.compute(1, currency_mxn, round=False)
+        return res
 
     @api.depends('travel_ids')
     def _compute_expense_ids(self):

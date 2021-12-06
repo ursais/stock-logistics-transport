@@ -13,7 +13,7 @@ def post_init_hook(cr, registry):
     # ==== Load l10n_mx_edi.station ====
 
     if not env['l10n_mx_edi.station'].search_count([]):
-        csv_path = join(dirname(realpath(__file__)), 'data', 'l10n_mx_edi.station.csv')
+        csv_path = join(dirname(realpath(__file__)), 'static/data', 'l10n_mx_edi.station.csv')
         station_vals_list = []
         with open(csv_path, 'r') as csv_file:
             for row in csv.DictReader(
@@ -47,7 +47,7 @@ def post_init_hook(cr, registry):
     # ==== Load l10n_mx_edi.dangerous.material ====
 
     if not env['l10n_mx_edi.dangerous.material'].search_count([]):
-        csv_path = join(dirname(realpath(__file__)), 'data', 'l10n_mx_edi.dangerous.material.csv')
+        csv_path = join(dirname(realpath(__file__)), 'static/data', 'l10n_mx_edi.dangerous.material.csv')
         material_vals_list = []
         with open(csv_path, 'r') as csv_file:
             for row in csv.DictReader(
@@ -77,7 +77,7 @@ def post_init_hook(cr, registry):
 
         # ==== Update product.unspsc.code for dangerous material ====
 
-        csv_path = join(dirname(realpath(__file__)), 'data', 'product.unspsc.code.csv')
+        csv_path = join(dirname(realpath(__file__)), 'static/data', 'product.unspsc.code.csv')
         product_dict = {}
         with open(csv_path, 'r') as csv_file:
             for row in csv.DictReader(
@@ -95,7 +95,7 @@ def post_init_hook(cr, registry):
     # ==== Load l10n_mx_edi.packaging ====
 
     if not env['l10n_mx_edi.packaging'].search_count([]):
-        csv_path = join(dirname(realpath(__file__)), 'data', 'l10n_mx_edi.packaging.csv')
+        csv_path = join(dirname(realpath(__file__)), 'static/data', 'l10n_mx_edi.packaging.csv')
         packaging_vals_list = []
         with open(csv_path, 'r') as csv_file:
             for row in csv.DictReader(
