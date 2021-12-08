@@ -66,7 +66,7 @@ class TestTmsWaybill(TransactionCase):
         waybill = self.create_waybill()
         waybill.action_approve()
         waybill.action_confirm()
-        wizard = self.env['tms.wizard.invoice'].with_context({
+        wizard = self.env['tms.wizard.invoice'].with_context(**{
             'active_model': 'tms.waybill',
             'active_ids': [waybill.id]}).create({})
         wizard.make_invoices()
@@ -185,7 +185,7 @@ class TestTmsWaybill(TransactionCase):
     def test_100_tms_waybill_action_cancel(self):
         waybill = self.create_waybill()
         waybill.action_confirm()
-        wizard = self.env['tms.wizard.invoice'].with_context({
+        wizard = self.env['tms.wizard.invoice'].with_context(**{
             'active_model': 'tms.waybill',
             'active_ids': [waybill.id]}).create({})
         wizard.make_invoices()

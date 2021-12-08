@@ -10,8 +10,7 @@ from . import l10n_mx_edi_packaging
 from . import tms_waybill_transportable_line
 from . import res_partner
 from . import res_company
-from . import res_country_state
 from . import tms_transportable
-from . import res_config_settings
 from . import tms_travel
 from . import fleet_vehicle
+from . import product_unspsc_code

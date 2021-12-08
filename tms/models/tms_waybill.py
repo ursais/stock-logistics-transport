@@ -380,7 +380,7 @@ class TmsWaybill(models.Model):
             waybill.state = 'cancel'
 
     def _amount_to_text(self, amount_total, currency, partner_lang='es_MX'):
-        total = str(float(amount_total)).split('.')[0]
+        total = str(int(amount_total))
         decimals = str(float(amount_total)).split('.')[1]
         currency_type = 'M.N.'
         if partner_lang != 'es_MX':

@@ -19,9 +19,6 @@ class TmsWaybillTransportableLine(models.Model):
     l10n_mx_edi_uuid = fields.Char(
         string="UUID",
     )
-    l10n_mx_edi_tracking_number = fields.Char(
-        string='Tracking number',
-    )
     l10n_mx_edi_tare = fields.Float(
         string='Tare(Kg)',
     )
@@ -44,8 +41,7 @@ class TmsWaybillTransportableLine(models.Model):
         self.ensure_one()
         if self.l10n_mx_edi_customs_number:
             return [num.strip() for num in self.l10n_mx_edi_customs_number.split(',')]
-        else:
-            return []
+        return []
 
     @api.constrains('l10n_mx_edi_customs_number')
     def _check_l10n_mx_edi_customs_number(self):
@@ -59,6 +55,9 @@ class TmsWaybillTransportableLine(models.Model):
             return
 
         raise ValidationError(_(
-            "Custom numbers set on transportable lines are invalid and should have a pattern like: 15  48  3009  0001234:\n%(invalid_message)s",
-            invalid_message='\n'.join('%s (id=%s)' % (line.l10n_mx_edi_customs_number, line.id) for line in invalid_lines),
-        ))
+            "Custom numbers set on transportable lines are invalid and should have a pattern like: "
+            "15  48  3009  0001234:\n%(invalid_message)s",
+            invalid_message='\n'.join('%s (id=%s)' % (
+                line.l10n_mx_edi_customs_number, line.id) for line in invalid_lines),
+            )
+        )

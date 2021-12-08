@@ -1,34 +1,42 @@
 language: python
-sudo: false
-cache: pip
 
-python:
-  - "3.5"
+sudo: false
+cache:
+  apt: true
+  directories:
+    - $HOME/.cache/pip
 
 addons:
-  postgresql: "9.6"
+  postgresql: "11"
   apt:
     packages:
       - expect-dev
-      - python-lxml
+      - openssl
+
+python:
+  - "3.7"  # CI docker image is not compatible with py3.8 but py3.7
 
 env:
   global:
-  - VERSION="12.0" LINT_CHECK="1"
-  - VERSION="12.0" ODOO_REPO="odoo/odoo" LINT_CHECK="0"
+  - TESTS="0" LINT_CHECK="0"
 
   matrix:
   - LINT_CHECK="1"
-  - TESTS="1" ODOO_REPO="odoo/odoo"
+  - TESTS="1"
 
 install:
-  - git clone --depth=1 https://github.com/Jarsa/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
+  - source ${TRAVIS_BUILD_DIR}/variables.sh
+  - export TRAVIS_PYTHON_VERSION="3.7"  # CI docker image is not compatible with py3.8 but py3.7
+  - git clone --single-branch --depth=1 https://github.com/vauxoo/maintainer-quality-tools.git -b master ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
-  - if [[ "${OCA_RUNBOT}" == "1" ]]; then git clone --depth=1 git@github.com:odoo/enterprise.git -b $VERSION ${HOME}/enterprise; fi
   - travis_install_nightly
 
 script:
+  - source ${TRAVIS_BUILD_DIR}/variables.sh  
+  - export TRAVIS_PYTHON_VERSION="3.7"  # CI docker image is not compatible with py3.8 but py3.7
   - travis_run_tests
 
 after_success:
+  - source ${TRAVIS_BUILD_DIR}/variables.sh  
+  - export TRAVIS_PYTHON_VERSION="3.7"  # CI docker image is not compatible with py3.8 but py3.7
   - travis_after_tests_success

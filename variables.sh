@@ -1,7 +1,12 @@
+export BASE_IMAGE="vauxoo/odoo-150-image"
+export DOCKER_IMAGE_REPO="quay.io/vauxoo/seg"
 export PSQL_VERSION="11"
-export MAIN_APP="tms"
-export VERSION="14.0"
-export TRAVIS_PYTHON_VERSION="3.6"
+export VERSION="15.0"
 export ODOO_REPO="jarsa/odoo"
-export ODOO_BRANCH="14.0"
-export BASE_IMAGE="vauxoo/odoo-140-image"
+export ODOO_BRANCH="15.0"
+export MAIN_APP="tms"
+export TRAVIS_PYTHON_VERSION="3.8"
+export COUNTRY="MX"
+export CUSTOMER="seg"
+export COVERAGE_MIN=80
+export COVERAGE_PRECISION=2

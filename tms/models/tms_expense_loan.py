@@ -231,7 +231,7 @@ class TmsExpenseLoan(models.Model):
 
     def unlink(self):
         for rec in self:
-            if rec.state == 'confirmed' or rec.state == 'closed':
+            if rec.state in ['confirmed', 'closed']:
                 raise ValidationError(
                     _('You can not delete a Loan'
                       ' in status confirmed or closed'))

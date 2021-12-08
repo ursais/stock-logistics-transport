@@ -9,10 +9,16 @@
                 <field name="l10n_mx_edi_weight_factor"/>
                 <field name="unspsc_code_id"/>
                 <field name="l10n_mx_edi_dimensions" placeholder="30/40/30cm"/>
-                <field name="l10n_mx_edi_dangerous_material_id"/>
+                <field name="l10n_mx_edi_waybill_type" invisible="1"/>
+                <field name="l10n_mx_edi_dangerous_material_id" attrs="{
+                    'required': [('l10n_mx_edi_waybill_type', '=', '1')],
+                }"/>
                 <field name="l10n_mx_edi_packaging_id" attrs="{
                     'required': [('l10n_mx_edi_dangerous_material_id', '!=', False)]
                 }"/>
+            </xpath>
+            <xpath expr="//field[@name='uom_id']" position="attributes">
+                <attriute name="domain">[('l10n_mx_edi_waybill_type', '=', 'uom')]</attriute>
             </xpath>
         </field>
     </record>

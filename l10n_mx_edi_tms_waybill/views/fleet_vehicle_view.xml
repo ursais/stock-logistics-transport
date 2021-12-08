@@ -10,6 +10,14 @@
                     'required': [('fleet_type', '=', 'trailer')],
                     'invisible': [('fleet_type', '!=', 'trailer')],
                 }"/>
+                <field name="l10n_mx_edi_sct_permit_type" attrs="{
+                    'required': [('fleet_type', '=', 'tractor')],
+                    'invisible': [('fleet_type', '!=', 'tractor')],
+                }"/>
+                <field name="l10n_mx_edi_sct_permit_number" attrs="{
+                    'required': [('fleet_type', '=', 'tractor')],
+                    'invisible': [('fleet_type', '!=', 'tractor')],
+                }"/>
             </xpath>
         </field>
     </record>

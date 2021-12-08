@@ -33,7 +33,7 @@ def post_init_hook(cr, registry):
         if stations:
             cr.execute('''
                INSERT INTO ir_model_data (name, res_id, module, model, noupdate)
-                   SELECT 
+                   SELECT
                         'res_station_' || lower(res_country.code) || '_' || l10n_mx_edi_station.code,
                         l10n_mx_edi_station.id,
                         'l10n_mx_edi_tms_waybill',
@@ -65,7 +65,7 @@ def post_init_hook(cr, registry):
             # Use id of the record to avoid duplicated code error.
             cr.execute('''
                INSERT INTO ir_model_data (name, res_id, module, model, noupdate)
-                   SELECT 
+                   SELECT
                         'res_dangerous_material_id_' || material.id || '_' || material.code,
                         material.id,
                         'l10n_mx_edi_tms_waybill',
@@ -74,6 +74,23 @@ def post_init_hook(cr, registry):
                    FROM l10n_mx_edi_dangerous_material AS material
                    WHERE  material.id IN %s
             ''', [tuple(materials.ids)])
+        
+        # ==== Update product.unspsc.code for dangerous material ====
+
+        csv_path = join(dirname(realpath(__file__)), 'data', 'product.unspsc.code.csv')
+        product_dict = {}
+        with open(csv_path, 'r') as csv_file:
+            for row in csv.DictReader(
+                    csv_file,
+                    delimiter='|',
+                    fieldnames=['code', 'type']):
+                product_dict.setdefault(row['type'], []).append(row['code'])
+        for type, codes in product_dict.items():
+            env.cr.execute('''
+                UPDATE product_unspsc_code
+                SET l10n_mx_edi_waybill_type = %(type)s
+                WHERE code IN %(code)s
+            ''', {'type': type, 'code': tuple(codes)})
 
     # ==== Load l10n_mx_edi.packaging ====
 
@@ -95,7 +112,7 @@ def post_init_hook(cr, registry):
         if packagings:
             cr.execute('''
                INSERT INTO ir_model_data (name, res_id, module, model, noupdate)
-                   SELECT 
+                   SELECT
                         'res_packaging_id_' || l10n_mx_edi_packaging.code,
                         l10n_mx_edi_packaging.id,
                         'l10n_mx_edi_tms_waybill',
@@ -104,6 +121,7 @@ def post_init_hook(cr, registry):
                    FROM l10n_mx_edi_packaging
                    WHERE  l10n_mx_edi_packaging.id IN %s
             ''', [tuple(packagings.ids)])
+
 
 def uninstall_hook(cr, registry):
     cr.execute("DELETE FROM ir_model_data WHERE model='l10n_mx_edi.station';")

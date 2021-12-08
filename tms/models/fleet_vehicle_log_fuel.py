@@ -172,6 +172,6 @@ class FleetVehicleLogFuel(models.Model):
 
     def _amount_to_text(self, product_qty):
         # TODO Use the Odoo method in the currency
-        total = str(float(product_qty)).split('.')[0]
+        total = str(int(product_qty))
         total = num2words(float(total), lang='es').upper()
         return '%s' % (total)

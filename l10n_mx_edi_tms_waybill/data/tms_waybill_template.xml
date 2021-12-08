@@ -21,13 +21,14 @@
                             >
                             <cartaporte20:Ubicaciones>
                                 <t t-foreach="locations" t-as="location">
+                                    <t t-set="partner" t-value="location.get('partner')"/>
                                     <cartaporte20:Ubicacion
                                         t-att-TipoUbicacion="location.get('type')"
                                         t-att-IDUbicacion="location.get('id')"
-                                        t-att-RFCRemitenteDestinatario="location.get('partner').vat"
-                                        t-att-NombreRemitenteDestinatario="format_string(location.get('partner').name)"
-                                        t-att-NumRegIdTrib="location.get('partner').vat if location.get('foreign') else False"
-                                        t-att-ResidenciaFiscal="location.get('partner').country_id.l10n_mx_edi_code if location.get('foreign') else False"
+                                        t-att-RFCRemitenteDestinatario="partner.vat if partner.country_id.code == 'MX' else 'XEXX010101000'"
+                                        t-att-NombreRemitenteDestinatario="format_string(partner.name)"
+                                        t-att-NumRegIdTrib="partner.vat if partner.country_id.code != 'MX' else False"
+                                        t-att-ResidenciaFiscal="partner.country_id.l10n_mx_edi_code if partner.country_id.code != 'MX' else False"
                                         t-att-NumEstacion=""
                                         t-att-NombreEstacion=""
                                         t-att-NavegacionTrafico=""
@@ -36,16 +37,16 @@
                                         t-att-DistanciaRecorrida="location.get('distance')"
                                         >
                                         <cartaporte20:Domicilio
-                                            t-att-Calle="location.get('partner').street_name"
-                                            t-att-NumeroExterior="location.get('partner').street_number"
-                                            t-att-NumeroInterior="location.get('partner').street_number2"
-                                            t-att-Colonia="location.get('partner').l10n_mx_edi_colony"
-                                            t-att-Localidad="location.get('partner').l10n_mx_edi_locality_id.code"
-                                            t-att-Referencia="location.get('partner').ref"
-                                            t-att-Municipio="location.get('partner').city_id.l10n_mx_edi_code"
-                                            t-att-Estado="location.get('partner').state_id.l10n_mx_edi_code"
-                                            t-att-Pais="location.get('partner').country_id.l10n_mx_edi_code"
-                                            t-att-CodigoPostal="location.get('partner').zip"
+                                            t-att-Calle="partner.street_name"
+                                            t-att-NumeroExterior="partner.street_number"
+                                            t-att-NumeroInterior="partner.street_number2"
+                                            t-att-Colonia="partner.l10n_mx_edi_colony"
+                                            t-att-Localidad="partner.l10n_mx_edi_locality_id.code"
+                                            t-att-Referencia="partner.ref"
+                                            t-att-Municipio="partner.city_id.l10n_mx_edi_code"
+                                            t-att-Estado="partner.state_id.code"
+                                            t-att-Pais="partner.country_id.l10n_mx_edi_code"
+                                            t-att-CodigoPostal="partner.zip"
                                             />
                                     </cartaporte20:Ubicacion>
                                 </t>
@@ -65,11 +66,11 @@
                                         t-att-ClaveUnidad="line.transportable_uom_id.unspsc_code_id.code"
                                         t-att-Unidad="format_string(line.transportable_uom_id.name, 20)"
                                         t-att-Dimensiones="line.transportable_id.l10n_mx_edi_dimensions"
-                                        t-att-MaterialPeligroso="'Sí' if line.transportable_id.l10n_mx_edi_dangerous_material_id else 'No'"
+                                        t-att-MaterialPeligroso="'Sí' if line.transportable_id.l10n_mx_edi_dangerous_material_id else 'No' if line.transportable_id.l10n_mx_edi_waybill_type == '0,1' else False"
                                         t-att-CveMaterialPeligroso="line.transportable_id.l10n_mx_edi_dangerous_material_id.code"
                                         t-att-Embalaje="line.transportable_id.l10n_mx_edi_packaging_id.code"
                                         t-att-DescripEmbalaje="line.transportable_id.l10n_mx_edi_packaging_id.name"
-                                        t-att-PesoEnKg="line.quantity * line.transportable_id.l10n_mx_edi_weight_factor"
+                                        t-att-PesoEnKg="(line.quantity * line.transportable_id.l10n_mx_edi_weight_factor) + line.l10n_mx_edi_tare"
                                         t-att-ValorMercancia="line.l10n_mx_edi_merchandise_value"
                                         t-att-Moneda="line.currency_id.name"
                                         t-att-FraccionArancelaria="line.transportable_id.l10n_mx_edi_tariff_fraction_id.code"
@@ -83,32 +84,19 @@
                                             />
                                         </t>
                                     </t>
-                                    <t t-if="line.l10n_mx_edi_tracking_number">
-                                        <cartaporte20:GuiasIdentificacion
-                                            t-att-NumeroGuiaIdentificacion="line.l10n_mx_edi_tracking_number"
-                                            t-att-IDOrigen="[location.get('id') for location in locations if location.get('type') == 'Origen'][0]"
-                                            t-att-IDDestino="[location.get('id') for location in locations if location.get('type') == 'Destino'][0]"
-                                        />
-                                    </t>
-                                    <!--cartaporte20:CantidadTransporta
+                                    <cartaporte20:CantidadTransporta
                                         t-att-Cantidad="line.quantity"
-                                        t-att-Unidad="line.transportable_uom_id.name"
-                                        t-att-CvesTransporte="record.waybill_ids.l10n_mx_edi_transport_type if record.waybill_ids.l10n_mx_edi_international else False"
-                                    /-->
-                                    <cartaporte20:DetalleMercancia
-                                        t-att-UnidadPesoMerc="line.transportable_uom_id.unspsc_code_id.code"
-                                        t-att-PesoBruto="(line.quantity * line.transportable_id.l10n_mx_edi_weight_factor) + line.l10n_mx_edi_tare"
-                                        t-att-PesoNeto="line.quantity * line.transportable_id.l10n_mx_edi_weight_factor"
-                                        t-att-PesoTara="line.l10n_mx_edi_tare"
-                                        t-att-NumPiezas="int(line.quantity)"
+                                        t-att-IDOrigen="[location.get('id') for location in locations if location.get('type') == 'Origen'][0]"
+                                        t-att-IDDestino="[location.get('id') for location in locations if location.get('type') == 'Destino'][0]"
+                                        t-att-CvesTransporte="record.waybill_ids.l10n_mx_edi_transport_type"
                                     />
                                     </cartaporte20:Mercancia>
                                 </t>
+                                <t t-set="travel" t-value="record.waybill_ids.travel_ids[0]"/>
                                 <cartaporte20:Autotransporte
-                                    t-att-PermSCT="record.company_id.l10n_mx_edi_sct_permit_type"
-                                    t-att-NumPermisoSCT="record.company_id.l10n_mx_edi_sct_permit_number"
+                                    t-att-PermSCT="travel.unit_id.l10n_mx_edi_sct_permit_type"
+                                    t-att-NumPermisoSCT="travel.unit_id.l10n_mx_edi_sct_permit_number"
                                 >
-                                    <t t-set="travel" t-value="record.waybill_ids.travel_ids[0]"/>
                                     <cartaporte20:IdentificacionVehicular
                                         t-att-ConfigVehicular="travel.l10n_mx_edi_configuration"
                                         t-att-PlacaVM="travel.unit_id.license_plate"
@@ -134,30 +122,35 @@
                                 </cartaporte20:Autotransporte>
                             </cartaporte20:Mercancias>
                             <cartaporte20:FiguraTransporte>
-                                <cartaporte20:TiposFigura
-                                    t-att-TipoFigura=""
-                                    t-att-RFCFigura=""
-                                    t-att-NumLicencia=""
-                                    t-att-NombreFigura=""
-                                    t-att-NumRegIdTribFigura=""
-                                    t-att-ResidenciaFiscalFigura=""
-                                >
-                                    <cartaporte20:PartesTransporte
-                                        t-att-ParteTransporte=""
-                                    />
-                                    <cartaporte20:Domicilio
-                                        t-att-Calle=""
-                                        t-att-NumeroExterior=""
-                                        t-att-NumeroInterior=""
-                                        t-att-Colonia=""
-                                        t-att-Localidad=""
-                                        t-att-Referencia=""
-                                        t-att-Municipio=""
-                                        t-att-Estado=""
-                                        t-att-Pais=""
-                                        t-att-CodigoPostal=""
-                                    />
-                                </cartaporte20:TiposFigura>
+                                <t t-foreach="figures" t-as="figure">
+                                    <t t-set="partner" t-value="figure.get('partner')"/>
+                                    <cartaporte20:TiposFigura
+                                        t-att-TipoFigura="figure.get('type')"
+                                        t-att-RFCFigura="partner.vat if partner.country_id.code == 'MX' else 'XEXX010101000'"
+                                        t-att-NumLicencia="figure.get('driver').driver_license if figure.get('driver') else False"
+                                        t-att-NombreFigura="partner.name"
+                                        t-att-NumRegIdTribFigura="partner.vat if partner.country_id.code != 'MX' else False"
+                                        t-att-ResidenciaFiscalFigura="partner.country_id.l10n_mx_edi_code if partner.country_id.code != 'MX' else False"
+                                    >
+                                        <t t-if="figure.get('transport_part')">
+                                            <cartaporte20:PartesTransporte
+                                                t-att-ParteTransporte="figure.get('transport_part')"
+                                            />
+                                        </t>
+                                        <cartaporte20:Domicilio
+                                            t-att-Calle="partner.street_name"
+                                            t-att-NumeroExterior="partner.street_number"
+                                            t-att-NumeroInterior="partner.street_number2"
+                                            t-att-Colonia="partner.l10n_mx_edi_colony"
+                                            t-att-Localidad="partner.l10n_mx_edi_locality_id.code"
+                                            t-att-Referencia="partner.ref"
+                                            t-att-Municipio="partner.city_id.l10n_mx_edi_code"
+                                            t-att-Estado="partner.state_id.code"
+                                            t-att-Pais="partner.country_id.l10n_mx_edi_code"
+                                            t-att-CodigoPostal="partner.zip"
+                                        />
+                                    </cartaporte20:TiposFigura>
+                                </t>
                             </cartaporte20:FiguraTransporte>
                     </cartaporte20:CartaPorte>
                 </cfdi:Complemento>

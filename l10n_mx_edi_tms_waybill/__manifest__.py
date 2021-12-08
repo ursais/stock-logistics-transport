@@ -1,11 +1,12 @@
 # Copyright 2021, Jarsa
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+# pylint: disable=file-not-used
 
 {
     "name": "TMS Waybill Complement for Mexico",
     "version": "15.0.1.0.1",
     "category": "Transport",
-    "author": "Jarsa",
+    "author": "Jarsa Sistemas",
     "website": "https://www.jarsa.com.mx/page/transport-management-system",
     "depends": [
         "tms",
@@ -16,13 +17,10 @@
     "data": [
         "security/ir.model.access.csv",
         "data/tms_waybill_template.xml",
-        "data/res_country_state_data.xml",
         "data/decimal_precision_data.xml",
         "views/tms_waybill_view.xml",
         "views/res_partner_view.xml",
-        "views/res_country_state_view.xml",
         "views/tms_transportable_view.xml",
-        "views/res_config_settings_view.xml",
         "views/tms_travel_view.xml",
         "views/fleet_vehicle_view.xml",
     ],

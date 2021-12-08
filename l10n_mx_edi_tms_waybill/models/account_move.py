@@ -4,9 +4,10 @@
 from lxml import etree
 from lxml.objectify import fromstring
 
-from odoo import api, models, tools
+from odoo import models, tools
 
 CFDI_XSLT_CARTAPORTE_CADENA = "l10n_mx_edi_tms_waybill/data/3.3/cadenaoriginal_3_3.xslt"
+
 
 class AccountMove(models.Model):
     _inherit = 'account.move'

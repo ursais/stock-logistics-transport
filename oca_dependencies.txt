@@ -1,1 +1,2 @@
-operating-unit https://github.com/Jarsa/operating-unit.git 14.0
+operating-unit https://github.com/Jarsa/operating-unit.git 15.0
+enterprise git@github.com:Jarsa/enterprise.git 15.0

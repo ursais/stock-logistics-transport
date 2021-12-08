@@ -58,7 +58,7 @@ class TestFleetVehicleLogFuel(TransactionCase):
                 'Voucher is already linked to a Travel Expense'):
             log_fuel.action_cancel()
         log_fuel.action_confirm()
-        wizard = self.env['tms.wizard.invoice'].with_context({
+        wizard = self.env['tms.wizard.invoice'].with_context(**{
             'active_model': 'fleet.vehicle.log.fuel',
             'active_ids': [log_fuel.id]}).create({})
         wizard.make_invoices()
