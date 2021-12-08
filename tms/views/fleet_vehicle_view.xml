@@ -25,6 +25,15 @@
                 <field name="vehicle_type" invisible="1"/>
                 <field name="fleet_type" required="1"/>
             </xpath>
+            <xpath expr="//field[@name='horsepower']/parent::group" position="after">
+                <group string="Insurance">
+                    <field name="insurance_policy"/>
+                    <field name="insurance_policy_data"/>
+                    <field name="insurance_expiration"/>
+                    <field name="insurance_supplier_id"/>
+                    <field name="insurance_days_to_expire"/>
+                </group>
+            </xpath>
         </field>
     </record>
         <!--
@@ -48,11 +57,6 @@
                         <group>
                             <field name="registration"/>
                             <field name="supplier_unit"/>
-                            <field name="insurance_policy"/>
-                            <field name="insurance_policy_data"/>
-                            <field name="insurance_expiration"/>
-                            <field name="insurance_supplier_id"/>
-                            <field name="insurance_days_to_expire"/>
                         </group>
                         <group string="Additional Properties">
                             <field name="seats"/>

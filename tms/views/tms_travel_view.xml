@@ -225,7 +225,7 @@
                             <separator colspan="4" string="Date and Times"/>
                             <group col="6" colspan="4">
                                 <field attrs="{'readonly':[('state','in',('done', 'closed'))]}" name="date_start" />
-                                <field attrs="{'readonly':[('state','in',('done', 'closed'))]}" name="date_end" invisible="1"/>
+                                <field attrs="{'readonly':[('state','in',('done', 'closed'))]}" name="date_end"/>
                                 <field attrs="{'readonly':[('state','in',('done', 'closed'))]}" name="travel_duration" widget="float_time"/>
                                 <field attrs="{'readonly':[('state','in',('done', 'closed'))]}" name="date_start_real" />
                                 <field attrs="{'readonly':[('state','in',('done', 'closed'))]}" name="date_end_real" />

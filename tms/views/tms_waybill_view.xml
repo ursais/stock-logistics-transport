@@ -52,7 +52,7 @@
                         <field name="coordinates"/>
                     </group>
                     <notebook colspan="4">
-                        <page string="Lines">
+                        <page string="Lines" name="lines">
                             <group>
                                 <separator coslpan="4" string="Travels"/>
                                 <field attrs="{'readonly':[('state','in',('confirmed', 'cancel'))]}" colspan="4" domain="[('state','not in',('cancel','closed')),('operating_unit_id', '=', operating_unit_id)]" name="travel_ids" nolabel="1"/>
@@ -109,7 +109,7 @@
                                 </group>
                             </group>
                         </page>
-                        <page string="Extra Fields">
+                        <page string="Extra Fields" name="extra">
                             <group col="4" colspan="4">
                                 <newline/>
                                 <field colspan="4" context="{'default_waybill_id': active_id, 'active_model_base': active_model}" name="waybill_extradata_ids" nolabel="1">
@@ -120,7 +120,7 @@
                                 </field>
                             </group>
                         </page>
-                        <page string="Factor Supplier">
+                        <page string="Factor Supplier" name="supplier">
                             <separator colspan="4" string="Waybill Supplier Factors"/>
                             <field attrs="{'readonly':[('state','in',('confirmed', 'cancel'))]}" colspan="4" context="{'default_category': 'supplier'}" name="supplier_factor_ids" nolabel="1"/>
                         </page>
@@ -128,7 +128,7 @@
                             <separator colspan="4" string="Driver Salary Factors"/>
                             <field attrs="{'readonly':[('state','in',('confirmed', 'cancel'))]}" colspan="4" context="{'default_category': 'driver'}" name="driver_factor_ids" nolabel="1"/>
                         </page>
-                        <page string="Times">
+                        <page string="Times" name="times">
                             <group col="4" colspan="4">
                                 <group colspan="2">
                                     <separator string="Scheduled"/>
@@ -158,10 +158,10 @@
                                 </group>
                             </group>
                         </page>
-                        <page string="Notes">
+                        <page string="Notes" name="notes">
                             <field attrs="{'readonly':[('state','in',('confirmed', 'cancel'))]}" colspan="4" name="notes" nolabel="1" placeholder="Notes..."/>
                         </page>
-                        <page string="Log">
+                        <page string="Log" name="log">
                             <group col="4" colspan="4">
                                 <group colspan="2">
                                     <separator colspan="2" string="Client Invoice Data"/>
@@ -176,7 +176,7 @@
                                 </group>
                             </group>
                         </page>
-                        <page string="Expenses">
+                        <page string="Expenses" name="expenses">
                             <field name="expense_ids"/>
                         </page>
                     </notebook>

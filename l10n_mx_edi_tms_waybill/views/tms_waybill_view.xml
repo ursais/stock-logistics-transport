@@ -106,7 +106,22 @@
                             'readonly': [('state', 'in', ['confirmed', 'cancel'])],
                         }"/>
                     </group>
+                    <group name="insurance" string="Insurance Information">
+                        <field name="l10n_mx_edi_cargo_insurance_partner_id"/>
+                        <field name="l10n_mx_edi_cargo_insurance_policy" attrs="{'required': [('l10n_mx_edi_cargo_insurance_partner_id', '!=', False)]}"/>
+                        <field name="l10n_mx_edi_insurance_fee"/>
+                    </group>
                 </group>
+            </xpath>
+            <xpath expr="//field[@name='transportable_line_ids']/tree/field[@name='notes']" position="before">
+                <field name="l10n_mx_edi_tare" optional="hide"/>
+            </xpath>
+            <xpath expr="//field[@name='transportable_line_ids']/tree/field[@name='notes']" position="after">
+                <field name="l10n_mx_edi_merchandise_value" optional="hide"/>
+                <field name="currency_id" optional="hide"/>
+                <field name="l10n_mx_edi_uuid" optional="hide"/>
+                <field name="l10n_mx_edi_customs_number" optional="hide" attrs="{'column_invisible': [('parent.l10n_mx_edi_international', '=', 'No')]}"/>
+                <field name="l10n_mx_edi_tracking_number" optional="hide"/>
             </xpath>
         </field>
     </record>

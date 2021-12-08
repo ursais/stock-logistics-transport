@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="fleet_vehicle_form_inhert_tms" model="ir.ui.view">
+        <field name="name">fleet.vehicle.view.form.inherit</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="tms.fleet_vehicle_form_inherit_tms"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='fleet_type']" position="after">
+                <field name="l10n_mx_edi_trailer_type" attrs="{
+                    'required': [('fleet_type', '=', 'trailer')],
+                    'invisible': [('fleet_type', '!=', 'trailer')],
+                }"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

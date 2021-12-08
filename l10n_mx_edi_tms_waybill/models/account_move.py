@@ -1,42 +1,39 @@
 # Copyright 2021, Jarsa
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
+from lxml import etree
 from lxml.objectify import fromstring
-from odoo import api, models
 
+from odoo import api, models, tools
+
+CFDI_XSLT_CARTAPORTE_CADENA = "l10n_mx_edi_tms_waybill/data/3.3/cadenaoriginal_3_3.xslt"
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    @api.model
-    def l10n_mx_edi_get_cartaporte_etree(self, cfdi):
-        """Get the Complement node from the cfdi.
-        :param cfdi: The cfdi as etree
-        :type cfdi: etree
-        :return: the iedu node
-        :rtype: etree
-        """
-        if not hasattr(cfdi, 'Complemento'):
-            return None
-        attribute = '//cartaporte:CartaPorte'
-        namespace = {'cartaporte': 'http://www.sat.gob.mx/CartaPorte'}
-        node = cfdi.Complemento.xpath(attribute, namespaces=namespace)
-        return node[0] if node else None
-
     def _l10n_mx_edi_decode_cfdi(self, cfdi_data=None):
         """If the CFDI was signed, try to adds the schemaLocation correctly"""
+        def get_cadena(cfdi_node, template):
+            if cfdi_node is None:
+                return None
+            cadena_root = etree.parse(tools.file_open(template))
+            return str(etree.XSLT(cadena_root)(cfdi_node))
         result = super()._l10n_mx_edi_decode_cfdi(cfdi_data=cfdi_data)
         if not cfdi_data:
             return result
         cfdi_data = cfdi_data.replace(
-            'xmlns__cartaporte', 'xmlns:cartaporte')
+            'xmlns__cartaporte20', 'xmlns:cartaporte20')
         cfdi = fromstring(cfdi_data)
-        if 'cartaporte' not in cfdi.nsmap:
+        if 'cartaporte20' not in cfdi.nsmap:
             return result
         cfdi.attrib['{http://www.w3.org/2001/XMLSchema-instance}schemaLocation'] = '%s %s %s' % (
             cfdi.get('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation'),
-            'http://www.sat.gob.mx/CartaPorte',
-            'http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte.xsd'
+            'http://www.sat.gob.mx/CartaPorte20',
+            'http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte20.xsd'
         )
-        result['cfdi_node'] = cfdi
+        # cartaporte_node = self.l10n_mx_edi_get_cartaporte_etree(cfdi)
+        result.update({
+            'cfdi_node': cfdi,
+            'cadena': get_cadena(cfdi, CFDI_XSLT_CARTAPORTE_CADENA),
+        })
         return result

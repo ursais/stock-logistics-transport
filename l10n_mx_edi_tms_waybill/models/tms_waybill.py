@@ -24,8 +24,15 @@ class TmsWaybill(models.Model):
             ("Salida", "Salida")
         ],
         compute="_compute_l10n_mx_edi_international",
-        help="Technical field used to define if an international freigh is an import or an export",
+        help="Technical field used to define if an international freight is an import or an export",
         store=True,
+    )
+    l10n_mx_edi_foreign_country_id = fields.Many2one(
+        comodel_name="res.country",
+        string="Foreign Country",
+        help="Technical field used to define the foreign country of the waybill.",
+        store=True,
+        compute="_compute_l10n_mx_edi_international",
     )
     l10n_mx_edi_transport_type = fields.Selection(
         selection=[
@@ -37,6 +44,7 @@ class TmsWaybill(models.Model):
         ],
         string="Transport Type",
         help="Select the transport type if a freight is international.",
+        default="01",
     )
     l10n_mx_edi_station_type = fields.Selection(
         selection=[
@@ -93,6 +101,16 @@ class TmsWaybill(models.Model):
     l10n_mx_edi_arrival_date = fields.Datetime(
         string="Arrival Date",
     )
+    l10n_mx_edi_cargo_insurance_partner_id = fields.Many2one(
+        comodel_name="res.partner",
+        string="Cargo Insurance Partner",
+    )
+    l10n_mx_edi_cargo_insurance_policy = fields.Char(
+        string="Cargo Insurance Policy",
+    )
+    l10n_mx_edi_insurance_fee = fields.Monetary(
+        string="Insurance Fee",
+    )
 
     @api.depends("departure_address_id", "l10n_mx_edi_transport_type")
     def _compute_l10m_mx_edi_departure_station_ids(self):
@@ -124,17 +142,21 @@ class TmsWaybill(models.Model):
             international = 'No'
             international_type = False
             mx_country = self.env.ref('base.mx')
+            foreign_country_id = False
             if (rec.departure_address_id.country_id and rec.
                     departure_address_id.country_id != mx_country):
                 international = 'Sí'
                 international_type = 'Entrada'
+                foreign_country_id = rec.departure_address_id.country_id.id
             if (rec.arrival_address_id.country_id and rec.
                     arrival_address_id.country_id != mx_country):
                 international = 'Sí'
                 international_type = 'Salida'
+                foreign_country_id = rec.arrival_address_id.country_id.id
             rec.update({
                 "l10n_mx_edi_international": international,
                 "l10n_mx_edi_international_type": international_type,
+                "l10n_mx_edi_foreign_country_id": foreign_country_id,
             })
 
     @api.onchange("l10n_mx_edi_transport_type")

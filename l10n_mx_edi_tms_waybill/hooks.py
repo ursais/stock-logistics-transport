@@ -44,6 +44,68 @@ def post_init_hook(cr, registry):
                    WHERE l10n_mx_edi_station.id IN %s
             ''', [tuple(stations.ids)])
 
+    # ==== Load l10n_mx_edi.dangerous.material ====
+
+    if not env['l10n_mx_edi.dangerous.material'].search_count([]):
+        csv_path = join(dirname(realpath(__file__)), 'data', 'l10n_mx_edi.dangerous.material.csv')
+        material_vals_list = []
+        with open(csv_path, 'r') as csv_file:
+            for row in csv.DictReader(
+                    csv_file,
+                    delimiter='|',
+                    fieldnames=['code', 'name']):
+                material_vals_list.append({
+                    'code': row['code'],
+                    'name': row['name'],
+                })
+
+        materials = env['l10n_mx_edi.dangerous.material'].create(material_vals_list)
+
+        if materials:
+            # Use id of the record to avoid duplicated code error.
+            cr.execute('''
+               INSERT INTO ir_model_data (name, res_id, module, model, noupdate)
+                   SELECT 
+                        'res_dangerous_material_id_' || material.id || '_' || material.code,
+                        material.id,
+                        'l10n_mx_edi_tms_waybill',
+                        'l10n_mx_edi.dangerous.material',
+                        TRUE
+                   FROM l10n_mx_edi_dangerous_material AS material
+                   WHERE  material.id IN %s
+            ''', [tuple(materials.ids)])
+
+    # ==== Load l10n_mx_edi.packaging ====
+
+    if not env['l10n_mx_edi.packaging'].search_count([]):
+        csv_path = join(dirname(realpath(__file__)), 'data', 'l10n_mx_edi.packaging.csv')
+        packaging_vals_list = []
+        with open(csv_path, 'r') as csv_file:
+            for row in csv.DictReader(
+                    csv_file,
+                    delimiter='|',
+                    fieldnames=['code', 'name']):
+                packaging_vals_list.append({
+                    'code': row['code'],
+                    'name': row['name'],
+                })
+
+        packagings = env['l10n_mx_edi.packaging'].create(packaging_vals_list)
+
+        if packagings:
+            cr.execute('''
+               INSERT INTO ir_model_data (name, res_id, module, model, noupdate)
+                   SELECT 
+                        'res_packaging_id_' || l10n_mx_edi_packaging.code,
+                        l10n_mx_edi_packaging.id,
+                        'l10n_mx_edi_tms_waybill',
+                        'l10n_mx_edi.packaging',
+                        TRUE
+                   FROM l10n_mx_edi_packaging
+                   WHERE  l10n_mx_edi_packaging.id IN %s
+            ''', [tuple(packagings.ids)])
 
 def uninstall_hook(cr, registry):
     cr.execute("DELETE FROM ir_model_data WHERE model='l10n_mx_edi.station';")
+    cr.execute("DELETE FROM ir_model_data WHERE model='l10n_mx_edi.dangerous.material';")
+    cr.execute("DELETE FROM ir_model_data WHERE model='l10n_mx_edi.packaging';")

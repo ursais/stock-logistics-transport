@@ -3,6 +3,15 @@
 
 from . import tms_waybill
 from . import account_move
+from . import account_edi_format
 from . import l10n_mx_edi_station
+from . import l10n_mx_edi_dangerous_material
+from . import l10n_mx_edi_packaging
+from . import tms_waybill_transportable_line
 from . import res_partner
+from . import res_company
 from . import res_country_state
+from . import tms_transportable
+from . import res_config_settings
+from . import tms_travel
+from . import fleet_vehicle

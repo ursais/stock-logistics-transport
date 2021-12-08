@@ -5,19 +5,10 @@ from odoo import fields, models, api
 from odoo.osv import expression
 
 
-class L10nMXEdiStation(models.Model):
-    _name = 'l10n_mx_edi.station'
-    _description = "Mexican EDI Station"
+class L10nMXEdiDangerousMaterial(models.Model):
+    _name = 'l10n_mx_edi.dangerous.material'
+    _description = "Mexican EDI Dangerous Materials"
 
-    l10n_mx_edi_transport_type = fields.Selection(
-        selection=[
-            ("02", "Transporte Marítimo"),
-            ("03", "Transporte Aéreo"),
-            ("04", "Transporte Ferroviario"),
-        ],
-        string="Transport Type",
-        required=True,
-    )
     code = fields.Char(
         help="Code defined in the SAT to this record.",
         required=True,
@@ -26,17 +17,14 @@ class L10nMXEdiStation(models.Model):
         help="Name defined in the SAT catalog to this record.",
         required=True,
     )
-    country_id = fields.Many2one(
-        comodel_name="res.country",
-    )
     active = fields.Boolean(
-        help="If the station has expired it could be disabled to do not allow select the record.",
+        help="If the material has expired it could be disabled to do not allow select the record.",
         default=True,
     )
 
     def name_get(self):
         # OVERRIDE
-        return [(station.id, "%s %s" % (station.code, station.name or '')) for station in self]
+        return [(material.id, "%s %s" % (material.code, material.name or '')) for material in self]
 
     @api.model
     def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):

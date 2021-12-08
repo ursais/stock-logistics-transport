@@ -138,13 +138,13 @@ class TmsTravel(models.Model):
             rec.fuel_efficiency_extraction = (
                 rec.fuel_efficiency_expected - rec.fuel_efficiency_travel)
 
-    @api.depends('date_start')
+    @api.depends('date_start', 'travel_duration')
     def _compute_date_end(self):
         for rec in self:
             date_end = False
-            if rec.date_start:
+            if rec.date_start and rec.travel_duration:
                 date_end = rec.date_start + timedelta(
-                    hours=rec.route_id.travel_time)
+                    hours=rec.travel_duration)
             rec.date_end = date_end
 
     @api.depends('date_start', 'date_end')
