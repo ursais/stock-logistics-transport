@@ -49,7 +49,7 @@ class TmsWaybill(models.Model):
     l10n_mx_edi_station_type = fields.Selection(
         selection=[
             ("01", "Origen Nacional"),
-            ("02", "Intermedia "),
+            ("02", "Intermedia"),
             ("03", "Destino Final Nacional"),
         ],
         string="Station Type",

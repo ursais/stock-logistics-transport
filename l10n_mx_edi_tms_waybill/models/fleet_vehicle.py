@@ -24,7 +24,7 @@ class FleetVehicle(models.Model):
             ("CTR013", "Estacas"),
             ("CTR014", "Góndola Madrina"),
             ("CTR015", "Grúa Industrial"),
-            ("CTR016", "Grúa "),
+            ("CTR016", "Grúa"),
             ("CTR017", "Integral"),
             ("CTR018", "Jaula"),
             ("CTR019", "Media Redila"),

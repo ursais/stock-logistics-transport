@@ -23,6 +23,7 @@
         "views/tms_transportable_view.xml",
         "views/tms_travel_view.xml",
         "views/fleet_vehicle_view.xml",
+        "views/report_account_invoice.xml",
     ],
     "post_init_hook": "post_init_hook",
     "uninstall_hook": "uninstall_hook",

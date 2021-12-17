@@ -16,7 +16,7 @@
                         t-att-TranspInternac="record.waybill_ids.l10n_mx_edi_international"
                         t-att-EntradaSalidaMerc="record.waybill_ids.l10n_mx_edi_international_type"
                         t-att-PaisOrigenDestino="record.waybill_ids.l10n_mx_edi_foreign_country_id.l10n_mx_edi_code"
-                        t-att-ViaEntradaSalida="record.waybill_ids.l10n_mx_edi_departure_station_id.code"
+                        t-att-ViaEntradaSalida="record.waybill_ids.l10n_mx_edi_transport_type"
                         t-att-TotalDistRec="sum([location.get('distance', 0) for location in locations])"
                             >
                             <cartaporte20:Ubicaciones>
@@ -37,13 +37,13 @@
                                         t-att-DistanciaRecorrida="location.get('distance')"
                                         >
                                         <cartaporte20:Domicilio
-                                            t-att-Calle="partner.street_name"
-                                            t-att-NumeroExterior="partner.street_number"
-                                            t-att-NumeroInterior="partner.street_number2"
-                                            t-att-Colonia="partner.l10n_mx_edi_colony"
-                                            t-att-Localidad="partner.l10n_mx_edi_locality_id.code"
-                                            t-att-Referencia="partner.ref"
-                                            t-att-Municipio="partner.city_id.l10n_mx_edi_code"
+                                            t-att-Calle="partner.street_name or False"
+                                            t-att-NumeroExterior="partner.street_number or False"
+                                            t-att-NumeroInterior="partner.street_number2 or False"
+                                            t-att-Colonia="partner.l10n_mx_edi_colony_code or False"
+                                            t-att-Localidad="partner.l10n_mx_edi_locality_id.code if partner.l10n_mx_edi_locality_id else False"
+                                            t-att-Referencia="partner.ref or False"
+                                            t-att-Municipio="partner.city_id.l10n_mx_edi_code or False"
                                             t-att-Estado="partner.state_id.code"
                                             t-att-Pais="partner.country_id.l10n_mx_edi_code"
                                             t-att-CodigoPostal="partner.zip"
@@ -72,9 +72,9 @@
                                         t-att-DescripEmbalaje="line.transportable_id.l10n_mx_edi_packaging_id.name"
                                         t-att-PesoEnKg="(line.quantity * line.transportable_id.l10n_mx_edi_weight_factor) + line.l10n_mx_edi_tare"
                                         t-att-ValorMercancia="line.l10n_mx_edi_merchandise_value"
-                                        t-att-Moneda="line.currency_id.name"
-                                        t-att-FraccionArancelaria="line.transportable_id.l10n_mx_edi_tariff_fraction_id.code"
-                                        t-att-UUIDComercioExt="line.l10n_mx_edi_uuid"
+                                        t-att-Moneda="line.currency_id.name if line.l10n_mx_edi_merchandise_value else False"
+                                        t-att-FraccionArancelaria="line.transportable_id.l10n_mx_edi_tariff_fraction_id.code if line.waybill_id.l10n_mx_edi_international == 'Sí' else False"
+                                        t-att-UUIDComercioExt="line.l10n_mx_edi_uuid  if line.waybill_id.l10n_mx_edi_international == 'Sí' else False"
                                     >
                                     <t t-if="line.l10n_mx_edi_customs_number">
                                         <t t-set="customs_numbers" t-value="line.l10n_mx_edi_customs_number.split(',')"/>
@@ -88,7 +88,6 @@
                                         t-att-Cantidad="line.quantity"
                                         t-att-IDOrigen="[location.get('id') for location in locations if location.get('type') == 'Origen'][0]"
                                         t-att-IDDestino="[location.get('id') for location in locations if location.get('type') == 'Destino'][0]"
-                                        t-att-CvesTransporte="record.waybill_ids.l10n_mx_edi_transport_type"
                                     />
                                     </cartaporte20:Mercancia>
                                 </t>
@@ -138,13 +137,13 @@
                                             />
                                         </t>
                                         <cartaporte20:Domicilio
-                                            t-att-Calle="partner.street_name"
-                                            t-att-NumeroExterior="partner.street_number"
-                                            t-att-NumeroInterior="partner.street_number2"
-                                            t-att-Colonia="partner.l10n_mx_edi_colony"
-                                            t-att-Localidad="partner.l10n_mx_edi_locality_id.code"
-                                            t-att-Referencia="partner.ref"
-                                            t-att-Municipio="partner.city_id.l10n_mx_edi_code"
+                                            t-att-Calle="partner.street_name or False"
+                                            t-att-NumeroExterior="partner.street_number or False"
+                                            t-att-NumeroInterior="partner.street_number2 or False"
+                                            t-att-Colonia="partner.l10n_mx_edi_colony_code or False"
+                                            t-att-Localidad="partner.l10n_mx_edi_locality_id.code if partner.l10n_mx_edi_locality_id else False"
+                                            t-att-Referencia="partner.ref or False"
+                                            t-att-Municipio="partner.city_id.l10n_mx_edi_code if partner.city_id else False"
                                             t-att-Estado="partner.state_id.code"
                                             t-att-Pais="partner.country_id.l10n_mx_edi_code"
                                             t-att-CodigoPostal="partner.zip"
