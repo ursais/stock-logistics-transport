@@ -32,7 +32,8 @@ class AccountEdiFormat(models.Model):
                 "distance": distance,
             }
             return data
-
+        if not invoice.waybill_ids:
+            return res
         travel = invoice.waybill_ids.travel_ids[0]
         res.update({
             "locations": [
