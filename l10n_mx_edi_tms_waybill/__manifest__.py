@@ -4,7 +4,7 @@
 
 {
     "name": "TMS Waybill Complement for Mexico",
-    "version": "15.0.1.0.2",
+    "version": "15.0.1.0.3",
     "category": "Transport",
     "author": "Jarsa Sistemas",
     "website": "https://www.jarsa.com.mx/page/transport-management-system",

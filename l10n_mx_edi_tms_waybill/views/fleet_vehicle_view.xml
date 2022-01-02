@@ -19,6 +19,14 @@
                     'invisible': [('fleet_type', '!=', 'tractor')],
                 }"/>
             </xpath>
+            <xpath expr="//field[@name['insurance_days_to_expire']]" position="after">
+                <field name="l10n_mx_edi_environment_insurance_id" attrs="{
+                    'invisible': [('fleet_type', '!=', 'tractor')],
+                }"/>
+                <field name="l10n_mx_edi_environment_insurance_policy" attrs="{
+                    'invisible': [('fleet_type', '!=', 'tractor')],
+                }"/>
+            </xpath>
         </field>
     </record>
 </odoo>

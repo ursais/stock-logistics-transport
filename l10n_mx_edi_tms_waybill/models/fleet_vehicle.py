@@ -77,3 +77,10 @@ class FleetVehicle(models.Model):
     l10n_mx_edi_sct_permit_number = fields.Char(
         string="SCT Permit Number",
     )
+    l10n_mx_edi_environment_insurance_id = fields.Many2one(
+        comodel_name="res.partner",
+        string="Environment Insurance",
+    )
+    l10n_mx_edi_environment_insurance_policy = fields.Char(
+        string="Environment Insurance Policy Number",
+    )

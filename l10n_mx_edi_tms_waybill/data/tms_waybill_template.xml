@@ -6,6 +6,9 @@
         </xpath>
         <xpath expr="*" position="inside">
             <t t-if="record.waybill_ids">
+                <t t-set="waybill" t-value="record.waybill_ids"/>
+                <t t-set="transportables" t-value="waybill.transportable_line_ids"/>
+                <t t-set="travel" t-value="waybill.travel_ids[0]"/>
                 <cfdi:Complemento
                     xmlns:cfdi="http://www.sat.gob.mx/cfd/3"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -13,10 +16,10 @@
                         xmlns:cartaporte20="http://www.sat.gob.mx/CartaPorte20"
                         xsi:schemaLocation="http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte20.xsd"
                         Version="2.0"
-                        t-att-TranspInternac="record.waybill_ids.l10n_mx_edi_international"
-                        t-att-EntradaSalidaMerc="record.waybill_ids.l10n_mx_edi_international_type"
-                        t-att-PaisOrigenDestino="record.waybill_ids.l10n_mx_edi_foreign_country_id.l10n_mx_edi_code"
-                        t-att-ViaEntradaSalida="record.waybill_ids.l10n_mx_edi_transport_type"
+                        t-att-TranspInternac="waybill.l10n_mx_edi_international"
+                        t-att-EntradaSalidaMerc="waybill.l10n_mx_edi_international_type"
+                        t-att-PaisOrigenDestino="waybill.l10n_mx_edi_foreign_country_id.l10n_mx_edi_code"
+                        t-att-ViaEntradaSalida="waybill.l10n_mx_edi_transport_type"
                         t-att-TotalDistRec="sum([location.get('distance', 0) for location in locations])"
                             >
                             <cartaporte20:Ubicaciones>
@@ -33,7 +36,7 @@
                                         t-att-NombreEstacion=""
                                         t-att-NavegacionTrafico=""
                                         t-att-FechaHoraSalidaLlegada="location.get('date')"
-                                        t-att-TipoEstacion="record.waybill_ids.l10n_mx_edi_station_type"
+                                        t-att-TipoEstacion="waybill.l10n_mx_edi_station_type"
                                         t-att-DistanciaRecorrida="location.get('distance')"
                                         >
                                         <cartaporte20:Domicilio
@@ -52,12 +55,12 @@
                                 </t>
                             </cartaporte20:Ubicaciones>
                             <cartaporte20:Mercancias
-                                t-att-PesoBrutoTotal="sum([(line.quantity * line.transportable_id.l10n_mx_edi_weight_factor) + line.l10n_mx_edi_tare for line in record.waybill_ids.transportable_line_ids])"
-                                t-att-UnidadPeso="record.waybill_ids.transportable_line_ids[0].transportable_uom_id.unspsc_code_id.code"
-                                t-att-PesoNetoTotal="sum([line.quantity * line.transportable_id.l10n_mx_edi_weight_factor for line in record.waybill_ids.transportable_line_ids])"
-                                t-att-NumTotalMercancias="len(record.waybill_ids.transportable_line_ids)"
+                                t-att-PesoBrutoTotal="sum([(line.quantity * line.transportable_id.l10n_mx_edi_weight_factor) + line.l10n_mx_edi_tare for line in waybill.transportable_line_ids])"
+                                t-att-UnidadPeso="waybill.transportable_line_ids[0].transportable_uom_id.unspsc_code_id.code"
+                                t-att-PesoNetoTotal="sum([line.quantity * line.transportable_id.l10n_mx_edi_weight_factor for line in waybill.transportable_line_ids])"
+                                t-att-NumTotalMercancias="len(waybill.transportable_line_ids)"
                                 t-att-CargoPorTasacion="">
-                                <t t-foreach="record.waybill_ids.transportable_line_ids" t-as="line">
+                                <t t-foreach="transportables" t-as="line">
                                     <cartaporte20:Mercancia
                                         t-att-BienesTransp="line.transportable_id.unspsc_code_id.code"
                                         t-att-ClaveSTCC=""
@@ -91,7 +94,6 @@
                                     />
                                     </cartaporte20:Mercancia>
                                 </t>
-                                <t t-set="travel" t-value="record.waybill_ids.travel_ids[0]"/>
                                 <cartaporte20:Autotransporte
                                     t-att-PermSCT="travel.unit_id.l10n_mx_edi_sct_permit_type"
                                     t-att-NumPermisoSCT="travel.unit_id.l10n_mx_edi_sct_permit_number"
@@ -104,11 +106,11 @@
                                     <cartaporte20:Seguros
                                         t-att-AseguraRespCivil="travel.unit_id.insurance_supplier_id.name"
                                         t-att-PolizaRespCivil="travel.unit_id.insurance_policy"
-                                        t-att-AseguraMedAmbiente=""
-                                        t-att-PolizaMedAmbiente=""
-                                        t-att-AseguraCarga="record.waybill_ids.l10n_mx_edi_cargo_insurance_partner_id.name"
-                                        t-att-PolizaCarga="record.waybill_ids.l10n_mx_edi_cargo_insurance_policy"
-                                        t-att-PrimaSeguro="record.waybill_ids.l10n_mx_edi_insurance_fee"
+                                        t-att-AseguraMedAmbiente="travel.unit_id.l10n_mx_edi_environment_insurance_id.name if transportables.mapped('transportable_id.l10n_mx_edi_dangerous_material_id') else False"
+                                        t-att-PolizaMedAmbiente="travel.unit_id.l10n_mx_edi_environment_insurance_policy  if transportables.mapped('transportable_id.l10n_mx_edi_dangerous_material_id') else False"
+                                        t-att-AseguraCarga="waybill.l10n_mx_edi_cargo_insurance_partner_id.name"
+                                        t-att-PolizaCarga="waybill.l10n_mx_edi_cargo_insurance_policy"
+                                        t-att-PrimaSeguro="waybill.l10n_mx_edi_insurance_fee"
                                     />
                                     <cartaporte20:Remolques>
                                         <t t-foreach="trailers" t-as="trailer">
