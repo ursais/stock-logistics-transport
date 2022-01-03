@@ -40,6 +40,14 @@
         <field name="padding">4</field>
         <field name="number_increment">1</field>
     </record>
+    <record model="ir.sequence" id="fuel_prepaid_log_sequence">
+        <field name="name">Fuel Prepaid Log Sequence</field>
+        <field name="implementation">no_gap</field>
+        <field name="code">FP</field>
+        <field name="prefix">FP</field>
+        <field name="padding">4</field>
+        <field name="number_increment">1</field>
+    </record>
     <record model="ir.sequence" id="loan_sequence">
         <field name="name">Loan Sequence</field>
         <field name="implementation">no_gap</field>

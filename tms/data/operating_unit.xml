@@ -9,6 +9,7 @@
         <field name="waybill_sequence_id" ref="waybill_sequence"/>
         <field name="advance_sequence_id" ref="advance_sequence"/>
         <field name="fuel_log_sequence_id" ref="fuel_log_sequence"/>
+        <field name="prepaid_fuel_sequence_id" ref="fuel_prepaid_log_sequence"/>
         <field name="loan_sequence_id" ref="loan_sequence"/>
         <field name="ieps_product_id" ref="product_ieps"/>
         <field name="advance_journal_id" ref="tms_account_journal_advance"/>

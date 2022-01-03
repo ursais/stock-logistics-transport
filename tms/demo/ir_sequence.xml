@@ -40,6 +40,14 @@
         <field name="padding">4</field>
         <field name="number_increment">1</field>
     </record>
+    <record model="ir.sequence" id="fuel_prepaid_log_sequence_2">
+        <field name="name">Fuel Prepaid Log Sequence GDL</field>
+        <field name="implementation">no_gap</field>
+        <field name="code">FP</field>
+        <field name="prefix">FP-GDL</field>
+        <field name="padding">4</field>
+        <field name="number_increment">1</field>
+    </record>
     <record model="ir.sequence" id="loan_sequence_2">
         <field name="name">Loan Sequence GDL</field>
         <field name="implementation">no_gap</field>
@@ -85,6 +93,14 @@
         <field name="implementation">no_gap</field>
         <field name="code">F</field>
         <field name="prefix">F-MTY</field>
+        <field name="padding">4</field>
+        <field name="number_increment">1</field>
+    </record>
+    <record model="ir.sequence" id="fuel_prepaid_log_sequence_3">
+        <field name="name">Fuel Prepaid Log Sequence MTY</field>
+        <field name="implementation">no_gap</field>
+        <field name="code">FP</field>
+        <field name="prefix">FP-MTY</field>
         <field name="padding">4</field>
         <field name="number_increment">1</field>
     </record>

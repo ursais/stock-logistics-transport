@@ -62,6 +62,8 @@
         'views/fleet_vehicle_log_services_view.xml',
     ],
     'demo': [
+        'demo/account_account.xml',
+        'demo/res_partner.xml',
         'demo/ir_sequence.xml',
         'demo/product_product.xml',
         'demo/product_template.xml',
@@ -79,6 +81,9 @@
         'demo/tms_route_fuelefficiency.xml',
         'demo/tms_transportable.xml',
         'demo/tms_unit_kit.xml',
+        'demo/tms_expense_loan.xml',
+        'demo/tms_waybill.xml',
+        'demo/tms_expense.xml',
     ],
     'application': True,
     'installable': True,
