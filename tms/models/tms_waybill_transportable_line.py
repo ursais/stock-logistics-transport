@@ -11,22 +11,37 @@ class TmsWaybillTransportableLine(models.Model):
     _order = 'sequence, id desc'
 
     transportable_id = fields.Many2one(
-        'tms.transportable')
-    name = fields.Char('Description', required=True)
+        comodel_name='tms.transportable',
+        required=True,
+    )
+    name = fields.Char(
+        string='Description',
+        required=True,
+    )
     transportable_uom_id = fields.Many2one(
-        'uom.uom', 'Unit of Measure ', required=True)
-    quantity = fields.Float('Quantity (UoM)', required=True, default=0.0)
+        comodel_name='uom.uom',
+        string='Unit of Measure ',
+        required=True,
+    )
+    quantity = fields.Float(
+        string='Quantity (UoM)',
+        required=True,
+        default=0.0,
+    )
     notes = fields.Char()
     waybill_id = fields.Many2one(
-        'tms.waybill')
+        comodel_name='tms.waybill',
+        required=True,
+        ondelete='cascade',
+        readonly=True,
+    )
     sequence = fields.Integer(
         help="Gives the sequence order when displaying a list of"
         " sales order lines.", default=10)
-    waybill_id = fields.Many2one(
-        'tms.waybill', 'waybill', required=False, ondelete='cascade',
-        index=True, readonly=True)
 
     @api.onchange('transportable_id')
     def _onchange_transportable_id(self):
-        self.name = self.transportable_id.name
-        self.transportable_uom_id = self.transportable_id.uom_id
+        self.update({
+            'name': self.transportable_id.name,
+            'transportable_uom_id': self.transportable_id.uom_id.id,
+        })

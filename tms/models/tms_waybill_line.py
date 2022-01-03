@@ -13,43 +13,55 @@ class TmsWaybillLine(models.Model):
     _order = 'sequence, id desc'
 
     waybill_id = fields.Many2one(
-        'tms.waybill',
-        readonly=True)
-    name = fields.Char('Description', required=True)
+        comodel_name='tms.waybill',
+        readonly=True,
+        ondelete='cascade',
+    )
+    name = fields.Char(
+        string='Description',
+        required=True,
+    )
     sequence = fields.Integer(
         help="Gives the sequence order when displaying a list of "
-        "sales order lines.",
-        default=10)
+        "waybill lines.",
+        default=10,
+    )
     product_id = fields.Many2one(
-        'product.product',
-        required=True)
-    unit_price = fields.Float(
-        default=0.0)
+        comodel_name='product.product',
+        required=True,
+    )
+    unit_price = fields.Float(default=0.0)
     price_subtotal = fields.Float(
         compute='_compute_amount_line',
-        string='Subtotal')
+        string='Subtotal',
+    )
     tax_amount = fields.Float(compute='_compute_amount_line')
     tax_ids = fields.Many2many(
-        'account.tax', string='Taxes',
-        domain='[("type_tax_use", "=", "sale")]')
+        comodel_name='account.tax',
+        string='Taxes',
+        domain='[("type_tax_use", "=", "sale")]',
+    )
     product_qty = fields.Float(
         string='Quantity',
-        default=1.0)
+        default=1.0,
+    )
     discount = fields.Float(
         string='Discount (%)',
-        help="Please use 99.99 format...")
+        help="Please use 99.99 format...",
+    )
     account_id = fields.Many2one(
-        'account.account')
+        'account.account',
+    )
 
     @api.onchange('product_id')
     def on_change_product_id(self):
         for rec in self:
-            rec.name = rec.product_id.name
             fpos = rec.waybill_id.partner_id.property_account_position_id
             fpos_tax_ids = fpos.map_tax(rec.product_id.taxes_id)
-            rec.tax_ids = fpos_tax_ids
-            rec.write({
-                'account_id': rec.product_id.property_account_income_id.id
+            rec.update({
+                'account_id': rec.product_id.property_account_income_id.id,
+                'tax_ids': fpos_tax_ids,
+                'name': rec.product_id.name,
             })
 
     @api.depends('product_qty', 'unit_price', 'discount')
@@ -61,5 +73,7 @@ class TmsWaybillLine(models.Model):
                 price_unit=price_discount, currency=rec.waybill_id.currency_id,
                 quantity=rec.product_qty, product=rec.product_id,
                 partner=rec.waybill_id.partner_id)
-            rec.price_subtotal = taxes['total_excluded']
-            rec.tax_amount = taxes['total_included'] - taxes['total_excluded']
+            rec.write({
+                'price_subtotal': taxes['total_excluded'],
+                'tax_amount': taxes['total_included'] - taxes['total_excluded'],
+            })
