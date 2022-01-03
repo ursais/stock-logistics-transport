@@ -19,11 +19,13 @@ class AccountMove(models.Model):
             if hasattr(cfdi_node, 'Complemento'):
                 node = cfdi_node.Complemento.xpath(attribute, namespaces=namespaces)
                 return node[0] if node else None
+
         def get_cadena(cfdi_node, template):
             if cfdi_node is None:
                 return None
             cadena_root = etree.parse(tools.file_open(template))
             return str(etree.XSLT(cadena_root)(cfdi_node))
+
         if not cfdi_data:
             signed_edi = self._get_l10n_mx_edi_signed_edi_document()
             if signed_edi:

@@ -142,6 +142,11 @@ class FleetVehicleLogFuel(models.Model):
 
     @api.model
     def create(self, values):
+        travel = self.env['tms.travel'].browse(values.get('travel_id'))
+        if travel and not values.get('vehicle_id'):
+            values['vehicle_id'] = travel.unit_id.id
+        if travel and not values.get('operating_unit_id'):
+            values['operating_unit_id'] = travel.operating_unit_id.id
         res = super().create(values)
         if not res.operating_unit_id.fuel_log_sequence_id:
             raise ValidationError(

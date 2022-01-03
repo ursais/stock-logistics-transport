@@ -45,19 +45,6 @@ class AccountEdiFormat(models.Model):
                 "type": "01",  # 01 Operador
                 "partner": travel.employee_id.address_home_id,
                 "driver": travel.employee_id,
-            },
-            # {
-            #     "type": "02",  # 02 Propietario
-            #     "transport_part": "PT04",
-            #     "partner": travel.vehicle_id.owner_id,
-            # },
-            # {
-            #     "type": "03",  # 03 Arrendador 
-            #     "transport_part": "PT03"
-            # },
-            # {
-            #     "type": "04",  # 04 Notificado
-            # },
-            ],
+            }],
         })
         return res

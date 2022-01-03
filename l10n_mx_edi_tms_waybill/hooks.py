@@ -74,7 +74,7 @@ def post_init_hook(cr, registry):
                    FROM l10n_mx_edi_dangerous_material AS material
                    WHERE  material.id IN %s
             ''', [tuple(materials.ids)])
-        
+
         # ==== Update product.unspsc.code for dangerous material ====
 
         csv_path = join(dirname(realpath(__file__)), 'data', 'product.unspsc.code.csv')
@@ -85,12 +85,12 @@ def post_init_hook(cr, registry):
                     delimiter='|',
                     fieldnames=['code', 'type']):
                 product_dict.setdefault(row['type'], []).append(row['code'])
-        for type, codes in product_dict.items():
+        for code_type, codes in product_dict.items():
             env.cr.execute('''
                 UPDATE product_unspsc_code
                 SET l10n_mx_edi_waybill_type = %(type)s
                 WHERE code IN %(code)s
-            ''', {'type': type, 'code': tuple(codes)})
+            ''', {'type': code_type, 'code': tuple(codes)})
 
     # ==== Load l10n_mx_edi.packaging ====
 

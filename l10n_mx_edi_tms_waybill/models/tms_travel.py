@@ -22,17 +22,28 @@ class TmsTravel(models.Model):
             ("T3S1", "Tractocamión Articulado (10 llantas en el tractocamión, 4 llantas en el semirremolque)"),
             ("T3S2", "Tractocamión Articulado (10 llantas en el tractocamión, 8 llantas en el semirremolque)"),
             ("T3S3", "Tractocamión Articulado (10 llantas en el tractocamión, 12 llantas en el semirremolque)"),
-            ("T2S1R2", "Tractocamión Semirremolque-Remolque (6 llantas en el tractocamión, 4 llantas en el semirremolque y 8 llantas en el remolque)"),
-            ("T2S2R2", "Tractocamión Semirremolque-Remolque (6 llantas en el tractocamión, 8 llantas en el semirremolque y 8 llantas en el remolque)"),
-            ("T2S1R3", "Tractocamión Semirremolque-Remolque (6 llantas en el tractocamión, 4 llantas en el semirremolque y 12 llantas en el remolque)"),
-            ("T3S1R2", "Tractocamión Semirremolque-Remolque (10 llantas en el tractocamión, 4 llantas en el semirremolque y 8 llantas en el remolque)"),
-            ("T3S1R3", "Tractocamión Semirremolque-Remolque (10 llantas en el tractocamión, 4 llantas en el semirremolque y 12 llantas en el remolque)"),
-            ("T3S2R2", "Tractocamión Semirremolque-Remolque (10 llantas en el tractocamión, 8 llantas en el semirremolque y 8 llantas en el remolque)"),
-            ("T3S2R3", "Tractocamión Semirremolque-Remolque (10 llantas en el tractocamión, 8 llantas en el semirremolque y 12 llantas en el remolque)"),
-            ("T3S2R4", "Tractocamión Semirremolque-Remolque (10 llantas en el tractocamión, 8 llantas en el semirremolque y 16 llantas en el remolque)"),
-            ("T2S2S2", "Tractocamión Semirremolque-Semirremolque (6 llantas en el tractocamión, 8 llantas en el semirremolque delantero y 8 llantas en el semirremolque trasero)"),
-            ("T3S2S2", "Tractocamión Semirremolque-Semirremolque (10 llantas en el tractocamión, 8 llantas en el semirremolque delantero y 8 llantas en el semirremolque trasero)"),
-            ("T3S3S2", "Tractocamión Semirremolque-Semirremolque (10 llantas en el tractocamión, 12 llantas en el semirremolque delantero y 8 llantas en el semirremolque trasero)"),
+            ("T2S1R2", "Tractocamión Semirremolque-Remolque (6 llantas en el tractocamión, 4 llantas en el "
+                       "semirremolque y 8 llantas en el remolque)"),
+            ("T2S2R2", "Tractocamión Semirremolque-Remolque (6 llantas en el tractocamión, 8 llantas en el "
+                       "semirremolque y 8 llantas en el remolque)"),
+            ("T2S1R3", "Tractocamión Semirremolque-Remolque (6 llantas en el tractocamión, 4 llantas en el "
+                       "semirremolque y 12 llantas en el remolque)"),
+            ("T3S1R2", "Tractocamión Semirremolque-Remolque (10 llantas en el tractocamión, 4 llantas en el "
+                       "semirremolque y 8 llantas en el remolque)"),
+            ("T3S1R3", "Tractocamión Semirremolque-Remolque (10 llantas en el tractocamión, 4 llantas en el "
+                       "semirremolque y 12 llantas en el remolque)"),
+            ("T3S2R2", "Tractocamión Semirremolque-Remolque (10 llantas en el tractocamión, 8 llantas en el "
+                       "semirremolque y 8 llantas en el remolque)"),
+            ("T3S2R3", "Tractocamión Semirremolque-Remolque (10 llantas en el tractocamión, 8 llantas en el "
+                       "semirremolque y 12 llantas en el remolque)"),
+            ("T3S2R4", "Tractocamión Semirremolque-Remolque (10 llantas en el tractocamión, 8 llantas en el "
+                       "semirremolque y 16 llantas en el remolque)"),
+            ("T2S2S2", "Tractocamión Semirremolque-Semirremolque (6 llantas en el tractocamión, 8 llantas en el "
+                       "semirremolque delantero y 8 llantas en el semirremolque trasero)"),
+            ("T3S2S2", "Tractocamión Semirremolque-Semirremolque (10 llantas en el tractocamión, 8 llantas en el "
+                       "semirremolque delantero y 8 llantas en el semirremolque trasero)"),
+            ("T3S3S2", "Tractocamión Semirremolque-Semirremolque (10 llantas en el tractocamión, 12 llantas en el "
+                       "semirremolque delantero y 8 llantas en el semirremolque trasero)"),
             ("OTROEVGP", "Especializado de carga Voluminosa y/o Gran Peso"),
             ("OTROSG", "Servicio de Grúas"),
             ("GPLUTA", "Grúa de Pluma Tipo A"),

@@ -1,7 +1,6 @@
 # Copyright 2021, Jarsa
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from posixpath import relpath
 import re
 
 from odoo import _, api, fields, models
@@ -19,7 +18,7 @@ class TmsTransportable(models.Model):
     l10n_mx_edi_waybill_type = fields.Selection(
         related="unspsc_code_id.l10n_mx_edi_waybill_type",
         store=True,
-    )    
+    )
     l10n_mx_edi_dimensions = fields.Char(
         string="Dimensions",
         help="Optional attribute to express the measures of the packaging of the goods "

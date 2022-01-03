@@ -179,7 +179,6 @@ class TestTmsWaybill(TransactionCase):
             'range_start': 1,
             'range_end': 200,
         })
-        waybill._compute_transportable_product()
         self.assertEqual(waybill.product_volume, 10)
 
     def test_100_tms_waybill_action_cancel(self):

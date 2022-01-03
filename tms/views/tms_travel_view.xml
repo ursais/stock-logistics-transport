@@ -160,20 +160,41 @@
                     </group>
                     <notebook colspan="4">
                         <page string="Vehicle log fuel">
-                            <field name="fuel_log_ids" attrs="{'readonly':[('state','in',('done', 'closed'))]}" nolabel="1" context="{'default_travel_id':active_id, 'default_operating_unit_id':operating_unit_id}">
-                              <tree decoration-danger="state=='cancel'" decoration-success="state=='approved'" decoration-info="state=='confirmed'">
-                                    <field name='name'/>
-                                    <field name='employee_id'/>
-                                    <field name='vendor_id'/>
-                                    <field name='product_qty'/>
-                                    <field name='product_uom_id'/>
-                                    <field name='price_total'/>
-                                    <field name='state'/>
+                            <field name="fuel_log_ids" attrs="{'readonly':[('state','in',('done', 'closed'))]}" nolabel="1" context="{
+                                'default_travel_id':active_id,
+                                'default_operating_unit_id':operating_unit_id,
+                                'default_vehicle_id': unit_id,
+                            }">
+                              <tree decoration-danger="state=='cancel'" decoration-success="state=='approved'" decoration-info="state=='confirmed'" editable="bottom">
+                                    <field name="name" readonly="1"/>
+                                    <field name="vendor_id"/>
+                                    <field name="product_qty"/>
+                                    <field name="price_unit" optional="hide"/>
+                                    <field name="price_subtotal" optional="hide"/>
+                                    <field name="tax_amount"/>
+                                    <field name="special_tax_amount" optional="hide"/>
+                                    <field name="price_total"/>
+                                    <field name="state"/>
                                 </tree>
                             </field>
                         </page>
                         <page string="Advances">
-                            <field name="advance_ids" attrs="{'readonly':[('state','in',('done', 'closed'))]}" context="{'default_travel_id':active_id, 'default_operating_unit_id': operating_unit_id}"/>
+                            <field name="advance_ids" attrs="{'readonly':[('state','in',('done', 'closed'))]}">
+                                <tree decoration-danger="state=='cancel'" decoration-success="state=='approved'" decoration-info="state=='confirmed'" editable="bottom">
+                                    <field name="name" readonly="1"/>
+                                    <field name="product_id"/>
+                                    <field name="amount" widget='monetary' sum="Amount Total"/>
+                                    <field name="currency_id" optional="hide"/>
+                                    <field name="auto_expense"/>
+                                    <field name="date" optional="show"/>
+                                    <field name="paid" optional="hide"/>
+                                    <field name="notes" optional="hide"/>
+                                    <field name="state" optional="show"/>
+                                    <button icon="fa-arrow-right" name="action_approve" states="draft" string="Approve" type="object"/>
+                                    <button icon="fa-arrow-right" name="action_authorized" states="authorized" string="To Authorize" type="object"/>
+                                    <button icon="fa-check" name="action_confirm" states="approved" string="Confirm" type="object"/>
+                                </tree>
+                            </field>
                         </page>
                         <page string="Waybills">
                             <group>

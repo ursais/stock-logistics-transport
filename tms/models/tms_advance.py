@@ -13,7 +13,9 @@ class TmsAdvance(models.Model):
     _order = "name desc, date desc"
 
     operating_unit_id = fields.Many2one(
-        'operating.unit', string='Operating Unit', required=True)
+        related='travel_id.operating_unit_id',
+        store=True,
+    )
     name = fields.Char(string='Advance Number')
     state = fields.Selection(
         [('draft', 'Draft'),

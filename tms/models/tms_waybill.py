@@ -232,7 +232,7 @@ class TmsWaybill(models.Model):
         elif len(invoices) == 1:
             form_view = [(self.env.ref('account.view_move_form').id, 'form')]
             if 'views' in action:
-                action['views'] = form_view + [(state,view) for state,view in action['views'] if view != 'form']
+                action['views'] = form_view + [(state, view) for state, view in action['views'] if view != 'form']
             else:
                 action['views'] = form_view
             action['res_id'] = invoices.id
@@ -376,7 +376,7 @@ class TmsWaybill(models.Model):
                     price_unit=unit_price, currency=rec.currency_id, quantity=line.product_qty,
                     product=line.product_id, partner=rec.partner_id)
                 for tax in taxes['taxes']:
-                    tax_id = tax['id'].origin
+                    tax_id = tax['id'] if isinstance(tax['id'], int) else tax['id'].origin
                     tax_grouped.setdefault(
                         tax_id, (0, 0, {'tax_id': tax_id}))[2]['tax_amount'] = tax['amount']
             tax_lines = [(5, 0, 0)]
