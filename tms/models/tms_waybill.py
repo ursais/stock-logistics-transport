@@ -367,28 +367,24 @@ class TmsWaybill(models.Model):
 
     @api.onchange('waybill_line_ids')
     def onchange_waybill_line_ids(self):
-        for waybill in self:
+        for rec in self:
             tax_grouped = {}
-            for line in waybill.waybill_line_ids:
+            for line in rec.waybill_line_ids:
                 unit_price = (
                     line.unit_price * (1 - (line.discount or 0.0) / 100.0))
                 taxes = line.tax_ids.compute_all(
-                    price_unit=unit_price, currency=waybill.currency_id, quantity=line.product_qty,
-                    product=line.product_id, partner=waybill.partner_id)
+                    price_unit=unit_price, currency=rec.currency_id, quantity=line.product_qty,
+                    product=line.product_id, partner=rec.partner_id)
                 for tax in taxes['taxes']:
-                    val = {
-                        'tax_id': tax['id'],
-                        'tax_amount': tax['amount']
-                    }
-                    if tax['id'] not in tax_grouped:
-                        tax_grouped[tax['id']] = val
-                    else:
-                        tax_grouped[
-                            tax['id']]['tax_amount'] += val['tax_amount']
-            tax_lines = waybill.tax_line_ids.browse([])
+                    tax_id = tax['id'].origin
+                    tax_grouped.setdefault(
+                        tax_id, (0, 0, {'tax_id': tax_id}))[2]['tax_amount'] = tax['amount']
+            tax_lines = [(5, 0, 0)]
             for tax in tax_grouped.values():
-                tax_lines += tax_lines.new(tax)
-            waybill.tax_line_ids = tax_lines
+                tax_lines.append(tax)
+            rec.update({
+                'tax_line_ids': tax_lines,
+            })
 
     def action_cancel_draft(self):
         for waybill in self:
