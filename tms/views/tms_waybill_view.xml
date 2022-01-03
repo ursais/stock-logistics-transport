@@ -31,8 +31,17 @@
                     <button class="oe_highlight" icon="fa-thumbs-up" name="action_approve" states="draft" string="Approve" type="object"/>
                     <button class="oe_highlight" icon="fa-check-square-o" name="action_confirm" states="approved" string="Confirm" type="object"/>
                     <field name="state" statusbar_visible="draft,approved,confirmed" widget="statusbar"/>
+
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <field name="invoice_id" invisible="1"/>
+                        <button name="action_view_invoice" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('invoice_id', '=', False)]}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">View Invoice</span>
+                            </div>
+                        </button>
+                    </div>
                     <h1>
                         <label for="name" attrs="{'invisible':[('name','=', False)]}" class="oe_inline" string="Waybill - " style="font-size:30px;"/>
                         <field class="oe_inline" name="name" readonly="1"/>
@@ -165,9 +174,7 @@
                             <group col="4" colspan="4">
                                 <group colspan="2">
                                     <separator colspan="2" string="Client Invoice Data"/>
-                                    <field name="invoice_id"/>
                                     <field name="invoice_paid"/>
-                                    <newline/>
                                 </group>
                                 <group colspan="2">
                                     <separator colspan="2" string="Supplier Invoice Data"/>
