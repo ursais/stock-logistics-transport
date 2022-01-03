@@ -92,13 +92,13 @@ class TmsWaybill(models.Model):
         'tms.waybill.transportable.line', 'waybill_id',
         string='Shipped Products')
     product_qty = fields.Float(
-        compute='_compute_transportable_product',
+        compute='_compute_product_qty',
         string='Sum Qty')
     product_volume = fields.Float(
-        compute='_compute_transportable_product',
+        compute='_compute_product_volume',
         string='Sum Volume')
     product_weight = fields.Float(
-        compute='_compute_transportable_product',
+        compute='_compute_product_weight',
         string='Sum Weight')
     amount_freight = fields.Float(
         compute='_compute_amount_freight',
@@ -126,7 +126,10 @@ class TmsWaybill(models.Model):
         string='Total', store=True)
     distance_real = fields.Float(
         help="Route obtained by electronic reading")
-    distance_route = fields.Float()
+    distance_route = fields.Float(
+        compute='_compute_distance_route',
+        string='Sum Distance',
+    )
     notes = fields.Html()
     date_start = fields.Datetime(
         'Load Date Sched', help="Date Start time for Load",
@@ -190,14 +193,11 @@ class TmsWaybill(models.Model):
             ('tms_product_category', '=', 'freight')], limit=1)
         if product:
             self.waybill_line_ids.create({
-                'tax_ids': [(
-                    6, 0, [x.id for x in (
-                        product.taxes_id)]
-                )],
+                'tax_ids': [(6, 0, product.taxes_id.ids)],
                 'name': product.name,
                 'waybill_id': waybill.id,
                 'product_id': product.id,
-                'unit_price': waybill._compute_transportable_product(),
+                'unit_price': waybill._compute_line_unit_price(),
                 'account_id': product.property_account_income_id.id,
             })
         waybill.onchange_waybill_line_ids()
@@ -205,7 +205,7 @@ class TmsWaybill(models.Model):
 
     def write(self, values):
         for rec in self:
-            if 'partner_id' in values:
+            if values.get('partner_id'):
                 for travel in rec.travel_ids:
                     travel.partner_ids = False
                     travel._compute_partner_ids()
@@ -265,91 +265,91 @@ class TmsWaybill(models.Model):
     @api.onchange('customer_factor_ids', 'transportable_line_ids')
     def _onchange_waybill_line_ids(self):
         for rec in self:
-            for product in rec.waybill_line_ids:
-                if product.product_id.tms_product_category == 'freight':
-                    product.write({
-                        'unit_price': rec._compute_transportable_product()})
+            rec.waybill_line_ids.filtered(lambda l: l.product_id.tms_product_category == 'freight').write({
+                'unit_price': rec._compute_line_unit_price(),
+            })
 
-    @api.model
-    def _compute_transportable_product(self):
-        for waybill in self:
-            total_get_amount = 0.0
-            for factor in waybill.customer_factor_ids:
-                if factor.factor_type in [
-                        'distance', 'distance_real', 'percent',
-                        'percent_drive', 'travel', 'amount_driver']:
-                    for travel in waybill.travel_ids:
-                        waybill.distance_route += travel.route_id.distance
-                    waybill.distance_real = 0.0
-                    total_get_amount += waybill.customer_factor_ids.get_amount(
-                        waybill.product_weight, waybill.distance_route,
-                        waybill.distance_real, waybill.product_qty,
-                        waybill.product_volume, waybill.amount_total)
-                else:
-                    for record in waybill.transportable_line_ids:
-                        waybill.product_qty = record.quantity
-                        weight_categ = self.env.ref('uom.product_uom_categ_kgm')
-                        volume_categ = self.env.ref('uom.product_uom_categ_vol')
-                        if record.transportable_uom_id.category_id == volume_categ:
-                            waybill.product_volume += record.quantity
-                        elif record.transportable_uom_id.category_id == weight_categ:
-                            waybill.product_weight += record.quantity
-                    total_get_amount += (
-                        waybill.customer_factor_ids.get_amount(
-                            waybill.product_weight, waybill.distance_route,
-                            waybill.distance_real, waybill.product_qty,
-                            waybill.product_volume, waybill.amount_total))
-            return total_get_amount
+    @api.depends('transportable_line_ids.quantity')
+    def _compute_product_qty(self):
+        for rec in self:
+            rec.product_qty = sum(rec.transportable_line_ids.mapped('quantity'))
 
-    def _compute_amount_all(self, category):
-        for waybill in self:
-            field = 0.0
-            for line in waybill.waybill_line_ids:
-                if (line.product_id.tms_product_category ==
-                        category):
-                    field += line.price_subtotal
-            return field
+    @api.depends('transportable_line_ids.transportable_uom_id', 'transportable_line_ids.quantity')
+    def _compute_product_volume(self):
+        vol_categ = self.env.ref('uom.product_uom_categ_vol')
+        for rec in self:
+            rec.product_volume = sum(rec.transportable_line_ids.filtered(
+                lambda l: l.transportable_uom_id.category_id == vol_categ).mapped('quantity'))
 
-    @api.depends('waybill_line_ids')
+    @api.depends('transportable_line_ids.transportable_uom_id', 'transportable_line_ids.quantity')
+    def _compute_product_weight(self):
+        weight_categ = self.env.ref('uom.product_uom_categ_kgm')
+        for rec in self:
+            rec.product_weight = sum(rec.transportable_line_ids.filtered(
+                lambda l: l.transportable_uom_id.category_id == weight_categ).mapped('quantity'))
+
+    @api.depends('travel_ids.route_id.distance')
+    def _compute_distance_route(self):
+        for rec in self:
+            rec.distance_route = sum(rec.travel_ids.mapped('route_id.distance'))
+
+    def _compute_line_unit_price(self):
+        for rec in self:
+            return sum(
+                factor.get_amount(
+                    distance=rec.distance_route,
+                    distance_real=rec.distance_real,
+                    income=rec.amount_total,
+                    qty=rec.product_qty,
+                    weight=rec.product_weight,
+                    volume=rec.product_volume)
+                for factor in rec.customer_factor_ids
+            )
+
+    @api.depends('waybill_line_ids.price_subtotal')
     def _compute_amount_freight(self):
         for rec in self:
-            rec.amount_freight = rec._compute_amount_all('freight')
+            rec.amount_freight = sum(
+                rec.waybill_line_ids.filtered(
+                    lambda l: l.product_id.tms_product_category == 'freight').mapped('price_subtotal'))
 
-    @api.depends('waybill_line_ids')
+    @api.depends('waybill_line_ids.price_subtotal')
     def _compute_amount_move(self):
         for rec in self:
-            rec.amount_move = rec._compute_amount_all('move')
+            rec.amount_move = sum(
+                rec.waybill_line_ids.filtered(
+                    lambda l: l.product_id.tms_product_category == 'move').mapped('price_subtotal'))
 
-    @api.depends('waybill_line_ids')
+    @api.depends('waybill_line_ids.price_subtotal')
     def _compute_amount_highway_tolls(self):
         for rec in self:
-            rec.amount_highway_tolls = rec._compute_amount_all('tolls')
+            rec.amount_highway_tolls = sum(
+                rec.waybill_line_ids.filtered(
+                    lambda l: l.product_id.tms_product_category == 'tolls').mapped('price_subtotal'))
 
-    @api.depends('waybill_line_ids')
+    @api.depends('waybill_line_ids.price_subtotal')
     def _compute_amount_insurance(self):
         for rec in self:
-            rec.amount_insurance = rec._compute_amount_all('insurance')
+            rec.amount_insurance = sum(
+                rec.waybill_line_ids.filtered(
+                    lambda l: l.product_id.tms_product_category == 'insurance').mapped('price_subtotal'))
 
-    @api.depends('waybill_line_ids')
+    @api.depends('waybill_line_ids.price_subtotal')
     def _compute_amount_other(self):
         for rec in self:
-            rec.amount_other = rec._compute_amount_all('other')
+            rec.amount_other = sum(
+                rec.waybill_line_ids.filtered(
+                    lambda l: l.product_id.tms_product_category == 'other').mapped('price_subtotal'))
 
-    @api.depends('waybill_line_ids')
+    @api.depends('waybill_line_ids.price_subtotal')
     def _compute_amount_untaxed(self):
-        for waybill in self:
-            amount_untaxed = 0
-            for line in waybill.waybill_line_ids:
-                amount_untaxed += line.price_subtotal
-            waybill.amount_untaxed = amount_untaxed
+        for rec in self:
+            rec.amount_untaxed = sum(rec.waybill_line_ids.mapped('price_subtotal'))
 
-    @api.depends('waybill_line_ids')
+    @api.depends('waybill_line_ids.tax_amount')
     def _compute_amount_tax(self):
         for rec in self:
-            amount_tax = 0
-            for line in rec.waybill_line_ids:
-                amount_tax += line.tax_amount
-            rec.amount_tax = amount_tax
+            rec.amount_tax = sum(rec.waybill_line_ids.mapped('tax_amount'))
 
     @api.depends('amount_untaxed', 'amount_tax')
     def _compute_amount_total(self):

@@ -105,9 +105,7 @@ class TmsFactor(models.Model):
                             amount += rec.factor * value
                         elif not rec.range_start and not rec.range_end:
                             amount += rec.factor * value
-                if amount == 0.0:
-                    raise ValidationError(
-                        _('the amount isnt between of any ranges'))
-            if rec.mixed:
+                # TODO: Add validation to check if values are in range
+            if rec.mixed and rec.factor_type != 'travel':
                 amount += rec.fixed_amount
         return amount
