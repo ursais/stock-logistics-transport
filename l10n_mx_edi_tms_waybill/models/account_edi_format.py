@@ -1,7 +1,8 @@
 # Copyright 2021, Jarsa
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from odoo import models
+from odoo import _, models
+from odoo.exceptions import UserError
 
 
 class AccountEdiFormat(models.Model):
@@ -24,6 +25,10 @@ class AccountEdiFormat(models.Model):
                 loc_id = "DE" + str(partner.id).zfill(6)
                 date = max(waybill.travel_ids.mapped("date_end"))
                 distance = waybill.travel_ids[0].distance_route
+            if not date:
+                raise UserError(_('The travel dates are not set.'))
+            if not distance:
+                raise UserError(_('The travel distance is not set.'))
             data = {
                 "type": location_type,
                 "id": loc_id,
