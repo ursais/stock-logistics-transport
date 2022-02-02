@@ -181,13 +181,11 @@ class TmsWaybill(models.Model):
 
     @api.depends('date_order')
     def _compute_rate(self):
-        res = super()._compute_rate()
-        currency_mxn = self.env.ref('base.MXN')
+        company_currency = self.env.company.currency_id
         for record in self.filtered(lambda r: r.date_order):
-            currency = record.currency_id.with_company(
+            currency = record.currency_id.with_context(
                 date=record.date_order)
-            record.rate = currency.compute(1, currency_mxn, round=False)
-        return res
+            record.rate = currency.compute(1, company_currency, round=False)
 
     @api.depends('travel_ids')
     def _compute_expense_ids(self):
