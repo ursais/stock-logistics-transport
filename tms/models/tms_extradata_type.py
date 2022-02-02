@@ -26,7 +26,7 @@ class TmsExtradataType(models.Model):
     def default_get(self, field):
         res = super().default_get(
             field)
-        active_model = self.env.context['active_model_base']
+        active_model = self.env.context['base_model_name']
         if active_model == 'fleet.vehicle':
             res['apply_on'] = 'unit'
         elif active_model == 'tms.waybill':

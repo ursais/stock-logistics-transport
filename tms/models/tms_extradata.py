@@ -47,7 +47,7 @@ class TmsExtradata(models.Model):
             view_id=view_id, view_type=view_type,
             toolbar=toolbar, submenu=submenu)
         doc = etree.XML(res['arch'])  # pylint: disable=c-extension-no-member
-        active_model = self._context['active_model_base']
+        active_model = self._context['base_model_name']
         for node in doc.xpath("//field[@name='type_id']"):
             if active_model == 'fleet.vehicle':
                 node.set('domain', "[('apply_on', '=', 'unit')]")

@@ -16,7 +16,7 @@
         <field name="arch" type="xml">
             <form string="TMS Extra Fields">
                 <group>
-                    <field name="type_id" context="{'active_model_base': context.get('active_model_base')}"/>
+                    <field name="type_id" context="{'base_model_name': context.get('base_model_name')}"/>
                     <field name="value_extra" invisible="1"/>
                     <field name="type" invisible="1"/>
                     <field attrs="{'invisible':[('type','!=','char')],'required':[('type','=','char')]}" name="value_char"/>
