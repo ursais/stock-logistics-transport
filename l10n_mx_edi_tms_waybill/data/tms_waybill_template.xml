@@ -32,9 +32,6 @@
                                         t-att-NombreRemitenteDestinatario="format_string(partner.name)"
                                         t-att-NumRegIdTrib="partner.vat if partner.country_id.code != 'MX' else False"
                                         t-att-ResidenciaFiscal="partner.country_id.l10n_mx_edi_code if partner.country_id.code != 'MX' else False"
-                                        t-att-NumEstacion=""
-                                        t-att-NombreEstacion=""
-                                        t-att-NavegacionTrafico=""
                                         t-att-FechaHoraSalidaLlegada="location.get('date')"
                                         t-att-TipoEstacion="waybill.l10n_mx_edi_station_type"
                                         t-att-DistanciaRecorrida="location.get('distance')"
@@ -59,11 +56,10 @@
                                 t-att-UnidadPeso="waybill.transportable_line_ids[0].transportable_uom_id.unspsc_code_id.code"
                                 t-att-PesoNetoTotal="sum([line.quantity * line.transportable_id.l10n_mx_edi_weight_factor for line in waybill.transportable_line_ids])"
                                 t-att-NumTotalMercancias="len(waybill.transportable_line_ids)"
-                                t-att-CargoPorTasacion="">
+                                >
                                 <t t-foreach="transportables" t-as="line">
                                     <cartaporte20:Mercancia
                                         t-att-BienesTransp="line.transportable_id.unspsc_code_id.code"
-                                        t-att-ClaveSTCC=""
                                         t-att-Descripcion="line.transportable_id.name"
                                         t-att-Cantidad="line.quantity"
                                         t-att-ClaveUnidad="line.transportable_uom_id.unspsc_code_id.code"
