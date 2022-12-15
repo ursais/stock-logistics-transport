@@ -1064,7 +1064,7 @@ class TmsExpense(models.Model):
         notes = line.expense_id.name + ' - ' + line.product_id.name
         invoice = {
             'invoice_origin': line.expense_id.name,
-            'type': 'in_invoice',
+            'move_type': 'in_invoice',
             'journal_id': journal_id,
             'ref': line.invoice_number,
             'partner_id': line.partner_id.id,
