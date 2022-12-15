@@ -7,7 +7,7 @@ cache:
     - $HOME/.cache/pip
 
 addons:
-  postgresql: "11"
+  postgresql: "13"
   apt:
     packages:
       - expect-dev
@@ -21,7 +21,6 @@ env:
   - TESTS="0" LINT_CHECK="0"
 
   matrix:
-  - LINT_CHECK="1"
   - TESTS="1"
 
 install:
