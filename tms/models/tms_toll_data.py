@@ -6,11 +6,11 @@ from odoo import fields, models
 
 
 class TmsTollData(models.Model):
-    _name = 'tms.toll.data'
-    _description = 'Toll Data'
+    _name = "tms.toll.data"
+    _description = "Toll Data"
 
     date = fields.Datetime()
-    num_tag = fields.Char(string='Tag number')
+    num_tag = fields.Char(string="Tag number")
     economic_number = fields.Char()
     toll_station = fields.Char()
     import_rate = fields.Float()

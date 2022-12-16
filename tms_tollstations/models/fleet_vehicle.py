@@ -5,6 +5,6 @@ from odoo import fields, models
 
 
 class FleetVehicle(models.Model):
-    _inherit = 'fleet.vehicle'
+    _inherit = "fleet.vehicle"
 
     tollstation_tag = fields.Char()

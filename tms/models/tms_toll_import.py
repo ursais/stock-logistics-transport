@@ -5,6 +5,6 @@ from odoo import fields, models
 
 
 class TmsTollImport(models.Model):
-    _name = 'tms.toll.import'
+    _name = "tms.toll.import"
 
-    uploaded_file = fields.Binary(string='Upload your file!')
+    uploaded_file = fields.Binary(string="Upload your file!")

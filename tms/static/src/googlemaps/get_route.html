@@ -18,8 +18,8 @@
     var currentDirections = null;
 
     function initialize() {
-        var qAt = document.URL.indexOf("?"); 
-        var params = document.URL.substr(qAt+1).split(",");    
+        var qAt = document.URL.indexOf("?");
+        var params = document.URL.substr(qAt+1).split(",");
         var start = new google.maps.LatLng(params[0], params[1]);
         var end   = new google.maps.LatLng(params[2], params[3]);
 
@@ -37,10 +37,10 @@
 
         var mapOptions = {
           center: start,
-          zoom: 12,          
+          zoom: 12,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-        
+
         map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
         var marker = new google.maps.Marker({
                 map: map,
@@ -78,4 +78,3 @@
 </div>
 </body>
 </html>
-

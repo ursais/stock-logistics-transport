@@ -7,6 +7,6 @@ from odoo import fields, models
 
 
 class FleetVehicleLogServices(models.Model):
-    _inherit = 'fleet.vehicle.log.services'
+    _inherit = "fleet.vehicle.log.services"
 
     validity = fields.Date()

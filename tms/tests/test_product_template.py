@@ -6,15 +6,10 @@ from odoo.tests.common import TransactionCase
 
 
 class TestProductTemplate(TransactionCase):
-
     def setUp(self):
         super().setUp()
-        self.product = self.env.ref('tms.product_freight')
+        self.product = self.env.ref("tms.product_freight")
 
     def test_10_product_template_unique_product_per_category(self):
-        with self.assertRaisesRegex(
-                ValidationError,
-                'Only there must be a product with category "Moves"'):
-            self.product.write({
-                'tms_product_category': 'move'
-            })
+        with self.assertRaisesRegex(ValidationError, 'Only there must be a product with category "Moves"'):
+            self.product.write({"tms_product_category": "move"})

@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_tms_factor_tree" model="ir.ui.view">
         <field name="name">tms.factor.tree</field>
         <field name="model">tms.factor</field>
         <field name="priority">2</field>
         <field name="arch" type="xml">
-            <tree string="Billing Factors">
-                <field invisible="1" name="category"/>
-                <field name="name"/>
-                <field name="factor_type"/>
-                <field name="factor"/>
-                <field name="range_start"/>
-                <field name="range_end"/>
-                <field name="fixed_amount"/>
-                <field name="mixed"/>
+            <tree>
+                <field invisible="1" name="category" />
+                <field name="name" />
+                <field name="factor_type" />
+                <field name="factor" />
+                <field name="range_start" />
+                <field name="range_end" />
+                <field name="fixed_amount" />
+                <field name="mixed" />
             </tree>
         </field>
     </record>
@@ -25,15 +25,30 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="factor_type"/>
-                            <field invisible="True" name="category"/>
-                            <field name="name"/>
-                            <field attrs="{'invisible' :[('factor_type', 'in', ('percent_driver','travel','amount_driver'))],'required': [('factor_type','in',('distance','weight','qty','volume','percent'))]}" name="factor"/>
-                            <field attrs="{'invisible': [('factor_type', 'in', ('percent_driver', 'travel', 'percent','amount_driver'))], 'required': [('factor_type', 'in', ('distance','weight','qty','volume'))]}" name="range_start"/>
-                            <field attrs="{'invisible': [('factor_type', 'in', ('percent_driver', 'travel', 'percent', 'amount_driver'))], 'required': [('factor_type', 'in', ('distance', 'weight', 'qty', 'volume'))]}" name="range_end"/>
-                            <field attrs="{'invisible' :[('factor_type', 'in', ('travel', 'amount_driver'))]}" name="mixed"/>
-                            <field attrs="{'invisible' :[('mixed', '!=', True), '|', ('factor_type', '!=', 'travel'), ('mixed', '!=', False)]}" name="fixed_amount"/>
-                            <field name="notes"/>
+                            <field name="factor_type" />
+                            <field invisible="True" name="category" />
+                            <field name="name" />
+                            <field
+                                attrs="{'invisible' :[('factor_type', 'in', ('percent_driver','travel','amount_driver'))],'required': [('factor_type','in',('distance','weight','qty','volume','percent'))]}"
+                                name="factor"
+                            />
+                            <field
+                                attrs="{'invisible': [('factor_type', 'in', ('percent_driver', 'travel', 'percent','amount_driver'))], 'required': [('factor_type', 'in', ('distance','weight','qty','volume'))]}"
+                                name="range_start"
+                            />
+                            <field
+                                attrs="{'invisible': [('factor_type', 'in', ('percent_driver', 'travel', 'percent', 'amount_driver'))], 'required': [('factor_type', 'in', ('distance', 'weight', 'qty', 'volume'))]}"
+                                name="range_end"
+                            />
+                            <field
+                                attrs="{'invisible' :[('factor_type', 'in', ('travel', 'amount_driver'))]}"
+                                name="mixed"
+                            />
+                            <field
+                                attrs="{'invisible' :[('mixed', '!=', True), '|', ('factor_type', '!=', 'travel'), ('mixed', '!=', False)]}"
+                                name="fixed_amount"
+                            />
+                            <field name="notes" />
                         </group>
                     </group>
                 </sheet>

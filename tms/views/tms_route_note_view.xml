@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record model='ir.ui.view' id='tms_route_note_form'>
         <field name='name'>tms_route_note.form</field>
@@ -6,9 +6,9 @@
         <field name='arch' type='xml'>
             <form string='Notes'>
                 <group>
-                    <field name='partner_id'/>
-                    <field name='notes'/>
-                    <field name='rules'/>
+                    <field name='partner_id' />
+                    <field name='notes' />
+                    <field name='rules' />
                 </group>
             </form>
         </field>

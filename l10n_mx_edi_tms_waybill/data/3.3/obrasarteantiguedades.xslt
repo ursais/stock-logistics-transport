@@ -8,26 +8,26 @@
     <xsl:call-template name="Requerido">
       <xsl:with-param name="valor" select="./@TipoBien" />
     </xsl:call-template>
-	<xsl:call-template name="Opcional">
+    <xsl:call-template name="Opcional">
       <xsl:with-param name="valor" select="./@OtrosTipoBien" />
     </xsl:call-template>
-	<xsl:call-template name="Requerido">
+    <xsl:call-template name="Requerido">
       <xsl:with-param name="valor" select="./@TituloAdquirido" />
     </xsl:call-template>
-	<xsl:call-template name="Opcional">
+    <xsl:call-template name="Opcional">
       <xsl:with-param name="valor" select="./@OtrosTituloAdquirido" />
     </xsl:call-template>
-	<xsl:call-template name="Opcional">
+    <xsl:call-template name="Opcional">
       <xsl:with-param name="valor" select="./@Subtotal" />
     </xsl:call-template>
-	<xsl:call-template name="Opcional">
+    <xsl:call-template name="Opcional">
       <xsl:with-param name="valor" select="./@IVA" />
     </xsl:call-template>
-	<xsl:call-template name="Requerido">
+    <xsl:call-template name="Requerido">
       <xsl:with-param name="valor" select="./@FechaAdquisicion" />
     </xsl:call-template>
-	<xsl:call-template name="Requerido">
+    <xsl:call-template name="Requerido">
       <xsl:with-param name="valor" select="./@CaracterísticasDeObraoPieza" />
     </xsl:call-template>
-	</xsl:template>
+    </xsl:template>
   </xsl:stylesheet>

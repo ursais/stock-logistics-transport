@@ -22,9 +22,9 @@ class TmsTransportable(models.Model):
     l10n_mx_edi_dimensions = fields.Char(
         string="Dimensions",
         help="Optional attribute to express the measures of the packaging of the goods "
-             "and / or merchandise that are moved in the different means of transport. "
-             "The length, height and width must be recorded in centimeters or in inches"
-             ", these values separated by a diagonal, i.e. 30/40 / 30cm.",
+        "and / or merchandise that are moved in the different means of transport. "
+        "The length, height and width must be recorded in centimeters or in inches"
+        ", these values separated by a diagonal, i.e. 30/40 / 30cm.",
     )
     l10n_mx_edi_dangerous_material_id = fields.Many2one(
         comodel_name="l10n_mx_edi.dangerous.material",
@@ -43,7 +43,7 @@ class TmsTransportable(models.Model):
         comodel_name="l10n_mx_edi.tariff.fraction",
         string="Tariff Fraction",
         help="It is used to express the key of the tariff fraction corresponding to the description of the product to "
-             "export."
+        "export.",
     )
 
     @api.constrains("l10n_mx_edi_dimensions")
@@ -53,5 +53,4 @@ class TmsTransportable(models.Model):
                 pattern = "([0-9]{1,3}[/]){2}([0-9]{1,3})(cm|plg)"
                 regex = re.compile(pattern)
                 if not regex.match(rec.l10n_mx_edi_dimensions):
-                    raise UserError(_(
-                        "The dimensions must be in the format: 999/999/999cm or 999/999/999plg"))
+                    raise UserError(_("The dimensions must be in the format: 999/999/999cm or 999/999/999plg"))

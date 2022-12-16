@@ -2642,7 +2642,7 @@ msgstr "Mensajes"
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_factor__mixed
 msgid "Mixed"
-msgstr "Convinado"
+msgstr "Combinado"
 
 #. module: tms
 #: model:ir.model,name:tms.model_tms_advance

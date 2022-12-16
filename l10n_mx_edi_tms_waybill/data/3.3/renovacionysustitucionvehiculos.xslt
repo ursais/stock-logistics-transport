@@ -13,7 +13,7 @@
     <xsl:apply-templates select="./decreto:DecretoRenovVehicular" />
     <xsl:apply-templates select="./decreto:DecretoSustitVehicular" />
   </xsl:template>
-  
+
   <xsl:template match="decreto:DecretoRenovVehicular">
     <!--  Iniciamos el tratamiento de los atributos de sustitucionvehiculos:DecretoRenovVehicular-->
     <xsl:call-template name="Requerido">

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="precision_l10n_mx_edi_tms_waybill" model="decimal.precision">
         <field name="name">Weight Factor (l10n_mx_edi_tms_waybill)</field>

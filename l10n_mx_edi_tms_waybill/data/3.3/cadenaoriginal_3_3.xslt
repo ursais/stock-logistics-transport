@@ -4,45 +4,45 @@
   <!-- Con el siguiente método se establece que la salida deberá ser en texto -->
   <xsl:output method="text" version="1.0" encoding="UTF-8" indent="no"/>
   <!--
-		En esta sección se define la inclusión de las plantillas de utilerías para colapsar espacios
-	-->
+        En esta sección se define la inclusión de las plantillas de utilerías para colapsar espacios
+    -->
   <xsl:include href="utilerias.xslt"/>
-  <!-- 
-		En esta sección se define la inclusión de las demás plantillas de transformación para 
-		la generación de las cadenas originales de los complementos fiscales 
-	-->
-	<xsl:include href="ecc11.xslt"/>
-	<xsl:include href="donat11.xslt"/>
-	<xsl:include href="divisas.xslt"/>
-	<xsl:include href="implocal.xslt"/>
-	<xsl:include href="leyendasFisc.xslt"/>
-	<xsl:include href="pfic.xslt"/>
-	<xsl:include href="TuristaPasajeroExtranjero.xslt"/>
-	<xsl:include href="nomina12.xslt"/>
-	<xsl:include href="cfdiregistrofiscal.xslt"/>
-	<xsl:include href="pagoenespecie.xslt"/>
-	<xsl:include href="aerolineas.xslt"/>
-	<xsl:include href="valesdedespensa.xslt"/>
-	<xsl:include href="consumodecombustibles.xslt"/>
-	<xsl:include href="notariospublicos.xslt"/>
-	<xsl:include href="vehiculousado.xslt"/>
-	<xsl:include href="servicioparcialconstruccion.xslt"/>
-	<xsl:include href="renovacionysustitucionvehiculos.xslt"/>
-	<xsl:include href="certificadodedestruccion.xslt"/>
-	<xsl:include href="obrasarteantiguedades.xslt"/>
-	<xsl:include href="ComercioExterior11.xslt"/>
-	<xsl:include href="ine11.xslt"/>
-	<xsl:include href="iedu.xslt"/>
-	<xsl:include href="ventavehiculos11.xslt"/>
-	<xsl:include href="terceros11.xslt"/>
-	<xsl:include href="Pagos10.xslt"/>
-	<xsl:include href="detallista.xslt"/>
-	<xsl:include href="ecc12.xslt"/>
-	<xsl:include href="consumodeCombustibles11.xslt"/>
-	<xsl:include href="GastosHidrocarburos10.xslt"/>
-	<xsl:include href="IngresosHidrocarburos.xslt"/>
-	<xsl:include href="CartaPorte.xslt"/>
-	<xsl:include href="CartaPorte20.xslt"/>
+  <!--
+        En esta sección se define la inclusión de las demás plantillas de transformación para
+        la generación de las cadenas originales de los complementos fiscales
+    -->
+    <xsl:include href="ecc11.xslt"/>
+    <xsl:include href="donat11.xslt"/>
+    <xsl:include href="divisas.xslt"/>
+    <xsl:include href="implocal.xslt"/>
+    <xsl:include href="leyendasFisc.xslt"/>
+    <xsl:include href="pfic.xslt"/>
+    <xsl:include href="TuristaPasajeroExtranjero.xslt"/>
+    <xsl:include href="nomina12.xslt"/>
+    <xsl:include href="cfdiregistrofiscal.xslt"/>
+    <xsl:include href="pagoenespecie.xslt"/>
+    <xsl:include href="aerolineas.xslt"/>
+    <xsl:include href="valesdedespensa.xslt"/>
+    <xsl:include href="consumodecombustibles.xslt"/>
+    <xsl:include href="notariospublicos.xslt"/>
+    <xsl:include href="vehiculousado.xslt"/>
+    <xsl:include href="servicioparcialconstruccion.xslt"/>
+    <xsl:include href="renovacionysustitucionvehiculos.xslt"/>
+    <xsl:include href="certificadodedestruccion.xslt"/>
+    <xsl:include href="obrasarteantiguedades.xslt"/>
+    <xsl:include href="ComercioExterior11.xslt"/>
+    <xsl:include href="ine11.xslt"/>
+    <xsl:include href="iedu.xslt"/>
+    <xsl:include href="ventavehiculos11.xslt"/>
+    <xsl:include href="terceros11.xslt"/>
+    <xsl:include href="Pagos10.xslt"/>
+    <xsl:include href="detallista.xslt"/>
+    <xsl:include href="ecc12.xslt"/>
+    <xsl:include href="consumodeCombustibles11.xslt"/>
+    <xsl:include href="GastosHidrocarburos10.xslt"/>
+    <xsl:include href="IngresosHidrocarburos.xslt"/>
+    <xsl:include href="CartaPorte.xslt"/>
+    <xsl:include href="CartaPorte20.xslt"/>
 
   <!-- Aquí iniciamos el procesamiento de la cadena original con su | inicial y el terminador || -->
   <xsl:template match="/">|<xsl:apply-templates select="/cfdi:Comprobante"/>||</xsl:template>
@@ -98,8 +98,8 @@
       <xsl:with-param name="valor" select="./@Confirmacion"/>
     </xsl:call-template>
     <!--
-			Llamadas para procesar al los sub nodos del comprobante
-		-->
+            Llamadas para procesar al los sub nodos del comprobante
+        -->
     <xsl:apply-templates select="./cfdi:CfdiRelacionados"/>
     <xsl:apply-templates select="./cfdi:Emisor"/>
     <xsl:apply-templates select="./cfdi:Receptor"/>

@@ -128,7 +128,7 @@
       <xsl:apply-templates select="."/>
     </xsl:for-each>
   </xsl:template>
-  
+
   <xsl:template match="gceh:Tareas">
     <xsl:call-template name="Opcional">
       <xsl:with-param name="valor" select="./@TareaRelacionada" />

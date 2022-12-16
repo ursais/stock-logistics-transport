@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="view_tms_extradata_tree" model="ir.ui.view">
         <field name="name">tms.extradata.tree</field>
         <field name="model">tms.extradata</field>
         <field name="arch" type="xml">
-            <tree string="TMS Waybill Extra Fields">
+            <tree>
                 <field name="type_id" />
-                <field name="value_extra"/>
+                <field name="value_extra" />
             </tree>
         </field>
     </record>
@@ -16,14 +16,29 @@
         <field name="arch" type="xml">
             <form string="TMS Extra Fields">
                 <group>
-                    <field name="type_id" context="{'base_model_name': context.get('base_model_name')}"/>
-                    <field name="value_extra" invisible="1"/>
-                    <field name="type" invisible="1"/>
-                    <field attrs="{'invisible':[('type','!=','char')],'required':[('type','=','char')]}" name="value_char"/>
-                    <field attrs="{'invisible':[('type','!=','integer')],'required':[('type','=','integer')]}" name="value_integer"/>
-                    <field attrs="{'invisible':[('type','!=','float')],'required':[('type','=','float')]}" name="value_float"/>
-                    <field attrs="{'invisible':[('type','!=','date')],'required':[('type','=','date')]}" name="value_date"/>
-                    <field attrs="{'invisible':[('type','!=','datetime')],'required':[('type','=','datetime')]}" name="value_datetime"/>
+                    <field name="type_id" context="{'base_model_name': context.get('base_model_name')}" />
+                    <field name="value_extra" invisible="1" />
+                    <field name="type" invisible="1" />
+                    <field
+                        attrs="{'invisible':[('type','!=','char')],'required':[('type','=','char')]}"
+                        name="value_char"
+                    />
+                    <field
+                        attrs="{'invisible':[('type','!=','integer')],'required':[('type','=','integer')]}"
+                        name="value_integer"
+                    />
+                    <field
+                        attrs="{'invisible':[('type','!=','float')],'required':[('type','=','float')]}"
+                        name="value_float"
+                    />
+                    <field
+                        attrs="{'invisible':[('type','!=','date')],'required':[('type','=','date')]}"
+                        name="value_date"
+                    />
+                    <field
+                        attrs="{'invisible':[('type','!=','datetime')],'required':[('type','=','datetime')]}"
+                        name="value_datetime"
+                    />
                 </group>
             </form>
         </field>
@@ -34,9 +49,9 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="name"/>
+                    <field name="name" />
                     <field name="type" required="1" />
-                    <field name="apply_on"/>
+                    <field name="apply_on" />
                 </group>
             </form>
         </field>

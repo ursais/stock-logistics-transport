@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="tms_transportable_tree_view" model="ir.ui.view">
         <field name="name">tms.transportable.tree</field>
         <field name="model">tms.transportable</field>
         <field name="arch" type="xml">
-            <tree editable="bottom" string="Transportable">
-                <field name="name"/>
-                <field name="uom_id"/>
+            <tree editable="bottom">
+                <field name="name" />
+                <field name="uom_id" />
             </tree>
         </field>
     </record>
@@ -15,5 +15,12 @@
         <field name="res_model">tms.transportable</field>
         <field name="view_mode">tree</field>
     </record>
-    <menuitem action="action_tms_transportable" id="tms_transportable_menu" name="Transportable" parent="tms.menu_tms_settings" sequence="90" groups="tms.group_traffic,tms.group_expenses,tms.group_supervisor_traffic,base.group_system"/>
+    <menuitem
+        action="action_tms_transportable"
+        id="tms_transportable_menu"
+        name="Transportable"
+        parent="tms.menu_tms_settings"
+        sequence="90"
+        groups="tms.group_traffic,tms.group_expenses,tms.group_supervisor_traffic,base.group_system"
+    />
 </odoo>

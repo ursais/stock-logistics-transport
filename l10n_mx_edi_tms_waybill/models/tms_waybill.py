@@ -9,20 +9,14 @@ class TmsWaybill(models.Model):
 
     l10n_mx_edi_international = fields.Selection(
         string="International",
-        selection=[
-            ("Sí", "Sí"),
-            ("No", "No")
-        ],
+        selection=[("Sí", "Sí"), ("No", "No")],
         compute="_compute_l10n_mx_edi_international",
         help="Technical field used to define if the waybill is national or international.",
         store=True,
     )
     l10n_mx_edi_international_type = fields.Selection(
         string="International Type",
-        selection=[
-            ("Entrada", "Entrada"),
-            ("Salida", "Salida")
-        ],
+        selection=[("Entrada", "Entrada"), ("Salida", "Salida")],
         compute="_compute_l10n_mx_edi_international",
         help="Technical field used to define if an international freight is an import or an export",
         store=True,
@@ -68,12 +62,12 @@ class TmsWaybill(models.Model):
     )
     l10n_mx_edi_departure_port_type = fields.Selection(
         selection=[
-            ('Altura', 'Altura'),
-            ('Cabotaje', 'Cabotaje'),
+            ("Altura", "Altura"),
+            ("Cabotaje", "Cabotaje"),
         ],
         string="Departure Port Type",
         help="Conditional attribute to register the type of port by which they are documented the "
-             "goods or merchandise by sea.",
+        "goods or merchandise by sea.",
     )
     l10n_mx_edi_departure_date = fields.Datetime(
         string="Departure Date",
@@ -91,12 +85,12 @@ class TmsWaybill(models.Model):
     )
     l10n_mx_edi_arrival_port_type = fields.Selection(
         selection=[
-            ('Altura', 'Altura'),
-            ('Cabotaje', 'Cabotaje'),
+            ("Altura", "Altura"),
+            ("Cabotaje", "Cabotaje"),
         ],
         string="Arrival Port Type",
         help="Conditional attribute to register the type of port by which they are documented the "
-             "goods or merchandise by sea.",
+        "goods or merchandise by sea.",
     )
     l10n_mx_edi_arrival_date = fields.Datetime(
         string="Arrival Date",
@@ -116,48 +110,49 @@ class TmsWaybill(models.Model):
     def _compute_l10m_mx_edi_departure_station_ids(self):
         for rec in self:
             stations = False
-            if rec.departure_address_id and self.l10n_mx_edi_transport_type in ['02', '03', '04']:
-                stations = rec.departure_address_id.mapped(
-                    'l10n_mx_edi_station_ids.l10n_mx_edi_station_id').filtered(
-                        lambda s: s.l10n_mx_edi_transport_type == self.l10n_mx_edi_transport_type)
+            if rec.departure_address_id and self.l10n_mx_edi_transport_type in ["02", "03", "04"]:
+                stations = rec.departure_address_id.mapped("l10n_mx_edi_station_ids.l10n_mx_edi_station_id").filtered(
+                    lambda s: s.l10n_mx_edi_transport_type == self.l10n_mx_edi_transport_type
+                )
             rec.l10n_mx_edi_departure_station_ids = stations
 
     @api.depends("arrival_address_id", "l10n_mx_edi_transport_type")
     def _compute_l10m_mx_edi_arrival_station_ids(self):
         for rec in self:
             stations = False
-            if rec.arrival_address_id and self.l10n_mx_edi_transport_type in ['02', '03', '04']:
-                stations = rec.arrival_address_id.mapped(
-                    'l10n_mx_edi_station_ids.l10n_mx_edi_station_id').filtered(
-                        lambda s: s.l10n_mx_edi_transport_type == self.l10n_mx_edi_transport_type)
+            if rec.arrival_address_id and self.l10n_mx_edi_transport_type in ["02", "03", "04"]:
+                stations = rec.arrival_address_id.mapped("l10n_mx_edi_station_ids.l10n_mx_edi_station_id").filtered(
+                    lambda s: s.l10n_mx_edi_transport_type == self.l10n_mx_edi_transport_type
+                )
             rec.l10n_mx_edi_arrival_station_ids = stations
 
     @api.depends(
         "departure_address_id",
         "arrival_address_id",
         "departure_address_id.country_id",
-        "arrival_address_id.country_id")
+        "arrival_address_id.country_id",
+    )
     def _compute_l10n_mx_edi_international(self):
         for rec in self:
-            international = 'No'
+            international = "No"
             international_type = False
-            mx_country = self.env.ref('base.mx')
+            mx_country = self.env.ref("base.mx")
             foreign_country_id = False
-            if (rec.departure_address_id.country_id and rec.
-                    departure_address_id.country_id != mx_country):
-                international = 'Sí'
-                international_type = 'Entrada'
+            if rec.departure_address_id.country_id and rec.departure_address_id.country_id != mx_country:
+                international = "Sí"
+                international_type = "Entrada"
                 foreign_country_id = rec.departure_address_id.country_id.id
-            if (rec.arrival_address_id.country_id and rec.
-                    arrival_address_id.country_id != mx_country):
-                international = 'Sí'
-                international_type = 'Salida'
+            if rec.arrival_address_id.country_id and rec.arrival_address_id.country_id != mx_country:
+                international = "Sí"
+                international_type = "Salida"
                 foreign_country_id = rec.arrival_address_id.country_id.id
-            rec.update({
-                "l10n_mx_edi_international": international,
-                "l10n_mx_edi_international_type": international_type,
-                "l10n_mx_edi_foreign_country_id": foreign_country_id,
-            })
+            rec.update(
+                {
+                    "l10n_mx_edi_international": international,
+                    "l10n_mx_edi_international_type": international_type,
+                    "l10n_mx_edi_foreign_country_id": foreign_country_id,
+                }
+            )
 
     @api.onchange("l10n_mx_edi_transport_type")
     def _onchange_l10n_mx_edi_transport_type(self):
@@ -169,7 +164,7 @@ class TmsWaybill(models.Model):
 
     @api.onchange("l10n_mx_edi_international")
     def _onchange_l10n_mx_edi_international(self):
-        if self.l10n_mx_edi_international == 'No':
+        if self.l10n_mx_edi_international == "No":
             self.l10n_mx_edi_transport_type = False
             self.l10n_mx_edi_departure_port_type = False
             self.l10n_mx_edi_arrival_port_type = False
@@ -178,21 +173,23 @@ class TmsWaybill(models.Model):
     def _onchange_stations(self):
         departure = self.departure_address_id
         arrival = self.arrival_address_id
-        transport_type = self.l10n_mx_edi_transport_type in ['02', '03', '04']
+        transport_type = self.l10n_mx_edi_transport_type in ["02", "03", "04"]
         if departure and arrival and transport_type:
             if not departure.l10n_mx_edi_station_ids.filtered(
-                    lambda s: s.l10n_mx_edi_transport_type == self.l10n_mx_edi_transport_type):
+                lambda s: s.l10n_mx_edi_transport_type == self.l10n_mx_edi_transport_type
+            ):
                 return {
                     "warning": {
-                        'title': _('Warning'),
-                        'message': _("You need to define the Station in the Departure Address."),
+                        "title": _("Warning"),
+                        "message": _("You need to define the Station in the Departure Address."),
                     }
                 }
             if not arrival.l10n_mx_edi_station_ids.filtered(
-                    lambda s: s.l10n_mx_edi_transport_type == self.l10n_mx_edi_transport_type):
+                lambda s: s.l10n_mx_edi_transport_type == self.l10n_mx_edi_transport_type
+            ):
                 return {
                     "warning": {
-                        'title': _('Warning'),
-                        'message': _("You need to define the Station in the Arrival Address."),
+                        "title": _("Warning"),
+                        "message": _("You need to define the Station in the Arrival Address."),
                     }
                 }

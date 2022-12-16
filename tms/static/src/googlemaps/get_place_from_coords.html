@@ -12,14 +12,14 @@
     </script>
     <script type="text/javascript">
       function initialize() {
-        var qAt = document.URL.indexOf("?"); 
+        var qAt = document.URL.indexOf("?");
         var params = document.URL.substr(qAt+1);
         lat = params.substr(0, params.indexOf(",")-1);
         lon = params.substr(params.indexOf(",") +1);
         var latlng = new google.maps.LatLng(lat, lon);
         var mapOptions = {
           center: latlng,
-          zoom: 12,          
+          zoom: 12,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
@@ -29,17 +29,17 @@
             });
       }
 
-        function pageLoaded() { 
-            var qAt = document.URL.indexOf("?"); 
+        function pageLoaded() {
+            var qAt = document.URL.indexOf("?");
             var params = document.URL.substr(qAt+1);
             lat = params.substr(0, params.indexOf(",")-1);
             lon = params.substr(params.indexOf(",") +1);
-     
-            // Use params as needed (parse, or pass along to flash swf): 
-            alert(params);  // just echoing in this example. 
+
+            // Use params as needed (parse, or pass along to flash swf):
+            alert(params);  // just echoing in this example.
             alert(lat);
             alert(lon);
-        } 
+        }
     </script>
   </head>
   <body onload="initialize()">

@@ -6,15 +6,13 @@ from odoo import fields, models
 
 
 class TmsRouteTollstation(models.Model):
-    _name = 'tms.route.tollstation'
-    _description = 'Tollstation'
+    _name = "tms.route.tollstation"
+    _description = "Tollstation"
 
     name = fields.Char(required=True)
-    place_id = fields.Many2one('tms.place', required=True)
-    partner_id = fields.Many2one('res.partner')
-    route_ids = fields.Many2many('tms.route')
+    place_id = fields.Many2one("tms.place", required=True)
+    partner_id = fields.Many2one("res.partner")
+    route_ids = fields.Many2many("tms.route")
     credit = fields.Boolean()
-    cost_per_axis_ids = fields.One2many(
-        'tms.route.tollstation.costperaxis',
-        'tollstation_id')
+    cost_per_axis_ids = fields.One2many("tms.route.tollstation.costperaxis", "tollstation_id")
     active = fields.Boolean(default=True)

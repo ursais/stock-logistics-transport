@@ -5,7 +5,7 @@ from odoo import fields, models
 
 
 class FleetVehicle(models.Model):
-    _inherit = 'fleet.vehicle'
+    _inherit = "fleet.vehicle"
 
     l10n_mx_edi_trailer_type = fields.Selection(
         selection=[
@@ -53,27 +53,47 @@ class FleetVehicle(models.Model):
             ("TPAF06", "Transporte de carga especializada de gran peso y/o volumen de más 90 toneladas."),
             ("TPAF07", "Transporte Privado de materiales y residuos peligrosos."),
             ("TPAF08", "Autotransporte internacional de carga de largo recorrido."),
-            ("TPAF09", "Autotransporte internacional de carga especializada de materiales y residuos peligrosos de "
-                       "largo recorrido."),
-            ("TPAF10", "Autotransporte Federal de Carga General cuyo ámbito de aplicación comprende la franja "
-                       "fronteriza con Estados Unidos."),
-            ("TPAF11", "Autotransporte Federal de Carga Especializada cuyo ámbito de aplicación comprende la franja "
-                       "fronteriza con Estados Unidos."),
+            (
+                "TPAF09",
+                "Autotransporte internacional de carga especializada de materiales y residuos peligrosos de "
+                "largo recorrido.",
+            ),
+            (
+                "TPAF10",
+                "Autotransporte Federal de Carga General cuyo ámbito de aplicación comprende la franja "
+                "fronteriza con Estados Unidos.",
+            ),
+            (
+                "TPAF11",
+                "Autotransporte Federal de Carga Especializada cuyo ámbito de aplicación comprende la franja "
+                "fronteriza con Estados Unidos.",
+            ),
             ("TPAF12", "Servicio auxiliar de arrastre en las vías generales de comunicación."),
-            ("TPAF13", "Servicio auxiliar de servicios de arrastre, arrastre y salvamento, y depósito de vehículos en"
-                       " las vías generales de comunicación."),
+            (
+                "TPAF13",
+                "Servicio auxiliar de servicios de arrastre, arrastre y salvamento, y depósito de vehículos en"
+                " las vías generales de comunicación.",
+            ),
             ("TPAF14", "Servicio de paquetería y mensajería en las vías generales de comunicación."),
-            ("TPAF15", "Transporte especial para el tránsito de grúas industriales " +
-                "con peso máximo de 90 toneladas."),
+            (
+                "TPAF15",
+                "Transporte especial para el tránsito de grúas industriales " + "con peso máximo de 90 toneladas.",
+            ),
             ("TPAF16", "Servicio federal para empresas arrendadoras servicio público federal."),
             ("TPAF17", "Empresas trasladistas de vehículos nuevos."),
             ("TPAF18", "Empresas fabricantes o distribuidoras de vehículos nuevos."),
-            ("TPAF19", "Autorización expresa para circular en los caminos y puentes de jurisdicción federal con "
-                       "configuraciones de tractocamión doblemente articulado."),
+            (
+                "TPAF19",
+                "Autorización expresa para circular en los caminos y puentes de jurisdicción federal con "
+                "configuraciones de tractocamión doblemente articulado.",
+            ),
             ("TPAF20", "Autotransporte Federal de Carga Especializada de fondos y valores."),
             ("TPTM01", "Permiso temporal para navegación de cabotaje"),
-            ("TPTA01", "Concesión y/o autorización para el servicio regular nacional y/o internacional para empresas "
-                       "mexicanas"),
+            (
+                "TPTA01",
+                "Concesión y/o autorización para el servicio regular nacional y/o internacional para empresas "
+                "mexicanas",
+            ),
             ("TPTA02", "Permiso para el servicio aéreo regular de empresas extranjeras"),
             ("TPTA03", "Permiso para el servicio nacional e internacional no regular de fletamento"),
             ("TPTA04", "Permiso para el servicio nacional e internacional no regular de taxi aéreo"),

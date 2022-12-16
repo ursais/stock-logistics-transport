@@ -64,7 +64,7 @@
 
   <xsl:template match="cce11:Propietario">
     <!--  Tratamiento de los atributos de cce11:Propietario-->
-    
+
     <xsl:call-template name="Requerido">
       <xsl:with-param name="valor" select="./@NumRegIdTrib" />
     </xsl:call-template>
@@ -76,7 +76,7 @@
 
   <xsl:template match="cce11:Receptor">
     <!--  Tratamiento de los atributos de cce11:Receptor-->
-    
+
     <xsl:call-template name="Opcional">
       <xsl:with-param name="valor" select="./@NumRegIdTrib" />
     </xsl:call-template>
@@ -158,7 +158,7 @@
     <xsl:call-template name="Requerido">
       <xsl:with-param name="valor" select="./@ValorDolares" />
     </xsl:call-template>
-	 <xsl:for-each select="./cce11:DescripcionesEspecificas">
+     <xsl:for-each select="./cce11:DescripcionesEspecificas">
       <xsl:apply-templates select="."/>
     </xsl:for-each>
   </xsl:template>

@@ -5,10 +5,10 @@
     <xsl:call-template name="Requerido">
       <xsl:with-param name="valor" select="./@Version" />
     </xsl:call-template>
-	<xsl:call-template name="Requerido">
+    <xsl:call-template name="Requerido">
       <xsl:with-param name="valor" select="./@Serie" />
     </xsl:call-template>
-	<xsl:call-template name="Requerido">
+    <xsl:call-template name="Requerido">
       <xsl:with-param name="valor" select="./@NumFolDesVeh" />
     </xsl:call-template>
     <!--  Iniciamos el manejo de los nodos dependientes -->

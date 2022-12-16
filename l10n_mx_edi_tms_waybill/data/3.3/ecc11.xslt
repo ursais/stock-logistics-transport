@@ -29,7 +29,7 @@
     <xsl:for-each select="./ecc11:ConceptoEstadoDeCuentaCombustible">
       <xsl:apply-templates select="."/>
     </xsl:for-each>
-    
+
   </xsl:template>
 
   <xsl:template match="ecc11:Traslados">
@@ -38,8 +38,8 @@
       <xsl:apply-templates select="."/>
     </xsl:for-each>
   </xsl:template>
-  
-  
+
+
   <!--  Iniciamos el manejo de los elementos hijo en la secuencia ConceptoEstadoDeCuentaCombustible-->
   <xsl:template match="ecc11:ConceptoEstadoDeCuentaCombustible">
     <!--  Iniciamos el manejo de los nodos dependientes -->
@@ -98,5 +98,5 @@
     </xsl:call-template>
   </xsl:template>
 
-  
+
 </xsl:stylesheet>

@@ -10,25 +10,29 @@ class TmsExtradataType(models.Model):
     _description = "Extra Data for TMS"
 
     name = fields.Char(required=True)
-    type = fields.Selection([
-        ('char', 'Text'),
-        ('integer', 'Numeric'),
-        ('float', 'Numeric with decimals'),
-        ('date', 'Date'),
-        ('datetime', 'Datetime')],
+    type = fields.Selection(
+        [
+            ("char", "Text"),
+            ("integer", "Numeric"),
+            ("float", "Numeric with decimals"),
+            ("date", "Date"),
+            ("datetime", "Datetime"),
+        ],
     )
-    apply_on = fields.Selection([
-        ('waybill', 'Waybill'),
-        ('unit', 'Unit'), ], required=True,
+    apply_on = fields.Selection(
+        [
+            ("waybill", "Waybill"),
+            ("unit", "Unit"),
+        ],
+        required=True,
     )
 
     @api.model
     def default_get(self, field):
-        res = super().default_get(
-            field)
-        active_model = self.env.context['base_model_name']
-        if active_model == 'fleet.vehicle':
-            res['apply_on'] = 'unit'
-        elif active_model == 'tms.waybill':
-            res['apply_on'] = 'waybill'
+        res = super().default_get(field)
+        active_model = self.env.context["base_model_name"]
+        if active_model == "fleet.vehicle":
+            res["apply_on"] = "unit"
+        elif active_model == "tms.waybill":
+            res["apply_on"] = "waybill"
         return res

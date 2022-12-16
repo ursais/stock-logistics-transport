@@ -29,7 +29,7 @@
     <xsl:for-each select="./consumodecombustibles11:ConceptoConsumoDeCombustibles">
       <xsl:apply-templates select="."/>
     </xsl:for-each>
-    
+
   </xsl:template>
 
   <!--  Iniciamos el manejo de los elementos hijo en la secuencia ConceptoConsumoDeCombustibles-->
@@ -78,7 +78,7 @@
     </xsl:for-each>
   </xsl:template>
 
-  
+
   <!--  Iniciamos el manejo de los elementos hijo en la secuencia Determinado-->
   <xsl:template match="consumodecombustibles11:Determinado">
     <xsl:call-template name="Requerido">
