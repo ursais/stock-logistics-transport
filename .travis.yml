@@ -31,11 +31,11 @@ install:
   - travis_install_nightly
 
 script:
-  - source ${TRAVIS_BUILD_DIR}/variables.sh  
+  - source ${TRAVIS_BUILD_DIR}/variables.sh
   - export TRAVIS_PYTHON_VERSION="3.7"  # CI docker image is not compatible with py3.8 but py3.7
   - travis_run_tests
 
 after_success:
-  - source ${TRAVIS_BUILD_DIR}/variables.sh  
+  - source ${TRAVIS_BUILD_DIR}/variables.sh
   - export TRAVIS_PYTHON_VERSION="3.7"  # CI docker image is not compatible with py3.8 but py3.7
   - travis_after_tests_success
