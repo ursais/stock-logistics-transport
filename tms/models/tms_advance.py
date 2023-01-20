@@ -14,12 +14,10 @@ class TmsAdvance(models.Model):
 
     name = fields.Char(string="Advance Number", readonly=True, default="/")
     state = fields.Selection(
-        [
+        selection=[
             ("draft", "Draft"),
-            ("authorized", "Waiting for authorization"),
             ("approved", "Approved"),
-            ("confirmed", "Confirmed"),
-            ("closed", "Closed"),
+            ("done", "Done"),
             ("cancel", "Cancelled"),
         ],
         tracking=True,
@@ -27,7 +25,7 @@ class TmsAdvance(models.Model):
         default="draft",
     )
     date = fields.Date(required=True, default=fields.Date.context_today)
-    travel_id = fields.Many2one("tms.travel", required=True, string="Travel")
+    travel_id = fields.Many2one("tms.travel", required=True)
     unit_id = fields.Many2one(
         "fleet.vehicle",
         related="travel_id.unit_id",

@@ -21,7 +21,7 @@
         # "data/account_journal_data.xml",
         # "views/account_journal_view.xml",
         # "views/fleet_vehicle_odometer_view.xml",
-        # "views/hr_employee_view.xml",
+        "views/hr_employee_view.xml",
         "views/fleet_vehicle_view.xml",
         # "views/fleet_vehicle_log_fuel_view.xml",
         # "views/fleet_vehicle_log_fuel_prepaid_view.xml",
