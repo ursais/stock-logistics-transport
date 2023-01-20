@@ -2,27 +2,20 @@
 # Copyright 2016, Jarsa Sistemas, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from __future__ import division
-
-import logging
-
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
-
-_logger = logging.getLogger(__name__)
-try:
-    from num2words import num2words
-except ImportError:
-    _logger.debug("Cannot `import num2words`.")
+from odoo.exceptions import UserError
 
 
-class FleetVehicleLogFuel(models.Model):
-    _name = "fleet.vehicle.log.fuel"
-    _inherit = ["mail.thread"]
+class TmsFuel(models.Model):
+    _name = "tms.fuel"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Fuel Logs"
     _order = "date desc,vehicle_id desc"
 
-    name = fields.Char()
+    name = fields.Char(
+        readonly=True,
+        required=True,
+    )
     travel_id = fields.Many2one("tms.travel")
     expense_id = fields.Many2one("tms.expense")
     employee_id = fields.Many2one(
@@ -56,7 +49,6 @@ class FleetVehicleLogFuel(models.Model):
     payment_state = fields.Selection(
         related="invoice_id.payment_state",
     )
-    operating_unit_id = fields.Many2one("operating.unit", string="Operating Unit")
     notes = fields.Char()
     state = fields.Selection(
         [
@@ -92,7 +84,6 @@ class FleetVehicleLogFuel(models.Model):
         for rec in self:
             prepaid_id = obj_prepaid.search(
                 [
-                    ("operating_unit_id", "=", rec.operating_unit_id.id),
                     ("vendor_id", "=", rec.vendor_id.id),
                     ("state", "=", "confirmed"),
                 ],
@@ -104,7 +95,7 @@ class FleetVehicleLogFuel(models.Model):
                     rec.prepaid_id = prepaid_id.id
                 else:
                     # TODO Remove raise
-                    raise ValidationError(_("Insufficient amount"))
+                    raise UserError(_("Insufficient amount"))
             rec.prepaid_id = False
 
     @api.depends("tax_amount")
@@ -137,29 +128,23 @@ class FleetVehicleLogFuel(models.Model):
 
     def action_cancel(self):
         if self.mapped("invoice_id"):
-            raise ValidationError(_("Could not cancel Fuel Voucher! This Fuel Voucher is already Invoiced"))
+            raise UserError(_("Could not cancel Fuel Voucher! This Fuel Voucher is already Invoiced"))
         for rec in self:
             if rec.travel_id and rec.travel_id.state == "closed":
-                raise ValidationError(
+                raise UserError(
                     _("Could not cancel Fuel Voucher! This Fuel Voucher is already linked to a Travel Expense")
                 )
             rec.state = "cancel"
 
-    @api.model
-    def create(self, values):
-        travel = self.env["tms.travel"].browse(values.get("travel_id"))
-        if travel and not values.get("vehicle_id"):
-            values["vehicle_id"] = travel.unit_id.id
-        if travel and not values.get("operating_unit_id"):
-            values["operating_unit_id"] = travel.operating_unit_id.id
-        res = super().create(values)
-        if not res.operating_unit_id.fuel_log_sequence_id:
-            raise ValidationError(
-                _("You need to define the sequence for fuel logs in base %(name)s", name=res.operating_unit_id.name)
-            )
-        sequence = res.operating_unit_id.fuel_log_sequence_id
-        res.name = sequence.next_by_id()
-        return res
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            travel = self.env["tms.travel"].browse(vals.get("travel_id"))
+            if travel and not vals.get("vehicle_id"):
+                vals["vehicle_id"] = travel.unit_id.id
+            if not vals.get("name"):
+                vals["name"] = self.env["ir.sequence"].next_by_code("tms.fuel.log") or _("New")
+        return super().create(vals_list)
 
     def set_2_draft(self):
         for rec in self:
@@ -168,16 +153,10 @@ class FleetVehicleLogFuel(models.Model):
     def action_confirm(self):
         for rec in self:
             if rec.product_qty <= 0 or rec.tax_amount <= 0 or rec.price_total <= 0:
-                raise ValidationError(_("Liters, Taxes and Total must be greater than zero."))
+                raise UserError(_("Liters, Taxes and Total must be greater than zero."))
             rec.state = "confirmed"
 
     @api.onchange("travel_id")
     def _onchange_travel(self):
         self.vehicle_id = self.travel_id.unit_id
         self.employee_id = self.travel_id.employee_id
-
-    def _amount_to_text(self, product_qty):
-        # TODO Use the Odoo method in the currency
-        total = str(int(product_qty))
-        total = num2words(float(total), lang="es").upper()
-        return "%s" % (total)

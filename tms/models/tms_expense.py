@@ -19,7 +19,6 @@ class TmsExpense(models.Model):
     _order = "name desc"
 
     name = fields.Char(readonly=True)
-    operating_unit_id = fields.Many2one("operating.unit", required=True)
     employee_id = fields.Many2one(
         "hr.employee",
         "Driver",
@@ -35,7 +34,7 @@ class TmsExpense(models.Model):
         "Expense State",
         readonly=True,
         tracking=True,
-        help="Gives the state of the Travel Expense. ",
+        help="Gives the state of the Travel Expense.",
         default="draft",
     )
     date = fields.Date(required=True, default=fields.Date.context_today)
@@ -81,7 +80,6 @@ class TmsExpense(models.Model):
     )
     paid = fields.Boolean(compute="_compute_paid", store=True, readonly=True)
     advance_ids = fields.One2many("tms.advance", "expense_id", string="Advances", readonly=True)
-    loan_ids = fields.One2many("tms.expense.loan", "expense_id", string="Loans", readonly=True)
     fuel_qty_real = fields.Float(
         help="Fuel Qty computed based on Distance Real and Global Fuel "
         "Efficiency Real obtained by electronic reading and/or GPS"
@@ -363,12 +361,12 @@ class TmsExpense(models.Model):
         for rec in self:
             rec.distance_real = sum(rec.travel_ids.mapped("distance_driver"))
 
-    @api.model
-    def create(self, values):
-        operating_unit = self.env["operating.unit"].browse(values.get("operating_unit_id"))
-        sequence = operating_unit.expense_sequence_id
-        values["name"] = sequence.next_by_id()
-        return super().create(values)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if not vals.get("name"):
+                vals["name"] = self.env["ir.sequence"].next_by_code("tms.expense") or _("New")
+        return super().create(vals_list)
 
     def write(self, values):
         for rec in self:
@@ -923,8 +921,11 @@ class TmsExpense(models.Model):
                     )
             return driver_salary
 
+    def _get_expense_journal(self):
+        return self.env["account.journal"].search([("tms_type", "=", "expense")], limit=1)
+
     def create_supplier_invoice(self, line):
-        journal_id = self.operating_unit_id.expense_journal_id.id
+        journal_id = self._get_expense_journal()
         fpos = line.partner_id.property_account_position_id
         product_account = line.product_id.product_tmpl_id.get_product_accounts(fpos)["expense"]
         if not product_account:

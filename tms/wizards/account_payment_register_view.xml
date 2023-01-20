@@ -14,11 +14,4 @@
         <field name="target">new</field>
         <field name="binding_model_id" ref="model_tms_expense" />
     </record>
-    <record id="action_view_expense_loan_payment" model="ir.actions.act_window">
-        <field name="name">Make Loan Expense Payment.</field>
-        <field name="res_model">account.payment.register</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-        <field name="binding_model_id" ref="model_tms_expense_loan" />
-    </record>
 </odoo>

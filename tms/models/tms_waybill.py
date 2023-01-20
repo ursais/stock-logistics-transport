@@ -22,22 +22,12 @@ class TmsWaybill(models.Model):
     _order = "name desc"
 
     rate = fields.Float(compute="_compute_rate", digits=(12, 4), groups="base.group_multi_currency")
-
-    operating_unit_id = fields.Many2one("operating.unit", required=True)
     customer_factor_ids = fields.One2many(
         "tms.factor",
         "waybill_id",
         string="Waybill Customer Charge Factors",
         domain=[
             ("category", "=", "customer"),
-        ],
-    )
-    supplier_factor_ids = fields.One2many(
-        "tms.factor",
-        "waybill_id",
-        string="Waybill Supplier Payment Factors",
-        domain=[
-            ("category", "=", "supplier"),
         ],
     )
     driver_factor_ids = fields.One2many(
@@ -85,8 +75,6 @@ class TmsWaybill(models.Model):
     download_point = fields.Char(change_default=True)
     invoice_id = fields.Many2one("account.move", readonly=True, copy=False)
     invoice_paid = fields.Boolean(compute="_compute_invoice_paid", readonly=True)
-    supplier_invoice_id = fields.Many2one("account.move", string="Supplier Invoice", readonly=True)
-    supplier_invoice_paid = fields.Boolean()
     waybill_line_ids = fields.One2many("tms.waybill.line", "waybill_id", string="Waybill Lines")
     transportable_ids = fields.One2many("tms.waybill.transportable.line", "waybill_id", string="Shipped Products")
     product_qty = fields.Float(compute="_compute_product_qty", string="Sum Qty")
@@ -106,34 +94,6 @@ class TmsWaybill(models.Model):
         string="Sum Distance",
     )
     notes = fields.Html()
-    date_start = fields.Datetime("Load Date Sched", help="Date Start time for Load", default=fields.Datetime.now)
-    date_up_start_sched = fields.Datetime("UpLd Start Sched", default=fields.Datetime.now)
-    date_up_end_sched = fields.Datetime("UpLd End Sched", default=fields.Datetime.now)
-    date_up_docs_sched = fields.Datetime("UpLd Docs Sched", default=fields.Datetime.now)
-    date_appoint_down_sched = fields.Datetime("Download Date Sched", default=fields.Datetime.now)
-    date_down_start_sched = fields.Datetime("Download Start Sched", default=fields.Datetime.now)
-    date_down_end_sched = fields.Datetime("Download End Sched", default=fields.Datetime.now)
-    date_down_docs_sched = fields.Datetime("Download Docs Sched", default=fields.Datetime.now)
-    date_end = fields.Datetime("Travel End Sched", help="Date End time for Load", default=fields.Datetime.now)
-    date_start_real = fields.Datetime("Load Date Real")
-    date_up_start_real = fields.Datetime("UpLoad Start Real")
-    date_up_end_real = fields.Datetime("UpLoad End Real")
-    date_up_docs_real = fields.Datetime("Load Docs Real")
-    date_appoint_down_real = fields.Datetime("Download Date Real")
-    date_down_start_real = fields.Datetime("Download Start Real")
-    date_down_end_real = fields.Datetime("Download End Real")
-    date_down_docs_real = fields.Datetime("Download Docs Real")
-    date_end_real = fields.Datetime("Travel End Real")
-    waybill_extradata_ids = fields.One2many(
-        "tms.extradata",
-        "waybill_id",
-        string="Extra Data Fields",
-        copy=True,
-        states={"confirmed": [("readonly", True)]},
-    )
-
-    expense_ids = fields.Many2many("tms.expense", compute="_compute_expense_ids", string="Expenses")
-    coordinates = fields.Text()
 
     @api.depends("date_order")
     def _compute_rate(self):
@@ -142,18 +102,10 @@ class TmsWaybill(models.Model):
             currency = record.currency_id.with_context(date=record.date_order)
             record.rate = currency.compute(1, company_currency, round=False)
 
-    @api.depends("travel_ids")
-    def _compute_expense_ids(self):
-        for rec in self:
-            rec.expense_ids = False
-            for travel in rec.travel_ids:
-                rec.expense_ids += travel.expense_id
-
     @api.model
     def create(self, values):
         waybill = super().create(values)
-        sequence = waybill.operating_unit_id.waybill_sequence_id
-        waybill.name = sequence.next_by_id()
+        waybill.name = self.env["ir.sequence"].next_by_code("tms.waybill") or _("New")
         product = self.env["product.product"].search([("tms_product_category", "=", "freight")], limit=1)
         if product:
             self.waybill_line_ids.create(
@@ -175,8 +127,7 @@ class TmsWaybill(models.Model):
                 for travel in rec.travel_ids:
                     travel.partner_ids = False
                     travel._compute_partner_ids()
-            res = super().write(values)
-            return res
+            return super().write(values)
 
     @api.onchange("partner_id")
     def onchange_partner_id(self):

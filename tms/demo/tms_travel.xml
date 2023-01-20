@@ -8,7 +8,6 @@
         <field name="date" eval="datetime.now()" />
         <field name="date_start" eval="datetime.now()" />
         <field name="date_end" eval="datetime.now()+timedelta(days=2)" />
-        <field name="operating_unit_id" ref="operating_unit.main_operating_unit" />
         <field
             name="driver_factor_ids"
             eval="[(0, 0, {'factor_type': 'travel', 'fixed_amount': 9000, 'category': 'driver', 'name': 'travel'})]"
@@ -22,7 +21,6 @@
         <field name="date" eval="datetime.now()" />
         <field name="date_start" eval="datetime.now()+timedelta(days=2)" />
         <field name="date_end" eval="datetime.now()+timedelta(days=5)" />
-        <field name="operating_unit_id" ref="operating_unit.main_operating_unit" />
         <field
             name="driver_factor_ids"
             eval="[(0, 0, {'factor_type': 'travel', 'fixed_amount': 9000, 'category': 'driver', 'name': 'travel'})]"
@@ -36,7 +34,6 @@
         <field name="date" eval="datetime.now()" />
         <field name="date_start" eval="datetime.now()+timedelta(days=5)" />
         <field name="date_end" eval="datetime.now()+timedelta(days=9)" />
-        <field name="operating_unit_id" ref="operating_unit.main_operating_unit" />
         <field
             name="driver_factor_ids"
             eval="[(0, 0, {'factor_type': 'travel', 'fixed_amount': 9000, 'category': 'driver', 'name': 'Travel'})]"
@@ -50,7 +47,6 @@
         <field name="date" eval="datetime.now()" />
         <field name="date_start" eval="datetime.now()" />
         <field name="date_end" eval="datetime.now()+timedelta(days=2)" />
-        <field name="operating_unit_id" ref="operating_unit.main_operating_unit" />
         <field
             name="driver_factor_ids"
             eval="[(0, 0, {'factor_type': 'travel', 'fixed_amount': 9000, 'category': 'driver', 'name': 'travel'})]"
@@ -64,7 +60,6 @@
         <field name="date" eval="datetime.now()" />
         <field name="date_start" eval="datetime.now()+timedelta(days=2)" />
         <field name="date_end" eval="datetime.now()+timedelta(days=9)" />
-        <field name="operating_unit_id" ref="operating_unit.main_operating_unit" />
         <field
             name="driver_factor_ids"
             eval="[(0, 0, {'factor_type': 'travel', 'fixed_amount': 9000, 'category': 'driver', 'name': 'travel'})]"

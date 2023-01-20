@@ -8,15 +8,11 @@ from odoo.exceptions import ValidationError
 
 class TmsAdvance(models.Model):
     _name = "tms.advance"
-    _inherit = "mail.thread"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Money advance payments for Travel expenses"
     _order = "name desc, date desc"
 
-    operating_unit_id = fields.Many2one(
-        related="travel_id.operating_unit_id",
-        store=True,
-    )
-    name = fields.Char(string="Advance Number")
+    name = fields.Char(string="Advance Number", readonly=True, default="/")
     state = fields.Selection(
         [
             ("draft", "Draft"),
@@ -80,23 +76,21 @@ class TmsAdvance(models.Model):
     )
     company_id = fields.Many2one("res.company", required=True, default=lambda self: self.env.user.company_id)
 
-    @api.model
-    def create(self, values):
-        res = super().create(values)
-        if not res.operating_unit_id.advance_sequence_id:
-            raise ValidationError(
-                _("The sequence is not defined in operating unit %(name)s", name=res.operating_unit_id.name)
-            )
-        if res.amount <= 0:
-            raise ValidationError(_("The amount must be greater than zero."))
-        sequence = res.operating_unit_id.advance_sequence_id
-        res.name = sequence.next_by_id()
-        return res
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if not vals.get("name"):
+                vals["name"] = self.env["ir.sequence"].next_by_code("tms.advance") or _("New")
+        return super().create(vals_list)
 
     @api.onchange("travel_id")
     def _onchange_travel_id(self):
-        self.unit_id = self.travel_id.unit_id.id
-        self.employee_id = self.travel_id.employee_id.id
+        self.update(
+            {
+                "unit_id": self.travel_id.unit_id.id,
+                "employee_id": self.travel_id.employee_id.id,
+            }
+        )
 
     @api.depends("payment_move_id")
     def _compute_paid(self):
@@ -112,10 +106,7 @@ class TmsAdvance(models.Model):
 
     def action_approve(self):
         for rec in self:
-            if rec.amount > rec.operating_unit_id.credit_limit:
-                rec.state = "authorized"
-            else:
-                rec.state = "approved"
+            rec.state = "authorized"
 
     def action_confirm(self):
         obj_account_move = self.env["account.move"]
@@ -124,7 +115,7 @@ class TmsAdvance(models.Model):
                 raise ValidationError(_("The amount must be greater than zero."))
             if rec.move_id:
                 raise ValidationError(_("You can not confirm a confirmed advance."))
-            advance_journal_id = rec.operating_unit_id.advance_journal_id.id
+            advance_journal_id = rec._get_advance_journal()
             advance_debit_account_id = rec.employee_id.tms_advance_account_id.id
             advance_credit_account_id = rec.employee_id.address_home_id.property_account_payable_id.id
             if not advance_journal_id:
@@ -190,6 +181,12 @@ class TmsAdvance(models.Model):
                     "state": "confirmed",
                 }
             )
+
+    def _get_advance_journal(self):
+        advance_journal_id = self.env["account.journal"].search(
+            [("type", "=", "general"), ("tms_type", "=", "advance")], limit=1
+        )
+        return advance_journal_id.id
 
     def action_cancel(self):
         for rec in self:

@@ -12,15 +12,15 @@ from odoo.exceptions import ValidationError
 
 class TmsTravel(models.Model):
     _name = "tms.travel"
-    _inherit = "mail.thread"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Travel"
     _order = "date desc"
 
-    waybill_ids = fields.Many2many("tms.waybill")
+    waybill_ids = fields.Many2many("tms.waybill", copy=False)
     driver_factor_ids = fields.One2many(
         "tms.factor", "travel_id", string="Travel Driver Payment Factors", domain=[("category", "=", "driver")]
     )
-    name = fields.Char("Travel Number")
+    name = fields.Char("Travel Number", required=True, copy=False, readonly=True, default="/")
     state = fields.Selection(
         [
             ("draft", "Pending"),
@@ -43,7 +43,6 @@ class TmsTravel(models.Model):
         compute="_compute_travel_duration_real", string="Duration Real", help="Travel Real duration in hours"
     )
     distance_route = fields.Float(related="route_id.distance", string="Route Distance (mi./km)")
-    fuel_efficiency_expected = fields.Float(compute="_compute_fuel_efficiency_expected")
     kit_id = fields.Many2one("tms.unit.kit")
     unit_id = fields.Many2one("fleet.vehicle", required=True)
     trailer1_id = fields.Many2one("fleet.vehicle")
@@ -61,8 +60,6 @@ class TmsTravel(models.Model):
     distance_loaded = fields.Float("Distance Loaded (mi./km)")
     distance_empty = fields.Float("Distance Empty (mi./km)")
     odometer = fields.Float("Unit Odometer (mi./km)", readonly=True)
-    fuel_efficiency_travel = fields.Float()
-    fuel_efficiency_extraction = fields.Float(compute="_compute_fuel_efficiency_extraction")
     departure_id = fields.Many2one("tms.place", related="route_id.departure_id", store=True, readonly=True)
     fuel_log_ids = fields.One2many("fleet.vehicle.log.fuel", "travel_id", string="Fuel Vouchers")
     advance_ids = fields.One2many("tms.advance", "travel_id")
@@ -70,26 +67,18 @@ class TmsTravel(models.Model):
     notes = fields.Text("Description")
     user_id = fields.Many2one("res.users", "Responsable", default=lambda self: self.env.user)
     expense_id = fields.Many2one("tms.expense", "Expense Record", readonly=True)
-    event_ids = fields.One2many("tms.event", "travel_id", string="Events")
     is_available = fields.Boolean(compute="_compute_is_available", string="Travel available")
-    operating_unit_id = fields.Many2one("operating.unit")
     color = fields.Integer()
     framework = fields.Selection(
         [("unit", "Unit"), ("single", "Single"), ("double", "Double")], compute="_compute_framework"
     )
     partner_ids = fields.Many2many("res.partner", string="Customer", compute="_compute_partner_ids", store=True)
     company_id = fields.Many2one("res.company", required=True, default=lambda self: self.env.user.company_id)
-    date_and_time = fields.Datetime()
 
     @api.depends("waybill_ids")
     def _compute_partner_ids(self):
         for rec in self:
             rec.partner_ids = rec.waybill_ids.mapped("partner_id")
-
-    @api.depends("fuel_efficiency_expected", "fuel_efficiency_travel")
-    def _compute_fuel_efficiency_extraction(self):
-        for rec in self:
-            rec.fuel_efficiency_extraction = rec.fuel_efficiency_expected - rec.fuel_efficiency_travel
 
     @api.depends("date_start", "travel_duration")
     def _compute_date_end(self):
@@ -153,8 +142,12 @@ class TmsTravel(models.Model):
             )
             if len(travels) >= 1:
                 raise ValidationError(_("The unit or driver are already in use!"))
-            rec.state = "progress"
-            rec.date_start_real = fields.Datetime.now()
+            rec.write(
+                {
+                    "state": "progress",
+                    "date_start_real": fields.Datetime.now(),
+                }
+            )
 
     def action_done(self):
         for rec in self:
@@ -168,9 +161,13 @@ class TmsTravel(models.Model):
                     "value": rec.unit_id.odometer + rec.distance_driver,
                 }
             )
-            rec.state = "done"
-            rec.odometer = odometer.current_odometer
-            rec.date_end_real = fields.Datetime.now()
+            rec.write(
+                {
+                    "state": "done",
+                    "date_end_real": fields.Datetime.now(),
+                    "odometer": odometer.current_odometer,
+                }
+            )
 
     def action_cancel(self):
         for rec in self:
@@ -186,19 +183,12 @@ class TmsTravel(models.Model):
                 )
             rec.state = "cancel"
 
-    @api.model
-    def create(self, values):
-        travel = super().create(values)
-        if not travel.operating_unit_id.travel_sequence_id:
-            raise ValidationError(
-                _(
-                    "You need to define the sequence for travels in base %(operating_unit)s",
-                    operating_unit=travel.operating_unit_id.name,
-                )
-            )
-        sequence = travel.operating_unit_id.travel_sequence_id
-        travel.name = sequence.next_by_id()
-        return travel
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if not vals.get("name"):
+                vals["name"] = self.env["ir.sequence"].next_by_code("tms.travel") or _("New")
+        return super().create(vals_list)
 
     @api.depends()
     def _compute_is_available(self):
@@ -220,22 +210,6 @@ class TmsTravel(models.Model):
                         count += 1
             if count == 3:
                 rec.is_available = True
-
-    @api.depends("route_id", "framework")
-    def _compute_fuel_efficiency_expected(self):
-        for rec in self:
-            res = (
-                self.env["tms.route.fuelefficiency"]
-                .search(
-                    [
-                        ("route_id", "=", rec.route_id.id),
-                        ("engine_id", "=", rec.unit_id.engine_id.id),
-                        ("type", "=", rec.framework),
-                    ]
-                )
-                .performance
-            )
-            rec.fuel_efficiency_expected = res
 
     @api.depends("trailer1_id", "trailer2_id")
     def _compute_framework(self):
@@ -281,8 +255,3 @@ class TmsTravel(models.Model):
                             days=val,
                         )
                     )
-
-    def copy(self, default=None):
-        default = dict(default or {})
-        default["waybill_ids"] = False
-        return super().copy(default)
