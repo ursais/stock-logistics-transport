@@ -18,7 +18,7 @@ from . import tms_factor
 from . import tms_route
 from . import tms_transportable
 # from . import tms_travel
-# from . import tms_unit_kit
+from . import tms_unit_kit
 # from . import tms_waybill
 # from . import tms_waybill_line
 # from . import tms_waybill_taxes

@@ -6,17 +6,17 @@
         <field name="arch" type="xml">
             <search string="Units Kits">
                 <field name="name" />
-                <field name="active" />
                 <field name="unit_id" />
                 <field name="trailer1_id" />
                 <field name="dolly_id" />
                 <field name="trailer2_id" />
-                <field name="employee_id" />
+                <field name="driver_id" />
                 <field name="date_start" />
                 <field name="date_end" />
                 <filter name="unit" context="{'group_by' : 'unit_id'}" string="Unit" />
-                <separator orientation="vertical" />
-                <filter name="driver" context="{'group_by' : 'employee_id'}" string="Driver" />
+                <filter name="driver" context="{'group_by' : 'driver_id'}" string="Driver" />
+                <separator/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]" />
             </search>
         </field>
     </record>
@@ -28,12 +28,11 @@
                 <field name="name" />
                 <field name="unit_id" />
                 <field name="trailer1_id" />
-                <field name="dolly_id" />
-                <field name="trailer2_id" />
-                <field name="employee_id" />
+                <field name="dolly_id" optional="show" />
+                <field name="trailer2_id" optional="show" />
+                <field name="driver_id" />
                 <field name="date_start" />
                 <field name="date_end" />
-                <field name="active" />
             </tree>
         </field>
     </record>
@@ -43,60 +42,54 @@
         <field name="arch" type="xml">
             <form string="Units Kits">
                 <sheet>
-                    <h1>
-                        <label
-                            for="name"
-                            class="oe_inline"
-                            style="font-size:30px;"
-                            string="Kit Name - "
-                            attrs="{'invisible':[('name','=', False)]}"
-                        />
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <field name="active" invisible="1"/>
+                    <h2>
+                        <label for="name" class="oe_inline" string="Kit Name - " />
                         <field name="name" />
-                    </h1>
-                    <group col="4" colspan="4">
-                        <separator colspan="4" string="Kit Framework" />
-                        <field name="unit_id" />
-                        <field
-                            attrs="{'required':['|', ('dolly_id','!=',False),('trailer2_id','!=',False)]}"
-                            domain="[('id','!=',trailer2_id), ('fleet_type','=','trailer')]"
-                            name="trailer1_id"
-                        />
-                        <field
-                            attrs="{'required':[('trailer2_id','!=',False)]}"
-                            domain="[('fleet_type','=','dolly')]"
-                            name="dolly_id"
-                        />
-                        <field
-                            attrs="{'required':[('dolly_id','!=',False)], 'invisible': [('dolly_id', '=', False)]}"
-                            domain="[('id','!=',trailer1_id), ('fleet_type','=','trailer')]"
-                            name="trailer2_id"
-                        />
-                        <field colspan="2" name="employee_id" />
-                        <newline />
-                        <separator colspan="4" string="Validity" />
-                        <field name="date_start" />
-                        <field name="date_end" />
-                        <field name="active" />
+                    </h2>
+                    <group string="Kit Framework">
+                        <group>
+                            <field name="unit_id" />
+                            <field
+                                attrs="{'required':[('trailer2_id','!=',False)]}"
+                                domain="[('fleet_type','=','dolly')]"
+                                name="dolly_id"
+                            />
+                            <field name="driver_id" />
+                        </group>
+                        <group>
+                            <label for="date_start" string="Validity"/>
+                            <div class="o_row">
+                                <field name="date_start" widget="daterange" options='{"related_end_date": "date_end"}'/>
+                                <i class="fa fa-long-arrow-right mx-1" aria-label="Arrow icon" title="Arrow"/>
+                                <field name="date_end" widget="daterange" options='{"related_start_date": "date_start"}'/>
+                            </div>
+                            <field
+                                attrs="{'required':['|', ('dolly_id','!=',False),('trailer2_id','!=',False)]}"
+                                domain="[('id','!=',trailer2_id), ('fleet_type','=','trailer')]"
+                                name="trailer1_id"
+                            />
+                            <field
+                                attrs="{'required':[('dolly_id','!=',False)], 'invisible': [('dolly_id', '=', False)]}"
+                                domain="[('id','!=',trailer1_id), ('fleet_type','=','trailer')]"
+                                name="trailer2_id"
+                            />
+                        </group>
                     </group>
                 </sheet>
                 <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" />
-                    <field name="message_ids" placeholder="Share a message..." widget="mail_thread" />
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
                 </div>
             </form>
         </field>
     </record>
     <record id="open_view_tms_unit_kit_form" model="ir.actions.act_window">
-        <field name="name">TMS Units Kits</field>
+        <field name="name">Unit Kits</field>
         <field name="res_model">tms.unit.kit</field>
         <field name="view_mode">tree,form</field>
         <field name="context">{'search_default_active': ''}</field>
     </record>
-    <menuitem
-        action="open_view_tms_unit_kit_form"
-        id="menu_tms_config_unit_kit_form"
-        name="Units Kits"
-        parent="menu_tms_settings_unit"
-        sequence="11"
-    />
 </odoo>
