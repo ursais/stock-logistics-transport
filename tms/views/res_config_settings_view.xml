@@ -12,6 +12,24 @@
                     data-key="tms"
                     groups="tms.group_tms_manager"
                 >
+                    <h2>General Configuration</h2>
+                    <div
+                        class="row mt16 o_settings_container"
+                        id="tms_modules"
+                    >
+                        <div class="col-xs-12 col-md-6 o_setting_box" id="tms_driver_license_security_days">
+                            <div class="o_setting_right_pane">
+                                <label
+                                    string="Security Days for Driver License"
+                                    for="driver_license_security_days"
+                                />
+                                <field name="driver_license_security_days" />
+                                <div class="text-muted">
+                                    Set the number of days before the expiration date of the driver license to show a warning.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <h2>Accounting Configuration</h2>
                     <div class="row mt16 o_settings_container" id="tms_account">
                         <div class="col-xs-12 col-md-6 o_setting_box">
@@ -49,34 +67,6 @@
                                 />
                                 <div class="text-muted">
                                     Use Operating Units in TMS
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6 o_setting_box" id="tms_driver_licence">
-                            <div class="o_setting_left_pane">
-                                <field name="module_tms_driver_licence" />
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label
-                                    string="Validate Driver Licence"
-                                    for="module_tms_driver_licence"
-                                />
-                                <div class="text-muted">
-                                    Manage driver licence and block travel scheduling if the licence is expired.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6 o_setting_box" id="tms_unit_insurance">
-                            <div class="o_setting_left_pane">
-                                <field name="module_tms_unit_insurance" />
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label
-                                    string="Validate Unit Insurance"
-                                    for="module_tms_unit_insurance"
-                                />
-                                <div class="text-muted">
-                                    Manage unit insurance and block travel scheduling if the insurance is expired.
                                 </div>
                             </div>
                         </div>

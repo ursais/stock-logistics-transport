@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_employee_driver_license_view_tree" model="ir.ui.view">
+        <field name="name">hr.employee.driver.license.view.tree</field>
+        <field name="model">hr.employee.driver.license</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="employee_id" />
+                <field name="license_type" />
+                <field name="license_valid_from" />
+                <field name="license_expiration" />
+                <field name="days_to_expire" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+    <record id="hr_employee_driver_license_view_form" model="ir.ui.view">
+        <field name="name">hr.employee.driver.license.view.form</field>
+        <field name="model">hr.employee.driver.license</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <label
+                                for="name"
+                                class="oe_inline"
+                                string="License ID - "
+                            />
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" />
+                            <field name="license_type" />
+                            <field name="license_valid_from" />
+                            <field name="license_expiration" />
+                        </group>
+                        <group>
+                            <field name="days_to_expire" />
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="hr_employee_driver_license_action" model="ir.actions.act_window">
+        <field name="name">Driver License</field>
+        <field name="res_model">hr.employee.driver.license</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Click to add a new driver license.</p>
+        </field>
+    </record>
+</odoo>

@@ -16,11 +16,12 @@
     "license": "LGPL-3",
     "data": [
         "security/security.xml",
-        # "security/ir.model.access.csv",
+        "security/ir.model.access.csv",
         # "data/ir_sequence_data.xml",
         # "data/account_journal_data.xml",
         # "views/account_journal_view.xml",
         # "views/fleet_vehicle_odometer_view.xml",
+        "views/hr_employee_driver_license_view.xml",
         "views/hr_employee_view.xml",
         "views/fleet_vehicle_view.xml",
         "views/res_config_settings_view.xml",

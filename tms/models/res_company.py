@@ -16,3 +16,7 @@ class ResCompany(models.Model):
         comodel_name="account.journal",
         domain=[("type", "=", "general")],
     )
+    driver_license_security_days = fields.Integer(
+        string="Driver License Security Days",
+        help="Number of days to show the expiration date of the driver license",
+    )

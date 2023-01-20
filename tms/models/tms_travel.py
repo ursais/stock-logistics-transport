@@ -1,12 +1,10 @@
 # Copyright 2016-2023, Jarsa Sistemas, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from __future__ import division
-
 from datetime import datetime, timedelta
 
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError
 
 
 class TmsTravel(models.Model):
@@ -140,7 +138,7 @@ class TmsTravel(models.Model):
                 ]
             )
             if len(travels) >= 1:
-                raise ValidationError(_("The unit or driver are already in use!"))
+                raise UserError(_("The unit or driver are already in use!"))
             rec.write(
                 {
                     "state": "progress",
@@ -173,7 +171,7 @@ class TmsTravel(models.Model):
             advances = rec.advance_ids.search([("state", "!=", "cancel"), ("travel_id", "=", rec.id)])
             fuel_log = rec.fuel_log_ids.search([("state", "!=", "cancel"), ("travel_id", "=", rec.id)])
             if len(advances) >= 1 or len(fuel_log) >= 1:
-                raise ValidationError(
+                raise UserError(
                     _(
                         "If you want to cancel this travel,"
                         " you must cancel the fuel logs or the advances "
@@ -225,7 +223,7 @@ class TmsTravel(models.Model):
         days = int(val) or 0
         for rec in self:
             if rec.employee_id.days_to_expire <= days:
-                raise ValidationError(
+                raise UserError(
                     _(
                         "You can not Dispatch this Travel because %(employee)s "
                         "Driver s License Validity %(date)s is expired or"
@@ -244,7 +242,7 @@ class TmsTravel(models.Model):
             units = [rec.unit_id, rec.trailer1_id, rec.dolly_id, rec.trailer2_id]
             for unit in units:
                 if unit.insurance_expiration and unit.insurance_expiration <= date.date():
-                    raise ValidationError(
+                    raise UserError(
                         _(
                             "You can not Dispatch this Travel because this Vehicle"
                             " %(vehicle)s Insurance %(date)s is expired or about to expire in "

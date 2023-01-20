@@ -10,11 +10,8 @@ class ResConfigSettings(models.TransientModel):
     module_tms_operating_unit = fields.Boolean(
         string="Operating Unit in TMS"
     )
-    module_tms_driver_licence = fields.Boolean(
-        string="Driver Licence in TMS"
-    )
-    module_tms_unit_insurance = fields.Boolean(
-        string="Unit Insurance in TMS"
+    driver_license_security_days = fields.Integer(
+        string="Driver License Security Days",
     )
     advance_journal_id = fields.Many2one(
         related="company_id.advance_journal_id", readonly=False

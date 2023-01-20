@@ -21,6 +21,32 @@ class HrEmployee(models.Model):
         company_dependent=True,
         domain=[("reconcile", "=", True)],
     )
+    license_ids = fields.One2many(
+        comodel_name="hr.employee.driver.license",
+        inverse_name="employee_id",
+        string="Licenses",
+    )
+    license_expiration = fields.Date(compute="_compute_license_expitation", store=True)
+
+    @api.depends("license_ids.license_expiration")
+    def _compute_license_expitation(self):
+        for record in self:
+            license = record.license_ids.filtered(
+                lambda r: r.state == "active"
+            ).sorted(key=lambda r: r.license_expiration, reverse=True)
+            if license:
+                record.license_expiration = license[0].license_expiration
+
+    def action_open_driver_license(self):
+        self.ensure_one()
+        action = self.env["ir.actions.act_window"]._for_xml_id(
+            "tms.hr_employee_driver_license_action"
+        )
+        action.update({
+            "context": {"default_employee_id": self.id},
+            "domain": [("employee_id", "=", self.id)],
+        })
+        return action
 
     @api.constrains("driver")
     def _check_driver(self):
