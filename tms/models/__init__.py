@@ -4,6 +4,8 @@
 # from . import account_journal
 # from . import account_move
 from . import fleet_vehicle
+from . import res_company
+from . import res_config_settings
 
 # from . import fleet_vehicle_engine
 # from . import fleet_vehicle_log_fuel

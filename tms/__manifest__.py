@@ -15,7 +15,7 @@
     "summary": "Management System for Carriers, Trucking and other companies",
     "license": "LGPL-3",
     "data": [
-        # "security/security.xml",
+        "security/security.xml",
         # "security/ir.model.access.csv",
         # "data/ir_sequence_data.xml",
         # "data/account_journal_data.xml",
@@ -23,6 +23,7 @@
         # "views/fleet_vehicle_odometer_view.xml",
         "views/hr_employee_view.xml",
         "views/fleet_vehicle_view.xml",
+        "views/res_config_settings_view.xml",
         # "views/fleet_vehicle_log_fuel_view.xml",
         # "views/fleet_vehicle_log_fuel_prepaid_view.xml",
         # "views/product_template_view.xml",
