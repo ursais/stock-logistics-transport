@@ -10,19 +10,26 @@
                 id="menu_tms_config"
                 action="action_tms_config"
                 sequence="10"/>
-            <menuitem
-                action="tms_open_view_employee_list"
-                id="menu_tms_open_view_employee_list"
-                name="Drivers"
-                sequence="20"
-            />
+            <menuitem id="menu_tms_settings_drivers" name="Drivers" sequence="20">
+                <menuitem
+                    action="tms_open_view_employee_list"
+                    id="menu_tms_open_view_employee_list"
+                    name="Drivers"
+                    sequence="10"
+                />
+            </menuitem>
             <menuitem id="menu_tms_settings_unit" name="Units" sequence="30">
                 <menuitem action="action_fleet_vehicle_tms" id="tms_fleet_vehicle_menu" sequence="10" />
-                <menuitem action="fleet.fleet_vehicle_state_action" id="tms_fleet_vehicle_state_menu" sequence="20" />
                 <menuitem action="fleet.fleet_vehicle_model_action" id="tms_fleet_vehicle_model" sequence="30" />
                 <menuitem action="fleet.fleet_vehicle_model_brand_action" id="tms_fleet_vehicle_make" sequence="40" />
             </menuitem>
             <menuitem id="menu_tms_settings_routes" name="Routes" sequence="40">
+                <menuitem
+                    action="open_view_tms_route_form"
+                    id="menu_tms_settings_route_form"
+                    name="Routes"
+                    sequence="10"
+                />
             </menuitem>
         </menuitem>
     </menuitem>

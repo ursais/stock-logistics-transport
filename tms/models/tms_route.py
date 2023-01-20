@@ -2,7 +2,8 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 
-from odoo import _, api, exceptions, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class TmsRoute(models.Model):
@@ -10,30 +11,60 @@ class TmsRoute(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Routes"
 
-    name = fields.Char("Route Name", size=64, required=True, index=True)
-    departure_id = fields.Many2one("tms.place", "Departure", required=True)
-    arrival_id = fields.Many2one("tms.place", "Arrival", required=True)
-    distance = fields.Float("Distance (mi./kms)", digits=(14, 4), help="Route distance (mi./kms)", required=True)
-    travel_time = fields.Float("Travel Time (hrs)", digits=(14, 4), help="Route travel time (hours)")
-    notes = fields.Text()
+    name = fields.Char("Route Name", required=True)
+    notes = fields.Html()
     active = fields.Boolean(default=True)
     driver_factor_ids = fields.One2many("tms.factor", "route_id", string="Expense driver factor")
+    distance = fields.Float(
+        string="Distance (mi./kms)",
+        help="Route distance (mi./kms)",
+        required=True,
+        compute="_compute_distance",
+        inverse="_inverse_distance",
+        store=True,
+    )
     distance_loaded = fields.Float(string="Distance Loaded (mi./km)", required=True)
-    distance_empty = fields.Float(string="Distance Empty (mi./km)", required=True)
-    route_place_ids = fields.One2many("tms.route.place", "route_id", string="Places")
+    distance_empty = fields.Float(
+        string="Distance Empty (mi./km)",
+        required=True,
+        help="Route distance empty (mi./km)",
+        compute="_compute_distance_empty",
+        inverse="_inverse_distance_empty",
+        store=True,
+    )
+    travel_time = fields.Float("Travel Time (hrs)", help="Route travel time (hours)")
 
-    @api.depends("distance_empty", "distance")
-    @api.onchange("distance_empty")
-    def on_change_disance_empty(self):
+    @api.depends("distance_empty", "distance_loaded")
+    def _compute_distance(self):
         for rec in self:
             if rec.distance_empty < 0.0:
-                raise exceptions.ValidationError(_("The value must be positive and lower than the distance route."))
-            rec.distance_loaded = rec.distance - rec.distance_empty
+                rec.distance_empty = 0.0
+            if rec.distance_loaded < 0.0:
+                rec.distance_loaded = 0.0
+            rec.distance = rec.distance_empty + rec.distance_loaded
 
-    @api.depends("distance_loaded", "distance")
-    @api.onchange("distance_loaded")
-    def on_change_disance_loaded(self):
+    def _inverse_distance(self):
+        for rec in self:
+            if rec.distance < 0.0:
+                rec.distance = 0.0
+            if rec.distance_loaded:
+                rec.distance_empty = rec.distance - rec.distance_loaded
+            if rec.distance_empty:
+                rec.distance_loaded = rec.distance - rec.distance_empty
+
+    @api.depends("distance", "distance_loaded")
+    def _compute_distance_empty(self):
+        for rec in self:
+            if rec.distance < 0.0:
+                rec.distance = 0.0
+            if rec.distance_loaded < 0.0:
+                rec.distance_loaded = 0.0
+            rec.distance_empty = rec.distance - rec.distance_loaded
+
+    def _inverse_distance_empty(self):
         for rec in self:
             if rec.distance_loaded < 0.0:
-                raise exceptions.ValidationError(_("The value must be positive and lower than the distance route."))
-            rec.distance_empty = rec.distance - rec.distance_loaded
+                rec.distance = 0.0
+            if rec.distance_empty < 0.0:
+                rec.distance_empty = 0.0
+            rec.distance = rec.distance_loaded + rec.distance_empty

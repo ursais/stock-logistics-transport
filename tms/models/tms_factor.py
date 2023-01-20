@@ -4,24 +4,22 @@
 from __future__ import division
 
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError
 
 
 class TmsFactor(models.Model):
     _name = "tms.factor"
-    _description = "Factors to calculate Payment (Driver/Supplier) "
-    "& Client charge"
+    _description = "Factors to calculate Payment (Driver/Supplier) & Client charge"
     _order = "sequence"
 
-    name = fields.Char(required=True)
-    route_id = fields.Many2one("tms.route", string="Route")
-    travel_id = fields.Many2one("tms.travel", string="Travel")
-    waybill_id = fields.Many2one("tms.waybill", string="waybill", index=True, readonly=True)
-    category = fields.Selection(
-        [("driver", "Driver"), ("customer", "Customer"), ("supplier", "Supplier")], "Type", required=True
-    )
-    factor_type = fields.Selection(
-        [
+    def _get_category_selection(self):
+        return [
+            ("driver", "Driver"),
+            ("customer", "Customer"),
+        ]
+
+    def _get_factor_type_selection(self):
+        return [
             ("distance", "Distance Route (Km/Mi)"),
             ("distance_real", "Distance Real (Km/Mi)"),
             ("weight", "Weight"),
@@ -29,9 +27,13 @@ class TmsFactor(models.Model):
             ("qty", "Quantity"),
             ("volume", "Volume"),
             ("percent", "Income Percent"),
-            ("percent_driver", "Income Percent per Driver"),
-            ("amount_driver", "Amount Percent per Driver"),
-        ],
+        ]
+
+    name = fields.Char(required=True)
+    route_id = fields.Many2one("tms.route", string="Route")
+    category = fields.Selection(_get_category_selection, required=True)
+    factor_type = fields.Selection(
+        _get_factor_type_selection,
         required=True,
         help="For next options you have to type Ranges or Fixed Amount\n - "
         "Distance Route (Km/mi)\n - Distance Real (Km/Mi)\n - Weight\n"
@@ -57,20 +59,10 @@ class TmsFactor(models.Model):
             "qty": _("Quantity"),
             "volume": _("Volume"),
             "percent": _("Income Percent"),
-            "percent_driver": _("Income Percent per Driver"),
-            "amount_driver": _("Amount Percent per Driver"),
         }
         self.name = values.get(self.factor_type)
 
-    def get_driver_amount(self, employee, driver_value, amount):
-        if not employee:
-            raise ValidationError(_("Invalid parameter you can use this factor only with drivers"))
-        if employee.income_percentage == 0.0:
-            raise ValidationError(_("The employee must have a income percentage value"))
-        amount += driver_value * (employee.income_percentage / 100)
-        return amount
-
-    def get_amount(self, weight=0.0, distance=0.0, distance_real=0.0, qty=0.0, volume=0.0, income=0.0, employee=False):
+    def _get_amount(self, weight=0.0, distance=0.0, distance_real=0.0, qty=0.0, volume=0.0, income=0.0, employee=False):
         factor_list = {
             "weight": weight,
             "distance": distance,
@@ -84,10 +76,6 @@ class TmsFactor(models.Model):
                 amount += rec.fixed_amount
             elif rec.factor_type == "percent":
                 amount += income * (rec.factor / 100)
-            elif rec.factor_type == "percent_driver":
-                amount += rec.get_driver_amount(employee, income, amount)
-            elif rec.factor_type == "amount_driver":
-                amount += rec.get_driver_amount(employee, rec.fixed_amount, amount)
             else:
                 for key, value in factor_list.items():
                     if rec.factor_type == key:
