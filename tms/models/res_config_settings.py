@@ -13,6 +13,10 @@ class ResConfigSettings(models.TransientModel):
     driver_license_security_days = fields.Integer(
         string="Driver License Security Days",
     )
+    insurance_security_days = fields.Integer(
+        string="Insurance Security Days",
+    )
+
     advance_journal_id = fields.Many2one(
         related="company_id.advance_journal_id", readonly=False
     )

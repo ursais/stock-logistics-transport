@@ -5,17 +5,17 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
-class HrEmployee(models.Model):
-    _name = "hr.employee.driver.license"
+class FleetVehicleInsurance(models.Model):
+    _name = "fleet.vehicle.insurance"
     _inherit = ["mail.thread", "mail.activity.mixin"]
-    _description = "Driver License"
-    _order = "expiration_date desc, employee_id asc"
+    _description = "Vehicle Insurance"
+    _order = "expiration_date desc, unit_id asc"
 
-    name = fields.Char(string="License ID", required=True)
-    employee_id = fields.Many2one("hr.employee", required=True, ondelete="cascade")
-    license_type = fields.Char()
+    name = fields.Char(string="Insurance Policy", required=True)
+    partner_id = fields.Many2one("res.partner", required=True)
+    unit_id = fields.Many2one("fleet.vehicle", required=True)
     days_to_expire = fields.Integer(compute="_compute_days_to_expire")
-    emission_date = fields.Date()
+    emission_date = fields.Date(required=True)
     expiration_date = fields.Date(required=True)
     state = fields.Selection(
         [
@@ -24,14 +24,6 @@ class HrEmployee(models.Model):
         ],
         compute="_compute_state",
     )
-
-    _sql_constraints = [
-        (
-            "name_uniq",
-            "unique(name)",
-            "The license ID must be unique!",
-        ),
-    ]
 
     @api.depends("expiration_date")
     def _compute_state(self):

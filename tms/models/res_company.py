@@ -20,3 +20,7 @@ class ResCompany(models.Model):
         string="Driver License Security Days",
         help="Number of days to show the expiration date of the driver license",
     )
+    insurance_security_days = fields.Integer(
+        string="Insurance Security Days",
+        help="Number of days to show the expiration date of the insurance",
+    )

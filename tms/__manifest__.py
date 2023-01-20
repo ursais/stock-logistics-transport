@@ -23,6 +23,7 @@
         # "views/fleet_vehicle_odometer_view.xml",
         "views/hr_employee_driver_license_view.xml",
         "views/hr_employee_view.xml",
+        "views/fleet_vehicle_insurance_view.xml",
         "views/fleet_vehicle_view.xml",
         "views/res_config_settings_view.xml",
         # "views/fleet_vehicle_log_fuel_view.xml",

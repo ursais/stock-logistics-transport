@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="hr_employee_driver_license_view_tree" model="ir.ui.view">
-        <field name="name">hr.employee.driver.license.view.tree</field>
-        <field name="model">hr.employee.driver.license</field>
+    <record id="fleet_vehicle_insurance_view_tree" model="ir.ui.view">
+        <field name="name">fleet.vehicle.insurance.view.tree</field>
+        <field name="model">fleet.vehicle.insurance</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name" />
-                <field name="employee_id" />
-                <field name="license_type" />
+                <field name="unit_id" />
+                <field name="partner_id" />
                 <field name="emission_date" />
                 <field name="expiration_date" />
                 <field name="days_to_expire" />
@@ -15,9 +15,9 @@
             </tree>
         </field>
     </record>
-    <record id="hr_employee_driver_license_view_form" model="ir.ui.view">
-        <field name="name">hr.employee.driver.license.view.form</field>
-        <field name="model">hr.employee.driver.license</field>
+    <record id="fleet_vehicle_insurance_view_form" model="ir.ui.view">
+        <field name="name">fleet.vehicle.insurance.view.form</field>
+        <field name="model">fleet.vehicle.insurance</field>
         <field name="arch" type="xml">
             <form>
                 <header>
@@ -29,19 +29,19 @@
                             <label
                                 for="name"
                                 class="oe_inline"
-                                string="License ID - "
+                                string="Insurance Policy - "
                             />
                             <field name="name" />
                         </h1>
                     </div>
                     <group>
                         <group>
-                            <field name="employee_id" />
-                            <field name="license_type" />
-                            <field name="emission_date" />
-                            <field name="expiration_date" />
+                            <field name="partner_id" />
+                            <field name="unit_id" />
                         </group>
                         <group>
+                            <field name="emission_date" />
+                            <field name="expiration_date" />
                             <field name="days_to_expire" />
                         </group>
                     </group>
@@ -54,12 +54,12 @@
             </form>
         </field>
     </record>
-    <record id="hr_employee_driver_license_action" model="ir.actions.act_window">
-        <field name="name">Driver License</field>
-        <field name="res_model">hr.employee.driver.license</field>
+    <record id="fleet_vehicle_insurance_action" model="ir.actions.act_window">
+        <field name="name">Insurance Policy</field>
+        <field name="res_model">fleet.vehicle.insurance</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
-            <p class="oe_view_nocontent_create">Click to add a new driver license.</p>
+            <p class="oe_view_nocontent_create">Click to add a new insurance policy.</p>
         </field>
     </record>
 </odoo>

@@ -26,16 +26,18 @@ class HrEmployee(models.Model):
         inverse_name="employee_id",
         string="Licenses",
     )
-    license_expiration = fields.Date(compute="_compute_license_expitation", store=True)
+    license_expiration_date = fields.Date(compute="_compute_license_expiration_date", store=True)
 
-    @api.depends("license_ids.license_expiration")
-    def _compute_license_expitation(self):
+    @api.depends("license_ids.expiration_date")
+    def _compute_license_expiration_date(self):
         for record in self:
             license = record.license_ids.filtered(
                 lambda r: r.state == "active"
-            ).sorted(key=lambda r: r.license_expiration, reverse=True)
+            ).sorted(key=lambda r: r.expiration_date, reverse=True)
             if license:
-                record.license_expiration = license[0].license_expiration
+                record.license_expiration_date = license[0].expiration_date
+            else:
+                record.license_expiration_date = fields.Date.context_today(record)
 
     def action_open_driver_license(self):
         self.ensure_one()

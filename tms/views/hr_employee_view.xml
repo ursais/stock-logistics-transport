@@ -12,10 +12,12 @@
                     icon="fa-id-card"
                 >
                     <field
-                        name="license_expiration"
+                        name="license_expiration_date"
                         widget="statinfo"
                         string="Driver License"
+                        attrs="{'invisible':[('license_ids','=',[])]}"
                     />
+                    <label for="license_ids" string="Driver License" attrs="{'invisible':[('license_ids','!=',[])]}" />
                     <field name="license_ids" invisible="1" />
                 </button>
             </xpath>

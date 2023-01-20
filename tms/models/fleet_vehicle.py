@@ -14,6 +14,8 @@ class FleetVehicle(models.Model):
         string="Unit Fleet Type",
     )
     economic_number = fields.Char()
+    policy_ids = fields.One2many("fleet.vehicle.insurance", "unit_id", string="Policies")
+    insurance_policy_expiration_date = fields.Date(compute="_compute_insurance_policy_expiration_date", store=True)
 
     _sql_constraints = [
         (
@@ -22,6 +24,24 @@ class FleetVehicle(models.Model):
             "You can not have two vehicles for the same company and economic number",
         ),
     ]
+
+    def action_open_insurance_policy(self):
+        self.ensure_one()
+        action = self.env["ir.actions.actions"]._for_xml_id("tms.fleet_vehicle_insurance_action")
+        action.update({
+            "context": {"default_unit_id": self.id},
+            "domain": [("unit_id", "=", self.id)],
+        })
+        return action
+
+    @api.depends("policy_ids.expiration_date")
+    def _compute_insurance_policy_expiration_date(self):
+        for record in self:
+            policy = record.policy_ids.filtered(lambda r: r.state == "active").sorted(key=lambda r: r.expiration_date, reverse=True)
+            if policy:
+                record.insurance_policy_expiration_date = policy[0].expiration_date
+            else:
+                record.insurance_policy_expiration_date = fields.Date.context_today(record)
 
     @api.depends("model_id.brand_id.name", "model_id.name", "license_plate", "economic_number")
     def _compute_vehicle_name(self):

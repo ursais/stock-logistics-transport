@@ -25,6 +25,23 @@
                     <field name="economic_number" placeholder="T101" required="1" />
                 </h1>
             </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    name="action_open_insurance_policy"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-shield"
+                >
+                    <field
+                        name="insurance_policy_expiration_date"
+                        widget="statinfo"
+                        string="Insurance"
+                        attrs="{'invisible':[('policy_ids','=',[])]}"
+                    />
+                    <label for="policy_ids" string="Insurance" attrs="{'invisible':[('policy_ids','!=',[])]}" />
+                    <field name="policy_ids" invisible="1" />
+                </button>
+            </xpath>
         </field>
     </record>
     <record model='ir.ui.view' id='fleet_vehicle_tms_kanban'>

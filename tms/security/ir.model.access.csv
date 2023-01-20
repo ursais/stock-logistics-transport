@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 user_access_hr_employee_driver_license,user_access_hr_employee_driver_license,tms.model_hr_employee_driver_license,base.group_user,1,0,0,0
 manager_access_hr_employee_driver_license,manager_access_hr_employee_driver_license,tms.model_hr_employee_driver_license,hr.group_hr_manager,1,1,1,1
+user_access_fleet_vehicle_insurance,user_access_fleet_vehicle_insurance,tms.model_fleet_vehicle_insurance,base.group_user,1,0,0,0
+manager_access_fleet_vehicle_insurance,manager_access_fleet_vehicle_insurance,tms.model_fleet_vehicle_insurance,tms.group_tms_manager,1,1,1,1

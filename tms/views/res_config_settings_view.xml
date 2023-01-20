@@ -15,7 +15,7 @@
                     <h2>General Configuration</h2>
                     <div
                         class="row mt16 o_settings_container"
-                        id="tms_modules"
+                        id="tms_general_configuration"
                     >
                         <div class="col-xs-12 col-md-6 o_setting_box" id="tms_driver_license_security_days">
                             <div class="o_setting_right_pane">
@@ -26,6 +26,18 @@
                                 <field name="driver_license_security_days" />
                                 <div class="text-muted">
                                     Set the number of days before the expiration date of the driver license to show a warning.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 o_setting_box" id="tms_insurance_security_days">
+                            <div class="o_setting_right_pane">
+                                <label
+                                    string="Security Days for Insurance"
+                                    for="insurance_security_days"
+                                />
+                                <field name="insurance_security_days" />
+                                <div class="text-muted">
+                                    Set the number of days before the expiration date of the unit insurance to show a warning.
                                 </div>
                             </div>
                         </div>
