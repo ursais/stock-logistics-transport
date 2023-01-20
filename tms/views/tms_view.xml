@@ -31,6 +31,14 @@
                     sequence="10"
                 />
             </menuitem>
+            <menuitem id="menu_tms_settings_products" name="Products" sequence="50">
+                <menuitem
+                    action="tms_open_view_product_list"
+                    id="menu_tms_open_view_product_list"
+                    name="Products"
+                    sequence="10"
+                />
+            </menuitem>
         </menuitem>
     </menuitem>
 </odoo>

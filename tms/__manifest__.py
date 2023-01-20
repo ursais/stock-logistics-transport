@@ -28,7 +28,7 @@
         "views/res_config_settings_view.xml",
         # "views/fleet_vehicle_log_fuel_view.xml",
         # "views/fleet_vehicle_log_fuel_prepaid_view.xml",
-        # "views/product_template_view.xml",
+        "views/product_template_view.xml",
         # "views/tms_advance_view.xml",
         # "views/tms_event_view.xml",
         # "views/tms_expense_view.xml",

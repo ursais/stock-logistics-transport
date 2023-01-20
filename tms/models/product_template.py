@@ -1,14 +1,15 @@
 # Copyright 2016-2023, Jarsa Sistemas, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from odoo import _, api, exceptions, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    tms_product_category = fields.Selection(
-        [
+    def _get_selection_tms_product_category(self):
+        return [
             ("freight", "Freight (Waybill)"),
             ("move", "Moves (Waybill)"),
             ("insurance", "Insurance"),
@@ -25,24 +26,32 @@ class ProductTemplate(models.Model):
             ("negative_balance", "Negative Balance"),
             ("fuel_cash", "Fuel in Cash"),
             ("tollstations", "Tollstations (Expenses)"),
-            ("loan", "Loan"),
-        ],
+        ]
+
+    tms_product_category = fields.Selection(
+        selection=_get_selection_tms_product_category,
         string="TMS Product Category",
     )
-    apply_for_salary = fields.Boolean()
+    apply_for_salary = fields.Boolean(
+        help="Consider this product for salary calculation when the expense is computed if this product is on a "
+        "waybill line.",
+    )
 
     @api.constrains("tms_product_category")
-    def unique_product_per_category(self):
+    def _check_tms_product_category(self):
         for rec in self:
-            categorys = [
-                ["move", "Moves"],
-                ["salary", "Salary"],
-                ["negative_balance", "Negative Balance"],
-                ["indirect_expense", "Indirect Expense"],
-            ]
-            for category in categorys:
-                product = rec.search([("tms_product_category", "=", category[0])])
+            categories = {
+                "move": _("Moves"),
+                "salary": _("Salary"),
+                "negative_balance": _("Negative Balance"),
+                "indirect_expense": _("Indirect Expense"),
+            }
+            if rec.tms_product_category in ["move", "salary", "negative_balance", "indirect_expense"]:
+                product = rec.search([("tms_product_category", "=", rec.tms_product_category)])
                 if len(product) > 1:
-                    raise exceptions.ValidationError(
-                        _("Only there must be a product with category '%(category)s'", category=category[1])
+                    raise UserError(
+                        _(
+                            "Only there must be a product with category '%(category)s'",
+                            category=categories[rec.tms_product_category],
+                        )
                     )
