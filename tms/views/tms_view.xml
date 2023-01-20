@@ -38,6 +38,12 @@
                     name="Products"
                     sequence="10"
                 />
+                <menuitem
+                    action="action_tms_transportable"
+                    id="tms_transportable_menu"
+                    name="Transportable"
+                    sequence="90"
+                />
             </menuitem>
         </menuitem>
     </menuitem>
