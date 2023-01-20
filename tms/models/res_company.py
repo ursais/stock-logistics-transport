@@ -24,3 +24,11 @@ class ResCompany(models.Model):
         string="Insurance Security Days",
         help="Number of days to show the expiration date of the insurance",
     )
+    advance_account_id = fields.Many2one(
+        comodel_name="account.account",
+        domain=[("reconcile", "=", True)],
+    )
+    expense_negative_account_id = fields.Many2one(
+        comodel_name="account.account",
+        domain=[("reconcile", "=", True)],
+    )

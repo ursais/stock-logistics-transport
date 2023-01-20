@@ -62,6 +62,24 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="advance_account_id"/>
+                                <field name="advance_account_id" />
+                                <div class="text-muted">
+                                    Select the default account that will be used to generate an advance to pay.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="expense_negative_account_id"/>
+                                <field name="expense_negative_account_id" />
+                                <div class="text-muted">
+                                    Select the default account that will be used to generate an expense negative move.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <h2>TMS Modules</h2>
                     <div

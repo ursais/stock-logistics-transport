@@ -29,11 +29,11 @@
                     <group name="tms_right">
                         <field
                             name="property_tms_advance_account_id"
-                            attrs="{'required':[('driver','=',True)], 'invisible':[('driver','=',False)] }"
+                            attrs="{'invisible':[('driver','=',False)] }"
                         />
                         <field
                             name="property_tms_expense_negative_account_id"
-                            attrs="{'required':[('driver','=',True)], 'invisible':[('driver','=',False)] }"
+                            attrs="{'invisible':[('driver','=',False)] }"
                         />
                     </group>
                 </page>

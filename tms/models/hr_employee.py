@@ -14,12 +14,16 @@ class HrEmployee(models.Model):
         string="Advance Account",
         company_dependent=True,
         domain=[("reconcile", "=", True)],
+        help="Account used to register advances in the expense, "
+        "if not set it will take the default account from the company",
     )
     property_tms_expense_negative_account_id = fields.Many2one(
         comodel_name="account.account",
         string="Negative Balance Account",
         company_dependent=True,
         domain=[("reconcile", "=", True)],
+        help="Account used to register negative balance in the expense, "
+        "if not set it will take the default account from the company",
     )
     license_ids = fields.One2many(
         comodel_name="hr.employee.driver.license",
