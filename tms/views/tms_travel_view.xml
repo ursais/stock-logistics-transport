@@ -568,8 +568,9 @@
         <field name="arch" type="xml">
             <calendar color="state" date_start="date_start" date_stop="date_end" string="Travels">
                 <field name="name" />
-                <field name="unit_id" />
-                <field name="driver_id" />
+                <field name="unit_id" options="{'no_open': 1}" />
+                <field name="driver_id" options="{'no_open': 1}" />
+                <field name="route_id" options="{'no_open': 1}" />
                 <field name="date_start" />
                 <field name="date_end" />
             </calendar>
