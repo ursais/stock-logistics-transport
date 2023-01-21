@@ -30,28 +30,40 @@ class HrEmployee(models.Model):
         inverse_name="employee_id",
         string="Licenses",
     )
+    active_license_id = fields.Many2one(
+        comodel_name="hr.employee.driver.license",
+        compute="_compute_active_license_id",
+    )
     license_expiration_date = fields.Date(compute="_compute_license_expiration_date", store=True)
 
     @api.depends("license_ids.expiration_date")
+    def _compute_active_license_id(self):
+        for record in self:
+            active_license = record.license_ids.filtered(lambda r: r.state == "active").sorted(
+                key=lambda r: r.expiration_date, reverse=True
+            )
+            if active_license:
+                record.active_license_id = active_license[0]
+            else:
+                record.active_license_id = False
+
+    @api.depends("active_license_id", "active_license_id.expiration_date")
     def _compute_license_expiration_date(self):
         for record in self:
-            license = record.license_ids.filtered(
-                lambda r: r.state == "active"
-            ).sorted(key=lambda r: r.expiration_date, reverse=True)
-            if license:
-                record.license_expiration_date = license[0].expiration_date
+            if record.active_license_id:
+                record.license_expiration_date = record.active_license_id.expiration_date
             else:
                 record.license_expiration_date = fields.Date.context_today(record)
 
     def action_open_driver_license(self):
         self.ensure_one()
-        action = self.env["ir.actions.act_window"]._for_xml_id(
-            "tms.hr_employee_driver_license_action"
+        action = self.env["ir.actions.act_window"]._for_xml_id("tms.hr_employee_driver_license_action")
+        action.update(
+            {
+                "context": {"default_employee_id": self.id},
+                "domain": [("employee_id", "=", self.id)],
+            }
         )
-        action.update({
-            "context": {"default_employee_id": self.id},
-            "domain": [("employee_id", "=", self.id)],
-        })
         return action
 
     @api.constrains("driver")

@@ -47,12 +47,9 @@ class HrEmployee(models.Model):
     @api.depends("expiration_date")
     def _compute_days_to_expire(self):
         for rec in self:
+            days_to_expire = 0
             if rec.expiration_date:
-                days_to_expire = (rec.expiration_date - fields.Date.context_today(self)).days
-                if days_to_expire < 0:
-                    days_to_expire = 0
-            else:
-                days_to_expire = 0
+                days_to_expire = max((rec.expiration_date - fields.Date.context_today(self)).days, 0)
             rec.days_to_expire = days_to_expire
 
     @api.constrains("expiration_date", "emission_date")

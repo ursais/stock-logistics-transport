@@ -9,10 +9,10 @@
                 <field invisible="1" name="category" />
                 <field name="name" />
                 <field name="factor_type" />
-                <field name="factor"  optional="show" />
-                <field name="range_start"  optional="hide" />
+                <field name="factor" optional="show" />
+                <field name="range_start" optional="hide" />
                 <field name="range_end" optional="hide" />
-                <field name="fixed_amount"  optional="show"/>
+                <field name="fixed_amount" optional="show" />
                 <field name="mixed" optional="hide" />
             </tree>
         </field>

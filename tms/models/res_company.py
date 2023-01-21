@@ -17,11 +17,9 @@ class ResCompany(models.Model):
         domain=[("type", "=", "general")],
     )
     driver_license_security_days = fields.Integer(
-        string="Driver License Security Days",
         help="Number of days to show the expiration date of the driver license",
     )
     insurance_security_days = fields.Integer(
-        string="Insurance Security Days",
         help="Number of days to show the expiration date of the insurance",
     )
     advance_account_id = fields.Many2one(

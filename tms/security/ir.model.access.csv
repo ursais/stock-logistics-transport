@@ -16,3 +16,6 @@ monitoring_tms_unit_kit,monitoring_tms_unit_kit,model_tms_unit_kit,group_tms_mon
 traffic_tms_unit_kit,traffic_tms_unit_kit,model_tms_unit_kit,group_tms_traffic,1,1,1,0
 expenses_tms_unit_kit,expenses_tms_unit_kit,model_tms_unit_kit,group_tms_expenses,1,0,0,0
 manager_tms_unit_kit,manager_tms_unit_kit,model_tms_unit_kit,group_tms_manager,1,1,1,1
+monitoring_tms_travel,access_tms_travel,model_tms_travel,group_tms_monitoring,1,0,0,0
+traffic_tms_travel,access_tms_travel,model_tms_travel,group_tms_traffic,1,1,1,1
+expenses_tms_travel,access_tms_travel,model_tms_travel,group_tms_expenses,1,1,1,1

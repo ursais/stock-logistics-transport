@@ -15,7 +15,7 @@
                 <field name="date_end" />
                 <filter name="unit" context="{'group_by' : 'unit_id'}" string="Unit" />
                 <filter name="driver" context="{'group_by' : 'driver_id'}" string="Driver" />
-                <separator/>
+                <separator />
                 <filter name="archived" string="Archived" domain="[('active', '=', False)]" />
             </search>
         </field>
@@ -42,8 +42,13 @@
         <field name="arch" type="xml">
             <form string="Units Kits">
                 <sheet>
-                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
-                    <field name="active" invisible="1"/>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <field name="active" invisible="1" />
                     <h2>
                         <label for="name" class="oe_inline" string="Kit Name - " />
                         <field name="name" />
@@ -59,11 +64,19 @@
                             <field name="driver_id" />
                         </group>
                         <group>
-                            <label for="date_start" string="Validity"/>
+                            <label for="date_start" string="Validity" />
                             <div class="o_row">
-                                <field name="date_start" widget="daterange" options='{"related_end_date": "date_end"}'/>
-                                <i class="fa fa-long-arrow-right mx-1" aria-label="Arrow icon" title="Arrow"/>
-                                <field name="date_end" widget="daterange" options='{"related_start_date": "date_start"}'/>
+                                <field
+                                    name="date_start"
+                                    widget="daterange"
+                                    options='{"related_end_date": "date_end"}'
+                                />
+                                <i class="fa fa-long-arrow-right mx-1" aria-label="Arrow icon" title="Arrow" />
+                                <field
+                                    name="date_end"
+                                    widget="daterange"
+                                    options='{"related_start_date": "date_start"}'
+                                />
                             </div>
                             <field
                                 attrs="{'required':['|', ('dolly_id','!=',False),('trailer2_id','!=',False)]}"
@@ -79,9 +92,9 @@
                     </group>
                 </sheet>
                 <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers"/>
-                    <field name="activity_ids" widget="mail_activity"/>
-                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
         </field>

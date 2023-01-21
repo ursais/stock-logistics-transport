@@ -1,7 +1,7 @@
 # Copyright 2016-2023, Jarsa Sistemas, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
@@ -13,69 +13,66 @@ class TmsTravel(models.Model):
     _description = "Travel"
     _order = "date desc"
 
-    waybill_ids = fields.Many2many("tms.waybill", copy=False)
-    driver_factor_ids = fields.One2many(
-        "tms.factor", "travel_id", string="Travel Driver Payment Factors", domain=[("category", "=", "driver")]
-    )
     name = fields.Char("Travel Number", required=True, copy=False, readonly=True, default="/")
     state = fields.Selection(
         [
-            ("draft", "Pending"),
+            ("draft", "Draft"),
+            ("scheduled", "Scheduled"),
             ("progress", "In Progress"),
             ("done", "Done"),
-            ("cancel", "Cancelled"),
             ("closed", "Closed"),
+            ("cancel", "Cancelled"),
         ],
         tracking=True,
         readonly=True,
         default="draft",
     )
     route_id = fields.Many2one(
-        "tms.route", required=True, states={"cancel": [("readonly", True)], "closed": [("readonly", True)]}
+        "tms.route",
+        required=True,
     )
+    kit_id = fields.Many2one("tms.unit.kit")
+    unit_id = fields.Many2one("fleet.vehicle", required=True, domain=[("fleet_type", "=", "tractor")])
+    trailer1_id = fields.Many2one("fleet.vehicle", domain=[("fleet_type", "=", "trailer")])
+    dolly_id = fields.Many2one("fleet.vehicle", domain=[("fleet_type", "=", "dolly")])
+    trailer2_id = fields.Many2one("fleet.vehicle", domain=[("fleet_type", "=", "trailer")])
+    driver_id = fields.Many2one("hr.employee", "Driver", required=True, domain=[("driver", "=", True)])
+    date = fields.Datetime("Date registered", required=True, default=(fields.Datetime.now))
+    date_start = fields.Datetime(
+        "Start Sched",
+        default=(fields.Datetime.now),
+        copy=False,
+    )
+    date_end = fields.Datetime("End Sched", store=True, compute="_compute_date_end")
+    date_start_real = fields.Datetime("Start Real", readonly=True, copy=False)
+    date_end_real = fields.Datetime("End Real", readonly=True, copy=False)
     travel_duration = fields.Float(
         compute="_compute_travel_duration", string="Duration Sched", help="Travel Scheduled duration in hours"
     )
     travel_duration_real = fields.Float(
         compute="_compute_travel_duration_real", string="Duration Real", help="Travel Real duration in hours"
     )
-    distance_route = fields.Float(related="route_id.distance", string="Route Distance (mi./km)")
-    kit_id = fields.Many2one("tms.unit.kit")
-    unit_id = fields.Many2one("fleet.vehicle", required=True)
-    trailer1_id = fields.Many2one("fleet.vehicle")
-    dolly_id = fields.Many2one("fleet.vehicle", domain=[("fleet_type", "=", "dolly")])
-    trailer2_id = fields.Many2one("fleet.vehicle", domain=[("fleet_type", "=", "trailer")])
-    employee_id = fields.Many2one("hr.employee", "Driver", required=True, domain=[("driver", "=", True)])
-    date = fields.Datetime("Date  registered", required=True, default=(fields.Datetime.now))
-    date_start = fields.Datetime("Start Sched", default=(fields.Datetime.now))
-    date_end = fields.Datetime("End Sched", store=True, compute="_compute_date_end")
-    date_start_real = fields.Datetime("Start Real")
-    date_end_real = fields.Datetime("End Real")
-    distance_driver = fields.Float(
-        "Distance traveled by driver (mi./km)", compute="_compute_distance_driver", store=True
-    )
+    route_distance = fields.Float(related="route_id.distance", string="Route Distance (mi./km)")
+    route_distance_loaded = fields.Float(related="route_id.distance_loaded", string="Route Distance Loaded (mi./km)")
+    route_distance_empty = fields.Float(related="route_id.distance_empty", string="Route Distance Empty (mi./km)")
+    distance = fields.Float("Distance traveled by driver (mi./km)", compute="_compute_distance", store=True)
     distance_loaded = fields.Float("Distance Loaded (mi./km)")
     distance_empty = fields.Float("Distance Empty (mi./km)")
     odometer = fields.Float("Unit Odometer (mi./km)", readonly=True)
-    departure_id = fields.Many2one("tms.place", related="route_id.departure_id", store=True, readonly=True)
-    fuel_log_ids = fields.One2many("fleet.vehicle.log.fuel", "travel_id", string="Fuel Vouchers")
-    advance_ids = fields.One2many("tms.advance", "travel_id")
-    arrival_id = fields.Many2one("tms.place", related="route_id.arrival_id", store=True, readonly=True)
-    notes = fields.Text("Description")
-    user_id = fields.Many2one("res.users", "Responsable", default=lambda self: self.env.user)
-    expense_id = fields.Many2one("tms.expense", "Expense Record", readonly=True)
-    is_available = fields.Boolean(compute="_compute_is_available", string="Travel available")
-    color = fields.Integer()
-    framework = fields.Selection(
-        [("unit", "Unit"), ("single", "Single"), ("double", "Double")], compute="_compute_framework"
-    )
-    partner_ids = fields.Many2many("res.partner", string="Customer", compute="_compute_partner_ids", store=True)
+    notes = fields.Html("Description")
+    user_id = fields.Many2one("res.users", "Responsible", default=lambda self: self.env.user, required=True)
     company_id = fields.Many2one("res.company", required=True, default=lambda self: self.env.user.company_id)
+    error_message = fields.Html(compute="_compute_error_message")
+    # waybill_ids = fields.Many2many("tms.waybill", copy=False)
+    # fuel_log_ids = fields.One2many("fleet.vehicle.log.fuel", "travel_id", string="Fuel Vouchers")
+    # advance_ids = fields.One2many("tms.advance", "travel_id")
+    # expense_id = fields.Many2one("tms.expense", "Expense Record", readonly=True)
+    # partner_ids = fields.Many2many("res.partner", string="Customer", compute="_compute_partner_ids", store=True)
 
-    @api.depends("waybill_ids")
-    def _compute_partner_ids(self):
-        for rec in self:
-            rec.partner_ids = rec.waybill_ids.mapped("partner_id")
+    # @api.depends("waybill_ids")
+    # def _compute_partner_ids(self):
+    #     for rec in self:
+    #         rec.partner_ids = rec.waybill_ids.mapped("partner_id")
 
     @api.depends("date_start", "travel_duration")
     def _compute_date_end(self):
@@ -103,37 +100,120 @@ class TmsTravel(models.Model):
 
     @api.onchange("kit_id")
     def _onchange_kit(self):
-        self.unit_id = self.kit_id.unit_id.id
-        self.trailer2_id = self.kit_id.trailer2_id.id
-        self.trailer1_id = self.kit_id.trailer1_id.id
-        self.dolly_id = self.kit_id.dolly_id.id
-        self.employee_id = self.kit_id.employee_id.id
-
-    @api.onchange("route_id")
-    def _onchange_route(self):
-        self.travel_duration = self.route_id.travel_time
-        self.distance_route = self.route_id.distance
-        self.distance_loaded = self.route_id.distance_loaded
-        self.distance_empty = self.route_id.distance_empty
+        self.update(
+            {
+                "unit_id": self.kit_id.unit_id.id,
+                "trailer2_id": self.kit_id.trailer2_id.id,
+                "trailer1_id": self.kit_id.trailer1_id.id,
+                "dolly_id": self.kit_id.dolly_id.id,
+                "driver_id": self.kit_id.driver_id.id,
+            }
+        )
 
     @api.depends("distance_empty", "distance_loaded")
-    def _compute_distance_driver(self):
+    def _compute_distance(self):
         for rec in self:
-            rec.distance_driver = rec.distance_empty + rec.distance_loaded
+            rec.distance = rec.distance_empty + rec.distance_loaded
+
+    @api.depends("driver_id", "unit_id", "trailer1_id", "dolly_id", "trailer2_id")
+    def _compute_error_message(self):
+        for rec in self:
+            rec.error_message = rec._get_error_message_html()
+
+    def _get_error_message_list(self):
+        self.ensure_one()
+        error_message = []
+        if self.driver_id and not self.driver_id.active_license_id:
+            error_message.append(
+                _(
+                    "The driver %(driver_name)s has no driver license.",
+                    driver_name=self.driver_id.name,
+                )
+            )
+        driver_license_security_days = self.company_id.driver_license_security_days
+        if (
+            self.driver_id
+            and self.driver_id.active_license_id
+            and self.driver_id.active_license_id.days_to_expire <= driver_license_security_days
+        ):
+            error_message.append(
+                _(
+                    "The driver %(driver_name)s has a driver license that will expire in %(days_to_expire)s days.",
+                    driver_name=self.driver_id.name,
+                    days_to_expire=self.driver_id.active_license_id.days_to_expire,
+                )
+            )
+        for unit in self.unit_id + self.trailer1_id + self.trailer2_id + self.dolly_id:
+            if not unit.active_insurance_policy_id:
+                error_message.append(
+                    _(
+                        "The unit %(unit_name)s has no insurance policy.",
+                        unit_name=unit.name,
+                    )
+                )
+            insurance_security_days = self.company_id.insurance_security_days
+            if (
+                unit.active_insurance_policy_id
+                and unit.active_insurance_policy_id.days_to_expire <= insurance_security_days
+            ):
+                error_message.append(
+                    _(
+                        "The unit %(unit_name)s has an insurance that will expire in %(days_to_expire)s days.",
+                        unit_name=unit.name,
+                        days_to_expire=unit.active_insurance_policy_id.days_to_expire,
+                    )
+                )
+        return error_message
+
+    def _get_error_message_html(self):
+        self.ensure_one()
+        error_message = self._get_error_message_list()
+        return (
+            _(
+                "This travel cannot be dispateched due to the following errors:<br/>%(errors)s",
+                errors="".join(["<li>%s</li>" % error for error in error_message]),
+            )
+            if error_message
+            else False
+        )
+
+    def _get_error_message_text(self):
+        self.ensure_one()
+        error_message = self._get_error_message_list()
+        return (
+            _(
+                "This travel cannot be dispateched due to the following errors:\n%(errors)s",
+                errors="\n".join(error_message),
+            )
+            if error_message
+            else False
+        )
 
     def action_draft(self):
         for rec in self:
+            if rec.state != "cancel":
+                raise UserError(_("You can only cancel travels in Cancelled state"))
             rec.state = "draft"
+
+    def action_schedule(self):
+        for rec in self:
+            if rec.error_message:
+                raise UserError(rec.error_message)
+            rec.write(
+                {
+                    "state": "scheduled",
+                }
+            )
 
     def action_progress(self):
         for rec in self:
-            rec.validate_driver_license()
-            rec.validate_vehicle_insurance()
+            if rec.error_message:
+                raise UserError(rec._get_error_message_text())
             travels = rec.search(
                 [
                     ("state", "=", "progress"),
                     "|",
-                    ("employee_id", "=", rec.employee_id.id),
+                    ("driver_id", "=", rec.driver_id.id),
                     ("unit_id", "=", rec.unit_id.id),
                 ]
             )
@@ -186,69 +266,3 @@ class TmsTravel(models.Model):
             if not vals.get("name"):
                 vals["name"] = self.env["ir.sequence"].next_by_code("tms.travel") or _("New")
         return super().create(vals_list)
-
-    @api.depends()
-    def _compute_is_available(self):
-        for rec in self:
-            objects = ["tms.advance", "fleet.vehicle.log.fuel", "tms.waybill"]
-            advances = len(rec.advance_ids)
-            fuel_vehicle = len(rec.fuel_log_ids)
-            count = 0
-            for model in objects:
-                if model in ["tms.advance", "fleet.vehicle.log.fuel"]:
-                    object_ok = len(rec.env[model].search([("state", "=", "confirmed"), ("travel_id", "=", rec.id)]))
-                    if model == "tms.advance" and advances == object_ok or advances == 0:
-                        count += 1
-                    elif model == "fleet.vehicle.log.fuel" and fuel_vehicle == object_ok or fuel_vehicle == 0:
-                        count += 1
-                if model == "tms.waybill":
-                    object_ok = len(rec.env[model].search([("state", "=", "confirmed"), ("travel_ids", "in", rec.id)]))
-                    if len(rec.waybill_ids) == object_ok:
-                        count += 1
-            if count == 3:
-                rec.is_available = True
-
-    @api.depends("trailer1_id", "trailer2_id")
-    def _compute_framework(self):
-        for rec in self:
-            if rec.trailer2_id:
-                rec.framework = "double"
-            elif rec.trailer1_id:
-                rec.framework = "single"
-            else:
-                rec.framework = "unit"
-
-    def validate_driver_license(self):
-        val = self.env["ir.config_parameter"].get_param("driver_license_security_days")
-        days = int(val) or 0
-        for rec in self:
-            if rec.employee_id.days_to_expire <= days:
-                raise UserError(
-                    _(
-                        "You can not Dispatch this Travel because %(employee)s "
-                        "Driver s License Validity %(date)s is expired or"
-                        " about to expire in next %(days)s days",
-                        employee=rec.employee_id.name,
-                        date=rec.employee_id.license_expiration,
-                        days=val,
-                    )
-                )
-
-    def validate_vehicle_insurance(self):
-        val = self.env["ir.config_parameter"].get_param("tms_vehicle_insurance_security_days")
-        xdays = int(val) or 0
-        date = datetime.now() + timedelta(days=xdays)
-        for rec in self:
-            units = [rec.unit_id, rec.trailer1_id, rec.dolly_id, rec.trailer2_id]
-            for unit in units:
-                if unit.insurance_expiration and unit.insurance_expiration <= date.date():
-                    raise UserError(
-                        _(
-                            "You can not Dispatch this Travel because this Vehicle"
-                            " %(vehicle)s Insurance %(date)s is expired or about to expire in "
-                            "next %(days)s days",
-                            vehicle=unit.name,
-                            date=unit.insurance_expiration,
-                            days=val,
-                        )
-                    )

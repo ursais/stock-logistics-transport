@@ -1,9 +1,7 @@
 # Copyright 2016-2023, Jarsa Sistemas, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo import api, fields, models
 
 
 class TmsRoute(models.Model):
@@ -37,16 +35,13 @@ class TmsRoute(models.Model):
     @api.depends("distance_empty", "distance_loaded")
     def _compute_distance(self):
         for rec in self:
-            if rec.distance_empty < 0.0:
-                rec.distance_empty = 0.0
-            if rec.distance_loaded < 0.0:
-                rec.distance_loaded = 0.0
+            rec.distance_empty = max(rec.distance_empty, 0.0)
+            rec.distance_loaded = max(rec.distance_loaded, 0.0)
             rec.distance = rec.distance_empty + rec.distance_loaded
 
     def _inverse_distance(self):
         for rec in self:
-            if rec.distance < 0.0:
-                rec.distance = 0.0
+            rec.distance = max(rec.distance, 0.0)
             if rec.distance_loaded:
                 rec.distance_empty = rec.distance - rec.distance_loaded
             if rec.distance_empty:
@@ -55,16 +50,12 @@ class TmsRoute(models.Model):
     @api.depends("distance", "distance_loaded")
     def _compute_distance_empty(self):
         for rec in self:
-            if rec.distance < 0.0:
-                rec.distance = 0.0
-            if rec.distance_loaded < 0.0:
-                rec.distance_loaded = 0.0
+            rec.distance = max(rec.distance, 0.0)
+            rec.distance_loaded = max(rec.distance_loaded, 0.0)
             rec.distance_empty = rec.distance - rec.distance_loaded
 
     def _inverse_distance_empty(self):
         for rec in self:
-            if rec.distance_loaded < 0.0:
-                rec.distance = 0.0
-            if rec.distance_empty < 0.0:
-                rec.distance_empty = 0.0
+            rec.distance_loaded = max(rec.distance_loaded, 0.0)
+            rec.distance_empty = (rec.distance_empty, 0.0)
             rec.distance = rec.distance_loaded + rec.distance_empty

@@ -2,14 +2,13 @@
 <odoo>
     <menuitem id="menu_tms" name="Freights" sequence="10" web_icon="tms,static/description/icon.png">
         <menuitem id="menu_tms_travels" name="Freights" sequence="10">
+            <menuitem action="open_view_tms_travel_form" id="menu_tms_travel_form" sequence="20" />
         </menuitem>
         <menuitem id="menu_tms_reports" name="Reports" sequence="50">
+            <menuitem action="open_view_tms_travel_report" id="menu_tms_travel_report" sequence="1" />
         </menuitem>
         <menuitem id="menu_tms_settings" name="Configuration" sequence="99" groups="tms.group_tms_manager">
-            <menuitem
-                id="menu_tms_config"
-                action="action_tms_config"
-                sequence="10"/>
+            <menuitem id="menu_tms_config" action="action_tms_config" sequence="10" />
             <menuitem id="menu_tms_settings_drivers" name="Drivers" sequence="20">
                 <menuitem
                     action="tms_open_view_employee_list"

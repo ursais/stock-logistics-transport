@@ -37,7 +37,7 @@
         "views/tms_factor_view.xml",
         "views/tms_route_view.xml",
         "views/tms_transportable_view.xml",
-        # "views/tms_travel_view.xml",
+        "views/tms_travel_view.xml",
         "views/tms_unit_kit_view.xml",
         # "views/tms_waybill_view.xml",
         # "views/tms_extradata_view.xml",

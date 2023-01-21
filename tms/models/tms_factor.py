@@ -4,7 +4,6 @@
 from __future__ import division
 
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError
 
 
 class TmsFactor(models.Model):
@@ -62,7 +61,9 @@ class TmsFactor(models.Model):
         }
         self.name = values.get(self.factor_type)
 
-    def _get_amount(self, weight=0.0, distance=0.0, distance_real=0.0, qty=0.0, volume=0.0, income=0.0, employee=False):
+    def _get_amount(
+        self, weight=0.0, distance=0.0, distance_real=0.0, qty=0.0, volume=0.0, income=0.0, employee=False
+    ):
         factor_list = {
             "weight": weight,
             "distance": distance,
