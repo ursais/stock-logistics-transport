@@ -69,6 +69,5 @@ class HrEmployee(models.Model):
     @api.constrains("driver")
     def _check_driver(self):
         for record in self:
-            if record.driver:
-                if not record.address_home_id:
-                    raise UserError(_("You must define a Home Address for this Driver"))
+            if record.driver and not record.address_home_id:
+                raise UserError(_("You must define a Home Address for this Driver"))
