@@ -29,7 +29,7 @@
                     string="Company"
                 />
                 <filter name="state" context="{'group_by' : 'state'}" string="State" />
-                <filter name="date" context="{'group_by' : 'date'}" string="Date" />
+                <filter name="create_date" context="{'group_by' : 'create_date'}" string="Create Date" />
                 <filter context="{'group_by' : 'date_start_real'}" name="date_dispatched" string="Day Dispatched" />
                 <filter name="day_finished" context="{'group_by' : 'date_end_real'}" string="Day Finished" />
             </search>
@@ -48,21 +48,28 @@
             >
                 <field name="error_message" invisible="1" />
                 <field name="name" />
-                <field name="date" />
-                <field name="unit_id" />
-                <field name="trailer1_id" />
-                <field name="dolly_id" />
-                <field name="trailer2_id" />
-                <field name="driver_id" />
+                <field name="driver_id" optional="show" />
+                <field name="unit_id" optional="show" />
+                <field name="trailer1_id" optional="hide" />
+                <field name="dolly_id" optional="hide" />
+                <field name="trailer2_id" optional="hide" />
                 <!-- <field name="waybill_ids" widget="many2many_tags" /> -->
-                <field name="route_id" />
-                <field name="company_id" groups="base.group_multi_company" />
+                <field name="route_id" optional="show" />
+                <field name="company_id" groups="base.group_multi_company" optional="hide" />
                 <field name="state" />
+                <button
+                    groups="tms.group_tms_traffic,tms.group_tms_expenses"
+                    icon="fa-calendar"
+                    name="action_schedule"
+                    attrs="{'invisible': ['|', ('error_message', '!=', False), ('state', '!=', 'draft')]}"
+                    string="Schedule"
+                    type="object"
+                />
                 <button
                     groups="tms.group_tms_traffic,tms.group_tms_expenses"
                     icon="fa-thumbs-up"
                     name="action_progress"
-                    states="draft"
+                    attrs="{'invisible': ['|', ('error_message', '!=', False), ('state', '!=', 'scheduled')]}"
                     string="Dispatch Travel"
                     type="object"
                 />
@@ -70,7 +77,7 @@
                     groups="tms.group_tms_traffic,tms.group_tms_expenses"
                     icon="fa-check-square"
                     name="action_done"
-                    states="progress"
+                    attrs="{'invisible': ['|', ('error_message', '!=', False), ('state', '!=', 'progress')]}"
                     string="End Travel"
                     type="object"
                 />
@@ -90,7 +97,7 @@
             >
                 <field name="error_message" invisible="1" />
                 <field name="name" />
-                <field name="date" />
+                <field name="create_date" />
                 <field name="unit_id" string="Unit" />
                 <field name="trailer1_id" />
                 <field name="dolly_id" />
@@ -115,7 +122,7 @@
                 decoration-info="state=='done'"
             >
                 <field name="name" />
-                <field name="date" />
+                <field name="create_date" />
                 <field name="unit_id" string="Unit" />
                 <field name="trailer1_id" />
                 <field name="dolly_id" />
@@ -146,14 +153,37 @@
                 string="Travels"
                 date_start="date_start"
                 date_stop="date_end"
+                create="0"
+                delete="0"
+                color="state"
+                default_group_by="unit_id"
                 decoration-danger="error_message"
                 decoration-secondary="state == 'done'"
                 decoration-info="state == 'scheduled'"
                 decoration-success="state == 'progress'"
                 decoration-warning="state == 'cancel'"
             >
-                <field name="error_message" invisible="1" />
-                <field name="state" invisible="1" />
+                <field name="error_message" />
+                <field name="state" />
+                <field name="driver_id" />
+                <field name="unit_id" />
+                <field name="route_id" />
+                <templates>
+                    <div t-name="gantt-popover" class="container-fluid">
+                        <div class="row no-gutters">
+                            <div class="col">
+                                <ul class="pl-1 mb-0 list-unstyled">
+                                    <li><strong>Driver: </strong> <t t-esc="driver_id[1]"/></li>
+                                    <li><strong>Unit: </strong> <t t-esc="unit_id[1]"/></li>
+                                    <li><strong>Route: </strong> <t t-esc="route_id[1]"/></li>
+                                    <li><strong>Date Start: </strong> <t t-esc="userTimezoneStartDate.format('L LTS')"/></li>
+                                    <li><strong>Date End: </strong> <t t-esc="userTimezoneStopDate.format('L LTS')"/></li>
+                                    <li><strong>State: </strong> <t t-esc="state"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </templates>
             </gantt>
         </field>
     </record>
@@ -164,11 +194,20 @@
             <form string="Travels">
                 <header>
                     <button
+                        name="action_schedule"
+                        icon="fa-calendar"
+                        type="object"
+                        string="Schedule"
+                        attrs="{'invisible': ['|', ('error_message', '!=', False), ('state', '!=', 'draft')]}"
+                        groups="tms.group_tms_traffic,tms.group_tms_expenses"
+                        class="oe_highlight"
+                    />
+                    <button
                         name="action_progress"
                         icon="fa-thumbs-up"
                         type="object"
                         string="Dispatch"
-                        states="draft"
+                        attrs="{'invisible': ['|', ('error_message', '!=', False), ('state', '!=', 'scheduled')]}"
                         groups="tms.group_tms_traffic,tms.group_tms_expenses"
                         class="oe_highlight"
                     />
@@ -194,7 +233,7 @@
                         icon="fa-reply"
                         type="object"
                         string="Set to draft"
-                        states="done,cancel"
+                        states="scheduled,done,cancel"
                         groups="tms.group_tms_traffic,tms.group_tms_expenses"
                     />
                     <field name="state" widget="statusbar" />
@@ -214,68 +253,97 @@
                         </h1>
                     </div>
                     <group>
-                        <group>
-                            <field name="kit_id" attrs="{'readonly':[('state','in',('progress','done','closed'))]}" />
+                        <group string="Driver and Units" name="driver_and_units">
+                            <field name="kit_id" attrs="{'readonly':[('state', '!=', 'draft')]}" options="{'no_create': 1}"/>
+                            <field
+                                name="driver_id"
+                                options="{'no_create': 1}"
+                                attrs="{'readonly':[('state', '!=', 'draft')]}"
+                            />
                             <field
                                 name="unit_id"
-                                attrs="{'readonly':[('state','in',('progress','done', 'closed'))]}"
+                                options="{'no_create': 1}"
+                                attrs="{'readonly':[('state', '!=', 'draft')]}"
                                 domain="[('fleet_type', '=', 'tractor')]"
                             />
                             <field
                                 name="trailer1_id"
-                                attrs="{'required':['|', ('dolly_id','!=',False),('trailer2_id','!=',False)], 'readonly':[('state','in',('progress','done', 'closed'))]}"
+                                options="{'no_create': 1}"
+                                attrs="{'required':['|', ('dolly_id','!=',False),('trailer2_id','!=',False)], 'readonly':[('state', '!=', 'draft')]}"
                                 context="{'default_fleet_type': 'trailer'}"
                                 domain="[('fleet_type', '=', 'trailer'),('id','!=',trailer2_id)]"
                             />
                             <field
                                 name="dolly_id"
-                                attrs="{'required':[('trailer2_id','!=',False)],'readonly':[('state','in',('progress','done', 'closed'))]}"
+                                options="{'no_create': 1}"
+                                attrs="{'required':[('trailer2_id','!=',False)],'readonly':[('state', '!=', 'draft')]}"
                                 context="{'default_fleet_type': 'dolly'}"
                                 domain="[('fleet_type', '=', 'dolly')]"
                             />
                             <field
                                 name="trailer2_id"
-                                attrs="{'required':[('dolly_id','!=',False)],'readonly':[('state','in',('progress','done', 'closed'))]}"
+                                options="{'no_create': 1}"
+                                attrs="{'required':[('dolly_id','!=',False)],'readonly':[('state', '!=', 'draft')]}"
                                 context="{'default_fleet_type': 'trailer'}"
                                 domain="[('fleet_type', '=', 'trailer'),('id','!=',trailer1_id)]"
                             />
                         </group>
-                        <group>
-                            <field name="date" attrs="{'readonly':[('state','in',('progress','done', 'closed'))]}" />
+                        <group string="Date and Times" name="date_and_times">
                             <label for="date_start" string="Scheduled date" />
                             <div class="o_row">
                                 <field
                                     name="date_start"
                                     widget="daterange"
-                                    options="{&quot;related_end_date&quot;: &quot;date_end&quot;}"
+                                    attrs="{'readonly':[('state', '!=', 'draft')]}"
+                                    options="{'related_end_date': 'date_end'}"
                                 />
                                 <i class="fa fa-long-arrow-right mx-1" aria-label="Arrow icon" title="Arrow" />
                                 <field
                                     name="date_end"
                                     widget="daterange"
-                                    options="{&quot;related_start_date&quot;: &quot;date_start&quot;}"
+                                    attrs="{'readonly':[('state', '!=', 'draft')]}"
+                                    options="{'related_start_date': 'date_start'}"
                                 />
                             </div>
-                            <field name="route_travel_time" />
+                            <label for="date_start_real" string="Real date" attrs="{'invisible': [('date_start_real', '=', False)]}" />
+                            <div class="o_row" attrs="{'invisible': [('date_start_real', '=', False)]}">
+                                <field
+                                    name="date_start_real"
+                                    widget="daterange"
+                                    options="{'related_end_date': 'date_end_real'}"
+                                />
+                                <i class="fa fa-long-arrow-right mx-1" aria-label="Arrow icon" title="Arrow" attrs="{'invisible': [('date_end_real', '=', False)]}" />
+                                <field
+                                    name="date_end_real"
+                                    widget="daterange"
+                                    attrs="{'invisible': [('date_end_real', '=', False)]}"
+                                    options="{'related_start_date': 'date_start_real'}"
+                                />
+                            </div>
+                            <field name="route_travel_time" widget="float_time" attrs="{'invisible': [('travel_time_real', '>', 0)]}" />
+                            <label for="route_travel_time" string="Duration Sched / Duration Real" attrs="{'invisible': [('travel_time_real', '=', 0)]}" />
+                            <div class="o_row" >
+                                <field name="route_travel_time" widget="float_time" />
+                                <label for="travel_time_real" string=" / " attrs="{'invisible': [('travel_time_real', '=', 0)]}" />
+                                <field name="travel_time_real" widget="float_time" attrs="{'invisible': [('travel_time_real', '=', 0)]}" />
+                            </div>
                             <field
                                 name="user_id"
-                                attrs="{'readonly':[('state','in',('progress','done', 'closed'))]}"
+                                options="{'no_create': 1, 'no_open': 1}"
+                                attrs="{'readonly':[('state', '!=', 'draft')]}"
                             />
-                            <field
-                                name="driver_id"
-                                attrs="{'readonly':[('state','in',('progress','done', 'closed'))]}"
-                            />
-                            <field name="company_id" groups="base.group_multi_company" />
-                        </group>
-                        <group colspan="4">
-                            <field
-                                name="route_id"
-                                attrs="{'readonly':[('state','in',('progress','done', 'closed'))]}"
-                            />
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': 1, 'no_open': 1}" attrs="{'readonly':[('state', '!=', 'draft')]}" />
                         </group>
                     </group>
-                    <!-- <notebook>
-                        <page string="Vehicle log fuel">
+                    <group string="Route" name="route">
+                        <field
+                            name="route_id"
+                            options="{'no_create': 1}"
+                            attrs="{'readonly':[('state', '!=', 'draft')]}"
+                        />
+                    </group>
+                    <notebook>
+                        <!--<page string="Vehicle log fuel">
                             <field
                                 name="fuel_log_ids"
                                 attrs="{'readonly':[('state','in',('done', 'closed'))]}"
@@ -317,7 +385,6 @@
                                     <field name="amount" widget='monetary' sum="Amount Total" />
                                     <field name="currency_id" optional="hide" />
                                     <field name="auto_expense" />
-                                    <field name="date" optional="show" />
                                     <field name="paid" optional="hide" />
                                     <field name="notes" optional="hide" />
                                     <field name="state" optional="show" />
@@ -382,82 +449,32 @@
                                     </tree>
                                 </field>
                             </group>
-                        </page>
-                        <page string="Expense driver factor">
-                            <field
-                                name="driver_factor_ids"
-                                attrs="{'readonly':[('state','in',('done', 'closed'))]}"
-                                context="{'default_category': 'driver'}"
-                            />
-                        </page>
-                        <page string="History">
-                            <field name="event_ids" context="{'default_travel_id':active_id}" />
-                            <group>
-                                <separator colspan="4" string="Notes" />
-                                <field
-                                    attrs="{'readonly':[('state','in',('done', 'closed'))]}"
-                                    name="notes"
-                                    nolabel="1"
-                                />
-                            </group>
-                        </page>
+                        </page>-->
                         <page string="Statistics">
                             <group>
                                 <group>
-                                    <separator string="Distances (mi./kms)" />
-                                    <newline />
-                                    <field name="distance_route" readonly="1" />
-                                    <field
-                                        attrs="{'readonly':[('state','in',('done', 'closed'))]}"
-                                        name="distance_loaded"
-                                    />
-                                    <field
-                                        attrs="{'readonly':[('state','in',('done', 'closed'))]}"
-                                        name="distance_empty"
-                                    />
-                                    <field name="distance_driver" />
-                                    <field
-                                        name="odometer"
-                                        attrs="{'invisible':[('state','not in', ['done', 'closed'])]}"
-                                    />
+                                    <group string="Route Distances (mi./kms)">
+                                        <newline />
+                                        <field name="route_distance" />
+                                        <field name="route_distance_loaded" />
+                                        <field name="route_distance_empty" />
+                                    </group>
+                                    <group string="Real Distances (mi./kms)">
+                                        <field
+                                            attrs="{'readonly':[('state','in',('done', 'closed'))]}"
+                                            name="distance_loaded"
+                                        />
+                                        <field
+                                            attrs="{'readonly':[('state','in',('done', 'closed'))]}"
+                                            name="distance_empty"
+                                        />
+                                        <field name="distance" />
+                                        <field name="odometer" />
+                                    </group>
                                 </group>
-                                <group>
-                                    <separator colspan="4" string="Fuel Efficiency" />
-                                    <newline />
-                                    <field
-                                        attrs="{'readonly':[('state','in',('done', 'closed'))]}"
-                                        name="fuel_efficiency_expected"
-                                        readonly="1"
-                                    />
-                                    <field
-                                        attrs="{'readonly':[('state','in',('done', 'closed'))]}"
-                                        name="fuel_efficiency_travel"
-                                    />
-                                    <field name="fuel_efficiency_extraction" />
-                                </group>
-                            </group>
-                            <separator colspan="4" string="Date and Times" />
-                            <group col="6" colspan="4">
-                                <field attrs="{'readonly':[('state','in',('done', 'closed'))]}" name="date_start" />
-                                <field attrs="{'readonly':[('state','in',('done', 'closed'))]}" name="date_end" />
-                                <field
-                                    attrs="{'readonly':[('state','in',('done', 'closed'))]}"
-                                    name="route_travel_time"
-                                    widget="float_time"
-                                />
-                                <field
-                                    attrs="{'readonly':[('state','in',('done', 'closed'))]}"
-                                    name="date_start_real"
-                                />
-                                <field attrs="{'readonly':[('state','in',('done', 'closed'))]}" name="date_end_real" />
-                                <field
-                                    attrs="{'readonly':[('state','in',('done', 'closed'))]}"
-                                    name="travel_time_real"
-                                    widget="float_time"
-                                />
                             </group>
                         </page>
-                    </notebook> -->
+                    </notebook>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers" />
@@ -491,47 +508,46 @@
                     </div>
                     <group>
                         <group>
-                            <field name="kit_id" attrs="{'readonly':[('state','in',('progress','done','closed'))]}" />
+                            <field name="kit_id" attrs="{'readonly':[('state', '!=', 'draft')]}" options="{'no_create': 1, 'no_create_edit': 1}" />
                             <field
                                 name="unit_id"
-                                attrs="{'readonly':[('state','in',('progress','done', 'closed'))]}"
+                                attrs="{'readonly':[('state', '!=', 'draft')]}"
                                 domain="[('fleet_type', '=', 'tractor')]"
                             />
                             <field
                                 name="trailer1_id"
-                                attrs="{'required':['|', ('dolly_id','!=',False),('trailer2_id','!=',False)], 'readonly':[('state','in',('progress','done', 'closed'))]}"
+                                attrs="{'required':['|', ('dolly_id','!=',False),('trailer2_id','!=',False)], 'readonly':[('state', '!=', 'draft')]}"
                                 context="{'default_fleet_type': 'trailer'}"
                                 domain="[('fleet_type', '=', 'trailer'),('id','!=',trailer2_id)]"
                             />
                             <field
                                 name="dolly_id"
-                                attrs="{'required':[('trailer2_id','!=',False)],'readonly':[('state','in',('progress','done', 'closed'))]}"
+                                attrs="{'required':[('trailer2_id','!=',False)],'readonly':[('state', '!=', 'draft')]}"
                                 context="{'default_fleet_type': 'dolly'}"
                                 domain="[('fleet_type', '=', 'dolly')]"
                             />
                             <field
                                 name="trailer2_id"
-                                attrs="{'required':[('dolly_id','!=',False)],'readonly':[('state','in',('progress','done', 'closed'))]}"
+                                attrs="{'required':[('dolly_id','!=',False)],'readonly':[('state', '!=', 'draft')]}"
                                 context="{'default_fleet_type': 'trailer'}"
                                 domain="[('fleet_type', '=', 'trailer'),('id','!=',trailer1_id)]"
                             />
                         </group>
                         <group>
-                            <field name="date" attrs="{'readonly':[('state','in',('progress','done', 'closed'))]}" />
                             <field
                                 name="user_id"
-                                attrs="{'readonly':[('state','in',('progress','done', 'closed'))]}"
+                                attrs="{'readonly':[('state', '!=', 'draft')]}"
                             />
                             <field
                                 name="driver_id"
-                                attrs="{'readonly':[('state','in',('progress','done', 'closed'))]}"
+                                attrs="{'readonly':[('state', '!=', 'draft')]}"
                             />
                             <field name="company_id" groups="base.group_multi_company" />
                         </group>
                         <group colspan="4">
                             <field
                                 name="route_id"
-                                attrs="{'readonly':[('state','in',('progress','done', 'closed'))]}"
+                                attrs="{'readonly':[('state', '!=', 'draft')]}"
                             />
                         </group>
                     </group>
@@ -588,6 +604,6 @@
         <field name="res_model">tms.travel</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="view_tms_travel_tree_report" />
-        <field name="context">{&quot;search_default_progress&quot;:1, 'search_default_date_dispatched': 1}</field>
+        <field name="context">{'search_default_progress':1, 'search_default_date_dispatched': 1}</field>
     </record>
 </odoo>

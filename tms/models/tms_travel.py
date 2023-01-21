@@ -37,7 +37,6 @@ class TmsTravel(models.Model):
     dolly_id = fields.Many2one("fleet.vehicle", domain=[("fleet_type", "=", "dolly")])
     trailer2_id = fields.Many2one("fleet.vehicle", domain=[("fleet_type", "=", "trailer")])
     driver_id = fields.Many2one("hr.employee", "Driver", required=True, domain=[("driver", "=", True)])
-    date = fields.Datetime("Date registered", required=True, default=(fields.Datetime.now))
     date_start = fields.Datetime(
         "Start Sched",
         default=(fields.Datetime.now),
@@ -214,8 +213,8 @@ class TmsTravel(models.Model):
 
     def action_draft(self):
         for rec in self:
-            if rec.state != "cancel":
-                raise UserError(_("You can only cancel travels in Cancelled state"))
+            if rec.state not in ["cancel", "scheduled"]:
+                raise UserError(_("Only canceled or scheduled travels can be set to draft."))
             rec.state = "draft"
 
     def action_schedule(self):
@@ -289,3 +288,9 @@ class TmsTravel(models.Model):
             if not vals.get("name"):
                 vals["name"] = self.env["ir.sequence"].next_by_code("tms.travel") or _("New")
         return super().create(vals_list)
+
+    def write(self, vals):
+        for rec in self:
+            if vals.get("date_start") and rec.state != "draft":
+                raise UserError(_("You can only change the scheduled date of a travel in Draft state"))
+        return super().write(vals)
