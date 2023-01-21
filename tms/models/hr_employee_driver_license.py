@@ -15,7 +15,7 @@ class HrEmployee(models.Model):
     employee_id = fields.Many2one("hr.employee", required=True, ondelete="cascade")
     license_type = fields.Char()
     days_to_expire = fields.Integer(compute="_compute_days_to_expire")
-    emission_date = fields.Date()
+    emission_date = fields.Date(required=True)
     expiration_date = fields.Date(required=True)
     state = fields.Selection(
         [

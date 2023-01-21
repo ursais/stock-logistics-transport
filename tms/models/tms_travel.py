@@ -11,7 +11,7 @@ class TmsTravel(models.Model):
     _name = "tms.travel"
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Travel"
-    _order = "date desc"
+    _order = "date_start desc"
 
     name = fields.Char("Travel Number", required=True, copy=False, readonly=True, default="/")
     state = fields.Selection(
@@ -43,17 +43,33 @@ class TmsTravel(models.Model):
         default=(fields.Datetime.now),
         copy=False,
     )
-    date_end = fields.Datetime("End Sched", store=True, compute="_compute_date_end")
+    date_end = fields.Datetime(
+        string="End Sched",
+        compute="_compute_date_end",
+        inverse="_inverse_date_end",
+        store=True,
+    )
     date_start_real = fields.Datetime("Start Real", readonly=True, copy=False)
     date_end_real = fields.Datetime("End Real", readonly=True, copy=False)
-    travel_duration = fields.Float(
-        compute="_compute_travel_duration", string="Duration Sched", help="Travel Scheduled duration in hours"
+    travel_time_real = fields.Float(
+        compute="_compute_travel_time_real", string="Duration Real", help="Travel Real duration in hours"
     )
-    travel_duration_real = fields.Float(
-        compute="_compute_travel_duration_real", string="Duration Real", help="Travel Real duration in hours"
+    travel_time = fields.Float(
+        string="Duration Sched",
+        help="Travel Scheduled duration in hours",
+        related="route_id.travel_time",
+        store=True,
     )
-    route_distance = fields.Float(related="route_id.distance", string="Route Distance (mi./km)")
-    route_distance_loaded = fields.Float(related="route_id.distance_loaded", string="Route Distance Loaded (mi./km)")
+    route_distance = fields.Float(
+        related="route_id.distance",
+        string="Route Distance (mi./km)",
+        store=True,
+    )
+    route_distance_loaded = fields.Float(
+        related="route_id.distance_loaded",
+        string="Route Distance Loaded (mi./km)",
+        store=True,
+    )
     route_distance_empty = fields.Float(related="route_id.distance_empty", string="Route Distance Empty (mi./km)")
     distance = fields.Float("Distance traveled by driver (mi./km)", compute="_compute_distance", store=True)
     distance_loaded = fields.Float("Distance Loaded (mi./km)")
@@ -74,29 +90,13 @@ class TmsTravel(models.Model):
     #     for rec in self:
     #         rec.partner_ids = rec.waybill_ids.mapped("partner_id")
 
-    @api.depends("date_start", "travel_duration")
-    def _compute_date_end(self):
-        for rec in self:
-            date_end = False
-            if rec.date_start and rec.travel_duration:
-                date_end = rec.date_start + timedelta(hours=rec.travel_duration)
-            rec.date_end = date_end
-
-    @api.depends("date_start", "date_end")
-    def _compute_travel_duration(self):
-        for rec in self:
-            travel_duration = 0
-            if rec.date_start and rec.date_end:
-                travel_duration = (rec.date_end - rec.date_start).total_seconds() / 60 / 60
-            rec.travel_duration = travel_duration
-
     @api.depends("date_start_real", "date_end_real")
-    def _compute_travel_duration_real(self):
+    def _compute_travel_time_real(self):
         for rec in self:
-            travel_duration_real = 0
+            travel_time_real = 0
             if rec.date_start_real and rec.date_end_real:
-                travel_duration_real = (rec.date_end_real - rec.date_start_real).total_seconds() / 60 / 60
-            rec.travel_duration_real = travel_duration_real
+                travel_time_real = (rec.date_end_real - rec.date_start_real).total_seconds() / 60 / 60
+            rec.travel_time_real = travel_time_real
 
     @api.onchange("kit_id")
     def _onchange_kit(self):
@@ -110,12 +110,29 @@ class TmsTravel(models.Model):
             }
         )
 
+    @api.depends("date_start", "route_id")
+    def _compute_date_end(self):
+        for rec in self:
+            rec.date_end = rec.date_start + timedelta(hours=rec.route_id.travel_time)
+
+    def _inverse_date_end(self):
+        for rec in self:
+            rec.date_start = rec.date_end - timedelta(hours=rec.route_id.travel_time)
+
+    @api.onchange("route_id", "date_start")
+    def _onchange_route_date_start(self):
+        self.update(
+            {
+                "date_end": self.date_start + timedelta(hours=self.route_id.travel_time),
+            }
+        )
+
     @api.depends("distance_empty", "distance_loaded")
     def _compute_distance(self):
         for rec in self:
             rec.distance = rec.distance_empty + rec.distance_loaded
 
-    @api.depends("driver_id", "unit_id", "trailer1_id", "dolly_id", "trailer2_id")
+    @api.depends("driver_id", "unit_id", "trailer1_id", "dolly_id", "trailer2_id", "date_start")
     def _compute_error_message(self):
         for rec in self:
             rec.error_message = rec._get_error_message_html()
@@ -135,12 +152,15 @@ class TmsTravel(models.Model):
             self.driver_id
             and self.driver_id.active_license_id
             and self.driver_id.active_license_id.days_to_expire <= driver_license_security_days
+            or self.driver_id.active_license_id.emission_date >= self.date_start.date()
         ):
             error_message.append(
                 _(
-                    "The driver %(driver_name)s has a driver license that will expire in %(days_to_expire)s days.",
+                    "Invalid driver licence for %(driver_name)s. "
+                    "Valid from %(emission_date)s to %(expiration_date)s.",
                     driver_name=self.driver_id.name,
-                    days_to_expire=self.driver_id.active_license_id.days_to_expire,
+                    emission_date=self.driver_id.active_license_id.emission_date,
+                    expiration_date=self.driver_id.active_license_id.expiration_date,
                 )
             )
         for unit in self.unit_id + self.trailer1_id + self.trailer2_id + self.dolly_id:
@@ -155,12 +175,15 @@ class TmsTravel(models.Model):
             if (
                 unit.active_insurance_policy_id
                 and unit.active_insurance_policy_id.days_to_expire <= insurance_security_days
+                or unit.active_insurance_policy_id.emission_date >= self.date_start.date()
             ):
                 error_message.append(
                     _(
-                        "The unit %(unit_name)s has an insurance that will expire in %(days_to_expire)s days.",
+                        "Invalid Insurance Policy for unit %(unit_name)s. "
+                        "Valid from %(emission_date)s to %(expiration_date)s.",
                         unit_name=unit.name,
-                        days_to_expire=unit.active_insurance_policy_id.days_to_expire,
+                        emission_date=unit.active_insurance_policy_id.emission_date,
+                        expiration_date=unit.active_insurance_policy_id.expiration_date,
                     )
                 )
         return error_message
