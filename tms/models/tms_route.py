@@ -15,47 +15,16 @@ class TmsRoute(models.Model):
     driver_factor_ids = fields.One2many("tms.factor", "route_id", string="Expense driver factor")
     distance = fields.Float(
         string="Distance (mi./kms)",
-        help="Route distance (mi./kms)",
-        required=True,
         compute="_compute_distance",
-        inverse="_inverse_distance",
         store=True,
     )
     distance_loaded = fields.Float(string="Distance Loaded (mi./km)", required=True)
-    distance_empty = fields.Float(
-        string="Distance Empty (mi./km)",
-        required=True,
-        help="Route distance empty (mi./km)",
-        compute="_compute_distance_empty",
-        inverse="_inverse_distance_empty",
-        store=True,
-    )
+    distance_empty = fields.Float(string="Distance Empty (mi./km)", required=True)
     travel_time = fields.Float("Travel Time (hrs)", help="Route travel time (hours)")
 
     @api.depends("distance_empty", "distance_loaded")
     def _compute_distance(self):
         for rec in self:
+            rec.distance_loaded = max(rec.distance_loaded, 0.0)
             rec.distance_empty = max(rec.distance_empty, 0.0)
-            rec.distance_loaded = max(rec.distance_loaded, 0.0)
             rec.distance = rec.distance_empty + rec.distance_loaded
-
-    def _inverse_distance(self):
-        for rec in self:
-            rec.distance = max(rec.distance, 0.0)
-            if rec.distance_loaded:
-                rec.distance_empty = rec.distance - rec.distance_loaded
-            if rec.distance_empty:
-                rec.distance_loaded = rec.distance - rec.distance_empty
-
-    @api.depends("distance", "distance_loaded")
-    def _compute_distance_empty(self):
-        for rec in self:
-            rec.distance = max(rec.distance, 0.0)
-            rec.distance_loaded = max(rec.distance_loaded, 0.0)
-            rec.distance_empty = rec.distance - rec.distance_loaded
-
-    def _inverse_distance_empty(self):
-        for rec in self:
-            rec.distance_loaded = max(rec.distance_loaded, 0.0)
-            rec.distance_empty = (rec.distance_empty, 0.0)
-            rec.distance = rec.distance_loaded + rec.distance_empty
