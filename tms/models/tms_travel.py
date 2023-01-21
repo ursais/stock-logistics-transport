@@ -54,9 +54,9 @@ class TmsTravel(models.Model):
     travel_time_real = fields.Float(
         compute="_compute_travel_time_real", string="Duration Real", help="Travel Real duration in hours"
     )
-    travel_time = fields.Float(
+    route_travel_time = fields.Float(
         string="Duration Sched",
-        help="Travel Scheduled duration in hours",
+        help="Travel Scheduled duration in hours, based on route travel time",
         related="route_id.travel_time",
         store=True,
     )

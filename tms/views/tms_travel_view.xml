@@ -138,6 +138,25 @@
             </graph>
         </field>
     </record>
+    <record id="tms_travel_view_gantt" model="ir.ui.view">
+        <field name="name">tms.travel.view.gantt</field>
+        <field name="model">tms.travel</field>
+        <field name="arch" type="xml">
+            <gantt
+                string="Travels"
+                date_start="date_start"
+                date_stop="date_end"
+                decoration-danger="error_message"
+                decoration-secondary="state == 'done'"
+                decoration-info="state == 'scheduled'"
+                decoration-success="state == 'progress'"
+                decoration-warning="state == 'cancel'"
+            >
+                <field name="error_message" invisible="1" />
+                <field name="state" invisible="1" />
+            </gantt>
+        </field>
+    </record>
     <record id="view_tms_travel_form" model="ir.ui.view">
         <field name="name">tms.travel.form</field>
         <field name="model">tms.travel</field>
@@ -223,7 +242,7 @@
                         </group>
                         <group>
                             <field name="date" attrs="{'readonly':[('state','in',('progress','done', 'closed'))]}" />
-                            <label for="date_start" string="Validity" />
+                            <label for="date_start" string="Scheduled date" />
                             <div class="o_row">
                                 <field
                                     name="date_start"
@@ -237,7 +256,7 @@
                                     options="{&quot;related_start_date&quot;: &quot;date_start&quot;}"
                                 />
                             </div>
-                            <field name="travel_time" />
+                            <field name="route_travel_time" />
                             <field
                                 name="user_id"
                                 attrs="{'readonly':[('state','in',('progress','done', 'closed'))]}"
@@ -423,7 +442,7 @@
                                 <field attrs="{'readonly':[('state','in',('done', 'closed'))]}" name="date_end" />
                                 <field
                                     attrs="{'readonly':[('state','in',('done', 'closed'))]}"
-                                    name="travel_time"
+                                    name="route_travel_time"
                                     widget="float_time"
                                 />
                                 <field
@@ -550,6 +569,9 @@
             <calendar color="state" date_start="date_start" date_stop="date_end" string="Travels">
                 <field name="name" />
                 <field name="unit_id" />
+                <field name="driver_id" />
+                <field name="date_start" />
+                <field name="date_end" />
             </calendar>
         </field>
     </record>
@@ -558,7 +580,7 @@
     <record id="open_view_tms_travel_form" model="ir.actions.act_window">
         <field name="name">Travel</field>
         <field name="res_model">tms.travel</field>
-        <field name="view_mode">tree,form,kanban,calendar,graph</field>
+        <field name="view_mode">tree,form,kanban,gantt,calendar,graph</field>
     </record>
     <record id="open_view_tms_travel_report" model="ir.actions.act_window">
         <field name="name">Travel Report</field>
