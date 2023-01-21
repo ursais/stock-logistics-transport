@@ -49,10 +49,12 @@
                         attrs="{'invisible': [('active', '=', True)]}"
                     />
                     <field name="active" invisible="1" />
-                    <h2>
-                        <label for="name" class="oe_inline" string="Kit Name - " />
-                        <field name="name" />
-                    </h2>
+                    <div class="oe_title">
+                        <span class="o_form_label">Kit Framework</span>
+                        <h1 class="mt0">
+                            <field name="name" />
+                        </h1>
+                    </div>
                     <group string="Kit Framework">
                         <group>
                             <field name="unit_id" />
