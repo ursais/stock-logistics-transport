@@ -22,6 +22,7 @@
                 <field name="date_end" />
                 <filter name="unit" context="{'group_by' : 'unit_id'}" string="Unit" />
                 <filter name="driver" context="{'group_by' : 'driver_id'}" string="Driver" />
+                <filter name="stage" context="{'group_by' : 'stage_id'}" string="Stage" />
                 <filter
                     name="company"
                     groups="base.group_multi_company"
@@ -56,7 +57,15 @@
                 <!-- <field name="waybill_ids" widget="many2many_tags" /> -->
                 <field name="route_id" optional="show" />
                 <field name="company_id" groups="base.group_multi_company" optional="hide" />
-                <field name="state" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-info="state == 'scheduled'"
+                    decoration-success="state == 'progress'"
+                    decoration-muted="state == 'done'"
+                    decoration-warning="state == 'closed'"
+                    decoration-danger="state == 'cancel'"
+                />
                 <button
                     groups="tms.group_tms_traffic,tms.group_tms_expenses"
                     icon="fa-calendar"
@@ -90,10 +99,11 @@
         <field name="priority">2</field>
         <field name="arch" type="xml">
             <tree
-                decoration-muted="state=='cancel'"
-                decoration-danger="error_message"
-                decoration-success="state=='progress'"
-                decoration-info="state=='done'"
+                decoration-info="state == 'scheduled'"
+                decoration-success="state == 'progress'"
+                decoration-muted="state == 'done'"
+                decoration-warning="state == 'closed'"
+                decoration-danger="state == 'cancel'"
             >
                 <field name="error_message" invisible="1" />
                 <field name="name" />
@@ -106,7 +116,15 @@
                 <field name="company_id" groups="base.group_multi_company" />
                 <!-- <field name="partner_ids" widget="many2many_tags" />
                 <field name="waybill_ids" widget="many2many_tags" /> -->
-                <field name="state" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-info="state == 'scheduled'"
+                    decoration-success="state == 'progress'"
+                    decoration-muted="state == 'done'"
+                    decoration-warning="state == 'closed'"
+                    decoration-danger="state == 'cancel'"
+                />
             </tree>
         </field>
     </record>
@@ -116,10 +134,11 @@
         <field name="priority">99</field>
         <field name="arch" type="xml">
             <tree
-                decoration-muted="state=='cancel'"
-                decoration-danger="state=='draft'"
-                decoration-success="state=='progress'"
-                decoration-info="state=='done'"
+                decoration-info="state == 'scheduled'"
+                decoration-success="state == 'progress'"
+                decoration-muted="state == 'done'"
+                decoration-warning="state == 'closed'"
+                decoration-danger="state == 'cancel'"
             >
                 <field name="name" />
                 <field name="create_date" />
@@ -132,17 +151,16 @@
                 <field name="waybill_ids" widget="many2many_tags" /> -->
                 <field name="route_id" />
                 <field name="company_id" groups="base.group_multi_company" />
-                <field name="state" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-info="state == 'scheduled'"
+                    decoration-success="state == 'progress'"
+                    decoration-muted="state == 'done'"
+                    decoration-warning="state == 'closed'"
+                    decoration-danger="state == 'cancel'"
+                />
             </tree>
-        </field>
-    </record>
-    <record id="view_tms_travel_graph" model="ir.ui.view">
-        <field name="name">tms.travel.graph</field>
-        <field name="model">tms.travel</field>
-        <field name="arch" type="xml">
-            <graph string="Travels" type="bar">
-                <field name="unit_id" />
-            </graph>
         </field>
     </record>
     <record id="tms_travel_view_gantt" model="ir.ui.view">
@@ -155,7 +173,7 @@
                 date_stop="date_end"
                 create="0"
                 delete="0"
-                color="state"
+                color="stage_id"
                 default_group_by="unit_id"
                 decoration-danger="error_message"
                 decoration-secondary="state == 'done'"
@@ -168,6 +186,7 @@
                 <field name="driver_id" />
                 <field name="unit_id" />
                 <field name="route_id" />
+                <field name="stage_id" />
                 <templates>
                     <div t-name="gantt-popover" class="container-fluid">
                         <div class="row no-gutters">
@@ -182,7 +201,7 @@
                                     <li><strong>Date End: </strong> <t
                                             t-esc="userTimezoneStopDate.format('L LTS')"
                                         /></li>
-                                    <li><strong>State: </strong> <t t-esc="state" /></li>
+                                    <li><strong>Stage: </strong> <t t-esc="stage_id[1]" /></li>
                                 </ul>
                             </div>
                         </div>
@@ -240,7 +259,7 @@
                         states="scheduled,cancel"
                         groups="tms.group_tms_traffic,tms.group_tms_expenses"
                     />
-                    <field name="state" widget="statusbar" />
+                    <field name="stage_id" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}" />
                 </header>
                 <div
                     class="alert alert-danger mb-0"
@@ -250,6 +269,43 @@
                     <field name="error_message" />
                 </div>
                 <sheet>
+                    <widget
+                        name="web_ribbon"
+                        bg_color="bg-muted"
+                        title="Draft"
+                        attrs="{'invisible': [('state', '!=', 'draft')]}"
+                    />
+                    <widget
+                        name="web_ribbon"
+                        bg_color="bg-info"
+                        title="Scheduled"
+                        attrs="{'invisible': [('state', '!=', 'scheduled')]}"
+                    />
+                    <widget
+                        name="web_ribbon"
+                        bg_color="bg-success"
+                        title="In Progress"
+                        attrs="{'invisible': [('state', '!=', 'progress')]}"
+                    />
+                    <widget
+                        name="web_ribbon"
+                        bg_color="bg-danger"
+                        title="Cancelled"
+                        attrs="{'invisible': [('state', '!=', 'cancel')]}"
+                    />
+                    <widget
+                        name="web_ribbon"
+                        bg_color="bg-secondary"
+                        title="Done"
+                        attrs="{'invisible': [('state', '!=', 'done')]}"
+                    />
+                    <widget
+                        name="web_ribbon"
+                        bg_color="bg-secondary"
+                        title="Closed"
+                        attrs="{'invisible': [('state', '!=', 'closed')]}"
+                    />
+                    <field name="state" invisible="1" />
                     <div class="oe_title">
                         <span class="o_form_label">Travel</span>
                         <h1 class="mt0">
@@ -398,7 +454,15 @@
                                     <field name="tax_amount" />
                                     <field name="special_tax_amount" optional="hide" />
                                     <field name="price_total" />
-                                    <field name="state" />
+                                    <field
+                        name="state"
+                        widget="badge"
+                        decoration-info="state == 'scheduled'"
+                        decoration-success="state == 'progress'"
+                        decoration-muted="state == 'done'"
+                        decoration-warning="state == 'closed'"
+                        decoration-danger="state == 'cancel'"
+                    />
                                 </tree>
                             </field>
                         </page>
@@ -468,7 +532,15 @@
                                             string="Confirm"
                                             type="object"
                                         />
-                                        <field name="state" />
+                                        <field
+                        name="state"
+                        widget="badge"
+                        decoration-info="state == 'scheduled'"
+                        decoration-success="state == 'progress'"
+                        decoration-muted="state == 'done'"
+                        decoration-warning="state == 'closed'"
+                        decoration-danger="state == 'cancel'"
+                    />
                                         <field name="name" />
                                         <field name="date_order" />
                                         <field name="partner_id" />
@@ -500,20 +572,20 @@
                                     </div>
                                 </group>
                                 <group string="Real Distances">
-                                    <label
-                                        for="distance_loaded"
-                                        attrs="{'readonly':[('state', 'in', ['done', 'closed'])]}"
-                                    />
-                                    <div class="o_row" attrs="{'readonly':[('state', 'in', ['done', 'closed'])]}">
-                                        <field name="distance_loaded" />
+                                    <label for="distance_loaded" />
+                                    <div class="o_row">
+                                        <field
+                                            name="distance_loaded"
+                                            attrs="{'readonly': [('state', '!=', 'progress')]}"
+                                        />
                                         <field name="odometer_unit" />
                                     </div>
-                                    <label
-                                        for="distance_empty"
-                                        attrs="{'readonly':[('state', 'in', ['done', 'closed'])]}"
-                                    />
-                                    <div class="o_row" attrs="{'readonly':[('state', 'in', ['done', 'closed'])]}">
-                                        <field name="distance_empty" />
+                                    <label for="distance_empty" />
+                                    <div class="o_row">
+                                        <field
+                                            name="distance_empty"
+                                            attrs="{'readonly': [('state', '!=', 'progress')]}"
+                                        />
                                         <field name="odometer_unit" />
                                     </div>
                                     <label for="distance" />
@@ -642,12 +714,104 @@
             </calendar>
         </field>
     </record>
-
+    <record id="tms_travel_view_kanban" model="ir.ui.view">
+        <field name="name">tms.travel.view.kanban</field>
+        <field name="model">tms.travel</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="stage_id">
+                <field name="name" />
+                <field name="date_start" />
+                <field name="date_end" />
+                <field name="unit_id" />
+                <field name="driver_id" />
+                <field name="route_id" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-info="state == 'scheduled'"
+                    decoration-success="state == 'progress'"
+                    decoration-muted="state == 'done'"
+                    decoration-warning="state == 'closed'"
+                    decoration-danger="state == 'cancel'"
+                />
+                <field name="error_message" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="row mb4">
+                                <div class="col-12 o_kanban_record_headings">
+                                    <strong>
+                                        <span>
+                                            <field name="name" />
+                                        </span>
+                                    </strong>
+                                    <div t-if="record.error_message.value" class="float-right">
+                                        <a
+                                            role="button"
+                                            class="badge badge-danger"
+                                            data-toggle="dropdown"
+                                            data-display="static"
+                                            href="#"
+                                            aria-label="Errors"
+                                            title="Errors"
+                                        >Errors</a>
+                                        <div class="dropdown-menu" role="menu">
+                                            <div class="container">
+                                                <t t-esc="record.error_message.value" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <strong>
+                                        <!-- <i class="fa fa-clock-o" aria-label="Date" role="img" title="Date"/> -->
+                                        <t t-esc="record.date_start.value" />
+                                        <i class="fa fa-long-arrow-right mx-1" aria-label="Arrow icon" title="Arrow" />
+                                        <t t-esc="record.date_end.value" />
+                                    </strong><br />
+                                    <span><field name="unit_id" /></span><br />
+                                    <span><field name="driver_id" widget="many2one_avatar_employee" /><t
+                                            t-esc="record.driver_id.value"
+                                        /></span><br />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <span><b>Route:</b><br /><field name="route_id" /></span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="float-right">
+                                        <field name="activity_ids" widget="kanban_activity" />
+                                        <field
+                                            name="state"
+                                            widget="label_selection"
+                                            options="{
+                                                'classes': {
+                                                    'draft': 'muted',
+                                                    'scheduled': 'info',
+                                                    'progress': 'success',
+                                                    'done': 'secondary',
+                                                    'closed': 'warning',
+                                                    'cancel': 'danger',
+                                                }
+                                            }"
+                                        />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
     <!-- Action for tms.travel -->
     <record id="open_view_tms_travel_form" model="ir.actions.act_window">
         <field name="name">Travel</field>
         <field name="res_model">tms.travel</field>
-        <field name="view_mode">tree,form,kanban,gantt,calendar,graph</field>
+        <field name="view_mode">tree,form,kanban,gantt,calendar</field>
     </record>
     <record id="open_view_tms_travel_report" model="ir.actions.act_window">
         <field name="name">Travel Report</field>

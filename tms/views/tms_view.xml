@@ -45,6 +45,7 @@
                     sequence="90"
                 />
             </menuitem>
+            <menuitem id="tms_travel_stage_menu" name="Travel Stages" action="tms_travel_stage_action" sequence="60" />
         </menuitem>
     </menuitem>
 </odoo>

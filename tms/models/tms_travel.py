@@ -11,7 +11,7 @@ class TmsTravel(models.Model):
     _name = "tms.travel"
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Travel"
-    _order = "state asc, date_start desc"
+    _order = "date_start desc"
 
     name = fields.Char("Travel Number", required=True, copy=False, readonly=True, default="/")
     state = fields.Selection(
@@ -79,6 +79,16 @@ class TmsTravel(models.Model):
     user_id = fields.Many2one("res.users", "Responsible", default=lambda self: self.env.user, required=True)
     company_id = fields.Many2one("res.company", required=True, default=lambda self: self.env.user.company_id)
     error_message = fields.Html(compute="_compute_error_message")
+    stage_id = fields.Many2one(
+        comodel_name="tms.travel.stage",
+        copy=False,
+        tracking=True,
+        ondelete="restrict",
+        default=lambda self: self.env["tms.travel.stage"].search(
+            [("state", "=", "draft")], limit=1, order="sequence asc"
+        ),
+        group_expand="_group_expand_stage_id",
+    )
     # waybill_ids = fields.Many2many("tms.waybill", copy=False)
     # fuel_ids = fields.One2many("fleet.vehicle.log.fuel", "travel_id", string="Fuel Vouchers")
     # advance_ids = fields.One2many("tms.advance", "travel_id")
@@ -89,6 +99,9 @@ class TmsTravel(models.Model):
     # def _compute_partner_ids(self):
     #     for rec in self:
     #         rec.partner_ids = rec.waybill_ids.mapped("partner_id")
+
+    def _group_expand_stage_id(self, stages, domain, order):
+        return stages.search([], order="sequence asc")
 
     @api.depends("date_start_real", "date_end_real")
     def _compute_travel_time_real(self):
@@ -191,7 +204,7 @@ class TmsTravel(models.Model):
         error_message = self._get_error_message_list()
         return (
             _(
-                "This travel cannot be dispateched due to the following errors:<br/>%(errors)s",
+                "<strong>This travel cannot be dispateched due to the following errors:</strong><br/>%(errors)s",
                 errors="".join(["<li>%s</li>" % error for error in error_message]),
             )
             if error_message
@@ -210,11 +223,19 @@ class TmsTravel(models.Model):
             else False
         )
 
+    def _get_stage_by_state(self, state):
+        return self.env["tms.travel.stage"].search([("state", "=", state)], limit=1, order="sequence asc").id
+
     def action_draft(self):
         for rec in self:
             if rec.state not in ["cancel", "scheduled"]:
                 raise UserError(_("Only canceled or scheduled travels can be set to draft."))
-            rec.state = "draft"
+            rec.write(
+                {
+                    "state": "draft",
+                    "stage_id": self._get_stage_by_state("draft"),
+                }
+            )
 
     def action_schedule(self):
         for rec in self:
@@ -223,6 +244,7 @@ class TmsTravel(models.Model):
             rec.write(
                 {
                     "state": "scheduled",
+                    "stage_id": self._get_stage_by_state("scheduled"),
                 }
             )
 
@@ -244,6 +266,7 @@ class TmsTravel(models.Model):
                 {
                     "state": "progress",
                     "date_start_real": fields.Datetime.now(),
+                    "stage_id": self._get_stage_by_state("progress"),
                 }
             )
 
@@ -266,6 +289,7 @@ class TmsTravel(models.Model):
                     "state": "done",
                     "date_end_real": fields.Datetime.now(),
                     "odometer": odometer.value,
+                    "stage_id": self._get_stage_by_state("done"),
                 }
             )
 
@@ -284,6 +308,7 @@ class TmsTravel(models.Model):
             rec.write(
                 {
                     "state": "cancel",
+                    "stage_id": self._get_stage_by_state("cancel"),
                 }
             )
 
@@ -298,4 +323,28 @@ class TmsTravel(models.Model):
         for rec in self:
             if vals.get("date_start") and rec.state != "draft":
                 raise UserError(_("You can only change the scheduled date of a travel in Draft state"))
+            if vals.get("stage_id") and vals.get("state"):
+                stage = self.env["tms.travel.stage"].browse(vals.get("stage_id"))
+                if stage.state != vals.get("state"):
+                    states = dict(self._fields["state"]._description_selection(self.env))
+                    stages = self.env["tms.travel.stage"].search([("state", "=", vals.get("state"))]).mapped("name")
+                    raise UserError(
+                        _(
+                            "You can only change the stage that are valid for %(state)s state.\n%(stages)s",
+                            state=states.get(vals.get("state")),
+                            stages="\n".join(stages),
+                        )
+                    )
+            elif vals.get("stage_id"):
+                stage = self.env["tms.travel.stage"].browse(vals.get("stage_id"))
+                if stage.state != rec.state:
+                    states = dict(self._fields["state"]._description_selection(self.env))
+                    stages = self.env["tms.travel.stage"].search([("state", "=", rec.state)]).mapped("name")
+                    raise UserError(
+                        _(
+                            "You can only change the stage that are valid for %(state)s state.\n%(stages)s",
+                            state=states.get(rec.state),
+                            stages="\n".join(stages),
+                        )
+                    )
         return super().write(vals)
