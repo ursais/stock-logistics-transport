@@ -32,10 +32,10 @@
         <field name="padding">4</field>
         <field name="number_increment">1</field>
     </record>
-    <record model="ir.sequence" id="fuel_log_sequence">
-        <field name="name">Fuel Log Sequence</field>
+    <record model="ir.sequence" id="fuel_sequence">
+        <field name="name">Fuel Sequence</field>
         <field name="implementation">standard</field>
-        <field name="code">tms.fuel.log</field>
+        <field name="code">tms.fuel</field>
         <field name="prefix">F</field>
         <field name="padding">4</field>
         <field name="number_increment">1</field>

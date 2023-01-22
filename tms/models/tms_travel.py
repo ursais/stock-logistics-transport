@@ -11,7 +11,7 @@ class TmsTravel(models.Model):
     _name = "tms.travel"
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Travel"
-    _order = "date_start desc"
+    _order = "state asc, date_start desc"
 
     name = fields.Char("Travel Number", required=True, copy=False, readonly=True, default="/")
     state = fields.Selection(
@@ -61,25 +61,26 @@ class TmsTravel(models.Model):
     )
     route_distance = fields.Float(
         related="route_id.distance",
-        string="Route Distance (mi./km)",
+        string="Route Distance",
         store=True,
     )
     route_distance_loaded = fields.Float(
         related="route_id.distance_loaded",
-        string="Route Distance Loaded (mi./km)",
+        string="Route Distance Loaded",
         store=True,
     )
-    route_distance_empty = fields.Float(related="route_id.distance_empty", string="Route Distance Empty (mi./km)")
-    distance = fields.Float("Distance traveled by driver (mi./km)", compute="_compute_distance", store=True)
-    distance_loaded = fields.Float("Distance Loaded (mi./km)")
-    distance_empty = fields.Float("Distance Empty (mi./km)")
-    odometer = fields.Float("Unit Odometer (mi./km)", readonly=True)
+    route_distance_empty = fields.Float(related="route_id.distance_empty", string="Route Distance Empty")
+    distance = fields.Float("Distance traveled", compute="_compute_distance", store=True)
+    distance_loaded = fields.Float()
+    distance_empty = fields.Float()
+    odometer = fields.Float(readonly=True)
+    odometer_unit = fields.Selection(related="unit_id.odometer_unit", store=True)
     notes = fields.Html("Description")
     user_id = fields.Many2one("res.users", "Responsible", default=lambda self: self.env.user, required=True)
     company_id = fields.Many2one("res.company", required=True, default=lambda self: self.env.user.company_id)
     error_message = fields.Html(compute="_compute_error_message")
     # waybill_ids = fields.Many2many("tms.waybill", copy=False)
-    # fuel_log_ids = fields.One2many("fleet.vehicle.log.fuel", "travel_id", string="Fuel Vouchers")
+    # fuel_ids = fields.One2many("fleet.vehicle.log.fuel", "travel_id", string="Fuel Vouchers")
     # advance_ids = fields.One2many("tms.advance", "travel_id")
     # expense_id = fields.Many2one("tms.expense", "Expense Record", readonly=True)
     # partner_ids = fields.Many2many("res.partner", string="Customer", compute="_compute_partner_ids", store=True)
@@ -248,37 +249,43 @@ class TmsTravel(models.Model):
 
     def action_done(self):
         for rec in self:
+            if not rec.distance:
+                raise UserError(_("You must set the distance traveled."))
             odometer = self.env["fleet.vehicle.odometer"].create(
                 {
+                    "date": fields.Date.context_today(self),
                     "travel_id": rec.id,
                     "vehicle_id": rec.unit_id.id,
                     "last_odometer": rec.unit_id.odometer,
-                    "distance": rec.distance_driver,
-                    "current_odometer": rec.unit_id.odometer + rec.distance_driver,
-                    "value": rec.unit_id.odometer + rec.distance_driver,
+                    "distance": rec.distance,
+                    "value": rec.unit_id.odometer + rec.distance,
                 }
             )
             rec.write(
                 {
                     "state": "done",
                     "date_end_real": fields.Datetime.now(),
-                    "odometer": odometer.current_odometer,
+                    "odometer": odometer.value,
                 }
             )
 
     def action_cancel(self):
         for rec in self:
-            advances = rec.advance_ids.search([("state", "!=", "cancel"), ("travel_id", "=", rec.id)])
-            fuel_log = rec.fuel_log_ids.search([("state", "!=", "cancel"), ("travel_id", "=", rec.id)])
-            if len(advances) >= 1 or len(fuel_log) >= 1:
-                raise UserError(
-                    _(
-                        "If you want to cancel this travel,"
-                        " you must cancel the fuel logs or the advances "
-                        "attached to this travel"
-                    )
-                )
-            rec.state = "cancel"
+            # advances = rec.advance_ids.filtered(lambda a: a.state != "cancel")
+            # fuel = rec.fuel_ids.filtered(lambda f: f.state != "cancel")
+            # if advances or fuel:
+            #     raise UserError(
+            #         _(
+            #             "If you want to cancel this travel,"
+            #             " you must cancel the fuel logs or the advances "
+            #             "attached to this travel"
+            #         )
+            #     )
+            rec.write(
+                {
+                    "state": "cancel",
+                }
+            )
 
     @api.model_create_multi
     def create(self, vals_list):
