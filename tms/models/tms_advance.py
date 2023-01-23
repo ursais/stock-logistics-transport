@@ -26,7 +26,7 @@ class TmsAdvance(models.Model):
         default="draft",
     )
     date = fields.Date(required=True, default=fields.Date.context_today)
-    travel_id = fields.Many2one("tms.travel", required=True)
+    travel_id = fields.Many2one("tms.travel", required=True, ondelete="restrict")
     unit_id = fields.Many2one(
         "fleet.vehicle",
         related="travel_id.unit_id",
@@ -39,6 +39,10 @@ class TmsAdvance(models.Model):
         store=True,
     )
     amount = fields.Monetary(required=True)
+    amount_residual = fields.Monetary(
+        compute="_compute_payment_information",
+        store=True,
+    )
     notes = fields.Html()
     move_id = fields.Many2one(
         "account.move",
@@ -98,7 +102,7 @@ class TmsAdvance(models.Model):
         for rec in self:
             if rec.amount <= 0:
                 raise UserError(_("The amount must be greater than zero."))
-    
+
     @api.depends(
         "move_id.line_ids.matched_debit_ids.debit_move_id.move_id.payment_id.is_matched",
         "move_id.line_ids.matched_debit_ids.debit_move_id.move_id.line_ids.amount_residual",
@@ -133,9 +137,12 @@ class TmsAdvance(models.Model):
                 rec.payment_state = "not_paid"
             else:
                 rec.payment_state = "partial"
-            related_moves = rec.move_id.line_ids.mapped("matched_debit_ids.debit_move_id.move_id") | rec.move_id.line_ids.mapped("matched_credit_ids.credit_move_id.move_id")
+            related_moves = rec.move_id.line_ids.mapped(
+                "matched_debit_ids.debit_move_id.move_id"
+            ) | rec.move_id.line_ids.mapped("matched_credit_ids.credit_move_id.move_id")
             rec.payment_move_ids = related_moves
             rec.payment_ids = related_moves.mapped("payment_id")
+            rec.amount_residual = amount_residual
 
     def action_approve(self):
         for rec in self:

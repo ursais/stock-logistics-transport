@@ -91,14 +91,8 @@ class TmsTravel(models.Model):
     )
     # waybill_ids = fields.Many2many("tms.waybill", copy=False)
     # fuel_ids = fields.One2many("fleet.vehicle.log.fuel", "travel_id", string="Fuel Vouchers")
-    # advance_ids = fields.One2many("tms.advance", "travel_id")
+    advance_ids = fields.One2many("tms.advance", "travel_id", string="Advances")
     # expense_id = fields.Many2one("tms.expense", "Expense Record", readonly=True)
-    # partner_ids = fields.Many2many("res.partner", string="Customer", compute="_compute_partner_ids", store=True)
-
-    # @api.depends("waybill_ids")
-    # def _compute_partner_ids(self):
-    #     for rec in self:
-    #         rec.partner_ids = rec.waybill_ids.mapped("partner_id")
 
     def _group_expand_stage_id(self, stages, domain, order):
         return stages.search([], order="sequence asc")

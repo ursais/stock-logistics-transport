@@ -43,11 +43,7 @@
                 decoration-danger="state=='cancel'"
             >
                 <header>
-                    <button
-                        name="action_register_payment"
-                        string="Register Payment"
-                        type="object"
-                    />
+                    <button name="action_register_payment" string="Register Payment" type="object" />
                 </header>
                 <field name="name" />
                 <field name="date" />
@@ -55,9 +51,10 @@
                 <field name="unit_id" optional="show" />
                 <field name="driver_id" widget="" optional="show" />
                 <field name="currency_id" optional="hide" />
-                <field name="amount" widget='monetary' sum="Amount Total" />
+                <field name="amount" sum="Amount Total" />
+                <field name="amount_residual" sum="Amount Remaining" optional="hide" />
                 <field name="product_id" />
-                <field name="auto_expense" />
+                <field name="auto_expense" widget="boolean_toggle" attrs="{'readonly':[('state', '!=', 'draft')]}" />
                 <field
                     name="payment_state"
                     widget="badge"
@@ -79,7 +76,7 @@
                 <button
                     icon="fa-usd"
                     name="action_register_payment"
-                    states="approved"
+                    attrs="{'invisible': ['|', ('payment_state', '=', 'paid'), ('state', '!=', 'approved')]}"
                     string="Register Payment"
                     type="object"
                 />
@@ -142,6 +139,8 @@
                             string="Payments"
                             attrs="{'invisible': [('payment_ids', '=', [])]}"
                         />
+                        <field name="move_id" invisible="1" />
+                        <field name="payment_ids" invisible="1" />
                     </div>
                     <widget name="web_ribbon" title="Paid" attrs="{'invisible': [('payment_state', '!=', 'paid')]}" />
                     <widget
@@ -182,7 +181,11 @@
                                 groups="base.group_multi_currency"
                                 options="{'no_create': True, 'no_open': True}"
                             />
-                            <field name="auto_expense" attrs="{'readonly':[('state', '!=', 'draft')]}" />
+                            <field
+                                name="auto_expense"
+                                widget="boolean_toggle"
+                                attrs="{'readonly':[('state', '!=', 'draft')]}"
+                            />
                         </group>
                     </group>
                     <group>
@@ -193,25 +196,13 @@
                                 options="{'no_create': True}"
                             />
                             <field name="amount" attrs="{'readonly':[('state', '!=', 'draft')]}" />
+                            <field name="amount_residual" attrs="{'invisible': [('amount_residual', '=', 0)]}" />
                         </group>
                     </group>
                     <group>
-                        <notebook colspan="4">
+                        <notebook>
                             <page string="Notes">
                                 <field name="notes" nolabel="1" />
-                            </page>
-                            <page string="Log Info" attrs="{'invisible': [('move_id', '=', False)]}">
-                                <group>
-                                    <group>
-                                        <field name="move_id" />
-                                        <!-- <field name="expense_id" attrs="{'invisible': [('expense_id', '=', False)]}" /> -->
-                                        <field
-                                            name="payment_move_ids"
-                                            attrs="{'invisible': [('payment_move_ids', '=', False)]}"
-                                        />
-                                        <field name="payment_ids" attrs="{'invisible': [('payment_ids', '=', False)]}" />
-                                    </group>
-                                </group>
                             </page>
                         </notebook>
                     </group>

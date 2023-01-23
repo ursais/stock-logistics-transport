@@ -395,22 +395,22 @@
                     />
                                 </tree>
                             </field>
-                        </page>
+                        </page>-->
                         <page string="Advances">
                             <field name="advance_ids" attrs="{'readonly':[('state', 'in', ['done', 'closed'])]}">
                                 <tree
-                                    decoration-danger="state=='cancel'"
+                                    decoration-muted="state=='closed'"
                                     decoration-success="state=='approved'"
-                                    decoration-info="state=='confirmed'"
+                                    decoration-info="state=='done'"
+                                    decoration-danger="state=='cancel'"
                                     editable="bottom"
                                 >
                                     <field name="name" readonly="1" />
-                                    <field name="product_id" />
-                                    <field name="amount" widget='monetary' sum="Amount Total" />
+                                    <field name="product_id" options="{'no_create': 1}" />
+                                    <field name="amount" sum="Amount Total" />
                                     <field name="currency_id" optional="hide" />
-                                    <field name="auto_expense" />
-                                    <field name="paid" optional="hide" />
-                                    <field name="notes" optional="hide" />
+                                    <field name="auto_expense" widget="boolean_toggle" />
+                                    <field name="payment_state" optional="show" />
                                     <field name="state" optional="show" />
                                     <button
                                         icon="fa-arrow-right"
@@ -419,24 +419,10 @@
                                         string="Approve"
                                         type="object"
                                     />
-                                    <button
-                                        icon="fa-arrow-right"
-                                        name="action_authorized"
-                                        states="authorized"
-                                        string="To Authorize"
-                                        type="object"
-                                    />
-                                    <button
-                                        icon="fa-check"
-                                        name="action_confirm"
-                                        states="approved"
-                                        string="Confirm"
-                                        type="object"
-                                    />
                                 </tree>
                             </field>
                         </page>
-                        <page string="Waybills">
+                        <!--<page string="Waybills">
                             <group>
                                 <field
                                     name="waybill_ids"
