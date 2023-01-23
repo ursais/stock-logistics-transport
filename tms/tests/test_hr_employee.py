@@ -2,8 +2,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 import logging
-
-from mock import MagicMock
+from unittest.mock import MagicMock
 
 from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase

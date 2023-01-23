@@ -1,8 +1,9 @@
 # Copyright 2016-2023, Jarsa Sistemas, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
+from unittest.mock import MagicMock
+
 import simplejson as json
-from mock import MagicMock
 
 from odoo.exceptions import UserError, ValidationError
 from odoo.tests.common import TransactionCase

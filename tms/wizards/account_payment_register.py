@@ -16,8 +16,9 @@ class AccountPaymentRegister(models.TransientModel):
                 "active_model": "account.move",
                 "active_ids": records.mapped("move_id").ids,
             }
-            self = self.with_context(**context)
-        return super(AccountPaymentRegister, self).default_get(fields_list)  # pylint: disable=super-with-arguments
+        return super(AccountPaymentRegister, self.with_context(**context)).default_get(
+            fields_list
+        )  # pylint: disable=super-with-arguments
 
     def _get_tms_models_for_payment(self):
         return ["tms.advance", "tms.expense"]
@@ -30,5 +31,6 @@ class AccountPaymentRegister(models.TransientModel):
                 "active_model": "account.move",
                 "active_ids": records.mapped("move_id").ids,
             }
-            self = self.with_context(**context)
-        return super(AccountPaymentRegister, self)._create_payments()  # pylint: disable=super-with-arguments
+        return super(
+            AccountPaymentRegister, self.with_context(**context)
+        )._create_payments()  # pylint: disable=super-with-arguments

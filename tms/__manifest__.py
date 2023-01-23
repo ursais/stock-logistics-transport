@@ -5,7 +5,7 @@
     "name": "Freight Management",
     "version": "15.0.2.0.0",
     "category": "Transport",
-    "author": "Jarsa Sistemas",
+    "author": "Jarsa",
     "website": "https://www.jarsa.com.mx/page/transport-management-system",
     "depends": [
         "fleet",
