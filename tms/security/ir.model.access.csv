@@ -23,3 +23,7 @@ monitoring_tms_travel_stage,access_tms_travel_stage,model_tms_travel_stage,group
 traffic_tms_travel_stage,access_tms_travel_stage,model_tms_travel_stage,group_tms_traffic,1,1,1,0
 expenses_tms_travel_stage,access_tms_travel_stage,model_tms_travel_stage,group_tms_expenses,1,0,0,0
 manager_tms_travel_stage,manager_tms_travel_stage,model_tms_travel_stage,group_tms_manager,1,1,1,1
+monitoring_tms_advance,access_tms_advance,model_tms_advance,group_tms_monitoring,1,0,0,0
+traffic_tms_advance,access_tms_advance,model_tms_advance,group_tms_traffic,1,1,1,0
+expenses_tms_advance,access_tms_advance,model_tms_advance,group_tms_expenses,1,1,1,0
+manager_tms_advance,manager_tms_advance,model_tms_advance,group_tms_manager,1,1,1,1

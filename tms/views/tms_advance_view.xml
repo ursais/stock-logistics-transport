@@ -5,33 +5,30 @@
         <field name="model">tms.advance</field>
         <field name="arch" type="xml">
             <search string="Advances">
+                <field name="date" />
+                <field name="name" />
+                <field name="driver_id" />
+                <field name="state" />
                 <filter name="draft" domain="[('state','=','draft')]" string="Draft" />
                 <filter name="approved" domain="[('state','=','approved')]" string="Approved" />
-                <filter name="confirmed" domain="[('state','=','confirmed')]" string="Confirmed" />
                 <filter name="closed" domain="[('state','=','closed')]" string="Closed" />
+                <separator />
                 <filter name="cancelled" domain="[('state','=','cancel')]" string="Cancelled" />
-                <filter name="paid" domain="[('paid','=', True)]" string="Paid" />
-                <filter name="not_paid" domain="[('paid','=', False)]" string="Not Paid" />
+                <filter name="not_paid" string="Unpaid" domain="[('payment_state', 'in', ('not_paid', 'partial'))]" />
+                <filter name="paid" string="Paid" domain="[('payment_state', 'in', ('in_payment', 'paid'))]" />
+                <separator />
+                <filter name="travel" context="{'group_by': 'travel_id'}" string="Travel" />
+                <filter name="unit" context="{'group_by': 'unit_id'}" string="Unit" />
+                <filter name="driver" context="{'group_by': 'driver_id'}" string="Driver" />
+                <filter name="state" context="{'group_by': 'state'}" string="State" />
+                <separator />
                 <filter
                     domain="[('date','&gt;=', time.strftime('%Y-%m-01'))]"
                     string="From this month"
                     name="this_month"
                 />
-                <field name="date" />
-                <field name="name" />
-                <field name="employee_id" />
-                <field name="state" />
-                <filter name="travel" context="{'group_by': 'travel_id'}" string="Travel" />
-                <filter name="unit" context="{'group_by': 'unit_id'}" string="Unit" />
-                <filter name="driver" context="{'group_by': 'employee_id'}" string="Driver" />
-                <filter name="state" context="{'group_by': 'state'}" string="State" />
-                <filter name="period" context="{'group_by': 'date'}" string="Period" />
                 <filter name="day" context="{'group_by': 'date:day'}" string="Day" />
-                <filter
-                    name="operating_unit_group_by"
-                    context="{'group_by':'operating_unit_id'}"
-                    string="Operating Unit"
-                />
+                <filter name="month" context="{'group_by': 'date:month'}" string="Month" />
             </search>
         </field>
     </record>
@@ -40,31 +37,52 @@
         <field name="model">tms.advance</field>
         <field name="arch" type="xml">
             <tree
-                decoration-muted="state=='cancel'"
+                decoration-muted="state=='closed'"
                 decoration-success="state=='approved'"
-                decoration-info="state=='confirmed'"
+                decoration-info="state=='done'"
+                decoration-danger="state=='cancel'"
             >
+                <header>
+                    <button
+                        name="action_register_payment"
+                        string="Register Payment"
+                        type="object"
+                    />
+                </header>
                 <field name="name" />
                 <field name="date" />
                 <field name="travel_id" />
-                <field name="unit_id" />
-                <field name="employee_id" />
-                <field name="currency_id" invisible="1" />
+                <field name="unit_id" optional="show" />
+                <field name="driver_id" widget="" optional="show" />
+                <field name="currency_id" optional="hide" />
                 <field name="amount" widget='monetary' sum="Amount Total" />
                 <field name="product_id" />
                 <field name="auto_expense" />
-                <field name="notes" optional="hide" />
-                <field name="paid" />
-                <field name="state" />
+                <field
+                    name="payment_state"
+                    widget="badge"
+                    decoration-danger="payment_state == 'not_paid'"
+                    decoration-warning="payment_state == 'partial'"
+                    decoration-success="payment_state == 'paid'"
+                    optional="show"
+                />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-info="state == 'draft'"
+                    decoration-success="state == 'approved'"
+                    decoration-muted="state == 'done'"
+                    decoration-warning="state == 'closed'"
+                    decoration-danger="state == 'cancel'"
+                />
                 <button icon="fa-arrow-right" name="action_approve" states="draft" string="Approve" type="object" />
                 <button
-                    icon="fa-arrow-right"
-                    name="action_authorized"
-                    states="authorized"
-                    string="To Authorize"
+                    icon="fa-usd"
+                    name="action_register_payment"
+                    states="approved"
+                    string="Register Payment"
                     type="object"
                 />
-                <button icon="fa-check" name="action_confirm" states="approved" string="Confirm" type="object" />
             </tree>
         </field>
     </record>
@@ -75,6 +93,22 @@
             <form string="Advances">
                 <header>
                     <button
+                        name="action_approve"
+                        icon="fa-thumbs-up"
+                        class="oe_highlight"
+                        states="draft"
+                        string="Approve"
+                        type="object"
+                    />
+                    <button
+                        name="action_register_payment"
+                        icon="fa-usd"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|', ('state', '!=', 'approved'), ('payment_state', '=', 'paid')]}"
+                        string="Register Payment"
+                        type="object"
+                    />
+                    <button
                         name="action_cancel_draft"
                         icon="fa-reply"
                         states="cancel"
@@ -84,106 +118,99 @@
                     <button
                         name="action_cancel"
                         icon="fa-times"
-                        states="draft,approved,confirmed"
+                        states="draft,approved"
                         string="Cancel"
                         type="object"
                     />
-                    <button
-                        name="action_approve"
-                        icon="fa-thumbs-up"
-                        class="oe_highlight"
-                        states="draft"
-                        string="Approve"
-                        type="object"
-                    />
-                    <button
-                        name="action_confirm"
-                        icon="fa-check-square-o"
-                        class="oe_highlight"
-                        states="approved"
-                        string="Confirm"
-                        type="object"
-                    />
-                    <button
-                        name="action_authorized"
-                        icon="fa-key"
-                        string="To authorize advance"
-                        type="object"
-                        class="oe_highlight"
-                        states="authorized"
-                    />
-                    <field
-                        name="state"
-                        statusbar_visible="draft,approved,authorized,confirmed,cancel,closed"
-                        widget="statusbar"
-                    />
+                    <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
-                    <h1>
-                        <label
-                            for="name"
-                            class="oe_inline"
-                            style="font-size:30px;"
-                            string="Advance - "
-                            attrs="{'invisible':[('name','=', False)]}"
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_open_related_moves"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-bars"
+                            string="Related Moves"
+                            attrs="{'invisible': [('move_id', '=', False)]}"
                         />
-                        <field class="oe_inline" name="name" readonly="1" />
-                    </h1>
+                        <button
+                            name="action_open_payments"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-bars"
+                            string="Payments"
+                            attrs="{'invisible': [('payment_ids', '=', [])]}"
+                        />
+                    </div>
+                    <widget name="web_ribbon" title="Paid" attrs="{'invisible': [('payment_state', '!=', 'paid')]}" />
+                    <widget
+                        name="web_ribbon"
+                        title="Partial"
+                        bg_color="bg-warning"
+                        attrs="{'invisible': [('payment_state', '!=', 'partial')]}"
+                    />
+                    <widget
+                        name="web_ribbon"
+                        title="Not Paid"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('payment_state', '!=', 'not_paid')]}"
+                    />
+                    <field name="payment_state" invisible="1" />
+                    <div class="oe_title">
+                        <span class="o_form_label">Advance</span>
+                        <h1 class="mt0">
+                            <field name="name" />
+                        </h1>
+                    </div>
                     <group>
                         <group>
                             <field
-                                name="operating_unit_id"
-                                attrs="{'readonly':[('state','in',('confirmed','cancel','closed'))]}"
-                            />
-                            <field
                                 name="travel_id"
-                                attrs="{'readonly':[('state','in',('cancel','closed','confirmed'))]}"
-                                domain="[('state','!=','cancel'),('state','!=','closed'),('operating_unit_id', '=', operating_unit_id)]"
+                                attrs="{'readonly':[('state', '!=', 'draft')]}"
+                                domain="[('state', 'not in', ['cancel', 'closed', 'done'])]"
+                                options="{'no_create': True}"
                             />
                             <field name="unit_id" />
-                            <field name="employee_id" />
+                            <field name="driver_id" />
                         </group>
                         <group>
-                            <field name="date" attrs="{'readonly':[('state','in',('confirmed','cancel','closed'))]}" />
+                            <field name="date" attrs="{'readonly':[('state', '!=', 'draft')]}" />
                             <field
                                 name="currency_id"
-                                attrs="{'readonly':[('state','in',('confirmed','cancel','closed'))]}"
+                                attrs="{'readonly':[('state', '!=', 'draft')]}"
                                 groups="base.group_multi_currency"
+                                options="{'no_create': True, 'no_open': True}"
                             />
-                            <field
-                                name="auto_expense"
-                                attrs="{'readonly':[('state','in',('confirmed','cancel','closed'))]}"
-                            />
+                            <field name="auto_expense" attrs="{'readonly':[('state', '!=', 'draft')]}" />
                         </group>
                     </group>
                     <group>
                         <group>
                             <field
                                 name="product_id"
-                                attrs="{'readonly':[('state','in',('confirmed','cancel','closed'))]}"
+                                attrs="{'readonly':[('state', '!=', 'draft')]}"
+                                options="{'no_create': True}"
                             />
-                            <field
-                                name="amount"
-                                options="{'currency_field': 'currency_id'}"
-                                widget="monetary"
-                                attrs="{'readonly':[('state','in',('confirmed','cancel','closed'))]}"
-                            />
+                            <field name="amount" attrs="{'readonly':[('state', '!=', 'draft')]}" />
                         </group>
                     </group>
                     <group>
                         <notebook colspan="4">
                             <page string="Notes">
-                                <group>
-                                    <field name="notes" nolabel="1" />
-                                </group>
+                                <field name="notes" nolabel="1" />
                             </page>
-                            <page string="Log Info">
-                                <group col="4" colspan="4">
-                                    <field name="move_id" />
-                                    <field name="paid" />
-                                    <field name="expense_id" />
-                                    <field name="payment_move_id" />
-                                    <field name="payment_id" />
+                            <page string="Log Info" attrs="{'invisible': [('move_id', '=', False)]}">
+                                <group>
+                                    <group>
+                                        <field name="move_id" />
+                                        <!-- <field name="expense_id" attrs="{'invisible': [('expense_id', '=', False)]}" /> -->
+                                        <field
+                                            name="payment_move_ids"
+                                            attrs="{'invisible': [('payment_move_ids', '=', False)]}"
+                                        />
+                                        <field name="payment_ids" attrs="{'invisible': [('payment_ids', '=', False)]}" />
+                                    </group>
                                 </group>
                             </page>
                         </notebook>
@@ -202,11 +229,4 @@
         <field name="context">{}</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <menuitem
-        action="open_view_tms_advance_form"
-        id="menu_tms_advance_form"
-        name="Advances"
-        parent="menu_tms_travels"
-        sequence="10"
-    />
 </odoo>
