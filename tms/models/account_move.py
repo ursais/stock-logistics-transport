@@ -1,7 +1,7 @@
 # Copyright 2016-2023, Jarsa Sistemas, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from odoo import models
+from odoo import fields, models
 
 
 class AccountMove(models.Model):
@@ -33,3 +33,13 @@ class AccountMove(models.Model):
     #                 }
     #             )
     #     return super().button_cancel()
+
+
+class AccountMoveLine(models.Model):
+    _inherit = "account.move.line"
+
+    fuel_id = fields.Many2one("tms.fuel", string="Fuel", readonly=True)
+
+    def _copy_data_extend_business_fields(self, values):
+        values["fuel_id"] = self.fuel_id.id
+        return super()._copy_data_extend_business_fields(values)

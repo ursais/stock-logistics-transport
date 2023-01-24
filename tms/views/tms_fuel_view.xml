@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="tms_fuel_view_form">
+        <field name="name">tms_fuel_view.form</field>
+        <field name="model">tms.fuel</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        class="oe_highlight"
+                        icon="fa-check-square-o"
+                        name="action_approve"
+                        states="draft"
+                        string="Approve"
+                        type="object"
+                    />
+                    <button
+                        icon="fa-times"
+                        name="action_cancel"
+                        states="draft,approved"
+                        string="Cancel"
+                        type="object"
+                    />
+                    <button
+                        icon="fa-reply"
+                        name="action_back_to_draft"
+                        states="cancel"
+                        string="Back to Draft"
+                        type="object"
+                    />
+                    <field
+                        name="state"
+                        statusbar_visible="draft,approved,confirmed,cancel,closed"
+                        widget="statusbar"
+                    />
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Paid" attrs="{'invisible': [('payment_state', '!=', 'paid')]}" />
+                    <widget
+                        name="web_ribbon"
+                        title="Partial"
+                        bg_color="bg-warning"
+                        attrs="{'invisible': [('payment_state', '!=', 'partial')]}"
+                    />
+                    <widget
+                        name="web_ribbon"
+                        title="Not Paid"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('payment_state', '!=', 'not_paid')]}"
+                    />
+                    <field name="payment_state" invisible="1" />
+                    <div class="oe_title">
+                        <span class="o_form_label">Fuel</span>
+                        <h1 class="mt0">
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field
+                                name="partner_id"
+                                domain="[('is_company', '=', True)]"
+                                widget="res_partner_many2one"
+                                context="{'res_partner_search_mode': 'supplier', 'show_vat': True, 'default_is_company': True}"
+                                attrs="{'readonly':[('state', '!=', 'draft')]}"
+                            />
+                            <field
+                                name="travel_id"
+                                attrs="{'readonly':[('state', '!=', 'draft')]}"
+                                domain="[('state','not in',['cancel', 'done', 'closed'])]"
+                            />
+                            <field name="unit_id" attrs="{'invisible': [('travel_id', '=', False)]}" />
+                        </group>
+                        <group>
+                            <field name="date" attrs="{'readonly':[('state', '!=', 'draft')]}" />
+                            <field name="ref" attrs="{'readonly':[('state', '!=', 'draft')]}" />
+                            <field
+                                name="currency_id"
+                                attrs="{'readonly':[('state', '!=', 'draft')]}"
+                                groups="base.group_multi_currency"
+                            />
+                            <field name="driver_id" attrs="{'invisible': [('travel_id', '=', False)]}" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Fuel Details">
+                            <group>
+                                <group>
+                                    <field name="product_id" attrs="{'readonly':[('state', '!=', 'draft')]}" />
+                                    <label for="product_qty" />
+                                    <div class="o_row">
+                                        <field name="product_qty" attrs="{'readonly':[('state', '!=', 'draft')]}" />
+                                        <field name="uom_id" attrs="{'readonly':[('state', '!=', 'draft')]}" />
+                                    </div>
+                                    <field name="price_unit" />
+                                    <field name="price_subtotal" />
+                                    <field name="tax_ids" widget="many2many_tags" />
+                                    <field name="tax_amount" />
+                                    <field name="price_total" />
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" nolabel="1" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="tms_fuel_filter_search" model="ir.ui.view">
+        <field name="name">Search view for Fuel Logs</field>
+        <field name="model">tms.fuel</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="driver_id" />
+                <field name="travel_id" />
+                <field name="unit_id" />
+                <filter name="partner_id_group_by" context="{'group_by':'partner_id'}" string="Supplier" />
+                <filter name="unit_id_group_by" context="{'group_by':'unit_id'}" string="Vehicle" />
+                <filter name="driver_id_group_by" context="{'group_by':'driver_id'}" string="Driver" />
+                <filter name="travel_id_group_by" context="{'group_by':'travel_id'}" string="Travel" />
+                <filter name="state_group_by" context="{'group_by': 'state'}" string="State" />
+                <filter name="payment_state_group_by" context="{'group_by': 'payment_state'}" string="Payment State" />
+                <!-- <filter name="expense_id" context="{'group_by': 'expense_id'}" string="Expense Record" /> -->
+            </search>
+        </field>
+    </record>
+    <record id="tms_fuel_tree" model="ir.ui.view">
+        <field name="name">tms.tms.fuel.tree</field>
+        <field name="model">tms.fuel</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="travel_id" />
+                <field name="driver_id" />
+                <field name="partner_id" />
+                <field name="product_qty" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+    <record id='tms_fuel_action' model='ir.actions.act_window'>
+        <field name="name">Fuel Log</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tms.fuel</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="tms_fuel_filter_search" />
+    </record>
+</odoo>

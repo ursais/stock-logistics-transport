@@ -4,6 +4,7 @@
         <menuitem id="menu_tms_travels" name="Freights" sequence="10">
             <menuitem action="open_view_tms_travel_form" id="menu_tms_travel_form" sequence="20" />
             <menuitem action="open_view_tms_advance_form" id="menu_tms_advance_form" sequence="30" />
+            <menuitem action="tms_fuel_action" id="fuel_vehicle_log_menu" name="Fuel Voucher" sequence="40" />
         </menuitem>
         <menuitem id="menu_tms_reports" name="Reports" sequence="50">
         </menuitem>

@@ -89,6 +89,16 @@ class TmsAdvance(models.Model):
         "product.product", required=True, domain=[("tms_product_category", "=", "real_expense")]
     )
     company_id = fields.Many2one("res.company", required=True, default=lambda self: self.env.user.company_id)
+    analytic_account_id = fields.Many2one(
+        "account.analytic.account",
+        string="Analytic Account",
+        check_company=True,
+    )
+    analytic_tag_ids = fields.Many2many(
+        "account.analytic.tag",
+        string="Analytic Tags",
+        check_company=True,
+    )
 
     @api.model_create_multi
     def create(self, vals_list):
