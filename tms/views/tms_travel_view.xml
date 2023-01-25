@@ -359,43 +359,50 @@
                         />
                     </group>
                     <notebook>
-                        <!--<page string="Vehicle log fuel">
+                        <page string="Vehicle log fuel">
                             <field
-                                name="fuel_log_ids"
+                                name="fuel_ids"
                                 attrs="{'readonly':[('state', 'in', ['done', 'closed'])]}"
                                 nolabel="1"
-                                context="{
-                                'default_travel_id':active_id,
-                                'default_operating_unit_id':operating_unit_id,
-                                'default_vehicle_id': unit_id,
-                            }"
                             >
                               <tree
-                                    decoration-danger="state=='cancel'"
+                                    decoration-info="state=='draft'"    
                                     decoration-success="state=='approved'"
-                                    decoration-info="state=='confirmed'"
+                                    decoration-muted="state=='closed'"
+                                    decoration-danger="state=='cancel'"
                                     editable="bottom"
                                 >
-                                    <field name="name" readonly="1" />
-                                    <field name="vendor_id" />
+                                    <field name="name" />
+                                    <field name="date" />
+                                    <field name="ref"/>
+                                    <field name="partner_id" />
+                                    <field name="product_id" options="{'no_create': 1}" />
                                     <field name="product_qty" />
+                                    <field name="uom_id" options="{'no_create': 1}" optional="hide" />
                                     <field name="price_unit" optional="hide" />
+                                    <field name="currency_id" optional="hide" groups="base.group_multi_currency" />
+                                    <field name="tax_ids" widget="many2many_tags" optional="hide" options="{'no_create': 1}" />
                                     <field name="price_subtotal" optional="hide" />
                                     <field name="tax_amount" />
-                                    <field name="special_tax_amount" optional="hide" />
                                     <field name="price_total" />
                                     <field
-                        name="state"
-                        widget="badge"
-                        decoration-info="state == 'scheduled'"
-                        decoration-success="state == 'progress'"
-                        decoration-muted="state == 'done'"
-                        decoration-warning="state == 'closed'"
-                        decoration-danger="state == 'cancel'"
-                    />
+                                        name="payment_state"
+                                        widget="badge"
+                                        decoration-danger="payment_state == 'not_paid'"
+                                        decoration-warning="payment_state in ('partial', 'in_payment')"
+                                        decoration-success="payment_state in ('paid', 'reversed')"
+                                    />
+                                    <field
+                                        name="state"
+                                        widget="badge"
+                                        decoration-info="state=='draft'"    
+                                        decoration-success="state=='approved'"
+                                        decoration-muted="state=='closed'"
+                                        decoration-danger="state=='cancel'"
+                                    />
                                 </tree>
                             </field>
-                        </page>-->
+                        </page>
                         <page string="Advances">
                             <field name="advance_ids" attrs="{'readonly':[('state', 'in', ['done', 'closed'])]}">
                                 <tree
@@ -410,7 +417,14 @@
                                     <field name="amount" sum="Amount Total" />
                                     <field name="currency_id" optional="hide" />
                                     <field name="auto_expense" widget="boolean_toggle" />
-                                    <field name="payment_state" optional="show" />
+                                    <field
+                                        name="payment_state"
+                                        widget="badge"
+                                        decoration-danger="payment_state == 'not_paid'"
+                                        decoration-warning="payment_state == 'partial'"
+                                        decoration-success="payment_state == 'paid'"
+                                        optional="show"
+                                    />
                                     <field name="state" optional="show" />
                                     <button
                                         icon="fa-arrow-right"

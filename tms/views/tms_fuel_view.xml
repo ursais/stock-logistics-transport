@@ -75,7 +75,6 @@
                         <group>
                             <field
                                 name="partner_id"
-                                domain="[('is_company', '=', True)]"
                                 widget="res_partner_many2one"
                                 context="{'res_partner_search_mode': 'supplier', 'show_vat': True, 'default_is_company': True}"
                                 attrs="{'readonly':[('state', '!=', 'draft')]}"
@@ -161,7 +160,12 @@
         <field name="name">tms.tms.fuel.tree</field>
         <field name="model">tms.fuel</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree
+                decoration-info="state=='draft'"    
+                decoration-success="state=='approved'"
+                decoration-muted="state=='closed'"
+                decoration-danger="state=='cancel'"
+            >
                 <header>
                     <button name="action_invoice" string="Create Invoice" type="object" />
                 </header>
@@ -170,7 +174,21 @@
                 <field name="driver_id" />
                 <field name="partner_id" />
                 <field name="product_qty" />
-                <field name="state" />
+                <field
+                    name="payment_state"
+                    widget="badge"
+                    decoration-danger="payment_state == 'not_paid'"
+                    decoration-warning="payment_state in ('partial', 'in_payment')"
+                    decoration-success="payment_state in ('paid', 'reversed')"
+                />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-info="state=='draft'"    
+                    decoration-success="state=='approved'"
+                    decoration-muted="state=='closed'"
+                    decoration-danger="state=='cancel'"
+                />
             </tree>
         </field>
     </record>
