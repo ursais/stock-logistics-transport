@@ -84,7 +84,7 @@ class TmsFuel(models.Model):
     partner_id = fields.Many2one(
         "res.partner",
         required=True,
-        domain=[('is_company', '=', True)],
+        domain=[("is_company", "=", True)],
     )
     product_id = fields.Many2one(
         "product.product",

@@ -17,9 +17,9 @@
                     <button
                         class="oe_highlight"
                         name="action_invoice"
-                        states="approved"
                         string="Create Invoice"
                         type="object"
+                        attrs="{'invisible': ['|', ('state', '!=', 'approved'), ('move_id', '!=', False)]}"
                     />
                     <button
                         icon="fa-times"
@@ -49,7 +49,9 @@
                             class="oe_stat_button"
                             icon="fa-usd"
                             string="Invoices"
+                            attrs="{'invisible': [('move_id', '=', False)]}"
                         />
+                        <field name="move_id" invisible="1" />
                     </div>
                     <widget name="web_ribbon" title="Paid" attrs="{'invisible': [('payment_state', '!=', 'paid')]}" />
                     <widget
@@ -161,7 +163,7 @@
         <field name="model">tms.fuel</field>
         <field name="arch" type="xml">
             <tree
-                decoration-info="state=='draft'"    
+                decoration-info="state=='draft'"
                 decoration-success="state=='approved'"
                 decoration-muted="state=='closed'"
                 decoration-danger="state=='cancel'"
@@ -184,7 +186,7 @@
                 <field
                     name="state"
                     widget="badge"
-                    decoration-info="state=='draft'"    
+                    decoration-info="state=='draft'"
                     decoration-success="state=='approved'"
                     decoration-muted="state=='closed'"
                     decoration-danger="state=='cancel'"
