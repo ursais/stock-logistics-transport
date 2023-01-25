@@ -30,6 +30,7 @@ class TmsTravel(models.Model):
     route_id = fields.Many2one(
         "tms.route",
         required=True,
+        ondelete="restrict",
     )
     kit_id = fields.Many2one("tms.unit.kit")
     unit_id = fields.Many2one("fleet.vehicle", required=True, domain=[("fleet_type", "=", "tractor")])
@@ -92,6 +93,7 @@ class TmsTravel(models.Model):
     # waybill_ids = fields.Many2many("tms.waybill", copy=False)
     fuel_ids = fields.One2many("tms.fuel", "travel_id", string="Fuel Vouchers")
     advance_ids = fields.One2many("tms.advance", "travel_id", string="Advances")
+    partner_ids = fields.Many2many("res.partner", string="Customers", domain=[("is_company", "=", True)])
     # expense_id = fields.Many2one("tms.expense", "Expense Record", readonly=True)
 
     def _group_expand_stage_id(self, stages, domain, order):
@@ -104,6 +106,14 @@ class TmsTravel(models.Model):
             if rec.date_start_real and rec.date_end_real:
                 travel_time_real = (rec.date_end_real - rec.date_start_real).total_seconds() / 60 / 60
             rec.travel_time_real = travel_time_real
+
+    @api.onchange("partner_ids")
+    def _onchange_partner_ids(self):
+        if self.partner_ids and len(self.partner_ids) == 1:
+            routes = self.route_id.search([("partner_ids", "in", self.partner_ids.ids)])
+            self.route_id = routes if len(routes) == 1 else False
+        else:
+            self.route_id = False
 
     @api.onchange("kit_id")
     def _onchange_kit(self):

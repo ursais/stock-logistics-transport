@@ -24,9 +24,40 @@
             <form>
                 <sheet>
                     <group>
-                        <group>
+                        <group
+                            name="customer_information"
+                            string="Customer Information"
+                            attrs="{'invisible': [('category', '!=', 'customer')]}"
+                        >
+                            <field
+                                name="partner_id"
+                                attrs="{
+                                    'invisible': [('category', '!=', 'customer')],
+                                    'required': [('category', '=', 'customer')],
+                                }"
+                                options="{'no_create': True}"
+                            />
+                        </group>
+                        <group attrs="{'invisible': [('category', '!=', 'customer')]}" />
+                        <group attrs="{'invisible': [('category', '!=', 'customer')]}">
+                            <field
+                                name="departure_address_id"
+                                attrs="{'required': [('category', '=', 'customer')]}"
+                                domain="[('parent_id', '=', partner_id), ('type', '=', 'delivery'), ('id', '!=', arrival_address_id)]"
+                                context="{'default_type': 'delivery', 'default_parent_id': partner_id, 'default_company_type': 'person'}"
+                            />
+                        </group>
+                        <group attrs="{'invisible': [('category', '!=', 'customer')]}">
+                            <field
+                                name="arrival_address_id"
+                                attrs="{'required': [('category', '=', 'customer')]}"
+                                domain="[('parent_id', '=', partner_id), ('type', '=', 'delivery'), ('id', '!=', departure_address_id)]"
+                                context="{'default_type': 'delivery', 'default_parent_id': partner_id, 'default_company_type': 'person'}"
+                            />
+                        </group>
+                        <group string="Factor Information">
                             <field name="factor_type" />
-                            <field invisible="True" name="category" />
+                            <field name="category" invisible="1" />
                             <field name="name" />
                             <field
                                 attrs="{
@@ -57,9 +88,13 @@
                                 attrs="{'invisible' :[('mixed', '!=', True), '|', ('factor_type', '!=', 'travel'), ('mixed', '!=', False)]}"
                                 name="fixed_amount"
                             />
-                            <field name="notes" />
                         </group>
                     </group>
+                    <notebook>
+                        <page name="notes" string="Notes">
+                            <field name="notes" />
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

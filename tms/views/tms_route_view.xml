@@ -55,6 +55,23 @@
                         <page string="Driver Factor" name="driver_factor">
                             <field name="driver_factor_ids" context="{'default_category': 'driver'}" />
                         </page>
+                        <page string="Customer Factor" name="customer_factor">
+                            <field name="customer_factor_ids" context="{'default_category': 'customer'}">
+                                <tree>
+                                    <field name="sequence" widget="handle" />
+                                    <field name="partner_id" />
+                                    <field name="departure_address_id" optional="hide" />
+                                    <field name="arrival_address_id" optional="hide" />
+                                    <field name="name" />
+                                    <field name="factor_type" />
+                                    <field name="factor" optional="show" />
+                                    <field name="range_start" optional="hide" />
+                                    <field name="range_end" optional="hide" />
+                                    <field name="fixed_amount" optional="show" />
+                                    <field name="mixed" optional="hide" />
+                                </tree>
+                            </field>
+                        </page>
                         <page string="Notes" name="notes">
                             <field name="notes" nolabel="1" />
                         </page>

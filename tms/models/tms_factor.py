@@ -27,7 +27,8 @@ class TmsFactor(models.Model):
         ]
 
     name = fields.Char(required=True)
-    route_id = fields.Many2one("tms.route", string="Route")
+    driver_route_id = fields.Many2one("tms.route")
+    customer_route_id = fields.Many2one("tms.route")
     category = fields.Selection(_get_category_selection, required=True)
     factor_type = fields.Selection(
         _get_factor_type_selection,
@@ -44,7 +45,16 @@ class TmsFactor(models.Model):
     fixed_amount = fields.Float()
     mixed = fields.Boolean()
     sequence = fields.Integer(help="Gives the sequence calculation for these factors.", default=10)
-    notes = fields.Text()
+    notes = fields.Html()
+    partner_id = fields.Many2one("res.partner", domain=[("is_company", "=", True)])
+    departure_address_id = fields.Many2one(
+        "res.partner",
+        help="Departure address for current Route and Partner.",
+    )
+    arrival_address_id = fields.Many2one(
+        "res.partner",
+        help="Arrival address for current Route and Partner.",
+    )
 
     @api.onchange("factor_type")
     def _onchange_factor_type(self):

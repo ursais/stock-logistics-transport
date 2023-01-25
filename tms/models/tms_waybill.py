@@ -1,56 +1,35 @@
 # Copyright 2016-2023, Jarsa Sistemas, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-import logging
-
-from odoo import _, api, exceptions, fields, models
-
-_logger = logging.getLogger(__name__)
-try:
-    from num2words import num2words
-except ImportError:
-    _logger.debug("Cannot `import num2words`.")
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class TmsWaybill(models.Model):
     _name = "tms.waybill"
-    _inherit = "mail.thread"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Waybills"
     _order = "name desc"
 
-    rate = fields.Float(compute="_compute_rate", digits=(12, 4), groups="base.group_multi_currency")
-    customer_factor_ids = fields.One2many(
-        "tms.factor",
-        "waybill_id",
-        string="Waybill Customer Charge Factors",
-        domain=[
-            ("category", "=", "customer"),
-        ],
+    transportable_line_ids = fields.One2many(
+        "tms.waybill.transportable.line", "waybill_id", string="Transportable", copy=True
     )
-    driver_factor_ids = fields.One2many(
-        "tms.factor",
-        "waybill_id",
-        string="Travel Driver Payment Factors",
-        domain=[
-            ("category", "=", "driver"),
-        ],
-    )
-    transportable_line_ids = fields.One2many("tms.waybill.transportable.line", "waybill_id", string="Transportable")
-    tax_line_ids = fields.One2many("tms.waybill.taxes", "waybill_id", string="Tax Lines", store=True)
-    name = fields.Char()
+    name = fields.Char(readonly=True, copy=False)
     travel_ids = fields.Many2many("tms.travel", copy=False, string="Travels")
     state = fields.Selection(
-        [("draft", "Pending"), ("approved", "Approved"), ("confirmed", "Confirmed"), ("cancel", "Cancelled")],
+        [("draft", "Pending"), ("approved", "Approved"), ("cancel", "Cancelled")],
         readonly=True,
         tracking=True,
         help="Gives the state of the Waybill.",
         default="draft",
     )
-    date_order = fields.Datetime("Date", required=True, default=fields.Datetime.now)
-    user_id = fields.Many2one("res.users", "Salesman", default=(lambda self: self.env.user))
-    partner_id = fields.Many2one("res.partner", required=True, change_default=True)
+    date = fields.Datetime(required=True, default=fields.Datetime.now, copy=False)
+    user_id = fields.Many2one("res.users", "Salesman", default=(lambda self: self.env.user), required=True, copy=False)
+    partner_id = fields.Many2one("res.partner", required=True)
     currency_id = fields.Many2one(
-        "res.currency", required=True, default=lambda self: self.env.user.company_id.currency_id
+        "res.currency",
+        required=True,
+        default=lambda self: self.env.user.company_id.currency_id,
     )
     company_id = fields.Many2one("res.company", required=True, default=lambda self: self.env.user.company_id)
     partner_invoice_id = fields.Many2one(
@@ -62,16 +41,12 @@ class TmsWaybill(models.Model):
         required=True,
         help="The name and address of the contact who requested the order or quotation.",
     )
-    departure_address_id = fields.Many2one(
-        "res.partner", required=True, help="Departure address for current Waybill.", change_default=True
+    move_id = fields.Many2one("account.move", readonly=True, copy=False)
+    payment_state = fields.Selection(
+        related="move_id.payment_state",
+        store=True,
+        help="Payment State of the Waybill",
     )
-    arrival_address_id = fields.Many2one(
-        "res.partner", required=True, help="Arrival address for current Waybill.", change_default=True
-    )
-    upload_point = fields.Char(change_default=True)
-    download_point = fields.Char(change_default=True)
-    invoice_id = fields.Many2one("account.move", readonly=True, copy=False)
-    invoice_paid = fields.Boolean(compute="_compute_invoice_paid", readonly=True)
     waybill_line_ids = fields.One2many("tms.waybill.line", "waybill_id", string="Waybill Lines")
     transportable_ids = fields.One2many("tms.waybill.transportable.line", "waybill_id", string="Shipped Products")
     product_qty = fields.Float(compute="_compute_product_qty", string="Sum Qty")
@@ -92,13 +67,6 @@ class TmsWaybill(models.Model):
     )
     notes = fields.Html()
 
-    @api.depends("date_order")
-    def _compute_rate(self):
-        company_currency = self.env.company.currency_id
-        for record in self.filtered(lambda r: r.date_order):
-            currency = record.currency_id.with_context(date=record.date_order)
-            record.rate = currency.compute(1, company_currency, round=False)
-
     @api.model
     def create(self, values):
         waybill = super().create(values)
@@ -118,26 +86,19 @@ class TmsWaybill(models.Model):
         waybill.onchange_waybill_line_ids()
         return waybill
 
-    def write(self, values):
-        for rec in self:
-            if values.get("partner_id"):
-                for travel in rec.travel_ids:
-                    travel.partner_ids = False
-                    travel._compute_partner_ids()
-            return super().write(values)
-
     @api.onchange("partner_id")
     def onchange_partner_id(self):
         if self.partner_id:
-            self.partner_order_id = self.partner_id.address_get(["invoice", "contact"]).get("contact", False)
-            self.partner_invoice_id = self.partner_id.address_get(["invoice", "contact"]).get("invoice", False)
+            partner = self.partner_id.address_get(["invoice", "contact"])
+            self.partner_order_id = partner.get("contact", False)
+            self.partner_move_id = partner.get("invoice", False)
 
     def action_approve(self):
         for waybill in self:
             waybill.state = "approved"
 
     def action_view_invoice(self):
-        invoices = self.mapped("invoice_id")
+        invoices = self.mapped("move_id")
         action = self.env["ir.actions.actions"]._for_xml_id("account.action_move_out_invoice_type")
         if len(invoices) > 1:
             action["domain"] = [("id", "in", invoices.ids)]
@@ -169,21 +130,6 @@ class TmsWaybill(models.Model):
             )
         action["context"] = context
         return action
-
-    @api.depends("invoice_id")
-    def _compute_invoice_paid(self):
-        for rec in self:
-            paid = rec.invoice_id and rec.invoice_id.payment_state in ["in_payment", "paid"]
-            rec.invoice_paid = paid
-
-    @api.onchange("customer_factor_ids", "transportable_line_ids")
-    def _onchange_waybill_line_ids(self):
-        for rec in self:
-            rec.waybill_line_ids.filtered(lambda l: l.product_id.tms_product_category == "freight").write(
-                {
-                    "unit_price": rec._compute_line_unit_price(),
-                }
-            )
 
     @api.depends("transportable_line_ids.quantity")
     def _compute_product_qty(self):
@@ -292,7 +238,7 @@ class TmsWaybill(models.Model):
     def action_confirm(self):
         for rec in self:
             if not rec.travel_ids:
-                raise exceptions.ValidationError(
+                raise UserError(
                     _("Could not confirm Waybill !Waybill must be assigned to a Travel before confirming.")
                 )
             rec.state = "confirmed"
@@ -326,32 +272,137 @@ class TmsWaybill(models.Model):
         for waybill in self:
             travel = waybill.travel_ids.filtered(lambda t: t.state == "cancel")
             if travel:
-                raise exceptions.ValidationError(_("Could not set to draft this Waybill !Travel is Cancelled !!!"))
+                raise UserError(_("Could not set to draft this Waybill !Travel is Cancelled !!!"))
             waybill.state = "draft"
 
     def action_cancel(self):
         for waybill in self:
-            if waybill.invoice_id and waybill.invoice_id.state != "cancel":
-                raise exceptions.ValidationError(
+            if waybill.move_id and waybill.move_id.state != "cancel":
+                raise UserError(
                     _(
                         "You cannot unlink the invoice of this waybill"
                         " because the invoice is still valid, "
                         "please check it."
                     )
                 )
-            waybill.invoice_id = False
+            waybill.move_id = False
             waybill.state = "cancel"
 
-    def _amount_to_text(self, amount_total, currency, partner_lang="es_MX"):
-        total = str(int(amount_total))
-        decimals = str(float(amount_total)).split(".")[1]
-        currency_type = "M.N."
-        if partner_lang != "es_MX":
-            total = num2words(float(amount_total)).upper()
-        else:
-            total = num2words(float(total), lang="es").upper()
-        if currency != "MXN":
-            currency_type = "M.E."
-        else:
-            currency = "PESOS"
-        return "%s %s %s/100 %s" % (total, currency, decimals or 0.0, currency_type)
+
+class TmsWaybillLine(models.Model):
+    _name = "tms.waybill.line"
+    _description = "Waybill Line"
+    _order = "sequence, id desc"
+
+    waybill_id = fields.Many2one(
+        comodel_name="tms.waybill",
+        readonly=True,
+        ondelete="cascade",
+    )
+    name = fields.Char(
+        string="Description",
+        required=True,
+    )
+    sequence = fields.Integer(
+        help="Gives the sequence order when displaying a list of waybill lines.",
+        default=10,
+    )
+    product_id = fields.Many2one(
+        comodel_name="product.product",
+        required=True,
+    )
+    unit_price = fields.Float(default=0.0)
+    price_subtotal = fields.Float(
+        compute="_compute_amount_line",
+        string="Subtotal",
+    )
+    tax_amount = fields.Float(compute="_compute_amount_line")
+    tax_ids = fields.Many2many(
+        comodel_name="account.tax",
+        string="Taxes",
+        domain='[("type_tax_use", "=", "sale")]',
+    )
+    product_qty = fields.Float(
+        string="Quantity",
+        default=1.0,
+    )
+    discount = fields.Float(
+        string="Discount (%)",
+        help="Please use 99.99 format...",
+    )
+    account_id = fields.Many2one(
+        "account.account",
+    )
+
+    @api.onchange("product_id")
+    def on_change_product_id(self):
+        for rec in self:
+            fpos = rec.waybill_id.partner_id.property_account_position_id
+            fpos_tax_ids = fpos.map_tax(rec.product_id.taxes_id)
+            rec.update(
+                {
+                    "account_id": rec.product_id.property_account_income_id.id,
+                    "tax_ids": fpos_tax_ids,
+                    "name": rec.product_id.name,
+                }
+            )
+
+    @api.depends("product_qty", "unit_price", "discount")
+    def _compute_amount_line(self):
+        for rec in self:
+            price_discount = rec.unit_price * ((100.00 - rec.discount) / 100)
+            taxes = rec.tax_ids.compute_all(
+                price_unit=price_discount,
+                currency=rec.waybill_id.currency_id,
+                quantity=rec.product_qty,
+                product=rec.product_id,
+                partner=rec.waybill_id.partner_id,
+            )
+            rec.update(
+                {
+                    "price_subtotal": taxes["total_excluded"],
+                    "tax_amount": taxes["total_included"] - taxes["total_excluded"],
+                }
+            )
+
+
+class TmsWaybillTransportableLine(models.Model):
+    _name = "tms.waybill.transportable.line"
+    _description = "Shipped Product"
+    _order = "sequence, id desc"
+
+    transportable_id = fields.Many2one(
+        comodel_name="tms.transportable",
+        required=True,
+    )
+    name = fields.Char(
+        string="Description",
+        required=True,
+    )
+    transportable_uom_id = fields.Many2one(
+        comodel_name="uom.uom",
+        string="Unit of Measure ",
+        required=True,
+    )
+    quantity = fields.Float(
+        string="Quantity (UoM)",
+        required=True,
+        default=0.0,
+    )
+    notes = fields.Char()
+    waybill_id = fields.Many2one(
+        comodel_name="tms.waybill",
+        required=True,
+        ondelete="cascade",
+        readonly=True,
+    )
+    sequence = fields.Integer(help="Gives the sequence order when displaying a list of sales order lines.", default=10)
+
+    @api.onchange("transportable_id")
+    def _onchange_transportable_id(self):
+        self.update(
+            {
+                "name": self.transportable_id.name,
+                "transportable_uom_id": self.transportable_id.uom_id.id,
+            }
+        )

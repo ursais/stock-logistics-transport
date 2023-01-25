@@ -20,6 +20,7 @@
                 <field name="trailer2_id" />
                 <field name="date_start" />
                 <field name="date_end" />
+                <field name="partner_ids" />
                 <filter name="unit" context="{'group_by' : 'unit_id'}" string="Unit" />
                 <filter name="driver" context="{'group_by' : 'driver_id'}" string="Driver" />
                 <filter name="stage" context="{'group_by' : 'stage_id'}" string="Stage" />
@@ -49,6 +50,7 @@
             >
                 <field name="error_message" invisible="1" />
                 <field name="name" />
+                <field name="partner_ids" widget="many2many_tags" />
                 <field name="driver_id" optional="show" />
                 <field name="unit_id" optional="show" />
                 <field name="trailer1_id" optional="hide" />
@@ -352,11 +354,20 @@
                         </group>
                     </group>
                     <group string="Route" name="route">
-                        <field
-                            name="route_id"
-                            options="{'no_create': 1}"
-                            attrs="{'readonly':[('state', '!=', 'draft')]}"
-                        />
+                        <group>
+                            <field
+                                name="partner_ids"
+                                widget="many2many_tags"
+                                options="{'no_create': 1}"
+                                attrs="{'readonly':[('state', '!=', 'draft')]}"
+                            />
+                            <field
+                                name="route_id"
+                                options="{'no_create': 1}"
+                                attrs="{'readonly':[('state', '!=', 'draft')]}"
+                                domain="[('partner_ids', 'in', partner_ids)]"
+                            />
+                        </group>
                     </group>
                     <notebook>
                         <page string="Vehicle log fuel">
