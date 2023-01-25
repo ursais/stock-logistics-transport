@@ -11,7 +11,7 @@ class TmsFuel(models.Model):
     _description = "Fuel Logs"
     _order = "date desc,unit_id desc"
 
-    name = fields.Char(readonly=True)
+    name = fields.Char(readonly=True, copy=False)
     travel_id = fields.Many2one("tms.travel", required=True)
     # expense_id = fields.Many2one("tms.expense")
     driver_id = fields.Many2one(
@@ -116,10 +116,10 @@ class TmsFuel(models.Model):
         string="Analytic Tags",
         check_company=True,
     )
-    move_ids = fields.Many2many(
+    move_id = fields.Many2one(
         "account.move",
         string="Invoices",
-        compute="_compute_move_ids",
+        compute="_compute_move_id",
         store=True,
     )
     move_line_ids = fields.One2many(
@@ -155,12 +155,12 @@ class TmsFuel(models.Model):
             rec.tax_amount = sum(t.get("amount", 0.0) for t in taxes.get("taxes", []))
             rec.price_total = rec.price_subtotal + rec.tax_amount
 
-    @api.depends("move_line_ids.move_id")
-    def _compute_move_ids(self):
+    @api.depends("move_line_ids.move_id", "move_line_ids")
+    def _compute_move_id(self):
         for rec in self:
             rec.update(
                 {
-                    "move_ids": [(6, 0, rec.move_line_ids.mapped("move_id").ids)],
+                    "move_id": rec.move_line_ids.move_id.id,
                 }
             )
 
@@ -196,14 +196,14 @@ class TmsFuel(models.Model):
             raise UserError(_("Could not Invoice Fuel Voucher! This Fuel Voucher must be approved or closed"))
         invoice_batch = {}
         for rec in self:
-            ref = "-".join(
+            ref = " ".join(
                 self.filtered(lambda r: r.currency_id == rec.currency_id and r.partner_id == rec.partner_id).mapped(
                     "name"
                 )
             )
             invoice_batch.setdefault(rec.currency_id, {}).setdefault(rec.partner_id, rec._prepare_move(ref))[
                 "invoice_line_ids"
-            ].append(rec._prepare_move_line())
+            ].extend(rec._prepare_move_line())
         invoice_to_create = []
         for partners in invoice_batch.values():
             for data in partners.values():
@@ -217,11 +217,11 @@ class TmsFuel(models.Model):
         immediately.
         """
         if not invoices:
-            # move_ids may be filtered depending on the user. To ensure we get all
+            # move_id may be filtered depending on the user. To ensure we get all
             # invoices related to the purchase order, we read them in sudo to fill the
             # cache.
-            self.sudo()._read(["move_ids"])
-            invoices = self.move_ids
+            self.sudo()._read(["move_id"])
+            invoices = self.move_id
 
         result = self.env["ir.actions.act_window"]._for_xml_id("account.action_move_in_invoice_type")
         # choose the view_mode accordingly
@@ -250,9 +250,10 @@ class TmsFuel(models.Model):
             "quantity": self.product_qty,
             "price_unit": self.price_unit,
             "tax_ids": [(6, 0, self.tax_ids.ids)],
-            "account_id": self.product_id.product_tmpl_id.get_product_accounts(fpos).get("expense", False),
+            "account_id": self.product_id.product_tmpl_id.get_product_accounts(fpos).get("expense", False).id,
             "analytic_account_id": self.analytic_account_id.id,
             "analytic_tag_ids": [(6, 0, self.analytic_tag_ids.ids)],
+            "fuel_id": self.id,
         }
 
     def _prepare_move_line(self):

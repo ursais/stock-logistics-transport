@@ -38,7 +38,7 @@ class AccountMove(models.Model):
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    fuel_id = fields.Many2one("tms.fuel", string="Fuel", readonly=True)
+    fuel_id = fields.Many2one("tms.fuel", string="Fuel Log", readonly=True, copy=False)
 
     def _copy_data_extend_business_fields(self, values):
         values["fuel_id"] = self.fuel_id.id

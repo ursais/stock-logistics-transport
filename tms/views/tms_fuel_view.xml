@@ -15,6 +15,13 @@
                         type="object"
                     />
                     <button
+                        class="oe_highlight"
+                        name="action_invoice"
+                        states="approved"
+                        string="Create Invoice"
+                        type="object"
+                    />
+                    <button
                         icon="fa-times"
                         name="action_cancel"
                         states="draft,approved"
@@ -35,6 +42,15 @@
                     />
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_view_invoice"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-usd"
+                            string="Invoices"
+                        />
+                    </div>
                     <widget name="web_ribbon" title="Paid" attrs="{'invisible': [('payment_state', '!=', 'paid')]}" />
                     <widget
                         name="web_ribbon"
@@ -98,6 +114,15 @@
                                     <field name="tax_amount" />
                                     <field name="price_total" />
                                 </group>
+                                <group>
+                                    <field name="analytic_account_id" groups="analytic.group_analytic_accounting" />
+                                    <field
+                                        name="analytic_tag_ids"
+                                        groups="analytic.group_analytic_tags"
+                                        widget="many2many_tags"
+                                    />
+                                    <field name="company_id" groups="base.group_multi_company" />
+                                </group>
                             </group>
                         </page>
                         <page string="Notes" name="notes">
@@ -137,6 +162,9 @@
         <field name="model">tms.fuel</field>
         <field name="arch" type="xml">
             <tree>
+                <header>
+                    <button name="action_invoice" string="Create Invoice" type="object" />
+                </header>
                 <field name="name" />
                 <field name="travel_id" />
                 <field name="driver_id" />
