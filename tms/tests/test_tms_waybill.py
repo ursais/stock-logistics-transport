@@ -47,7 +47,7 @@ class TestTmsWaybill(TransactionCase):
                         {
                             "transportable_id": self.transportable.id,
                             "name": self.transportable.name,
-                            "transportable_uom_id": self.transportable.uom_id.id,
+                            "transportable_product_uom_id": self.transportable.product_uom_id.id,
                             "quantity": 10,
                         },
                     )

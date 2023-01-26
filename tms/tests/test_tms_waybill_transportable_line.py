@@ -31,7 +31,7 @@ class TestTmsWaybillTrasnportableLine(TransactionCase):
                         {
                             "transportable_id": self.sand.id,
                             "name": self.sand.name,
-                            "transportable_uom_id": self.sand.uom_id.id,
+                            "transportable_product_uom_id": self.sand.product_uom_id.id,
                         },
                     )
                 ],
@@ -48,4 +48,4 @@ class TestTmsWaybillTrasnportableLine(TransactionCase):
         line = waybill.transportable_line_ids
         line._onchange_transportable_id()
         self.assertEqual(line.name, self.water.name)
-        self.assertEqual(line.transportable_uom_id, self.water.uom_id)
+        self.assertEqual(line.transportable_product_uom_id, self.water.product_uom_id)

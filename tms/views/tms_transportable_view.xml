@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <search>
                 <filter name="archived" string="Archived" domain="[('active', '=', False)]" />
-                <filter name="group_by_uom" string="UoM" context="{'group_by': 'uom_id'}" />
+                <filter name="group_by_uom" string="UoM" context="{'group_by': 'product_uom_id'}" />
             </search>
         </field>
     </record>
@@ -16,7 +16,7 @@
         <field name="arch" type="xml">
             <tree editable="bottom">
                 <field name="name" />
-                <field name="uom_id" />
+                <field name="product_uom_id" />
             </tree>
         </field>
     </record>

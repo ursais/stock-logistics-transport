@@ -9,7 +9,7 @@ class TmsTransportable(models.Model):
     _description = "Transportable Product"
 
     name = fields.Char(required=True, translate=True)
-    uom_id = fields.Many2one("uom.uom", "Unit of Measure ", required=True)
+    product_uom_id = fields.Many2one("uom.uom", "Unit of Measure ", required=True)
     active = fields.Boolean(default=True)
 
     def copy(self, default=None):

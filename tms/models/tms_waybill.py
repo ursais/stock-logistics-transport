@@ -43,7 +43,18 @@ class TmsWaybill(models.Model):
         required=True,
         help="The name and address of the contact who requested the order or quotation.",
     )
-    move_id = fields.Many2one("account.move", readonly=True, copy=False)
+    move_id = fields.Many2one(
+        "account.move",
+        string="Invoice",
+        compute="_compute_move_id",
+        store=True,
+    )
+    move_line_ids = fields.One2many(
+        "account.move.line",
+        "waybill_id",
+        string="Journal Items",
+        readonly=True,
+    )
     payment_state = fields.Selection(
         related="move_id.payment_state",
         store=True,
@@ -120,7 +131,7 @@ class TmsWaybill(models.Model):
                         "product_uom_id": product.uom_id.id,
                         "sequence": 1,
                         "product_qty": price_values["quantity"],
-                        "unit_price": price_values.get("amount", price_values.get("fixed_amount", 0.0)),
+                        "price_unit": price_values.get("amount", price_values.get("fixed_amount", 0.0)),
                         "tax_ids": [(6, 0, fpos.map_tax(product.taxes_id).ids)],
                         "name": product.name,
                     },
@@ -136,7 +147,7 @@ class TmsWaybill(models.Model):
                             "product_uom_id": product.uom_id.id,
                             "sequence": 2,
                             "product_qty": 1,
-                            "unit_price": price_values["fixed_amount"],
+                            "price_unit": price_values["fixed_amount"],
                             "tax_ids": [(6, 0, fpos.map_tax(product.taxes_id).ids)],
                             "name": _("%(name)s - Fixed Amount", name=product.name),
                         },
@@ -145,6 +156,15 @@ class TmsWaybill(models.Model):
             rec.update(
                 {
                     "waybill_line_ids": waybill_line,
+                }
+            )
+
+    @api.depends("move_line_ids.move_id", "move_line_ids")
+    def _compute_move_id(self):
+        for rec in self:
+            rec.update(
+                {
+                    "move_id": rec.move_line_ids.move_id.id,
                 }
             )
 
@@ -163,13 +183,43 @@ class TmsWaybill(models.Model):
                 }
             )
 
-    def action_view_invoice(self):
-        invoices = self.mapped("move_id")
-        action = self.env["ir.actions.actions"]._for_xml_id("account.action_move_out_invoice_type")
+    def action_invoice(self):
+        if self.mapped("move_id"):
+            raise UserError(_("This Waybill is already invoiced."))
+        if any(rec.state in ["draft", "cancel"] for rec in self):
+            raise UserError(_("You can only invoice confirmed waybills."))
+        invoice_batch = {}
+        for rec in self:
+            ref = " ".join(
+                self.filtered(lambda r: r.currency_id == rec.currency_id and r.partner_id == rec.partner_id).mapped(
+                    "name"
+                )
+            )
+            invoice_batch.setdefault(rec.currency_id, {}).setdefault(rec.partner_id, rec._prepare_move(ref))[
+                "invoice_line_ids"
+            ].extend(rec._prepare_move_line())
+        invoice_to_create = []
+        for partners in invoice_batch.values():
+            for data in partners.values():
+                invoice_to_create.append(data)
+        invoices = self.env["account.move"].create(invoice_to_create)
+        return self.action_view_invoice(invoices)
+
+    def action_view_invoice(self, invoices=False):
+        if not invoices:
+            # move_id may be filtered depending on the user. To ensure we get all
+            # invoices related to the purchase order, we read them in sudo to fill the
+            # cache.
+            self.sudo()._read(["move_id"])
+            invoices = self.mapped("move_id")
+
+        action = self.env["ir.actions.act_window"]._for_xml_id("account.action_move_out_invoice_type")
+        # choose the view_mode accordingly
         if len(invoices) > 1:
             action["domain"] = [("id", "in", invoices.ids)]
         elif len(invoices) == 1:
-            form_view = [(self.env.ref("account.view_move_form").id, "form")]
+            res = self.env.ref("account.view_move_form", False)
+            form_view = [(res and res.id or False, "form")]
             if "views" in action:
                 action["views"] = form_view + [(state, view) for state, view in action["views"] if view != "form"]
             else:
@@ -177,48 +227,53 @@ class TmsWaybill(models.Model):
             action["res_id"] = invoices.id
         else:
             action = {"type": "ir.actions.act_window_close"}
-
-        context = {
-            "default_move_type": "out_invoice",
+        action["context"] = {
+            "no_create": True,
         }
-        if len(self) == 1:
-            context.update(
-                {
-                    "default_partner_id": self.partner_id.id,
-                    "default_partner_shipping_id": self.arrival_address_id.id,
-                    "default_invoice_payment_term_id": self.partner_id.property_payment_term_id.id
-                    or self.env["account.move"]
-                    .default_get(["invoice_payment_term_id"])
-                    .get("invoice_payment_term_id"),
-                    "default_invoice_origin": self.name,
-                    "default_user_id": self.user_id.id,
-                }
-            )
-        action["context"] = context
         return action
+
+    def _prepare_move_line(self):
+        self.ensure_one()
+        move_lines = []
+        for line in self.waybill_line_ids:
+            move_lines.append((0, 0, line._prepare_move_line_vals()))
+        return move_lines
+
+    def _prepare_move(self, ref):
+        self.ensure_one()
+        move = {
+            "move_type": "out_invoice",
+            "ref": ref,
+            "company_id": self.company_id.id,
+            "currency_id": self.currency_id.id,
+            "partner_id": self.partner_id.id,
+            "narration": self.notes,
+            "invoice_line_ids": [],
+        }
+        return move
 
     @api.depends("transportable_line_ids.quantity")
     def _compute_product_qty(self):
         for rec in self:
             rec.product_qty = sum(rec.transportable_line_ids.mapped("quantity"))
 
-    @api.depends("transportable_line_ids.transportable_uom_id", "transportable_line_ids.quantity")
+    @api.depends("transportable_line_ids.transportable_product_uom_id", "transportable_line_ids.quantity")
     def _compute_product_volume(self):
         vol_categ = self.env.ref("uom.product_uom_categ_vol")
         for rec in self:
             rec.product_volume = sum(
-                rec.transportable_line_ids.filtered(lambda l: l.transportable_uom_id.category_id == vol_categ).mapped(
+                rec.transportable_line_ids.filtered(lambda l: l.transportable_product_uom_id.category_id == vol_categ).mapped(
                     "quantity"
                 )
             )
 
-    @api.depends("transportable_line_ids.transportable_uom_id", "transportable_line_ids.quantity")
+    @api.depends("transportable_line_ids.transportable_product_uom_id", "transportable_line_ids.quantity")
     def _compute_product_weight(self):
         weight_categ = self.env.ref("uom.product_uom_categ_kgm")
         for rec in self:
             rec.product_weight = sum(
                 rec.transportable_line_ids.filtered(
-                    lambda l: l.transportable_uom_id.category_id == weight_categ
+                    lambda l: l.transportable_product_uom_id.category_id == weight_categ
                 ).mapped("quantity")
             )
 
@@ -293,11 +348,11 @@ class TmsWaybill(models.Model):
             rec.amount_total = rec.amount_untaxed + rec.amount_tax
 
     @api.depends(
-        "partner_id", "waybill_line_ids.tax_ids", "waybill_line_ids.unit_price", "amount_total", "amount_untaxed"
+        "partner_id", "waybill_line_ids.tax_ids", "waybill_line_ids.price_unit", "amount_total", "amount_untaxed"
     )
     def _compute_tax_totals_json(self):
         def compute_taxes(line):
-            price = line.unit_price * (1 - (line.discount or 0.0) / 100.0)
+            price = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
             return line.tax_ids._origin.compute_all(
                 price, line.currency_id, line.product_qty, product=line.product_id, partner=rec.partner_id
             )
@@ -372,7 +427,7 @@ class TmsWaybillLine(models.Model):
         string="Unit of Measure",
         required=True,
     )
-    unit_price = fields.Monetary(default=0.0)
+    price_unit = fields.Monetary(default=0.0)
     amount_untaxed = fields.Monetary(
         compute="_compute_amount_line",
         string="Subtotal",
@@ -403,6 +458,26 @@ class TmsWaybillLine(models.Model):
         string="Discount (%)",
         help="Please use 99.99 format...",
     )
+    analytic_account_id = fields.Many2one(
+        "account.analytic.account",
+        string="Analytic Account",
+        check_company=True,
+    )
+    analytic_tag_ids = fields.Many2many(
+        "account.analytic.tag",
+        string="Analytic Tags",
+        check_company=True,
+    )
+    company_id = fields.Many2one(
+        related="waybill_id.company_id",
+        store=True,
+    )
+    move_line_ids = fields.One2many(
+        "account.move.line",
+        "waybill_line_id",
+        string="Journal Items",
+        readonly=True,
+    )
 
     @api.onchange("product_id")
     def _on_change_product_id(self):
@@ -412,16 +487,16 @@ class TmsWaybillLine(models.Model):
                 {
                     "tax_ids": fpos.map_tax(rec.product_id.taxes_id),
                     "name": rec.product_id.name,
-                    "product_uom_id": rec.product_id.uom_id.id,
+                    "product_uom_id": rec.product_id.product_uom_id.id,
                     "product_qty": 1.0,
-                    "unit_price": rec.product_id.lst_price,
+                    "price_unit": rec.product_id.lst_price,
                 }
             )
 
-    @api.depends("product_qty", "unit_price", "discount")
+    @api.depends("product_qty", "price_unit", "discount")
     def _compute_amount_line(self):
         for rec in self:
-            price_discount = rec.unit_price * ((100.00 - rec.discount) / 100)
+            price_discount = rec.price_unit * ((100.00 - rec.discount) / 100)
             taxes = rec.tax_ids.compute_all(
                 price_unit=price_discount,
                 currency=rec.waybill_id.currency_id,
@@ -437,6 +512,21 @@ class TmsWaybillLine(models.Model):
                 }
             )
 
+    def _prepare_move_line_vals(self):
+        self.ensure_one()
+        fpos = self.waybill_id.partner_id.property_account_position_id
+        return {
+            "name": self.name,
+            "product_id": self.product_id.id,
+            "product_uom_id": self.product_uom_id.id,
+            "quantity": self.product_qty,
+            "price_unit": self.price_unit,
+            "tax_ids": [(6, 0, self.tax_ids.ids)],
+            "account_id": self.product_id.product_tmpl_id.get_product_accounts(fpos).get("income", False).id,
+            "analytic_account_id": self.analytic_account_id.id,
+            "analytic_tag_ids": [(6, 0, self.analytic_tag_ids.ids)],
+            "waybill_line_id": self.id,
+        }
 
 class TmsWaybillTransportableLine(models.Model):
     _name = "tms.waybill.transportable.line"
@@ -451,7 +541,7 @@ class TmsWaybillTransportableLine(models.Model):
         string="Description",
         required=True,
     )
-    transportable_uom_id = fields.Many2one(
+    transportable_product_uom_id = fields.Many2one(
         comodel_name="uom.uom",
         string="Unit of Measure ",
         required=True,
@@ -461,7 +551,7 @@ class TmsWaybillTransportableLine(models.Model):
         required=True,
         default=0.0,
     )
-    notes = fields.Char()
+    notes = fields.Html()
     waybill_id = fields.Many2one(
         comodel_name="tms.waybill",
         required=True,
@@ -475,6 +565,6 @@ class TmsWaybillTransportableLine(models.Model):
         self.update(
             {
                 "name": self.transportable_id.name,
-                "transportable_uom_id": self.transportable_id.uom_id.id,
+                "transportable_product_uom_id": self.transportable_id.product_uom_id.id,
             }
         )

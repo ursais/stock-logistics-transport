@@ -107,7 +107,7 @@
                                     <label for="product_qty" />
                                     <div class="o_row">
                                         <field name="product_qty" attrs="{'readonly':[('state', '!=', 'draft')]}" />
-                                        <field name="uom_id" attrs="{'readonly':[('state', '!=', 'draft')]}" />
+                                        <field name="product_uom_id" attrs="{'readonly':[('state', '!=', 'draft')]}" />
                                     </div>
                                     <field name="price_unit" />
                                     <field name="price_subtotal" />

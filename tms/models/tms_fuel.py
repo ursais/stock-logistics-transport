@@ -27,7 +27,7 @@ class TmsFuel(models.Model):
         default=fields.Date.today,
         tracking=True,
     )
-    uom_id = fields.Many2one(
+    product_uom_id = fields.Many2one(
         "uom.uom",
         string="UoM",
         required=True,
@@ -119,7 +119,7 @@ class TmsFuel(models.Model):
     )
     move_id = fields.Many2one(
         "account.move",
-        string="Invoices",
+        string="Invoice",
         compute="_compute_move_id",
         store=True,
     )
@@ -136,7 +136,7 @@ class TmsFuel(models.Model):
             fpos = self.partner_id.property_account_position_id
             self.update(
                 {
-                    "uom_id": self.product_id.uom_id.id,
+                    "product_uom_id": self.product_id.product_uom_id.id,
                     "tax_ids": fpos.map_tax(self.product_id.supplier_taxes_id),
                     "price_unit": self.product_id.standard_price,
                 }
@@ -247,7 +247,7 @@ class TmsFuel(models.Model):
         return {
             "name": self.name,
             "product_id": self.product_id.id,
-            "product_uom_id": self.uom_id.id,
+            "product_uom_id": self.product_uom_id.id,
             "quantity": self.product_qty,
             "price_unit": self.price_unit,
             "tax_ids": [(6, 0, self.tax_ids.ids)],
@@ -271,6 +271,7 @@ class TmsFuel(models.Model):
             "currency_id": self.currency_id.id,
             "partner_id": self.partner_id.id,
             "invoice_line_ids": [],
+            "narration": self.notes,
         }
         return move
 

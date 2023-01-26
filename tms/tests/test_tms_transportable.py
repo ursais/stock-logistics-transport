@@ -20,8 +20,8 @@ class TestTmsTransportable(TransactionCase):
         with self.assertRaisesRegex(
             IntegrityError, "duplicate key value violates unique constraint tms_transportable_name_unique"
         ):
-            self.obj_transportable.create({"name": "Test", "uom_id": self.ton.id})
-            self.obj_transportable.create({"name": "Test", "uom_id": self.ton.id})
+            self.obj_transportable.create({"name": "Test", "product_uom_id": self.ton.id})
+            self.obj_transportable.create({"name": "Test", "product_uom_id": self.ton.id})
 
     def test_20_tms_transportable_copy(self):
         transportable = self.transportable.copy()

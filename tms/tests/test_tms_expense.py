@@ -104,7 +104,7 @@ class TestTmsExpense(TransactionCase):
                             "transportable_id": self.env.ref("tms.tms_transportable_01").id,
                             "quantity": 100.0,
                             "name": "Sand",
-                            "transportable_uom_id": self.env.ref("uom.product_uom_ton").id,
+                            "transportable_product_uom_id": self.env.ref("uom.product_uom_ton").id,
                         },
                     )
                 ],

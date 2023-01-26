@@ -75,7 +75,7 @@ class TestTmsExpenseLine(TransactionCase):
         expense_line._onchange_product_id()
         self.assertEqual(expense_line.tax_ids, self.product_fuel.supplier_taxes_id)
         self.assertEqual(expense_line.line_type, self.product_fuel.tms_product_category)
-        self.assertEqual(expense_line.product_uom_id.id, self.product_fuel.uom_id.id)
+        self.assertEqual(expense_line.product_uom_id.id, self.product_fuel.product_uom_id.id)
         self.assertEqual(expense_line.name, self.product_fuel.name)
 
     def test_20_tms_expense_line_compute_tax_amount(self):
