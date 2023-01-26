@@ -67,7 +67,9 @@ class TmsWaybill(models.Model):
         readonly=False,
     )
     amount_total = fields.Float(compute="_compute_amount_total", string="Total", store=True)
-    distance_real = fields.Float(help="Route obtained by electronic reading", compute="_compute_distance_real", store=True)
+    distance_real = fields.Float(
+        help="Route obtained by electronic reading", compute="_compute_distance_real", store=True
+    )
     distance_route = fields.Float(
         compute="_compute_distance_route",
         string="Sum Distance",
@@ -109,28 +111,42 @@ class TmsWaybill(models.Model):
             )
             product = self.env["product.product"].search([("tms_product_category", "=", "freight")], limit=1)
             fpos = rec.partner_id.property_account_position_id
-            waybill_line = [(0, 0, {
-                "product_id": product.id,
-                "product_uom_id": product.uom_id.id,
-                "sequence": 1,
-                "product_qty": price_values["quantity"],
-                "unit_price": price_values.get("amount", price_values.get("fixed_amount", 0.0)),
-                "tax_ids": [(6, 0, fpos.map_tax(product.taxes_id).ids)],
-                "name": product.name,
-            })]
+            waybill_line = [
+                (
+                    0,
+                    0,
+                    {
+                        "product_id": product.id,
+                        "product_uom_id": product.uom_id.id,
+                        "sequence": 1,
+                        "product_qty": price_values["quantity"],
+                        "unit_price": price_values.get("amount", price_values.get("fixed_amount", 0.0)),
+                        "tax_ids": [(6, 0, fpos.map_tax(product.taxes_id).ids)],
+                        "name": product.name,
+                    },
+                )
+            ]
             if price_values["amount"] and price_values["fixed_amount"]:
-                waybill_line.append((0, 0, {
-                    "product_id": product.id,
-                    "product_uom_id": product.uom_id.id,
-                    "sequence": 2,
-                    "product_qty": 1,
-                    "unit_price": price_values["fixed_amount"],
-                    "tax_ids": [(6, 0, fpos.map_tax(product.taxes_id).ids)],
-                    "name": _("%(name)s - Fixed Amount", name=product.name),
-                }))
-            rec.update({
-                "waybill_line_ids": waybill_line,
-            })
+                waybill_line.append(
+                    (
+                        0,
+                        0,
+                        {
+                            "product_id": product.id,
+                            "product_uom_id": product.uom_id.id,
+                            "sequence": 2,
+                            "product_qty": 1,
+                            "unit_price": price_values["fixed_amount"],
+                            "tax_ids": [(6, 0, fpos.map_tax(product.taxes_id).ids)],
+                            "name": _("%(name)s - Fixed Amount", name=product.name),
+                        },
+                    )
+                )
+            rec.update(
+                {
+                    "waybill_line_ids": waybill_line,
+                }
+            )
 
     @api.onchange("partner_id")
     def _onchange_partner_id(self):
@@ -210,7 +226,7 @@ class TmsWaybill(models.Model):
     def _compute_distance_route(self):
         for rec in self:
             rec.distance_route = sum(rec.travel_ids.mapped("route_id.distance"))
-    
+
     @api.depends("travel_ids.distance")
     def _compute_distance_real(self):
         for rec in self:
@@ -277,41 +293,24 @@ class TmsWaybill(models.Model):
             rec.amount_total = rec.amount_untaxed + rec.amount_tax
 
     @api.depends(
-        "partner_id",
-        "waybill_line_ids.amount_total",
-        "waybill_line_ids.amount_untaxed",
-        "currency_id",
-        "amount_total",
-        "amount_untaxed",
+        "partner_id", "waybill_line_ids.tax_ids", "waybill_line_ids.unit_price", "amount_total", "amount_untaxed"
     )
     def _compute_tax_totals_json(self):
-        """Computed field used for custom widget's rendering.
-        Only set on invoices.
-        """
-        for rec in self:
-            tax_lines_data = rec._prepare_tax_lines_data_for_totals()
-            rec.tax_totals_json = json.dumps(
-                {
-                    **self.env["account.move"]._get_tax_totals(
-                        rec.partner_id, tax_lines_data, rec.amount_total, rec.amount_untaxed, rec.currency_id
-                    ),
-                }
+        def compute_taxes(line):
+            price = line.unit_price * (1 - (line.discount or 0.0) / 100.0)
+            return line.tax_ids._origin.compute_all(
+                price, line.currency_id, line.product_qty, product=line.product_id, partner=rec.partner_id
             )
 
-    def _prepare_tax_lines_data_for_totals(self):
-        self.ensure_one()
-        tax_lines_data = []
-        for line in self.waybill_line_ids:
-            if line.tax_ids:
-                for base_tax in line.tax_ids.flatten_taxes_hierarchy():
-                    tax_lines_data.append(
-                        {
-                            "line_key": "base_line_%s" % line.id,
-                            "base_amount": line.amount_untaxed,
-                            "tax": base_tax,
-                        }
-                    )
-        return tax_lines_data
+        account_move = self.env["account.move"]
+        for rec in self:
+            tax_lines_data = account_move._prepare_tax_lines_data_for_totals_from_object(
+                rec.waybill_line_ids, compute_taxes
+            )
+            tax_totals = account_move._get_tax_totals(
+                rec.partner_id, tax_lines_data, rec.amount_total, rec.amount_untaxed, rec.currency_id
+            )
+            rec.tax_totals_json = json.dumps(tax_totals)
 
     def action_approve(self):
         for rec in self:

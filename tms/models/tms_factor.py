@@ -71,7 +71,13 @@ class TmsFactor(models.Model):
         self.name = values.get(self.factor_type)
 
     def _get_amount_and_qty(
-        self, weight=0.0, distance=0.0, distance_real=0.0, qty=0.0, volume=0.0, income=0.0,
+        self,
+        weight=0.0,
+        distance=0.0,
+        distance_real=0.0,
+        qty=0.0,
+        volume=0.0,
+        income=0.0,
     ):
         factor_list = {
             "weight": weight,
