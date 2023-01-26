@@ -2,6 +2,12 @@
 <odoo>
     <menuitem id="menu_tms" name="Freights" sequence="10" web_icon="tms,static/description/icon.png">
         <menuitem id="menu_tms_travels" name="Freights" sequence="10">
+            <menuitem
+                action="action_tms_waybill_form"
+                id="menu_tms_waybill"
+                sequence="10"
+                groups="tms.group_tms_traffic,tms.group_tms_expenses,tms.group_tms_traffic_supervisor,tms.group_tms_monitoring"
+            />
             <menuitem action="open_view_tms_travel_form" id="menu_tms_travel_form" sequence="20" />
             <menuitem action="open_view_tms_advance_form" id="menu_tms_advance_form" sequence="30" />
             <menuitem action="tms_fuel_action" id="fuel_vehicle_log_menu" name="Fuel Voucher" sequence="40" />

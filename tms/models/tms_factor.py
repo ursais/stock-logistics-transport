@@ -2,6 +2,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class TmsFactor(models.Model):
@@ -69,8 +70,8 @@ class TmsFactor(models.Model):
         }
         self.name = values.get(self.factor_type)
 
-    def _get_amount(
-        self, weight=0.0, distance=0.0, distance_real=0.0, qty=0.0, volume=0.0, income=0.0, employee=False
+    def _get_amount_and_qty(
+        self, weight=0.0, distance=0.0, distance_real=0.0, qty=0.0, volume=0.0, income=0.0,
     ):
         factor_list = {
             "weight": weight,
@@ -80,19 +81,26 @@ class TmsFactor(models.Model):
             "volume": volume,
         }
         amount = 0.0
+        quantity = 1.0
+        fixed_amount = 0.0
         for rec in self:
-            if rec.factor_type == "travel":
-                amount += rec.fixed_amount
+            if rec.factor_type == "travel" or rec.mixed:
+                fixed_amount = rec.fixed_amount
             elif rec.factor_type == "percent":
-                amount += income * (rec.factor / 100)
+                amount = income * (rec.factor / 100)
             else:
                 for key, value in factor_list.items():
                     if rec.factor_type == key:
                         if rec.range_start <= value <= rec.range_end:
-                            amount += rec.factor * value
+                            amount = rec.factor
+                            quantity = value
                         elif not rec.range_start and not rec.range_end:
-                            amount += rec.factor * value
-                # TODO: Add validation to check if values are in range
-            if rec.mixed and rec.factor_type != "travel":
-                amount += rec.fixed_amount
-        return amount
+                            amount = rec.factor
+                            quantity = value
+        if not quantity:
+            raise UserError(_("Please check if the unit of measure is correct."))
+        return {
+            "quantity": quantity,
+            "amount": amount,
+            "fixed_amount": fixed_amount,
+        }

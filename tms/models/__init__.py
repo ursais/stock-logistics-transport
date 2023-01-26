@@ -18,7 +18,7 @@ from . import tms_travel_stage
 from . import tms_travel
 from . import tms_unit_kit
 from . import tms_fuel
+from . import tms_waybill
 
-# from . import tms_waybill
 # from . import tms_expense
 # from . import tms_expense_line
