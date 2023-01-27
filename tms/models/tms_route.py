@@ -28,7 +28,7 @@ class TmsRoute(models.Model):
 
     @api.constrains("distance_loaded", "distance_empty", "travel_time")
     def _check_route(self):
-        if self.distance <= 0.0:
+        if self.distance_loaded <= 0.0 and self.distance_empty <= 0.0:
             raise UserError(_("Distance must be greater than zero."))
         if self.travel_time <= 0.0:
             raise UserError(_("Travel Time must be greater than zero."))

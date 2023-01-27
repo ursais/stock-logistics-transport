@@ -7,7 +7,7 @@
         <field eval="False" name="sale_ok" />
         <field name="tms_product_category">freight</field>
         <field name="categ_id" ref="product.product_category_all" />
-        <field name="product_uom_id" ref="uom.product_uom_unit" />
+        <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="uom_po_id" ref="uom.product_uom_unit" />
     </record>
     <record id="product_move" model="product.product">
@@ -17,7 +17,7 @@
         <field eval="False" name="sale_ok" />
         <field name="tms_product_category">move</field>
         <field name="categ_id" ref="product.product_category_all" />
-        <field name="product_uom_id" ref="uom.product_uom_unit" />
+        <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="uom_po_id" ref="uom.product_uom_unit" />
     </record>
     <record id="product_insurance" model="product.product">
@@ -27,7 +27,7 @@
         <field eval="False" name="sale_ok" />
         <field name="tms_product_category">insurance</field>
         <field name="categ_id" ref="product.product_category_all" />
-        <field name="product_uom_id" ref="uom.product_uom_unit" />
+        <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="uom_po_id" ref="uom.product_uom_unit" />
     </record>
     <record id="product_highway_tolls" model="product.product">
@@ -37,7 +37,7 @@
         <field eval="False" name="sale_ok" />
         <field name="tms_product_category">tolls</field>
         <field name="categ_id" ref="product.product_category_all" />
-        <field name="product_uom_id" ref="uom.product_uom_unit" />
+        <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="uom_po_id" ref="uom.product_uom_unit" />
     </record>
     <record id="product_other" model="product.product">
@@ -47,7 +47,7 @@
         <field eval="False" name="sale_ok" />
         <field name="tms_product_category">other</field>
         <field name="categ_id" ref="product.product_category_all" />
-        <field name="product_uom_id" ref="uom.product_uom_unit" />
+        <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="uom_po_id" ref="uom.product_uom_unit" />
     </record>
     <record id="product_real_expense" model="product.product">
@@ -57,7 +57,7 @@
         <field eval="False" name="sale_ok" />
         <field name="tms_product_category">real_expense</field>
         <field name="categ_id" ref="product.product_category_all" />
-        <field name="product_uom_id" ref="uom.product_uom_unit" />
+        <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="uom_po_id" ref="uom.product_uom_unit" />
     </record>
     <record id="product_fuel" model="product.product">
@@ -67,7 +67,7 @@
         <field eval="False" name="sale_ok" />
         <field name="tms_product_category">fuel</field>
         <field name="categ_id" ref="product.product_category_all" />
-        <field name="product_uom_id" ref="uom.product_uom_unit" />
+        <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="uom_po_id" ref="uom.product_uom_unit" />
     </record>
     <record id="product_fuel_cash" model="product.product">
@@ -77,7 +77,7 @@
         <field eval="False" name="sale_ok" />
         <field name="tms_product_category">fuel_cash</field>
         <field name="categ_id" ref="product.product_category_all" />
-        <field name="product_uom_id" ref="uom.product_uom_unit" />
+        <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="uom_po_id" ref="uom.product_uom_unit" />
     </record>
     <record id="product_salary" model="product.product">
@@ -87,7 +87,7 @@
         <field eval="False" name="sale_ok" />
         <field name="tms_product_category">salary</field>
         <field name="categ_id" ref="product.product_category_all" />
-        <field name="product_uom_id" ref="uom.product_uom_unit" />
+        <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="uom_po_id" ref="uom.product_uom_unit" />
     </record>
     <record id="product_retention" model="product.product">
@@ -97,7 +97,7 @@
         <field eval="False" name="sale_ok" />
         <field name="tms_product_category">salary_retention</field>
         <field name="categ_id" ref="product.product_category_all" />
-        <field name="product_uom_id" ref="uom.product_uom_unit" />
+        <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="uom_po_id" ref="uom.product_uom_unit" />
     </record>
     <record id="product_discount" model="product.product">
@@ -107,7 +107,7 @@
         <field eval="False" name="sale_ok" />
         <field name="tms_product_category">salary_discount</field>
         <field name="categ_id" ref="product.product_category_all" />
-        <field name="product_uom_id" ref="uom.product_uom_unit" />
+        <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="uom_po_id" ref="uom.product_uom_unit" />
     </record>
     <record id="product_madeup" model="product.product">
@@ -117,7 +117,7 @@
         <field eval="False" name="sale_ok" />
         <field name="tms_product_category">made_up_expense</field>
         <field name="categ_id" ref="product.product_category_all" />
-        <field name="product_uom_id" ref="uom.product_uom_unit" />
+        <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="uom_po_id" ref="uom.product_uom_unit" />
     </record>
     <record id="product_other_income" model="product.product">
@@ -127,7 +127,7 @@
         <field eval="False" name="sale_ok" />
         <field name="tms_product_category">other_income</field>
         <field name="categ_id" ref="product.product_category_all" />
-        <field name="product_uom_id" ref="uom.product_uom_unit" />
+        <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="uom_po_id" ref="uom.product_uom_unit" />
     </record>
 </odoo>
