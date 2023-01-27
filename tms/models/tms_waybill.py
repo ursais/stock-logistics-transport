@@ -547,6 +547,10 @@ class TmsWaybillTransportableLine(models.Model):
         string="Unit of Measure ",
         required=True,
     )
+    uom_categ_id = fields.Many2one(
+        related="transportable_product_uom_id.category_id",
+        store=True,
+    )
     quantity = fields.Float(
         string="Quantity (UoM)",
         required=True,
