@@ -44,16 +44,3 @@ class TmsRoute(models.Model):
             rec.distance_loaded = max(rec.distance_loaded, 0.0)
             rec.distance_empty = max(rec.distance_empty, 0.0)
             rec.distance = rec.distance_empty + rec.distance_loaded
-
-    def write(self, values):
-        validate_fields = {
-            "name": _("Name"),
-            "distance": _("Distance"),
-            "distance_loaded": _("Distance Loaded"),
-            "distance_empty": _("Distance Empty"),
-            "travel_time": _("Travel Time"),
-        }
-        for field, name in validate_fields.items():
-            if field in values and self.mapped("travel_ids").filtered(lambda t: t.state != "cancel"):
-                raise UserError(_("You can not change the %(name)s of a route with travels.", name=name))
-        return super().write(values)
