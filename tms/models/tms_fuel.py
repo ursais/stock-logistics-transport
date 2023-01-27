@@ -136,7 +136,7 @@ class TmsFuel(models.Model):
             fpos = self.partner_id.property_account_position_id
             self.update(
                 {
-                    "product_uom_id": self.product_id.product_uom_id.id,
+                    "product_uom_id": self.product_id.uom_id.id,
                     "tax_ids": fpos.map_tax(self.product_id.supplier_taxes_id),
                     "price_unit": self.product_id.standard_price,
                 }

@@ -73,13 +73,6 @@
                     decoration-danger="state == 'cancel'"
                 />
                 <button icon="fa-arrow-right" name="action_approve" states="draft" string="Approve" type="object" />
-                <button
-                    icon="fa-usd"
-                    name="action_register_payment"
-                    attrs="{'invisible': ['|', ('payment_state', '=', 'paid'), ('state', '!=', 'approved')]}"
-                    string="Register Payment"
-                    type="object"
-                />
             </tree>
         </field>
     </record>

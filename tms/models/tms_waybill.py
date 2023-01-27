@@ -487,7 +487,7 @@ class TmsWaybillLine(models.Model):
                 {
                     "tax_ids": fpos.map_tax(rec.product_id.taxes_id),
                     "name": rec.product_id.name,
-                    "product_uom_id": rec.product_id.product_uom_id.id,
+                    "product_uom_id": rec.product_id.uom_id.id,
                     "product_qty": 1.0,
                     "price_unit": rec.product_id.lst_price,
                 }

@@ -76,7 +76,7 @@ class TmsExpenseLine(models.Model):
         if self.line_type not in ["salary", "salary_retention", "salary_discount"]:
             self.tax_ids = self.product_id.supplier_taxes_id
         self.line_type = self.product_id.tms_product_category
-        self.product_uom_id = self.product_id.product_uom_id.id
+        self.product_uom_id = self.product_id.uom_id.id
         self.name = self.product_id.name
 
     @api.depends("product_id")

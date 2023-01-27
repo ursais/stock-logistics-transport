@@ -10,12 +10,13 @@ class AccountPaymentRegister(models.TransientModel):
     @api.model
     def default_get(self, fields_list):
         active_model = self._context.get("active_model")
+        context = self._context.copy()
         if active_model in self._get_tms_models_for_payment():
             records = self.env[active_model].browse(self._context.get("active_ids"))
-            context = {
+            context.update({
                 "active_model": "account.move",
                 "active_ids": records.mapped("move_id").ids,
-            }
+            })
         return super(AccountPaymentRegister, self.with_context(**context)).default_get(
             fields_list
         )  # pylint: disable=super-with-arguments
@@ -25,12 +26,13 @@ class AccountPaymentRegister(models.TransientModel):
 
     def _create_payments(self):
         active_model = self._context.get("active_model")
+        context = self._context.copy()
         if active_model in self._get_tms_models_for_payment():
             records = self.env[active_model].browse(self._context.get("active_ids"))
-            context = {
+            context.update({
                 "active_model": "account.move",
                 "active_ids": records.mapped("move_id").ids,
-            }
+            })
         return super(
             AccountPaymentRegister, self.with_context(**context)
         )._create_payments()  # pylint: disable=super-with-arguments

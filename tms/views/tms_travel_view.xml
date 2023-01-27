@@ -417,6 +417,14 @@
                                         decoration-muted="state=='closed'"
                                         decoration-danger="state=='cancel'"
                                     />
+                                    <button
+                                        class="oe_highlight"
+                                        icon="fa-check-square-o"
+                                        name="action_approve"
+                                        states="draft"
+                                        string="Approve"
+                                        type="object"
+                                    />
                                 </tree>
                             </field>
                         </page>
