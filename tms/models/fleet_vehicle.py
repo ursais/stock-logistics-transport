@@ -66,3 +66,13 @@ class FleetVehicle(models.Model):
             if record.economic_number:
                 record.name = record.economic_number + "/" + record.name
         return res
+
+    @api.returns('self', lambda value: value.id)
+    def copy(self, default=None):
+        if default is None:
+            default = {}
+        default.update({
+            "economic_number": False,
+            "license_plate": False,
+        })
+        return super().copy(default)
