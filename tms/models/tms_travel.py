@@ -155,10 +155,8 @@ class TmsTravel(models.Model):
                     driver_name=self.driver_id.name,
                 )
             )
-        driver_license_security_days = self.company_id.driver_license_security_days
-        if self.driver_id and (
-            self.driver_id.active_license_id
-            and self.driver_id.active_license_id.days_to_expire <= driver_license_security_days
+        elif self.driver_id and (
+            self.driver_id.active_license_id.days_to_expire <= self.company_id.driver_license_security_days
             or self.driver_id.active_license_id.emission_date >= self.date_start.date()
         ):
             error_message.append(
@@ -178,9 +176,8 @@ class TmsTravel(models.Model):
                         unit_name=unit.name,
                     )
                 )
-            insurance_security_days = self.company_id.insurance_security_days
-            if unit.active_insurance_policy_id and (
-                unit.active_insurance_policy_id.days_to_expire <= insurance_security_days
+            elif unit.active_insurance_policy_id and (
+                unit.active_insurance_policy_id.days_to_expire <= self.company_id.insurance_security_days
                 or unit.active_insurance_policy_id.emission_date >= self.date_start.date()
             ):
                 error_message.append(
