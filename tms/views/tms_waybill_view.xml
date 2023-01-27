@@ -174,7 +174,11 @@
                                     <field name="name" />
                                     <field name="product_qty" />
                                     <field name="product_uom_id" optional="hide" />
-                                    <field name="analytic_account_id" groups="analytic.group_analytic_accounting" optional="hide" />
+                                    <field
+                                        name="analytic_account_id"
+                                        groups="analytic.group_analytic_accounting"
+                                        optional="hide"
+                                    />
                                     <field
                                         name="analytic_tag_ids"
                                         groups="analytic.group_analytic_tags"

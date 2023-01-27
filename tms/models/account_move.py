@@ -43,8 +43,10 @@ class AccountMoveLine(models.Model):
     waybill_id = fields.Many2one(related="waybill_line_id.waybill_id", string="Waybill", store=True)
 
     def _copy_data_extend_business_fields(self, values):
-        values.update({
-            "fuel_id": self.fuel_id.id,
-            "waybill_line_id": self.waybill_line_id.id,
-        })
+        values.update(
+            {
+                "fuel_id": self.fuel_id.id,
+                "waybill_line_id": self.waybill_line_id.id,
+            }
+        )
         return super()._copy_data_extend_business_fields(values)

@@ -294,9 +294,7 @@ class TmsTravel(models.Model):
             fuel = rec.fuel_ids.filtered(lambda f: f.state != "cancel")
             if advances or fuel:
                 raise UserError(
-                    _(
-                        "You need to cancel the advances or fuel logs related to this travel before canceling it."
-                    )
+                    _("You need to cancel the advances or fuel logs related to this travel before canceling it.")
                 )
             rec.write(
                 {

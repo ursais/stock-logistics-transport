@@ -262,9 +262,9 @@ class TmsWaybill(models.Model):
         vol_categ = self.env.ref("uom.product_uom_categ_vol")
         for rec in self:
             rec.product_volume = sum(
-                rec.transportable_line_ids.filtered(lambda l: l.transportable_product_uom_id.category_id == vol_categ).mapped(
-                    "quantity"
-                )
+                rec.transportable_line_ids.filtered(
+                    lambda l: l.transportable_product_uom_id.category_id == vol_categ
+                ).mapped("quantity")
             )
 
     @api.depends("transportable_line_ids.transportable_product_uom_id", "transportable_line_ids.quantity")
@@ -527,6 +527,7 @@ class TmsWaybillLine(models.Model):
             "analytic_tag_ids": [(6, 0, self.analytic_tag_ids.ids)],
             "waybill_line_id": self.id,
         }
+
 
 class TmsWaybillTransportableLine(models.Model):
     _name = "tms.waybill.transportable.line"
