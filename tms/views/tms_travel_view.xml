@@ -328,6 +328,7 @@
                             <field
                                 name="route_travel_time"
                                 widget="float_time"
+                                force_save="1"
                                 attrs="{'invisible': [('travel_time_real', '>', 0)]}"
                             />
                             <label
@@ -503,17 +504,17 @@
                                 <group string="Route Distances (mi./kms)">
                                     <label for="route_distance_loaded" />
                                     <div class="o_row">
-                                        <field name="route_distance_loaded" />
+                                        <field name="route_distance_loaded" force_save="1" />
                                         <field name="odometer_unit" />
                                     </div>
                                     <label for="route_distance_empty" />
                                     <div class="o_row">
-                                        <field name="route_distance_empty" />
+                                        <field name="route_distance_empty" force_save="1" />
                                         <field name="odometer_unit" />
                                     </div>
                                     <label for="route_distance" />
                                     <div class="o_row">
-                                        <field name="route_distance" />
+                                        <field name="route_distance" force_save="1" />
                                         <field name="odometer_unit" />
                                     </div>
                                 </group>

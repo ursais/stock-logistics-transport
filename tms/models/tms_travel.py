@@ -54,23 +54,10 @@ class TmsTravel(models.Model):
     travel_time_real = fields.Float(
         compute="_compute_travel_time_real", string="Duration Real", help="Travel Real duration in hours"
     )
-    route_travel_time = fields.Float(
-        string="Duration Sched",
-        help="Travel Scheduled duration in hours, based on route travel time",
-        related="route_id.travel_time",
-        store=True,
-    )
-    route_distance = fields.Float(
-        related="route_id.distance",
-        string="Route Distance",
-        store=True,
-    )
-    route_distance_loaded = fields.Float(
-        related="route_id.distance_loaded",
-        string="Route Distance Loaded",
-        store=True,
-    )
-    route_distance_empty = fields.Float(related="route_id.distance_empty", string="Route Distance Empty")
+    route_travel_time = fields.Float(string="Duration Sched", readonly=True)
+    route_distance = fields.Float(readonly=True)
+    route_distance_loaded = fields.Float(readonly=True)
+    route_distance_empty = fields.Float(readonly=True)
     distance = fields.Float("Distance traveled", compute="_compute_distance", store=True)
     distance_loaded = fields.Float()
     distance_empty = fields.Float()
@@ -141,6 +128,10 @@ class TmsTravel(models.Model):
         self.update(
             {
                 "date_end": self.date_start + timedelta(hours=self.route_id.travel_time),
+                "route_travel_time": self.route_id.travel_time,
+                "route_distance": self.route_id.distance,
+                "route_distance_loaded": self.route_id.distance_loaded,
+                "route_distance_empty": self.route_id.distance_empty,
             }
         )
 
@@ -299,16 +290,14 @@ class TmsTravel(models.Model):
 
     def action_cancel(self):
         for rec in self:
-            # advances = rec.advance_ids.filtered(lambda a: a.state != "cancel")
-            # fuel = rec.fuel_ids.filtered(lambda f: f.state != "cancel")
-            # if advances or fuel:
-            #     raise UserError(
-            #         _(
-            #             "If you want to cancel this travel,"
-            #             " you must cancel the fuel logs or the advances "
-            #             "attached to this travel"
-            #         )
-            #     )
+            advances = rec.advance_ids.filtered(lambda a: a.state != "cancel")
+            fuel = rec.fuel_ids.filtered(lambda f: f.state != "cancel")
+            if advances or fuel:
+                raise UserError(
+                    _(
+                        "You need to cancel the advances or fuel logs related to this travel before canceling it."
+                    )
+                )
             rec.write(
                 {
                     "state": "cancel",
