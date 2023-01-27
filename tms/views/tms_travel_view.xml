@@ -337,7 +337,7 @@
                                 attrs="{'invisible': [('travel_time_real', '=', 0)]}"
                             />
                             <div class="o_row" attrs="{'invisible': [('travel_time_real', '=', 0)]}">
-                                <field name="route_travel_time" widget="float_time" />
+                                <field name="route_travel_time" force_save="1" widget="float_time" />
                                 <label for="travel_time_real" string=" / " />
                                 <field name="travel_time_real" widget="float_time" />
                             </div>
