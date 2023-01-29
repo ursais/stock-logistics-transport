@@ -183,24 +183,18 @@
                         <page string="Statistics">
                             <group nanem="distances" string="Distances">
                                 <group name="planned" string="Planned">
-                                    <field name='distance_loaded' />
-                                    <field name='distance_empty' />
-                                    <field
-                                        name="distance_routes"
-                                        attrs="{'readonly':[('state','in', ['approved', 'cancel'])]}"
-                                    />
+                                    <field name="route_distance_loaded" />
+                                    <field name="route_distance_empty" />
+                                    <field name="route_distance" />
                                     <field
                                         name="current_odometer"
                                         attrs="{'readonly':[('state','in', ['approved', 'cancel'])]}"
                                     />
                                 </group>
                                 <group name="distances_real" string="Real">
-                                    <field name='distance_loaded_real' />
-                                    <field name='distance_empty_real' />
-                                    <field
-                                        name="distance_real"
-                                        attrs="{'readonly':[('state','in', ['approved', 'cancel'])]}"
-                                    />
+                                    <field name="distance_loaded" />
+                                    <field name="distance_empty" />
+                                    <field name="distance" />
                                 </group>
                             </group>
                             <group string="Fuel">

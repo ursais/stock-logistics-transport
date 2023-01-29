@@ -115,24 +115,33 @@ class TmsExpense(models.Model):
         string="Payment Entry",
         readonly=True,
     )
+    route_distance_loaded = fields.Float(
+        compute="_compute_distances",
+        store=True,
+    )
+    route_distance_empty = fields.Float(
+        compute="_compute_distances",
+        store=True,
+    )
     distance_loaded = fields.Float(
-        compute="_compute_distance_expense",
+        compute="_compute_distances",
         store=True,
     )
     distance_empty = fields.Float(
-        compute="_compute_distance_expense",
+        compute="_compute_distances",
         store=True,
     )
-    distance_loaded_real = fields.Float()
-    distance_empty_real = fields.Float()
-    distance_routes = fields.Float(
-        compute="_compute_distance_routes",
+    route_distance = fields.Float(
+        compute="_compute_distances",
         string="Distance from routes",
-        help="Routes Distance",
-        readonly=True,
         store=True,
     )
-    distance_real = fields.Float(help="Route obtained by electronic reading and/or GPS")
+    distance = fields.Float(
+        compute="_compute_distances",
+        string="Distance Real",
+        store=True,
+        help="Route obtained by electronic reading and/or GPS",
+    )
     income_km = fields.Monetary(
         compute="_compute_income_km",
         store=True,
@@ -209,15 +218,15 @@ class TmsExpense(models.Model):
         for rec in self:
             subtotal_waybills = sum(rec.mapped("travel_ids.waybill_ids.amount_untaxed"))
             try:
-                rec.income_km = subtotal_waybills / rec.distance_real
+                rec.income_km = subtotal_waybills / rec.distance
             except ZeroDivisionError:
                 rec.income_km = 0.0
 
-    @api.depends("distance_real", "amount_total_driver_expenses", "amount_real_expense")
+    @api.depends("distance", "amount_total_driver_expenses", "amount_real_expense")
     def _compute_expense_km(self):
         for rec in self:
             try:
-                rec.expense_km = (rec.amount_total_driver_expenses + rec.amount_real_expense) / rec.distance_real
+                rec.expense_km = (rec.amount_total_driver_expenses + rec.amount_real_expense) / rec.distance
             except ZeroDivisionError:
                 rec.expense_km = 0.0
 
@@ -229,18 +238,12 @@ class TmsExpense(models.Model):
             except ZeroDivisionError:
                 rec.percentage_km = 0.0
 
-    @api.depends("travel_ids")
-    def _compute_distance_expense(self):
-        for rec in self:
-            rec.distance_loaded = sum(rec.travel_ids.mapped("distance_loaded"))
-            rec.distance_empty = sum(rec.travel_ids.mapped("distance_empty"))
-
-    @api.depends("fuel_qty", "distance_real")
+    @api.depends("fuel_qty", "distance")
     def _compute_fuel_efficiency(self):
         for rec in self:
             fuel_efficiency = 0
-            if rec.distance_real and rec.fuel_qty:
-                fuel_efficiency = rec.distance_real / rec.fuel_qty
+            if rec.distance and rec.fuel_qty:
+                fuel_efficiency = rec.distance / rec.fuel_qty
             rec.fuel_efficiency = fuel_efficiency
 
     @api.depends("expense_line_ids", "travel_ids")
@@ -305,14 +308,18 @@ class TmsExpense(models.Model):
             )
 
     @api.depends("travel_ids")
-    def _compute_distance_routes(self):
+    def _compute_distances(self):
         for rec in self:
-            rec.distance_routes = sum(rec.travel_ids.mapped("route_distance"))
-
-    @api.depends("travel_ids")
-    def _compute_distance_real(self):
-        for rec in self:
-            rec.distance_real = sum(rec.travel_ids.mapped("distance"))
+            rec.update(
+                {
+                    "route_distance_empty": sum(rec.travel_ids.mapped("route_distance_empty")),
+                    "route_distance_loaded": sum(rec.travel_ids.mapped("route_distance_loaded")),
+                    "route_distance": sum(rec.travel_ids.mapped("route_distance")),
+                    "distance_empty": sum(rec.travel_ids.mapped("distance_empty")),
+                    "distance_loaded": sum(rec.travel_ids.mapped("distance_loaded")),
+                    "distance": sum(rec.travel_ids.mapped("distance")),
+                }
+            )
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -823,8 +830,8 @@ class TmsExpense(models.Model):
                     for factor in waybill.driver_factor_ids:
                         driver_salary += factor.get_amount(
                             weight=waybill.product_weight,
-                            distance=waybill.distance_route,
-                            distance_real=waybill.distance_real,
+                            distance=waybill.route_distance,
+                            distance_real=waybill.distance,
                             qty=waybill.product_qty,
                             volume=waybill.product_volume,
                             income=income,
@@ -834,8 +841,8 @@ class TmsExpense(models.Model):
                     for factor in travel.driver_factor_ids:
                         driver_salary += factor.get_amount(
                             weight=waybill.product_weight,
-                            distance=waybill.distance_route,
-                            distance_real=waybill.distance_real,
+                            distance=waybill.route_distance,
+                            distance_real=waybill.distance,
                             qty=waybill.product_qty,
                             volume=waybill.product_volume,
                             income=income,
