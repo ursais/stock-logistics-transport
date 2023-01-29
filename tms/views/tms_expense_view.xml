@@ -48,7 +48,7 @@
                     <button
                         class="oe_highlight"
                         icon="fa-check-square-o"
-                        name="action_approved"
+                        name="action_approve"
                         states="draft"
                         string="Approve"
                         type="object"
@@ -184,10 +184,10 @@
                                     <field name="product_qty" optional="hide" />
                                     <field name="price_unit" optional="hide" />
                                     <field name="tax_ids" widget="many2many_tags" optional="hide" />
-                                    <field name="amount_subtotal" optional="hide" />
+                                    <field name="amount_untaxed" optional="hide" />
                                     <field name="tax_amount" optional="hide" />
                                     <field name="amount_total" />
-                                    <field name="invoice_id" optional="hide" />
+                                    <field name="move_id" optional="hide" />
                                 </tree>
                                 <form>
                                     <group>
@@ -195,43 +195,47 @@
                                             <field name="travel_ids" invisible="1" />
                                             <field name="expense_id" invisible="1" />
                                             <field name="line_type" invisible="1" />
+                                            <field name="control" invisible="1" />
                                             <field
                                                 name="travel_id"
                                                 domain="[('id', 'in', travel_ids)]"
                                                 options="{'no_create': True, 'no_open': True}"
+                                                attrs="{'readonly': [('control', '=', True)]}"
                                             />
                                             <field
                                                 name="product_id"
                                                 domain="[('tms_product_category', 'in', ['real_expense','salary_retention','salary_discount','fuel','other_income', 'indirect_expense'])]"
                                                 options="{'no_create': True, 'no_open': True}"
+                                                attrs="{'readonly': [('control', '=', True)]}"
                                             />
-                                            <field name="name" />
+                                            <field name="name" attrs="{'readonly': [('control', '=', True)]}" />
                                             <label
                                                 for="product_qty"
-                                                attrs="{'invisible':['|', ('line_type','in', ['real_expense', 'salary', 'refund', 'salary_retention', 'salary_discount', 'other_income']), ('line_type','=', False)]}"
+                                                attrs="{'invisible':['|', ('line_type','in', ['real_expense', 'salary', 'refund', 'salary_retention', 'salary_discount', 'other_income']), ('line_type','=', False)], 'readonly': [('control', '=', True)]}"
                                             />
                                             <div
                                                 class="o_row"
                                                 attrs="{'invisible':['|', ('line_type','in', ['real_expense', 'salary', 'refund', 'salary_retention', 'salary_discount', 'other_income']), ('line_type','=', False)]}"
                                             >
-                                                <field name="product_qty" />
+                                                <field name="product_qty" attrs="{'readonly': [('control', '=', True)]}" />
                                                 <field
                                                     name="product_uom_id"
                                                     options="{'no_create': True, 'no_open': True}"
+                                                    attrs="{'readonly': [('control', '=', True)]}"
                                                 />
                                             </div>
-                                            <field name='price_unit' required="1" />
+                                            <field name='price_unit' attrs="{'readonly': [('control', '=', True)]}" required="1" />
                                             <field
                                                 name='tax_ids'
                                                 widget='many2many_tags'
-                                                attrs="{'invisible':[('line_type','in', ['salary_discount', 'salary', 'salary_retention', 'other_income'])]}"
+                                                attrs="{'invisible':[('line_type','in', ['salary_discount', 'salary', 'salary_retention', 'other_income'])], 'readonly': [('control', '=', True)]}"
                                             />
-                                            <field name="amount_subtotal" />
+                                            <field name="amount_untaxed" />
                                             <field
                                                 name="tax_amount"
                                                 attrs="{'invisible':[('line_type','in', ['salary_discount', 'salary', 'salary_retention', 'other_income'])]}"
                                             />
-                                            <field name="amount_total" required='1' />
+                                            <field name="amount_total" />
                                         </group>
                                         <group
                                             string="Supplier Details"
@@ -239,26 +243,28 @@
                                         >
                                             <field
                                                 name="is_invoice"
-                                                attrs="{'invisible':['|', ('line_type','=', False), ('line_type','in',['salary','salary_retention','salary_discount','other_income', 'fuel',])]}"
+                                                attrs="{'invisible':['|', ('line_type','=', False), ('line_type','in',['salary','salary_retention','salary_discount','other_income', 'fuel',])], 'readonly': [('control', '=', True)]}"
                                             />
                                             <field
                                                 name="partner_id"
-                                                attrs="{'invisible':[('is_invoice', '=', False), ('line_type', '!=', 'fuel')],'required':['|', ('is_invoice', '=', True),('line_type', '=', 'fuel')]}"
+                                                attrs="{'invisible':[('is_invoice', '=', False), ('line_type', '!=', 'fuel')],'required':['|', ('is_invoice', '=', True),('line_type', '=', 'fuel')], 'readonly': [('control', '=', True)]}"
                                                 widget="res_partner_many2one"
                                                 context="{'res_partner_search_mode': 'supplier', 'show_address': 1, 'default_is_company': True, 'show_vat': True}"
                                                 domain="[('is_company', '=', True)]"
+                                                options="{'no_open': True}"
                                             />
                                             <field
-                                                name="invoice_number"
-                                                attrs="{'invisible':[('is_invoice', '=', False), ('line_type', '!=', 'fuel')]}"
+                                                name="ref"
+                                                attrs="{'invisible':[('is_invoice', '=', False), ('line_type', '!=', 'fuel')], 'readonly': [('control', '=', True)]}"
                                             />
                                             <field
                                                 name="date"
-                                                attrs="{'invisible':[('is_invoice', '=', False), ('line_type', '!=', 'fuel')],'required':['|', ('is_invoice', '=', True),('line_type', '=', 'fuel')]}"
+                                                attrs="{'invisible':[('is_invoice', '=', False), ('line_type', '!=', 'fuel')],'required':['|', ('is_invoice', '=', True),('line_type', '=', 'fuel')], 'readonly': [('control', '=', True)]}"
                                             />
                                             <field
-                                                name="invoice_id"
-                                                attrs="{'invisible':['|', ('is_invoice', '=', False), ('invoice_id', '=', False)]}"
+                                                name="move_id"
+                                                attrs="{'invisible':['|', ('is_invoice', '=', False), ('move_id', '=', False)], 'readonly': [('control', '=', True)]}"
+                                                options="{'no_open': True}"
                                                 readonly="1"
                                             />
                                         </group>

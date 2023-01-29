@@ -399,7 +399,7 @@
                                         optional="hide"
                                         options="{'no_create': 1}"
                                     />
-                                    <field name="amount_subtotal" optional="hide" />
+                                    <field name="amount_untaxed" optional="hide" />
                                     <field name="tax_amount" />
                                     <field name="amount_total" />
                                     <field

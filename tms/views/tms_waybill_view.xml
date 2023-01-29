@@ -46,6 +46,12 @@
                         type="object"
                     />
                     <button
+                        name="compute_waybill_lines"
+                        string="Compute Lines"
+                        type="object"
+                        states="draft"
+                    />
+                    <button
                         class="oe_highlight"
                         name="action_invoice"
                         string="Create Invoice"
@@ -127,6 +133,12 @@
                                 domain="['|', ('id', '=', partner_id), '&amp;', ('parent_id', '=', partner_id), ('type', '=', 'invoice')]"
                                 options="{'no_create': True, 'no_open': True}"
                             />
+                            <field
+                                name="travel_id"
+                                attrs="{'readonly':[('state','in',['approved', 'cancel'])], 'invisible': [('partner_id', '=', False)]}"
+                                domain="[('state', 'not in', ['cancel','closed']), ('partner_ids', 'in', [partner_id])]"
+                                options="{'no_create': True}"
+                            />
                         </group>
                         <group>
                             <field name="date" attrs="{'readonly':[('state','in',['approved', 'cancel'])]}" />
@@ -141,13 +153,6 @@
                     </group>
                     <notebook colspan="4">
                         <page string="Lines" name="lines">
-                            <label for="travel_ids" />
-                            <field
-                                name="travel_ids"
-                                attrs="{'readonly':[('state','in',['approved', 'cancel'])]}"
-                                domain="[('state', 'not in', ['cancel','closed']), ('partner_ids', 'in', [partner_id])]"
-                                nolabel="1"
-                            />
                             <label for="transportable_line_ids" />
                             <field
                                 name="transportable_line_ids"

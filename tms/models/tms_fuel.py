@@ -59,7 +59,7 @@ class TmsFuel(models.Model):
         tracking=True,
         required=True,
     )
-    amount_subtotal = fields.Float(
+    amount_untaxed = fields.Float(
         string="Subtotal",
         compute="_compute_amounts",
         store=True,
@@ -99,8 +99,8 @@ class TmsFuel(models.Model):
         default=lambda self: self.env.user.company_id.currency_id,
     )
     ref = fields.Char()
-    # created_from_expense = fields.Boolean(readonly=True)
-    # expense_line_id = fields.Many2one("tms.expense.line", readonly=True)
+    created_from_expense = fields.Boolean(readonly=True)
+    expense_line_id = fields.Many2one("tms.expense.line", readonly=True)
     company_id = fields.Many2one(
         "res.company",
         string="Company",
@@ -145,7 +145,7 @@ class TmsFuel(models.Model):
     @api.depends("product_qty", "price_unit", "product_id")
     def _compute_amounts(self):
         for rec in self:
-            rec.amount_subtotal = rec.product_qty * rec.price_unit
+            rec.amount_untaxed = rec.product_qty * rec.price_unit
             taxes = rec.tax_ids.compute_all(
                 price_unit=rec.price_unit,
                 currency=rec.currency_id,
@@ -154,7 +154,7 @@ class TmsFuel(models.Model):
                 partner=rec.partner_id,
             )
             rec.tax_amount = sum(t.get("amount", 0.0) for t in taxes.get("taxes", []))
-            rec.amount_total = rec.amount_subtotal + rec.tax_amount
+            rec.amount_total = rec.amount_untaxed + rec.tax_amount
 
     @api.depends("move_line_ids.move_id", "move_line_ids")
     def _compute_move_id(self):

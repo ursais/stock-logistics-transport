@@ -23,7 +23,6 @@ class TmsRoute(models.Model):
     distance_loaded = fields.Float(string="Distance Loaded (mi./km)", required=True)
     distance_empty = fields.Float(string="Distance Empty (mi./km)", required=True)
     travel_time = fields.Float("Travel Time (hrs)", help="Route travel time (hours)")
-    travel_ids = fields.One2many("tms.travel", "route_id")
     partner_ids = fields.Many2many("res.partner", string="Customers", compute="_compute_partner_ids", store=True)
 
     @api.constrains("distance_loaded", "distance_empty", "travel_time")

@@ -17,7 +17,7 @@ class TmsWaybill(models.Model):
         "tms.waybill.transportable.line", "waybill_id", string="Transportable", copy=True
     )
     name = fields.Char(readonly=True, copy=False)
-    travel_ids = fields.Many2many("tms.travel", copy=False, string="Travels")
+    travel_id = fields.Many2one("tms.travel", copy=False, string="Travel")
     state = fields.Selection(
         [("draft", "Pending"), ("approved", "Approved"), ("cancel", "Cancelled")],
         readonly=True,
@@ -86,7 +86,6 @@ class TmsWaybill(models.Model):
         string="Sum Distance",
     )
     notes = fields.Html()
-    test = fields.Char(compute="_compute_waybill_lines", store=True)
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -95,25 +94,12 @@ class TmsWaybill(models.Model):
                 vals["name"] = self.env["ir.sequence"].next_by_code("tms.waybill") or _("New")
         return super().create(vals_list)
 
-    @api.depends(
-        "partner_id",
-        "transportable_line_ids",
-        "transportable_line_ids.quantity",
-        "transportable_line_ids.transportable_id",
-        "travel_ids",
-        "travel_ids.route_id",
-        "travel_ids.route_id.distance",
-        "travel_ids.route_id.customer_factor_ids",
-        "travel_ids.route_id.customer_factor_ids.factor",
-        "travel_ids.route_id.customer_factor_ids.partner_id",
-        "travel_ids.distance",
-    )
-    def _compute_waybill_lines(self):
+    def compute_waybill_lines(self):
         for rec in self:
             rec.waybill_line_ids.filtered(lambda l: l.product_id.tms_product_category == "freight").unlink()
-            if not rec.partner_id or not rec.transportable_ids or not rec.travel_ids:
+            if not rec.partner_id or not rec.transportable_ids or not rec.travel_id:
                 continue
-            price_values = rec.travel_ids.mapped("route_id.customer_factor_ids")._get_amount_and_qty(
+            price_values = rec.travel_id.route_id.mapped("customer_factor_ids")._get_amount_and_qty(
                 distance=rec.distance_route,
                 distance_real=rec.distance_real,
                 qty=rec.product_qty,
@@ -153,7 +139,7 @@ class TmsWaybill(models.Model):
                         },
                     )
                 )
-            rec.update(
+            rec.write(
                 {
                     "waybill_line_ids": waybill_line,
                 }
@@ -179,7 +165,7 @@ class TmsWaybill(models.Model):
                     "invoice_partner_id": self.partner_id.child_ids.filtered(lambda r: r.type == "invoice")[0].id
                     if self.partner_id.child_ids.filtered(lambda r: r.type == "invoice")
                     else self.partner_id,
-                    "travel_ids": False,
+                    "travel_id": False,
                 }
             )
 
@@ -277,15 +263,15 @@ class TmsWaybill(models.Model):
                 ).mapped("quantity")
             )
 
-    @api.depends("travel_ids.route_id.distance")
+    @api.depends("travel_id.route_id.distance")
     def _compute_distance_route(self):
         for rec in self:
-            rec.distance_route = sum(rec.travel_ids.mapped("route_id.distance"))
+            rec.distance_route = sum(rec.travel_id.mapped("route_id.distance"))
 
-    @api.depends("travel_ids.distance")
+    @api.depends("travel_id.distance")
     def _compute_distance_real(self):
         for rec in self:
-            rec.distance_real = sum(rec.travel_ids.mapped("distance"))
+            rec.distance_real = sum(rec.travel_id.mapped("distance"))
 
     @api.depends("waybill_line_ids.amount_untaxed")
     def _compute_amount_freight(self):
@@ -369,17 +355,18 @@ class TmsWaybill(models.Model):
 
     def action_approve(self):
         for rec in self:
-            if not rec.travel_ids:
+            if not rec.travel_id:
                 raise UserError(
                     _("Could not confirm Waybill !Waybill must be assigned to a Travel before confirming.")
                 )
+            if not rec.waybill_line_ids.filtered(lambda l: l.product_id.tms_product_category == "freight"):
+                raise UserError(_("Could not approve this waybill, you must have freight product."))
             rec.state = "approved"
 
     def action_cancel_draft(self):
         for waybill in self:
-            travel = waybill.travel_ids.filtered(lambda t: t.state == "cancel")
-            if travel:
-                raise UserError(_("Could not set to draft this Waybill !Travel is Cancelled !!!"))
+            if waybill.travel_id.state == "cancel":
+                raise UserError(_("Could not set to draft this Waybill, the travel is Cancelled."))
             waybill.state = "draft"
 
     def action_cancel(self):

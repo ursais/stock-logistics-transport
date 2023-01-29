@@ -323,21 +323,21 @@ class TestTmsExpense(TransactionCase):
         )
         self.assertEqual(amount_real_expense, expense.amount_real_expense)
         # Subtotal (Real)
-        amount_subtotal_real = (
+        amount_untaxed_real = (
             amount_salary
             + amount_salary_discount
             + amount_real_expense
             + amount_salary_retention
             + amount_other_income
         )
-        self.assertEqual(amount_subtotal_real, expense.amount_subtotal_real)
+        self.assertEqual(amount_untaxed_real, expense.amount_untaxed_real)
         # Taxes (Real)
         amount_tax_real = sum(
             expense.expense_line_ids.filtered(lambda x: x.line_type == "real_expense").mapped("tax_amount")
         )
         self.assertEqual(amount_tax_real, expense.amount_tax_real)
         # Total (Real)
-        amount_total_real = amount_subtotal_real + amount_tax_real
+        amount_total_real = amount_untaxed_real + amount_tax_real
         self.assertEqual(amount_total_real, expense.amount_total_real)
         # Advances
         amount_advance = sum(
@@ -351,20 +351,20 @@ class TestTmsExpense(TransactionCase):
         amount_fuel = sum(log.price_subtotal + log.special_tax_amount for log in expense.fuel_log_ids)
         self.assertEqual(amount_fuel, expense.amount_fuel)
         # SubTotal (All)
-        amount_subtotal_total = sum(
+        amount_untaxed_total = sum(
             log.price_subtotal + log.special_tax_amount for log in expense.travel_ids.mapped("fuel_log_ids")
         )
-        amount_subtotal_total += sum(
+        amount_untaxed_total += sum(
             expense.expense_line_ids.filtered(lambda x: x.line_type == "real_expense").mapped("price_subtotal")
         )
-        amount_subtotal_total += amount_balance
-        self.assertEqual(amount_subtotal_total, expense.amount_subtotal_total)
+        amount_untaxed_total += amount_balance
+        self.assertEqual(amount_untaxed_total, expense.amount_untaxed_total)
         # Taxes (All)
         amount_tax_total = sum(expense.travel_ids.mapped("fuel_log_ids").mapped("tax_amount")) + amount_tax_real
         self.assertEqual(amount_tax_total, expense.amount_tax_total)
         # Made up expense
         # Total (All)
-        amount_total_total = amount_subtotal_total + amount_tax_total
+        amount_total_total = amount_untaxed_total + amount_tax_total
         self.assertEqual(amount_total_total, expense.amount_total_total)
 
     def test_40_tms_expense_action_confirm(self):
