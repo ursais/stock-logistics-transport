@@ -17,9 +17,9 @@ class TmsWaybill(models.Model):
         "tms.waybill.transportable.line", "waybill_id", string="Transportable", copy=True
     )
     name = fields.Char(readonly=True, copy=False)
-    travel_id = fields.Many2one("tms.travel", copy=False, string="Travel")
+    travel_id = fields.Many2one("tms.travel", copy=False, string="Travel", ondelete="restrict")
     state = fields.Selection(
-        [("draft", "Pending"), ("approved", "Approved"), ("cancel", "Cancelled")],
+        [("draft", "Pending"), ("approved", "Approved"), ("closed", "Closed"), ("cancel", "Cancelled")],
         readonly=True,
         tracking=True,
         help="Gives the state of the Waybill.",
@@ -86,6 +86,7 @@ class TmsWaybill(models.Model):
         string="Sum Distance",
     )
     notes = fields.Html()
+    expense_id = fields.Many2one("tms.expense", readonly=True, ondelete="restrict")
 
     @api.model_create_multi
     def create(self, vals_list):

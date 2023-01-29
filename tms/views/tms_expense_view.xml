@@ -217,14 +217,21 @@
                                                 class="o_row"
                                                 attrs="{'invisible':['|', ('line_type','in', ['real_expense', 'salary', 'refund', 'salary_retention', 'salary_discount', 'other_income']), ('line_type','=', False)]}"
                                             >
-                                                <field name="product_qty" attrs="{'readonly': [('control', '=', True)]}" />
+                                                <field
+                                                    name="product_qty"
+                                                    attrs="{'readonly': [('control', '=', True)]}"
+                                                />
                                                 <field
                                                     name="product_uom_id"
                                                     options="{'no_create': True, 'no_open': True}"
                                                     attrs="{'readonly': [('control', '=', True)]}"
                                                 />
                                             </div>
-                                            <field name='price_unit' attrs="{'readonly': [('control', '=', True)]}" required="1" />
+                                            <field
+                                                name='price_unit'
+                                                attrs="{'readonly': [('control', '=', True)]}"
+                                                required="1"
+                                            />
                                             <field
                                                 name='tax_ids'
                                                 widget='many2many_tags'
@@ -277,6 +284,9 @@
                         </page>
                         <page string="Fuel Vouchers">
                             <field name="fuel_ids" />
+                        </page>
+                        <page string="Waybills">
+                            <field name="waybill_ids" />
                         </page>
                         <page string="Notes">
                             <field name="notes" placeholder="Notes ..." />

@@ -97,6 +97,7 @@ class TmsExpense(models.Model):
         store=True,
         help="Remaining amount due.",
     )
+    waybill_ids = fields.One2many("tms.waybill", "expense_id", string="Waybills", readonly=True)
     advance_ids = fields.One2many("tms.advance", "expense_id", string="Advances", readonly=True)
     fuel_qty_real = fields.Float(
         help="Fuel Qty computed based on Distance Real and Global Fuel "
@@ -663,23 +664,31 @@ class TmsExpense(models.Model):
             travels.write({"expense_id": False, "state": "done"})
             advances = self.env["tms.advance"].search([("expense_id", "=", rec.id)])
             advances.write({"expense_id": False, "state": "approved"})
-            fuel_logs = self.env["tms.fuel"].search([("expense_id", "=", rec.id), ("created_from_expense", "=", False)])
-            fuel_logs.write({"expense_id": False,"state": "approved"})
+            fuel_logs = self.env["tms.fuel"].search(
+                [("expense_id", "=", rec.id), ("created_from_expense", "=", False)]
+            )
+            fuel_logs.write({"expense_id": False, "state": "approved"})
+            waybills = self.env["tms.waybill"].search([("expense_id", "=", rec.id)])
+            waybills.write({"expense_id": False, "state": "approved"})
 
     def _get_advance_lines(self, advance):
         if advance.auto_expense and advance.state != "cancel":
-            return [(0, 0,
-                {
-                    "name": _("Advance: %(name)s", name=advance.name),
-                    "travel_id": advance.travel_id.id,
-                    "expense_id": self.id,
-                    "line_type": "real_expense",
-                    "product_id": advance.product_id.id,
-                    "product_qty": 1.0,
-                    "price_unit": advance.amount,
-                    "control": True,
-                }
-            )]
+            return [
+                (
+                    0,
+                    0,
+                    {
+                        "name": _("Advance: %(name)s", name=advance.name),
+                        "travel_id": advance.travel_id.id,
+                        "expense_id": self.id,
+                        "line_type": "real_expense",
+                        "product_id": advance.product_id.id,
+                        "product_qty": 1.0,
+                        "price_unit": advance.amount,
+                        "control": True,
+                    },
+                )
+            ]
         return []
 
     @api.model
@@ -695,7 +704,8 @@ class TmsExpense(models.Model):
                     "product_id": fuel.product_id.id,
                     "product_qty": fuel.product_qty,
                     "product_uom_id": fuel.product_id.uom_id.id,
-                    "price_unit": fuel.amount_total,
+                    "price_unit": fuel.price_unit,
+                    "tax_ids": [(6, 0, fuel.tax_ids.ids)],
                     "is_invoice": bool(fuel.move_id),
                     "move_id": fuel.move_id.id,
                     "control": True,
@@ -733,19 +743,19 @@ class TmsExpense(models.Model):
 
     @api.model
     def _get_driver_salary(self, travel):
-        waybills = travel.waybill_ids.filtered(lambda r: r.state == "done")
-        price_values = travel.mapped("route_id.customer_factor_ids")._get_amount_and_qty(
+        waybills = travel.waybill_ids.filtered(lambda r: r.state != "cancel")
+        price_values = travel.mapped("route_id.driver_factor_ids")._get_amount_and_qty(
             distance=travel.route_distance,
             distance_real=travel.distance,
-            weight=sum(travel.mapped("waybill_ids.product_weight")),
-            volume=sum(travel.mapped("waybill_ids.product_volume")),
+            weight=sum(waybills.mapped("product_weight")),
+            volume=sum(waybills.mapped("product_volume")),
             income=sum(
-                travel.mapped("waybill_ids.waybill_line_ids")
+                waybills.mapped("waybill_line_ids")
                 .filtered(lambda r: r.product_id.apply_for_salary)
                 .mapped("amount_untaxed")
             ),
         )
-        return price_values["amount"]
+        return price_values["fixed_amount"] + (price_values["amount"] * price_values["quantity"])
 
     def _validate_records_for_expense(self):
         self.ensure_one()
@@ -793,7 +803,6 @@ class TmsExpense(models.Model):
             rec.travel_ids.mapped("waybill_ids").filtered(lambda f: f.state == "approved").write(
                 {"state": "closed", "expense_id": rec.id}
             )
-            rec.waybill_ids
             lines_to_create = []
             for travel in rec.travel_ids:
                 for advance in travel.advance_ids:
