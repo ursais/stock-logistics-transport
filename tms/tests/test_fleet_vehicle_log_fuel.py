@@ -25,7 +25,7 @@ class TestFleetVehicleLogFuel(TransactionCase):
                 "product_id": self.env.ref("tms.product_fuel").id,
                 "product_qty": 1773.001,
                 "tax_amount": 4053.34,
-                "price_total": 29945.98,
+                "amount_total": 29945.98,
                 "ticket_number": 1234,
             }
         )
@@ -72,7 +72,7 @@ class TestFleetVehicleLogFuel(TransactionCase):
         log_fuel = self.create_log_fuel()
         log_fuel.product_qty = -1
         log_fuel.tax_amount = -1
-        log_fuel.price_total = -1
+        log_fuel.amount_total = -1
         with self.assertRaisesRegex(ValidationError, "Liters, Taxes and Total must be greater than zero."):
             log_fuel.action_confirm()
 

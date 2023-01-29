@@ -110,12 +110,12 @@
         <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="uom_po_id" ref="uom.product_uom_unit" />
     </record>
-    <record id="product_madeup" model="product.product">
-        <field name="name">Made Up Expense</field>
+    <record id="product_indirect_expense" model="product.product">
+        <field name="name">Indirect Expense</field>
         <field name="type">service</field>
         <field eval="False" name="purchase_ok" />
         <field eval="False" name="sale_ok" />
-        <field name="tms_product_category">made_up_expense</field>
+        <field name="tms_product_category">indirect_expense</field>
         <field name="categ_id" ref="product.product_category_all" />
         <field name="uom_id" ref="uom.product_uom_unit" />
         <field name="uom_po_id" ref="uom.product_uom_unit" />

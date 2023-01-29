@@ -84,7 +84,7 @@ class TmsAdvance(models.Model):
         help="Check this if you want this product and amount to be "
         "automatically created when Travel Expense Record is created."
     )
-    # expense_id = fields.Many2one("tms.expense", "Expense Record", readonly=True)
+    expense_id = fields.Many2one("tms.expense", readonly=True, copy=False)
     product_id = fields.Many2one(
         "product.product", required=True, domain=[("tms_product_category", "=", "real_expense")]
     )

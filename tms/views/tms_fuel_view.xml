@@ -110,10 +110,10 @@
                                         <field name="product_uom_id" attrs="{'readonly':[('state', '!=', 'draft')]}" />
                                     </div>
                                     <field name="price_unit" />
-                                    <field name="price_subtotal" />
+                                    <field name="amount_subtotal" />
                                     <field name="tax_ids" widget="many2many_tags" />
                                     <field name="tax_amount" />
-                                    <field name="price_total" />
+                                    <field name="amount_total" />
                                 </group>
                                 <group>
                                     <field name="analytic_account_id" groups="analytic.group_analytic_accounting" />

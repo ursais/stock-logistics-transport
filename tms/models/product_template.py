@@ -16,15 +16,13 @@ class ProductTemplate(models.Model):
             ("tolls", "Highway Tolls"),
             ("other", "Other"),
             ("real_expense", "Real Expense"),
-            ("made_up_expense", "Made up Expense"),
+            ("indirect_expense", "Indirect Expense"),
             ("salary", "Salary"),
             ("salary_retention", "Salary Retention"),
             ("salary_discount", "Salary Discount"),
             ("fuel", "Fuel"),
             ("other_income", "Other Income"),
-            ("refund", "Refund"),
             ("negative_balance", "Negative Balance"),
-            ("fuel_cash", "Fuel in Cash"),
             ("tollstations", "Tollstations (Expenses)"),
         ]
 

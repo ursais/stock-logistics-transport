@@ -1,22 +1,19 @@
 # Copyright 2016-2023, Jarsa Sistemas, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from datetime import datetime
-
-import pytz
-
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError
+from odoo.tools import float_compare
 
 
 class TmsExpense(models.Model):
     _name = "tms.expense"
-    _inherit = "mail.thread"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Travel Expenses"
     _order = "name desc"
 
     name = fields.Char(readonly=True)
-    employee_id = fields.Many2one(
+    driver_id = fields.Many2one(
         "hr.employee",
         "Driver",
         required=True,
@@ -24,50 +21,44 @@ class TmsExpense(models.Model):
     travel_ids = fields.Many2many("tms.travel", string="Travels")
     unit_id = fields.Many2one("fleet.vehicle", required=True)
     currency_id = fields.Many2one(
-        "res.currency", required=True, default=lambda self: self.env.user.company_id.currency_id
+        "res.currency",
+        required=True,
+        default=lambda self: self.env.user.company_id.currency_id,
     )
     state = fields.Selection(
-        [("draft", "Draft"), ("approved", "Approved"), ("confirmed", "Confirmed"), ("cancel", "Cancelled")],
-        "Expense State",
+        [("draft", "Draft"), ("approved", "Approved"), ("cancel", "Cancelled")],
         readonly=True,
         tracking=True,
-        help="Gives the state of the Travel Expense.",
         default="draft",
     )
     date = fields.Date(required=True, default=fields.Date.context_today)
     expense_line_ids = fields.One2many("tms.expense.line", "expense_id", "Expense Lines")
-    amount_real_expense = fields.Float(compute="_compute_amount_real_expense", string="Expenses", store=True)
-    amount_made_up_expense = fields.Float(
-        compute="_compute_amount_made_up_expense", string="Fake Expenses", store=True
+    amount_real_expense = fields.Monetary(string="Expenses", compute="_compute_amounts", store=True)
+    fuel_qty = fields.Float(compute="_compute_amounts", store=True)
+    amount_fuel = fields.Monetary(string="Cost of Fuel", compute="_compute_amounts", store=True)
+    amount_tax_fuel = fields.Monetary(string="Taxes on Fuel", compute="_compute_amounts", store=True)
+    amount_total_fuel = fields.Monetary(string="Total Fuel", compute="_compute_amounts", store=True)
+    amount_other_income = fields.Monetary(string="Other Income", compute="_compute_amounts", store=True)
+    amount_salary = fields.Monetary(string="Salary", compute="_compute_amounts", store=True)
+    amount_net_salary = fields.Monetary(string="Net Salary", compute="_compute_amounts", store=True)
+    amount_salary_retention = fields.Monetary(string="Salary Retentions", compute="_compute_amounts", store=True)
+    amount_salary_discount = fields.Monetary(string="Salary Discounts", compute="_compute_amounts", store=True)
+    amount_total_driver_expenses = fields.Monetary(
+        string="Total Driver Expenses", compute="_compute_amounts", store=True
     )
-    fuel_qty = fields.Float(compute="_compute_fuel_qty", store=True)
-    amount_fuel = fields.Float(compute="_compute_amount_fuel", string="Cost of Fuel", store=True)
-    amount_fuel_cash = fields.Float(compute="_compute_amount_fuel_cash", string="Fuel in Cash", store=True)
-    amount_refund = fields.Float(compute="_compute_amount_refund", string="Refund", store=True)
-    amount_other_income = fields.Float(compute="_compute_amount_other_income", string="Other Income", store=True)
-    amount_salary = fields.Float(compute="_compute_amount_salary", string="Salary", store=True)
-    amount_net_salary = fields.Float(compute="_compute_amount_net_salary", string="Net Salary", store=True)
-    amount_salary_retention = fields.Float(
-        compute="_compute_amount_salary_retention", string="Salary Retentions", store=True
-    )
-    amount_salary_discount = fields.Float(
-        compute="_compute_amount_salary_discount", string="Salary Discounts", store=True
-    )
-    amount_loan = fields.Float(compute="_compute_amount_loan", string="Total Loans", store=True)
-    amount_advance = fields.Float(compute="_compute_amount_advance", string="Total Advances", store=True)
-    amount_balance = fields.Float(compute="_compute_amount_balance", string="Balance", store=True)
-    amount_tax_total = fields.Float(compute="_compute_amount_tax_total", string="Taxes (All)", store=True)
-    amount_tax_real = fields.Float(compute="_compute_amount_tax_real", string="Taxes (Real)", store=True)
-    amount_total_real = fields.Float(compute="_compute_amount_total_real", string="Total (Real)", store=True)
-    amount_total_total = fields.Float(compute="_compute_amount_total_total", string="Total (All)", store=True)
-    amount_subtotal_real = fields.Float(compute="_compute_amount_subtotal_real", string="SubTotal (Real)", store=True)
-    amount_subtotal_total = fields.Float(string="SubTotal (All)", compute="_compute_amount_subtotal_total", store=True)
-    vehicle_id = fields.Many2one("fleet.vehicle", "Vehicle")
+    amount_advance = fields.Monetary(string="Total Advances", compute="_compute_amounts", store=True)
+    amount_balance = fields.Monetary(string="Balance", compute="_compute_amounts", store=True)
+    amount_tax_real = fields.Monetary(string="Taxes (Real)", compute="_compute_amounts", store=True)
+    amount_total_real = fields.Monetary(string="Total (Real)", compute="_compute_amounts", store=True)
+    amount_advance_expense_balance = fields.Monetary(string="Expense Balance", compute="_compute_amounts", store=True)
+    amount_salary_balance = fields.Monetary(string="Salary Balance", compute="_compute_amounts", store=True)
+    amount_indirect_expense = fields.Monetary(string="Indirect Expenses", compute="_compute_amounts", store=True)
+    amount_total = fields.Monetary(string="Total (All)", compute="_compute_amounts", store=True)
+    amount_subtotal_total = fields.Monetary(string="SubTotal (All)", compute="_compute_amounts", store=True)
     last_odometer = fields.Float("Last Read")
     vehicle_odometer = fields.Float()
     current_odometer = fields.Float(string="Current Real", related="unit_id.odometer")
-    odometer_log_id = fields.Many2one("fleet.vehicle.odometer", "Odometer Record")
-    notes = fields.Text()
+    notes = fields.Html()
     move_id = fields.Many2one(
         "account.move",
         "Journal Entry",
@@ -75,7 +66,36 @@ class TmsExpense(models.Model):
         help="Link to the automatically generated Journal Items.",
         ondelete="restrict",
     )
-    paid = fields.Boolean(compute="_compute_paid", store=True, readonly=True)
+    payment_state = fields.Selection(
+        [
+            ("not_paid", "Not Paid"),
+            ("paid", "Paid"),
+            ("partial", "Partially Paid"),
+        ],
+        readonly=True,
+        compute="_compute_payment_information",
+        store=True,
+        tracking=True,
+        help="It indicates the payment status of the expense.",
+    )
+    payment_move_ids = fields.Many2many(
+        "account.move",
+        string="Payment Entries",
+        readonly=True,
+        compute="_compute_payment_information",
+        store=True,
+    )
+    payment_ids = fields.Many2many(
+        "account.payment",
+        readonly=True,
+        compute="_compute_payment_information",
+        store=True,
+    )
+    amount_residual = fields.Monetary(
+        compute="_compute_payment_information",
+        store=True,
+        help="Remaining amount due.",
+    )
     advance_ids = fields.One2many("tms.advance", "expense_id", string="Advances", readonly=True)
     fuel_qty_real = fields.Float(
         help="Fuel Qty computed based on Distance Real and Global Fuel "
@@ -87,54 +107,89 @@ class TmsExpense(models.Model):
         "versus Fuel qty computed based on Distance Real and Global Fuel "
         "Efficiency Real obtained by electronic reading and/or GPS",
     )
-    fuel_log_ids = fields.One2many("fleet.vehicle.log.fuel", "expense_id", string="Fuel Vouchers")
-    start_date = fields.Datetime()
-    end_date = fields.Datetime()
+    fuel_ids = fields.One2many("tms.fuel", "expense_id", string="Fuel Vouchers", readonly=True)
     fuel_efficiency = fields.Float(readonly=True, compute="_compute_fuel_efficiency")
     payment_move_id = fields.Many2one(
         "account.move",
         string="Payment Entry",
         readonly=True,
     )
-    payment_id = fields.Many2one(
-        "account.payment",
-        readonly=True,
-    )
-    travel_days = fields.Char(
-        compute="_compute_travel_days",
-    )
     distance_loaded = fields.Float(
         compute="_compute_distance_expense",
+        store=True,
     )
     distance_empty = fields.Float(
         compute="_compute_distance_expense",
+        store=True,
     )
     distance_loaded_real = fields.Float()
     distance_empty_real = fields.Float()
     distance_routes = fields.Float(
-        compute="_compute_distance_routes", string="Distance from routes", help="Routes Distance", readonly=True
+        compute="_compute_distance_routes",
+        string="Distance from routes",
+        help="Routes Distance",
+        readonly=True,
+        store=True,
     )
     distance_real = fields.Float(help="Route obtained by electronic reading and/or GPS")
-    income_km = fields.Float(
+    income_km = fields.Monetary(
         compute="_compute_income_km",
+        store=True,
     )
-    expense_km = fields.Float(
+    expense_km = fields.Monetary(
         compute="_compute_expense_km",
+        store=True,
     )
     percentage_km = fields.Float(
         "Productivity Percentage",
         compute="_compute_percentage_km",
+        store=True,
     )
     fuel_efficiency_real = fields.Float()
     company_id = fields.Many2one(
         "res.company", string="Company", required=True, default=lambda self: self.env.user.company_id
     )
 
-    def _get_time(self, date):
-        user = self.env.user
-        tz = pytz.timezone(user.tz) if user.tz else pytz.utc
-        start = pytz.utc.localize(date).astimezone(tz)
-        return start.strftime("%Y-%m-%d %H:%M:%S")
+    @api.depends(
+        "move_id.line_ids.matched_debit_ids.debit_move_id.move_id.payment_id.is_matched",
+        "move_id.line_ids.matched_debit_ids.debit_move_id.move_id.line_ids.amount_residual",
+        "move_id.line_ids.matched_debit_ids.debit_move_id.move_id.line_ids.amount_residual_currency",
+        "move_id.line_ids.matched_credit_ids.credit_move_id.move_id.payment_id.is_matched",
+        "move_id.line_ids.matched_credit_ids.credit_move_id.move_id.line_ids.amount_residual",
+        "move_id.line_ids.matched_credit_ids.credit_move_id.move_id.line_ids.amount_residual_currency",
+        "move_id.line_ids.debit",
+        "move_id.line_ids.credit",
+        "move_id.line_ids.currency_id",
+        "move_id.line_ids.amount_currency",
+        "move_id.line_ids.amount_residual",
+        "move_id.line_ids.amount_residual_currency",
+        "move_id.line_ids.payment_id.state",
+        "move_id.line_ids.full_reconcile_id",
+    )
+    def _compute_payment_information(self):
+        for rec in self:
+            if not rec.move_id:
+                rec.payment_state = False
+                continue
+            amount_residual = abs(
+                sum(
+                    rec.move_id.line_ids.filtered(
+                        lambda line: line.account_id.user_type_id.type in ("receivable", "payable")
+                    ).mapped("amount_residual")
+                )
+            )
+            if float_compare(amount_residual, 0.0, precision_rounding=rec.currency_id.rounding) == 0:
+                rec.payment_state = "paid"
+            elif float_compare(amount_residual, rec.amount, precision_rounding=rec.currency_id.rounding) == 0:
+                rec.payment_state = "not_paid"
+            else:
+                rec.payment_state = "partial"
+            related_moves = rec.move_id.line_ids.mapped(
+                "matched_debit_ids.debit_move_id.move_id"
+            ) | rec.move_id.line_ids.mapped("matched_credit_ids.credit_move_id.move_id")
+            rec.payment_move_ids = related_moves
+            rec.payment_ids = related_moves.mapped("payment_id")
+            rec.amount_residual = amount_residual
 
     @api.depends("travel_ids")
     def _compute_income_km(self):
@@ -145,11 +200,11 @@ class TmsExpense(models.Model):
             except ZeroDivisionError:
                 rec.income_km = 0.0
 
-    @api.depends("distance_real", "amount_subtotal_real")
+    @api.depends("distance_real", "amount_total_driver_expenses", "amount_real_expense")
     def _compute_expense_km(self):
         for rec in self:
             try:
-                rec.expense_km = rec.amount_subtotal_real / rec.distance_real
+                rec.expense_km = (rec.amount_total_driver_expenses + rec.amount_real_expense) / rec.distance_real
             except ZeroDivisionError:
                 rec.expense_km = 0.0
 
@@ -167,38 +222,6 @@ class TmsExpense(models.Model):
             rec.distance_loaded = sum(rec.travel_ids.mapped("distance_loaded"))
             rec.distance_empty = sum(rec.travel_ids.mapped("distance_empty"))
 
-    @api.depends("start_date", "end_date")
-    def _compute_travel_days(self):
-        rec_with_date = self.filtered(lambda exp: exp.start_date and exp.end_date)
-        for rec in self - rec_with_date:
-            rec.travel_days = "-"
-        for rec in rec_with_date:
-            date_start = self._get_time(rec.start_date)
-            date_end = self._get_time(rec.end_date)
-            strp_start_date = datetime.strptime(date_start, "%Y-%m-%d %H:%M:%S")
-            strp_end_date = datetime.strptime(date_end, "%Y-%m-%d %H:%M:%S")
-            difference = strp_end_date - strp_start_date
-            days = int(difference.days) + 1
-            hours = int(difference.seconds / 3600)
-            mins = int((difference.seconds - (hours * 3600)) / 60)
-            seconds = difference.seconds - ((hours * 3600) + (mins * 60))
-            if hours < 10:
-                hours = "0" + str(hours)
-            if mins < 10:
-                mins = "0" + str(mins)
-            if seconds < 10:
-                seconds = "0" + str(seconds)
-            total_string = str(days) + _("Day(s), ") + str(hours) + ":" + str(mins) + ":" + str(seconds)
-            rec.travel_days = total_string
-
-    @api.depends("payment_move_id")
-    def _compute_paid(self):
-        for rec in self:
-            paid = False
-            if rec.payment_move_id:
-                paid = True
-            rec.paid = paid
-
     @api.depends("fuel_qty", "distance_real")
     def _compute_fuel_efficiency(self):
         for rec in self:
@@ -207,156 +230,78 @@ class TmsExpense(models.Model):
                 fuel_efficiency = rec.distance_real / rec.fuel_qty
             rec.fuel_efficiency = fuel_efficiency
 
-    @api.depends("expense_line_ids")
-    def _compute_fuel_qty(self):
+    @api.depends("expense_line_ids", "travel_ids")
+    def _compute_amounts(self):
         for rec in self:
-            rec.fuel_qty = sum(rec.expense_line_ids.filtered(lambda l: l.line_type == "fuel").mapped("product_qty"))
-
-    @api.depends("travel_ids", "expense_line_ids")
-    def _compute_amount_fuel(self):
-        for rec in self:
-            amount_fuel = 0.0
-            for line in rec.fuel_log_ids:
-                amount_fuel += line.price_subtotal + line.special_tax_amount
-            rec.amount_fuel = amount_fuel
-
-    @api.depends("expense_line_ids")
-    def _compute_amount_fuel_cash(self):
-        # TODO - Why not only one method for all the amounts?
-        for rec in self:
-            amount_fuel_cash = 0.0
-            for line in rec.expense_line_ids.filtered(lambda l: l.line_type == "fuel_cash"):
-                amount_fuel_cash += line.price_subtotal + line.special_tax_amount
-            rec.amount_fuel_cash = amount_fuel_cash
-
-    @api.depends("expense_line_ids")
-    def _compute_amount_refund(self):
-        for rec in self:
-            rec.amount_refund = sum(
-                rec.expense_line_ids.filtered(lambda l: l.line_type == "refund").mapped("price_total")
+            amount_salary = sum(
+                rec.expense_line_ids.filtered(lambda l: l.line_type == "salary").mapped("amount_total")
             )
-
-    @api.depends("expense_line_ids")
-    def _compute_amount_other_income(self):
-        for rec in self:
-            rec.amount_other_income = sum(
-                rec.expense_line_ids.filtered(lambda l: l.line_type == "other_income").mapped("price_total")
+            amount_other_income = sum(
+                rec.expense_line_ids.filtered(lambda l: l.line_type == "other_income").mapped("amount_total")
             )
-
-    @api.depends("expense_line_ids")
-    def _compute_amount_salary(self):
-        for rec in self:
-            rec.amount_salary = sum(
-                rec.expense_line_ids.filtered(lambda l: l.line_type == "salary").mapped("price_total")
+            amount_salary_discount = sum(
+                rec.expense_line_ids.filtered(lambda l: l.line_type == "salary_discount").mapped("amount_total")
             )
-
-    @api.depends("expense_line_ids")
-    def _compute_amount_salary_discount(self):
-        for rec in self:
-            rec.amount_salary_discount = sum(
-                rec.expense_line_ids.filtered(lambda l: l.line_type == "salary_discount").mapped("price_total")
+            amount_salary_retention = sum(
+                rec.expense_line_ids.filtered(lambda l: l.line_type == "salary_retention").mapped("amount_total")
             )
-
-    @api.depends("expense_line_ids")
-    def _compute_amount_loan(self):
-        for rec in self:
-            rec.amount_loan = sum(rec.expense_line_ids.filtered(lambda l: l.line_type == "loan").mapped("price_total"))
-
-    @api.depends("expense_line_ids")
-    def _compute_amount_made_up_expense(self):
-        for rec in self:
-            rec.amount_made_up_expense = sum(
-                rec.expense_line_ids.filtered(lambda l: l.line_type == "made_up_expense").mapped("price_total")
+            amount_total_driver_expenses = (
+                amount_salary + amount_other_income + amount_salary_discount + amount_salary_retention
             )
-
-    @api.depends("expense_line_ids")
-    def _compute_amount_real_expense(self):
-        for rec in self:
-            rec.amount_real_expense = sum(
-                rec.expense_line_ids.filtered(lambda l: l.line_type == "real_expense").mapped("price_subtotal")
+            amount_real_expense = sum(
+                rec.expense_line_ids.filtered(lambda l: l.line_type == "real_expense").mapped("amount_subtotal")
             )
-
-    @api.depends("travel_ids", "expense_line_ids")
-    def _compute_amount_subtotal_real(self):
-        for rec in self:
-            rec.amount_subtotal_real = (
-                rec.amount_salary
-                + rec.amount_salary_discount
-                + rec.amount_real_expense
-                + rec.amount_salary_retention
-                + rec.amount_loan
-                + rec.amount_refund
-                + rec.amount_fuel_cash
-                + rec.amount_other_income
-            )
-
-    @api.depends("travel_ids", "expense_line_ids")
-    def _compute_amount_total_real(self):
-        for rec in self:
-            rec.amount_total_real = rec.amount_subtotal_real + rec.amount_tax_real
-
-    @api.depends("travel_ids", "expense_line_ids")
-    def _compute_amount_balance(self):
-        for rec in self:
-            rec.amount_balance = rec.amount_total_real - rec.amount_advance
-
-    @api.depends("travel_ids")
-    def _compute_amount_net_salary(self):
-        for rec in self:
-            rec.amount_net_salary = 1.0
-
-    @api.depends("expense_line_ids")
-    def _compute_amount_salary_retention(self):
-        for rec in self:
-            rec.amount_salary_retention = sum(
-                rec.expense_line_ids.filtered(lambda l: l.line_type == "salary_retention").mapped("price_total")
-            )
-
-    @api.depends("travel_ids", "expense_line_ids")
-    def _compute_amount_advance(self):
-        for rec in self:
-            rec.amount_advance = sum(
-                rec.mapped("travel_ids.advance_ids").filtered(lambda a: a.payment_move_id).mapped("amount")
-            )
-
-    @api.depends("travel_ids", "expense_line_ids", "amount_tax_real")
-    def _compute_amount_tax_total(self):
-        for rec in self:
-            rec.amount_tax_total = sum(rec.mapped("travel_ids.fuel_log_ids.tax_amount")) + rec.amount_tax_real
-
-    @api.depends("expense_line_ids")
-    def _compute_amount_tax_real(self):
-        for rec in self:
-            rec.amount_tax_real = sum(
+            amount_tax_real = sum(
                 rec.expense_line_ids.filtered(lambda l: l.line_type == "real_expense").mapped("tax_amount")
             )
-
-    @api.depends("travel_ids", "expense_line_ids", "amount_balance")
-    def _compute_amount_subtotal_total(self):
-        for rec in self:
-            amount_subtotal_total = 0
-            for fuel_log in rec.mapped("travel_ids.fuel_log_ids"):
-                amount_subtotal_total += fuel_log.price_subtotal + fuel_log.special_tax_amount
-            amount_subtotal_total += sum(
-                rec.expense_line_ids.filtered(lambda l: l.line_type == "real_expense").mapped("price_subtotal")
+            amount_total_real = amount_real_expense + amount_tax_real
+            amount_advance = sum(
+                rec.mapped("travel_ids.advance_ids").filtered(lambda a: a.payment_move_id).mapped("amount")
             )
-            amount_subtotal_total += rec.amount_balance
-            rec.amount_subtotal_total = amount_subtotal_total
+            amount_advance_expense_balance = amount_total_real - amount_advance
+            amount_salary_balance = amount_total_driver_expenses - amount_advance_expense_balance
+            amount_fuel = sum(rec.expense_line_ids.filtered(lambda l: l.line_type == "fuel").mapped("amount_total"))
+            amount_tax_fuel = sum(rec.expense_line_ids.filtered(lambda l: l.line_type == "fuel").mapped("tax_amount"))
+            amount_total_fuel = amount_fuel + amount_tax_fuel
+            amount_indirect_expense = sum(
+                rec.expense_line_ids.filtered(lambda l: l.line_type == "indirect_expense").mapped("amount_total")
+            )
+            amount_total = (
+                amount_total_driver_expenses + amount_total_real + amount_total_fuel + amount_indirect_expense
+            )
 
-    @api.depends("travel_ids", "expense_line_ids")
-    def _compute_amount_total_total(self):
-        for rec in self:
-            rec.amount_total_total = rec.amount_subtotal_total + rec.amount_tax_total + rec.amount_made_up_expense
+            fuel_qty = sum(rec.expense_line_ids.filtered(lambda l: l.line_type == "fuel").mapped("product_qty"))
+            rec.update(
+                {
+                    "amount_salary": amount_salary,
+                    "amount_other_income": amount_other_income,
+                    "amount_salary_discount": amount_salary_discount,
+                    "amount_salary_retention": amount_salary_retention,
+                    "amount_total_driver_expenses": amount_total_driver_expenses,
+                    "amount_real_expense": amount_real_expense,
+                    "amount_tax_real": amount_tax_real,
+                    "amount_total_real": amount_total_real,
+                    "amount_advance": amount_advance,
+                    "amount_advance_expense_balance": amount_advance_expense_balance,
+                    "amount_salary_balance": amount_salary_balance,
+                    "amount_fuel": amount_fuel,
+                    "amount_tax_fuel": amount_tax_fuel,
+                    "amount_total_fuel": amount_total_fuel,
+                    "amount_indirect_expense": amount_indirect_expense,
+                    "amount_total": amount_total,
+                    "fuel_qty": fuel_qty,
+                }
+            )
 
     @api.depends("travel_ids")
     def _compute_distance_routes(self):
         for rec in self:
-            rec.distance_routes = sum(rec.travel_ids.mapped("distance_route"))
+            rec.distance_routes = sum(rec.travel_ids.mapped("route_distance"))
 
     @api.depends("travel_ids")
     def _compute_distance_real(self):
         for rec in self:
-            rec.distance_real = sum(rec.travel_ids.mapped("distance_driver"))
+            rec.distance_real = sum(rec.travel_ids.mapped("distance"))
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -372,14 +317,14 @@ class TmsExpense(models.Model):
             return res
 
     def unlink(self):
-        if self.filtered(lambda rec: rec.state == "confirmed"):
-            raise ValidationError(_("You can not delete a travel expense in status confirmed"))
+        if self.filtered(lambda rec: rec.state != "draft"):
+            raise UserError(_("You can only delete expenses in draft state."))
         for rec in self:
             travels = self.env["tms.travel"].search([("expense_id", "=", rec.id)])
             travels.write({"expense_id": False, "state": "done"})
             advances = self.env["tms.advance"].search([("expense_id", "=", rec.id)])
             advances.write({"expense_id": False, "state": "confirmed"})
-            fuel_logs = self.env["fleet.vehicle.log.fuel"].search([("expense_id", "=", rec.id)])
+            fuel_logs = self.env["tms.fuel"].search([("expense_id", "=", rec.id)])
             fuel_logs.write({"expense_id": False, "state": "confirmed"})
             return super().unlink()
 
@@ -391,8 +336,67 @@ class TmsExpense(models.Model):
         for rec in self:
             rec.state = "draft"
 
+    def action_register_payment(self):
+        if any(advance.payment_state == "paid" for advance in self):
+            raise UserError(_("At least one of the selected expenses is already paid."))
+        return {
+            "name": _("Register Payment"),
+            "res_model": "account.payment.register",
+            "view_mode": "form",
+            "context": {
+                "active_model": "tms.expense",
+                "active_ids": self.ids,
+                "dont_redirect_to_payments": True,
+            },
+            "target": "new",
+            "type": "ir.actions.act_window",
+        }
+
+    def action_open_related_moves(self):
+        self.ensure_one()
+        moves = self.payment_move_ids | self.move_id
+        action = self.env["ir.actions.actions"]._for_xml_id("account.action_move_journal_line")
+        if len(moves) > 1:
+            action["domain"] = [("id", "in", moves.ids)]
+        elif len(moves) == 1:
+            form_view = [(self.env.ref("account.view_move_form").id, "form")]
+            if "views" in action:
+                action["views"] = form_view + [(state, view) for state, view in action["views"] if view != "form"]
+            else:
+                action["views"] = form_view
+            action["res_id"] = moves.id
+        else:
+            action = {"type": "ir.actions.act_window_close"}
+
+        action["context"] = {
+            "no_create": True,
+            "no_edit": True,
+        }
+        return action
+
+    def action_open_payments(self):
+        self.ensure_one()
+        action = self.env["ir.actions.actions"]._for_xml_id("account.action_account_payments_payable")
+        if len(self.payment_ids) > 1:
+            action["domain"] = [("id", "in", self.payment_ids.ids)]
+        elif len(self.payment_ids) == 1:
+            form_view = [(self.env.ref("account.view_account_payment_form").id, "form")]
+            if "views" in action:
+                action["views"] = form_view + [(state, view) for state, view in action["views"] if view != "form"]
+            else:
+                action["views"] = form_view
+            action["res_id"] = self.payment_ids.id
+        else:
+            action = {"type": "ir.actions.act_window_close"}
+
+        action["context"] = {
+            "no_create": True,
+            "no_edit": True,
+        }
+        return action
+
     @api.model
-    def prepare_move_line(self, name, ref, account_id, debit, credit, journal_id, partner_id, operating_unit_id):
+    def prepare_move_line(self, name, ref, account_id, debit, credit, journal_id, partner_id):
         return (
             0,
             0,
@@ -404,7 +408,6 @@ class TmsExpense(models.Model):
                 "credit": credit,
                 "journal_id": journal_id,
                 "partner_id": partner_id,
-                "operating_unit_id": operating_unit_id,
                 "company_id": self.env.user.company_id.id,
             },
         )
@@ -412,20 +415,19 @@ class TmsExpense(models.Model):
     @api.model
     def create_fuel_vouchers(self, line):
         for rec in self:
-            fuel_voucher = rec.env["fleet.vehicle.log.fuel"].create(
+            fuel_voucher = rec.env["tms.fuel"].create(
                 {
-                    "operating_unit_id": rec.operating_unit_id.id,
                     "travel_id": line.travel_id.id,
                     "vehicle_id": (line.travel_id.unit_id.id or line.expense_id.unit_id.id),
                     "product_id": line.product_id.id,
-                    "price_unit": line.unit_price,
-                    "price_subtotal": line.price_subtotal,
+                    "price_unit": line.price_unit,
+                    "amount_subtotal": line.amount_subtotal,
                     "vendor_id": line.partner_id.id,
                     "product_qty": line.product_qty,
                     "tax_amount": line.tax_amount,
                     "state": "closed",
-                    "employee_id": rec.employee_id.id,
-                    "price_total": line.price_total,
+                    "driver_id": rec.driver_id.id,
+                    "amount_total": line.amount_total,
                     "date": line.date,
                     "expense_id": rec.id,
                     "ticket_number": line.invoice_number,
@@ -441,12 +443,12 @@ class TmsExpense(models.Model):
             move_lines = []
             invoices = []
             move_obj = rec.env["account.move"]
-            journal_id = rec.operating_unit_id.expense_journal_id.id
-            advance_account_id = rec.employee_id.tms_advance_account_id.id
-            negative_account = rec.employee_id.tms_expense_negative_account_id.id
-            driver_account_payable = rec.employee_id.address_home_id.property_account_payable_id.id
+            journal_id = rec.company_id.expense_journal_id.id
+            advance_account_id = rec.driver_id.tms_advance_account_id.id
+            negative_account = rec.driver_id.tms_expense_negative_account_id.id
+            driver_account_payable = rec.driver_id.address_home_id.property_account_payable_id.id
             if not journal_id:
-                raise ValidationError(
+                raise UserError(
                     _(
                         "Warning! The expense does not have a journal"
                         " assigned. \nCheck if you already set the "
@@ -454,7 +456,7 @@ class TmsExpense(models.Model):
                     )
                 )
             if not driver_account_payable:
-                raise ValidationError(
+                raise UserError(
                     _(
                         "Warning! The driver does not have a home address"
                         " assigned. \nCheck if you already set the "
@@ -462,7 +464,7 @@ class TmsExpense(models.Model):
                     )
                 )
             if not advance_account_id:
-                raise ValidationError(_("Warning! You must have configured the accounts of the tms for the Driver"))
+                raise UserError(_("Warning! You must have configured the accounts of the tms for the Driver"))
             # We check if the advance amount is higher than zero to create
             # a move line
             if rec.amount_advance > 0:
@@ -473,8 +475,7 @@ class TmsExpense(models.Model):
                     0.0,
                     rec.amount_advance,
                     journal_id,
-                    rec.employee_id.address_home_id.id,
-                    rec.operating_unit_id.id,
+                    rec.driver_id.address_home_id.id,
                 )
                 move_lines.append(move_line)
             result = {
@@ -501,15 +502,14 @@ class TmsExpense(models.Model):
                     (rec.name + " " + line.name + " - Inv ID - " + str(inv_id.id)),
                     (rec.name + " - Inv ID - " + str(inv_id.id)),
                     (line.partner_id.property_account_payable_id.id),
-                    (line.price_total if line.price_total > 0.0 else 0.0),
-                    (line.price_total if line.price_total <= 0.0 else 0.0),
+                    (line.amount_total if line.amount_total > 0.0 else 0.0),
+                    (line.amount_total if line.amount_total <= 0.0 else 0.0),
                     result["journal_id"],
                     line.partner_id.id,
-                    rec.operating_unit_id.id,
                 )
             # if the expense line not be a invoice we make the move
             # line based in the subtotal
-            elif rec.employee_id.outsourcing and line.product_id.tms_product_category in [
+            elif rec.driver_id.outsourcing and line.product_id.tms_product_category in [
                 "salary",
                 "other_income",
                 "salary_discount",
@@ -520,10 +520,10 @@ class TmsExpense(models.Model):
                     rec.name + " " + line.name,
                     rec.name,
                     product_account,
-                    (line.price_subtotal if line.price_subtotal > 0.0 else 0.0),
-                    (line.price_subtotal * -1.0 if line.price_subtotal < 0.0 else 0.0),
+                    (line.amount_subtotal if line.amount_subtotal > 0.0 else 0.0),
+                    (line.amount_subtotal * -1.0 if line.amount_subtotal < 0.0 else 0.0),
                     result["journal_id"],
-                    rec.employee_id.address_home_id.id,
+                    rec.driver_id.address_home_id.id,
                     rec.operating_unit_id.id,
                 )
             result["move_lines"].append(move_line)
@@ -532,7 +532,7 @@ class TmsExpense(models.Model):
             # we check the line tax to create the move line if
             # the line not be an invoice
             # TODO: Fix this, this only works when the expense has 1 tax
-            taxes = line.tax_ids.compute_all(price_unit=line.price_subtotal, currency=rec.currency_id)["taxes"]
+            taxes = line.tax_ids.compute_all(price_unit=line.amount_subtotal, currency=rec.currency_id)["taxes"]
             for tax in taxes:
                 tax_account = tax["account_id"]
                 tax_amount = line.tax_amount
@@ -544,8 +544,7 @@ class TmsExpense(models.Model):
                     (tax_amount if tax_amount > 0.0 else 0.0),
                     (tax_amount if tax_amount <= 0.0 else 0.0),
                     result["journal_id"],
-                    rec.employee_id.address_home_id.id,
-                    rec.operating_unit_id.id,
+                    rec.driver_id.address_home_id.id,
                 )
                 result["move_lines"].append(move_line)
 
@@ -555,7 +554,7 @@ class TmsExpense(models.Model):
             # made up expenses
             if line.line_type == "fuel" and (not line.control or line.expense_fuel_log):
                 rec.create_fuel_vouchers(line)
-            if line.line_type not in ("made_up_expense", "fuel", "tollstations"):
+            if line.line_type not in ("fuel"):
                 product_account = (
                     result["negative_account"]
                     if (line.product_id.tms_product_category == "negative_balance")
@@ -566,7 +565,7 @@ class TmsExpense(models.Model):
                     else False
                 )
                 if not product_account:
-                    raise ValidationError(
+                    raise UserError(
                         _(
                             "Warning ! Expense Account is not defined for product %(product)s",
                             product=line.product_id.name,
@@ -577,11 +576,11 @@ class TmsExpense(models.Model):
     def check_balance_value(self, result):
         for rec in self:
             balance = rec.amount_balance
-            if rec.employee_id.outsourcing and rec.expense_line_ids.filtered(
+            if rec.driver_id.outsourcing and rec.expense_line_ids.filtered(
                 lambda x: x.line_type in ["other_income", "salary"]
             ):
                 balance = (balance - rec.amount_other_income - rec.amount_salary) - sum(
-                    rec.expense_line_ids.filtered(lambda y: y.line_type == "salary_discount").mapped("price_total")
+                    rec.expense_line_ids.filtered(lambda y: y.line_type == "salary_discount").mapped("amount_total")
                 )
             if balance < 0:
                 move_line = rec.prepare_move_line(
@@ -591,8 +590,7 @@ class TmsExpense(models.Model):
                     balance * -1.0,
                     0.0,
                     result["journal_id"],
-                    rec.employee_id.address_home_id.id,
-                    rec.operating_unit_id.id,
+                    rec.driver_id.address_home_id.id,
                 )
             else:
                 move_line = rec.prepare_move_line(
@@ -602,8 +600,7 @@ class TmsExpense(models.Model):
                     0.0,
                     balance,
                     result["journal_id"],
-                    rec.employee_id.address_home_id.id,
-                    rec.operating_unit_id.id,
+                    rec.driver_id.address_home_id.id,
                 )
             result["move_lines"].append(move_line)
 
@@ -614,12 +611,11 @@ class TmsExpense(models.Model):
                 "journal_id": result["journal_id"],
                 "name": rec.name,
                 "line_ids": result["move_lines"],
-                "operating_unit_id": rec.operating_unit_id.id,
                 "company_id": self.env.user.company_id.id,
             }
             move_id = result["move_obj"].create(move)
             if not move_id:
-                raise ValidationError(_("An error has occurred in the creation of the accounting move. "))
+                raise UserError(_("An error has occurred in the creation of the accounting move. "))
             move_id.action_post()
             # Here we reconcile the invoices with the corresponding
             # move line
@@ -629,7 +625,7 @@ class TmsExpense(models.Model):
     def action_confirm(self):
         for rec in self:
             if rec.move_id:
-                raise ValidationError(_("You can not confirm a confirmed expense."))
+                raise UserError(_("You can not confirm a confirmed expense."))
             result = rec.higher_than_zero_move()
             for line in rec.expense_line_ids:
                 rec.create_expense_line_move_line(line, result)
@@ -641,7 +637,7 @@ class TmsExpense(models.Model):
     def action_cancel(self):
         self.ensure_one()
         if self.paid:
-            raise ValidationError(_("You cannot cancel an expense that is paid."))
+            raise UserError(_("You cannot cancel an expense that is paid."))
         if self.state == "confirmed":
             for line in self.expense_line_ids:
                 if line.invoice_id and line.line_type != "fuel":
@@ -679,7 +675,7 @@ class TmsExpense(models.Model):
             travels.write({"expense_id": False, "state": "done"})
             advances = self.env["tms.advance"].search([("expense_id", "=", rec.id)])
             advances.write({"expense_id": False, "state": "confirmed"})
-            fuel_logs = self.env["fleet.vehicle.log.fuel"].search(
+            fuel_logs = self.env["tms.fuel"].search(
                 [("expense_id", "=", rec.id), ("created_from_expense", "=", False)]
             )
             fuel_logs.write(
@@ -691,7 +687,7 @@ class TmsExpense(models.Model):
 
     def create_advance_line(self, advance, travel):
         if advance.state not in ("confirmed", "cancel"):
-            raise ValidationError(
+            raise UserError(
                 _(
                     "Oops! All the advances must be confirmed"
                     " or cancelled \n "
@@ -701,7 +697,7 @@ class TmsExpense(models.Model):
                 )
             )
         if not advance.paid and advance.state == "confirmed":
-            raise ValidationError(
+            raise UserError(
                 _("Oops! All the advances must be paid\n Name of advance not paid: %(advance)s", advance=advance.name)
             )
         if advance.auto_expense and advance.state == "confirmed":
@@ -713,7 +709,7 @@ class TmsExpense(models.Model):
                     "line_type": "real_expense",
                     "product_id": advance.product_id.id,
                     "product_qty": 1.0,
-                    "unit_price": advance.amount,
+                    "price_unit": advance.amount,
                     "control": True,
                 }
             )
@@ -722,7 +718,7 @@ class TmsExpense(models.Model):
 
     def create_fuel_line(self, fuel_log, travel):
         if fuel_log.state not in ["confirmed", "closed"]:
-            raise ValidationError(
+            raise UserError(
                 _(
                     "Oops! All the voucher must be confirmed"
                     "\n Name of voucher not confirmed: " + fuel_log.name + "\n State: " + fuel_log.state
@@ -741,7 +737,7 @@ class TmsExpense(models.Model):
                         "product_id": fuel_log.product_id.id,
                         "product_qty": fuel_log.product_qty,
                         "product_uom_id": (fuel_log.product_id.uom_id.id),
-                        "unit_price": fuel_log.price_total,
+                        "price_unit": fuel_log.amount_total,
                         "is_invoice": bool(fuel_log.invoice_id),
                         "invoice_id": fuel_log.invoice_id.id,
                         "control": True,
@@ -758,14 +754,14 @@ class TmsExpense(models.Model):
         for rec in self:
             product_id = self.env["product.product"].search([("tms_product_category", "=", "salary")])
             if not product_id:
-                raise ValidationError(
+                raise UserError(
                     _(
                         "Oops! You must create a product for the"
                         " diver salary with the Salary TMS "
                         "Product Category"
                     )
                 )
-            if rec.employee_id.outsourcing is False:
+            if rec.driver_id.outsourcing is False:
                 rec.expense_line_ids.create(
                     {
                         "name": _("Salary per travel: ") + str(travel.name),
@@ -775,90 +771,16 @@ class TmsExpense(models.Model):
                         "product_qty": 1.0,
                         "product_uom_id": product_id.uom_id.id,
                         "product_id": product_id.id,
-                        "unit_price": rec.get_driver_salary(travel),
+                        "price_unit": rec.get_driver_salary(travel),
                         "control": True,
                     }
                 )
-
-    def calculate_discounts(self, methods, loan):
-        if loan.discount_type == "fixed":
-            total = loan.fixed_discount
-        elif loan.discount_type == "percent":
-            total = loan.amount * (loan.percent_discount / 100)
-        for key, value in methods.items():
-            if loan.discount_method == key:
-                if loan.expense_ids:
-                    dates = []
-                    for loan_date in loan.expense_ids:
-                        dates.append(loan_date.date)
-                    dates.sort(reverse=True)
-                    end_date = datetime.strptime(dates[0], "%Y-%m-%d")
-                else:
-                    end_date = datetime.strptime(loan.date_confirmed, "%Y-%m-%d")
-                start_date = datetime.strptime(self.date, "%Y-%m-%d")
-                total_date = start_date - end_date
-                total_payment = total_date / value
-                if int(total_payment.days) >= 1:
-                    total_discount = total_payment.days * total
-            elif loan.discount_method == "each":
-                total_discount = total
-        return total_discount
-
-    def get_expense_loan(self):
-        loans = self.env["tms.expense.loan"].search([("employee_id", "=", self.employee_id.id), ("balance", ">", 0.0)])
-        methods = {
-            "monthly": 30,
-            "fortnightly": 15,
-            "weekly": 7,
-        }
-        for loan in loans:
-            total_discount = 0.0
-            payment = loan.payment_move_id.id
-            ac_loan = loan.active_loan
-            if not loan.lock and loan.state == "confirmed" and payment:
-                if ac_loan:
-                    loan.write({"expense_id": self.id})
-                    total_discount = self.calculate_discounts(methods, loan)
-                    total_final = loan.balance - total_discount
-                    if total_final <= 0.0:
-                        total_discount = loan.balance
-                        loan.write({"balance": 0.0, "state": "closed"})
-                    expense_line = self.expense_line_ids.create(
-                        {
-                            "name": _("Loan: ") + str(loan.name),
-                            "expense_id": self.id,
-                            "line_type": "loan",
-                            "product_id": loan.product_id.id,
-                            "product_qty": 1.0,
-                            "unit_price": total_discount,
-                            "date": self.date,
-                            "control": True,
-                        }
-                    )
-                    loan.expense_ids += expense_line
-            elif loan.lock and loan.state == "confirmed" and ac_loan:
-                if loan.balance > 0.0:
-                    loan.write({"expense_id": self.id})
-                    expense_line = self.expense_line_ids.create(
-                        {
-                            "name": _("Loan: ") + str(loan.name),
-                            "expense_id": self.id,
-                            "line_type": "loan",
-                            "product_id": loan.product_id.id,
-                            "product_qty": 1.0,
-                            "unit_price": loan.amount_discount,
-                            "date": self.date,
-                            "control": True,
-                        }
-                    )
-                loan.expense_ids += expense_line
 
     def get_travel_info(self):
         for rec in self:
             # Unattaching info from expense
             rec.unattach_info()
             # Finish unattach info from expense
-            rec.get_expense_loan()
             for travel in rec.travel_ids:
                 travel.write({"state": "closed", "expense_id": rec.id})
                 for advance in travel.advance_ids:
@@ -881,7 +803,7 @@ class TmsExpense(models.Model):
                 income = 0.0
                 for line in waybill.waybill_line_ids:
                     if line.product_id.apply_for_salary:
-                        income += line.price_subtotal
+                        income += line.amount_subtotal
                 # TODO: define a new module to apply this functionality
                 # if waybill.currency_id.name == 'USD':
                 #     income = (income *
@@ -895,7 +817,7 @@ class TmsExpense(models.Model):
                             qty=waybill.product_qty,
                             volume=waybill.product_volume,
                             income=income,
-                            employee=rec.employee_id,
+                            employee=rec.driver_id,
                         )
                 elif travel.driver_factor_ids:
                     for factor in travel.driver_factor_ids:
@@ -906,10 +828,10 @@ class TmsExpense(models.Model):
                             qty=waybill.product_qty,
                             volume=waybill.product_volume,
                             income=income,
-                            employee=rec.employee_id,
+                            employee=rec.driver_id,
                         )
                 else:
-                    raise ValidationError(
+                    raise UserError(
                         _(
                             "Oops! You have not defined a Driver factor in the Travel or the Waybill\n"
                             "Travel: %(travel)s",
@@ -926,11 +848,11 @@ class TmsExpense(models.Model):
         fpos = line.partner_id.property_account_position_id
         product_account = line.product_id.product_tmpl_id.get_product_accounts(fpos)["expense"]
         if not product_account:
-            raise ValidationError(
+            raise UserError(
                 _("Error !\nThere is no expense account defined for this product: %(name)s", name=line.product_id.name)
             )
         if not journal_id:
-            raise ValidationError(_("Error !\nYou have not defined Travel Expense Supplier Journal..."))
+            raise UserError(_("Error !\nYou have not defined Travel Expense Supplier Journal..."))
         invoice_line = (
             0,
             0,
@@ -942,7 +864,7 @@ class TmsExpense(models.Model):
                 ),
                 "account_id": product_account,
                 "quantity": line.product_qty,
-                "price_unit": line.unit_price,
+                "price_unit": line.price_unit,
                 "tax_ids": [(6, 0, line.tax_ids.ids)],
                 "product_uom_id": line.product_uom_id.id,
                 "product_id": line.product_id.id,
@@ -964,7 +886,6 @@ class TmsExpense(models.Model):
             ),
             "fiscal_position_id": (line.partner_id.property_account_position_id.id or False),
             "narration": notes,
-            "operating_unit_id": line.expense_id.operating_unit_id.id,
         }
         invoice_id = self.env["account.move"].create(invoice)
         line.invoice_id = invoice_id
@@ -977,7 +898,7 @@ class TmsExpense(models.Model):
             invoice_str_id = str(invoice.id)
             expense_move_line = move_line_obj.search([("move_id", "=", move_id.id), ("name", "ilike", invoice_str_id)])
             if not expense_move_line:
-                raise ValidationError(_("Error ! Move line was not found, please check your data."))
+                raise UserError(_("Error ! Move line was not found, please check your data."))
             moves |= expense_move_line
             moves |= invoice.line_ids.filtered(
                 lambda x: x.account_id.reconcile and x.account_id.user_type_id.id in [2]
@@ -985,48 +906,95 @@ class TmsExpense(models.Model):
             moves.reconcile()
         return True
 
-    @api.onchange("operating_unit_id", "unit_id")
-    def _onchange_operating_unit_id(self):
-        travels = self.env["tms.travel"].search(
-            [
-                ("operating_unit_id", "=", self.operating_unit_id.id),
-                ("state", "=", "done"),
-                ("unit_id", "=", self.unit_id.id),
-            ]
-        )
-        driver_ids = travels.mapped("employee_id").ids
-        if self.employee_id.id not in driver_ids:
-            self.employee_id = False
-        tlines_units = self.travel_ids.mapped("unit_id").ids
-        tlines_drivers = self.travel_ids.mapped("employee_id").ids
-        if self.unit_id.id not in tlines_units and self.employee_id.id not in tlines_drivers:
-            self.travel_ids = False
-        return {
-            "domain": {
-                "employee_id": [("id", "in", driver_ids), ("driver", "=", True)],
+
+class TmsExpenseLine(models.Model):
+    _name = "tms.expense.line"
+    _description = "Expense Line"
+
+    travel_id = fields.Many2one("tms.travel", readonly=True, ondelete="restrict")
+    expense_id = fields.Many2one("tms.expense", ondelete="cascade", readonly=True)
+    product_qty = fields.Float(string="Qty", default=1.0)
+    currency_id = fields.Many2one(related="expense_id.currency_id", store=True)
+    price_unit = fields.Monetary()
+    amount_subtotal = fields.Monetary(
+        compute="_compute_amount_subtotal",
+        string="Subtotal",
+        store=True,
+    )
+    product_uom_id = fields.Many2one("uom.uom", string="Unit of Measure")
+    line_type = fields.Selection(
+        related="product_id.tms_product_category",
+        store=True,
+    )
+    name = fields.Char("Description", required=True)
+    sequence = fields.Integer(default=10)
+    amount_total = fields.Monetary(
+        string="Total",
+        compute="_compute_amount_total",
+    )
+    tax_amount = fields.Monetary(
+        compute="_compute_tax_amount",
+    )
+    tax_ids = fields.Many2many("account.tax", string="Taxes", domain=[("type_tax_use", "=", "purchase")])
+    notes = fields.Text()
+    date = fields.Date()
+    control = fields.Boolean()
+    automatic = fields.Boolean(
+        help="Check this if you want to create Advances and/or Fuel Vouchers for this line automatically"
+    )
+    is_invoice = fields.Boolean(string="Is Invoice?")
+    partner_id = fields.Many2one(
+        "res.partner",
+        string="Supplier",
+    )
+    invoice_date = fields.Date()
+    invoice_number = fields.Char()
+    invoice_id = fields.Many2one("account.move", string="Supplier Invoice")
+    product_id = fields.Many2one(
+        "product.product",
+        string="Product",
+        required=True,
+    )
+    expense_fuel_log = fields.Boolean(readonly=True)
+
+    @api.onchange("product_id")
+    def _onchange_product_id(self):
+        self.update(
+            {
+                "tax_ids": [(6, 0, self.product_id.supplier_taxes_id.ids)],
+                "product_uom_id": self.product_id.uom_id.id,
+                "name": self.product_id.name,
             }
-        }
+        )
 
-    def get_amount_total(self):
-        for rec in self:
-            amount_subtotal = 0.0
-            for line in rec.expense_line_ids:
-                if line.line_type in ["real_expense", "fuel", "fuel_cash"]:
-                    amount_subtotal += line.price_subtotal
-            return amount_subtotal
+    def _get_discount_categories(self):
+        return ["salary_retention", "salary_discount"]
 
-    def get_amount_tax(self):
+    @api.depends("tax_ids", "product_qty", "price_unit", "line_type", "product_id")
+    def _compute_amounts(self):
         for rec in self:
-            tax_amount = 0.0
-            for line in rec.expense_line_ids:
-                if line.line_type in ["real_expense", "fuel", "fuel_cash"]:
-                    tax_amount += line.tax_amount
-            return tax_amount
+            taxes = rec.tax_ids.compute_all(
+                price_unit=rec.price_unit,
+                currency=rec.currency_id,
+                quantity=rec.product_qty,
+                partner=rec.expense_id.driver_id.sudo().address_home_id,
+            )
+            discount_categories = self._get_discount_categories()
+            multiplicator = -1 if rec.line_type in discount_categories else 1
+            rec.update(
+                {
+                    "tax_amount": sum(t.get("amount", 0.0) for t in taxes.get("taxes", [])) * multiplicator,
+                    "amount_subtotal": taxes["total_excluded"] * multiplicator,
+                    "amount_total": taxes["total_included"] * multiplicator,
+                }
+            )
 
-    def get_value(self, type_line):
+    @api.constrains("amount_total", "amount_subtotal", "tax_amount", "product_qty")
+    def _check_amounts(self):
         for rec in self:
-            value = 0.0
-            for line in rec.expense_line_ids:
-                if line.line_type == type_line:
-                    value += line.price_total
-        return value
+            if not rec.amount_total:
+                raise UserError(_("Total amount cannot be zero!"))
+            discount_categories = self._get_discount_categories()
+            if rec.line_type in discount_categories:
+                if rec.amount_total > 0 or rec.amount_subtotal > 0 or rec.tax_amount > 0:
+                    raise UserError(_("This line type needs a negative value to continue!"))

@@ -13,7 +13,7 @@ class TmsFuel(models.Model):
 
     name = fields.Char(readonly=True, copy=False)
     travel_id = fields.Many2one("tms.travel", required=True)
-    # expense_id = fields.Many2one("tms.expense")
+    expense_id = fields.Many2one("tms.expense", readonly=True, copy=False)
     driver_id = fields.Many2one(
         related="travel_id.driver_id",
         store=True,
@@ -49,7 +49,7 @@ class TmsFuel(models.Model):
         domain=[("type_tax_use", "=", "purchase")],
         tracking=True,
     )
-    price_total = fields.Float(
+    amount_total = fields.Float(
         string="Total",
         compute="_compute_amounts",
         store=True,
@@ -59,7 +59,7 @@ class TmsFuel(models.Model):
         tracking=True,
         required=True,
     )
-    price_subtotal = fields.Float(
+    amount_subtotal = fields.Float(
         string="Subtotal",
         compute="_compute_amounts",
         store=True,
@@ -145,7 +145,7 @@ class TmsFuel(models.Model):
     @api.depends("product_qty", "price_unit", "product_id")
     def _compute_amounts(self):
         for rec in self:
-            rec.price_subtotal = rec.product_qty * rec.price_unit
+            rec.amount_subtotal = rec.product_qty * rec.price_unit
             taxes = rec.tax_ids.compute_all(
                 price_unit=rec.price_unit,
                 currency=rec.currency_id,
@@ -154,7 +154,7 @@ class TmsFuel(models.Model):
                 partner=rec.partner_id,
             )
             rec.tax_amount = sum(t.get("amount", 0.0) for t in taxes.get("taxes", []))
-            rec.price_total = rec.price_subtotal + rec.tax_amount
+            rec.amount_total = rec.amount_subtotal + rec.tax_amount
 
     @api.depends("move_line_ids.move_id", "move_line_ids")
     def _compute_move_id(self):
@@ -275,7 +275,7 @@ class TmsFuel(models.Model):
         }
         return move
 
-    @api.constrains("product_qty", "price_total")
+    @api.constrains("product_qty", "price_unit")
     def _check_amounts(self):
         for rec in self:
             if rec.product_qty <= 0:

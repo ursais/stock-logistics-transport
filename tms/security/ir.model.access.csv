@@ -40,3 +40,10 @@ traffic_tms_waybill_line,traffic_tms_waybill_line,model_tms_waybill_line,group_t
 expenses_tms_waybill,expenses_tms_waybill,model_tms_waybill,group_tms_expenses,1,1,1,0
 manager_tms_waybill,manager_tms_waybill,model_tms_waybill,group_tms_manager,1,1,1,1
 expenses_tms_waybill_line,expenses_tms_waybill_line,model_tms_waybill_line,group_tms_expenses,1,0,0,0
+monitoring_tms_expense,monitoring_tms_expense,model_tms_expense,group_tms_monitoring,1,0,0,0
+monitoring_tms_expense_line,monitoring_tms_expense_line,model_tms_expense_line,group_tms_monitoring,1,0,0,0
+traffic_tms_expense,traffic_tms_expense,model_tms_expense,group_tms_traffic,1,1,1,0
+traffic_tms_expense_line,traffic_tms_expense_line,model_tms_expense_line,group_tms_traffic,1,1,1,0
+expenses_tms_expense,expenses_tms_expense,model_tms_expense,group_tms_expenses,1,1,1,0
+expenses_tms_expense_line,expenses_tms_expense_line,model_tms_expense_line,group_tms_expenses,1,1,1,1
+manager_tms_expense,manager_tms_expense,model_tms_expense,group_tms_manager,1,1,1,1

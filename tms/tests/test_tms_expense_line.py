@@ -56,7 +56,7 @@ class TestTmsExpenseLine(TransactionCase):
                             "product_id": self.product.id,
                             "name": self.product.name,
                             "line_type": self.product.tms_product_category,
-                            "unit_price": 100.0,
+                            "price_unit": 100.0,
                         },
                     )
                 ],
@@ -91,7 +91,7 @@ class TestTmsExpenseLine(TransactionCase):
             expense.expense_line_ids.create(
                 {
                     "product_id": self.product_discount.id,
-                    "unit_price": -100.0,
+                    "price_unit": -100.0,
                     "line_type": self.product_discount.tms_product_category,
                     "name": self.product_discount.name,
                 }

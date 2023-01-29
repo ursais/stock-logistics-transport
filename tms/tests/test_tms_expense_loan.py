@@ -66,7 +66,7 @@ class TestTmsExpenseLoan(TransactionCase):
                             "product_id": self.product.id,
                             "name": self.product.name,
                             "line_type": self.product.tms_product_category,
-                            "unit_price": 10.0,
+                            "price_unit": 10.0,
                         },
                     )
                 ],
@@ -152,10 +152,10 @@ class TestTmsExpenseLoan(TransactionCase):
         loan.expense_ids.update(
             {
                 "product_id": self.product.id,
-                "unit_price": 100.0,
+                "price_unit": 100.0,
                 "line_type": self.product.tms_product_category,
                 "name": self.product.name,
-                "price_total": -100.00,
+                "amount_total": -100.00,
             }
         )
         loan._compute_balance()

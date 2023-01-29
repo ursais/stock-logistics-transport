@@ -77,11 +77,11 @@ class TmsTravel(models.Model):
         ),
         group_expand="_group_expand_stage_id",
     )
-    # waybill_ids = fields.Many2many("tms.waybill", copy=False)
+    waybill_ids = fields.Many2many("tms.waybill", copy=False)
     fuel_ids = fields.One2many("tms.fuel", "travel_id", string="Fuel Vouchers")
     advance_ids = fields.One2many("tms.advance", "travel_id", string="Advances")
     partner_ids = fields.Many2many("res.partner", string="Customers", domain=[("is_company", "=", True)])
-    # expense_id = fields.Many2one("tms.expense", "Expense Record", readonly=True)
+    expense_id = fields.Many2one("tms.expense", readonly=True, copy=False)
 
     def _group_expand_stage_id(self, stages, domain, order):
         return stages.search([], order="sequence asc")

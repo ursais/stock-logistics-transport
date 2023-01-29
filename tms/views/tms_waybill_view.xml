@@ -159,7 +159,11 @@
                                     <field name="transportable_id" options="{'no_create': 1}" />
                                     <field name="name" />
                                     <field name="uom_categ_id" invisible="1" />
-                                    <field name="transportable_product_uom_id" options="{'no_create': 1}" domain="[('category_id', '=', uom_categ_id)]" />
+                                    <field
+                                        name="transportable_product_uom_id"
+                                        options="{'no_create': 1}"
+                                        domain="[('category_id', '=', uom_categ_id)]"
+                                    />
                                     <field name="quantity" />
                                     <field name="notes" />
                                 </tree>

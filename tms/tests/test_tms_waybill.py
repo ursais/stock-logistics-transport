@@ -111,7 +111,7 @@ class TestTmsWaybill(TransactionCase):
     def test_30_tms_waybill_onchange_waybill_line_ids(self):
         waybill = self.create_waybill()
         waybill._onchange_waybill_line_ids()
-        self.assertEqual(waybill.waybill_line_ids.unit_price, 100.0)
+        self.assertEqual(waybill.waybill_line_ids.price_unit, 100.0)
 
     def test_40_tms_waybill_amount(self):
         waybill = self.create_waybill()
@@ -148,7 +148,7 @@ class TestTmsWaybill(TransactionCase):
             {
                 "product_id": self.insurance.id,
                 "name": self.insurance.name,
-                "unit_price": 100.0,
+                "price_unit": 100.0,
                 "tax_ids": [(4, self.tax.id)],
                 "price_subtotal": 100.0,
                 "waybill_id": waybill.id,

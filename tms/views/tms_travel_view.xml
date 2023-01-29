@@ -56,7 +56,7 @@
                 <field name="trailer1_id" optional="hide" />
                 <field name="dolly_id" optional="hide" />
                 <field name="trailer2_id" optional="hide" />
-                <!-- <field name="waybill_ids" widget="many2many_tags" /> -->
+                <field name="waybill_ids" widget="many2many_tags" />
                 <field name="route_id" optional="show" />
                 <field name="company_id" groups="base.group_multi_company" optional="hide" />
                 <field
@@ -399,9 +399,9 @@
                                         optional="hide"
                                         options="{'no_create': 1}"
                                     />
-                                    <field name="price_subtotal" optional="hide" />
+                                    <field name="amount_subtotal" optional="hide" />
                                     <field name="tax_amount" />
-                                    <field name="price_total" />
+                                    <field name="amount_total" />
                                     <field
                                         name="payment_state"
                                         widget="badge"
@@ -461,52 +461,15 @@
                                 </tree>
                             </field>
                         </page>
-                        <!--<page string="Waybills">
+                        <page string="Waybills">
                             <group>
                                 <field
                                     name="waybill_ids"
                                     attrs="{'readonly':[('state', 'in', ['done', 'closed'])]}"
                                     nolabel="1"
-                                >
-                                    <tree
-                                        decoration-danger="state=='cancel'"
-                                        decoration-success="state=='approved'"
-                                        decoration-info="state=='confirmed'"
-                                    >
-                                        <button
-                                            icon="gtk-go-forward"
-                                            name="action_approve"
-                                            states="draft"
-                                            string="Approve"
-                                            type="object"
-                                        />
-                                        <button
-                                            icon="gtk-ok"
-                                            name="action_confirm"
-                                            states="approved"
-                                            string="Confirm"
-                                            type="object"
-                                        />
-                                        <field
-                        name="state"
-                        widget="badge"
-                        decoration-info="state == 'scheduled'"
-                        decoration-success="state == 'progress'"
-                        decoration-muted="state == 'done'"
-                        decoration-warning="state == 'closed'"
-                        decoration-danger="state == 'cancel'"
-                    />
-                                        <field name="name" />
-                                        <field name="date_order" />
-                                        <field name="partner_id" />
-                                        <field name="product_qty" sum="Product Quantity" />
-                                        <field name="amount_untaxed" sum="Amount Untaxed" />
-                                        <field name="amount_tax" sum="Taxes" />
-                                        <field name="amount_total" sum="Total " />
-                                    </tree>
-                                </field>
+                                />
                             </group>
-                        </page>-->
+                        </page>
                         <page string="Statistics">
                             <group>
                                 <group string="Route Distances (mi./kms)">
@@ -632,7 +595,6 @@
                             <div class="row">
                                 <div class="col-12">
                                     <strong>
-                                        <!-- <i class="fa fa-clock-o" aria-label="Date" role="img" title="Date"/> -->
                                         <t t-esc="record.date_start.value" />
                                         <i class="fa fa-long-arrow-right mx-1" aria-label="Arrow icon" title="Arrow" />
                                         <t t-esc="record.date_end.value" />

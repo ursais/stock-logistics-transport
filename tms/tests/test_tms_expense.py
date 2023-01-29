@@ -57,7 +57,7 @@ class TestTmsExpense(TransactionCase):
                             "vehicle_id": self.unit.id,
                             "product_id": self.product_fuel.id,
                             "tax_amount": 10.0,
-                            "price_total": 150.0,
+                            "amount_total": 150.0,
                         },
                     )
                 ],
@@ -167,7 +167,6 @@ class TestTmsExpense(TransactionCase):
         product_other_income = self.env.ref("tms.product_other_income")
         product_salary_discount = self.env.ref("tms.product_discount")
         product_salary_retention = self.env.ref("tms.product_retention")
-        product_made_up_expense = self.env.ref("tms.product_madeup")
         expense = self.tms_expense.create(
             {
                 "operating_unit_id": self.operating_unit.id,
@@ -183,7 +182,7 @@ class TestTmsExpense(TransactionCase):
                             "product_id": self.product_fuel.id,
                             "line_type": self.product_fuel.tms_product_category,
                             "name": self.product_fuel.name,
-                            "unit_price": 100.0,
+                            "price_unit": 100.0,
                             "partner_id": self.env.ref("base.res_partner_12").id,
                             "invoice_number": "10010101",
                             "date": "2018-08-03",
@@ -195,7 +194,7 @@ class TestTmsExpense(TransactionCase):
                         {
                             "product_id": product_other_income.id,
                             "name": product_other_income.name,
-                            "unit_price": 100.0,
+                            "price_unit": 100.0,
                         },
                     ),
                     (
@@ -204,7 +203,7 @@ class TestTmsExpense(TransactionCase):
                         {
                             "product_id": product_salary_discount.id,
                             "name": product_salary_discount.name,
-                            "unit_price": 100.0,
+                            "price_unit": 100.0,
                         },
                     ),
                     (
@@ -213,16 +212,7 @@ class TestTmsExpense(TransactionCase):
                         {
                             "product_id": product_salary_retention.id,
                             "name": product_salary_retention.name,
-                            "unit_price": 100.0,
-                        },
-                    ),
-                    (
-                        0,
-                        0,
-                        {
-                            "product_id": product_made_up_expense.id,
-                            "name": product_made_up_expense.name,
-                            "unit_price": 100.0,
+                            "price_unit": 100.0,
                         },
                     ),
                     (
@@ -233,7 +223,7 @@ class TestTmsExpense(TransactionCase):
                             "product_id": self.product_real_expense.id,
                             "line_type": (self.product_real_expense.tms_product_category),
                             "name": self.product_real_expense.name,
-                            "unit_price": 900.0,
+                            "price_unit": 900.0,
                             "tax_ids": [(4, self.tax.id)],
                         },
                     ),
@@ -282,7 +272,7 @@ class TestTmsExpense(TransactionCase):
                 "vehicle_id": self.unit.id,
                 "product_id": self.product_fuel.id,
                 "tax_amount": 10.0,
-                "price_total": 100.0,
+                "amount_total": 100.0,
             }
         )
         with self.assertRaises(ValidationError) as err:
@@ -314,17 +304,17 @@ class TestTmsExpense(TransactionCase):
         self.assertEqual(amount_salary, expense.amount_salary)
         # Other Income
         amount_other_income = sum(
-            expense.expense_line_ids.filtered(lambda x: x.line_type == "other_income").mapped("price_total")
+            expense.expense_line_ids.filtered(lambda x: x.line_type == "other_income").mapped("amount_total")
         )
         self.assertEqual(amount_other_income, expense.amount_other_income)
         # Salary Discount
         amount_salary_discount = sum(
-            expense.expense_line_ids.filtered(lambda x: x.line_type == "salary_discount").mapped("price_total")
+            expense.expense_line_ids.filtered(lambda x: x.line_type == "salary_discount").mapped("amount_total")
         )
         self.assertEqual(amount_salary_discount, expense.amount_salary_discount)
         # Salary Retention
         amount_salary_retention = sum(
-            expense.expense_line_ids.filtered(lambda x: x.line_type == "salary_retention").mapped("price_total")
+            expense.expense_line_ids.filtered(lambda x: x.line_type == "salary_retention").mapped("amount_total")
         )
         self.assertEqual(amount_salary_retention, expense.amount_salary_retention)
         # Expenses
@@ -373,11 +363,8 @@ class TestTmsExpense(TransactionCase):
         amount_tax_total = sum(expense.travel_ids.mapped("fuel_log_ids").mapped("tax_amount")) + amount_tax_real
         self.assertEqual(amount_tax_total, expense.amount_tax_total)
         # Made up expense
-        amount_made_up_expense = sum(
-            expense.expense_line_ids.filtered(lambda x: x.line_type == "made_up_expense").mapped("price_total")
-        )
         # Total (All)
-        amount_total_total = amount_subtotal_total + amount_tax_total + amount_made_up_expense
+        amount_total_total = amount_subtotal_total + amount_tax_total
         self.assertEqual(amount_total_total, expense.amount_total_total)
 
     def test_40_tms_expense_action_confirm(self):
