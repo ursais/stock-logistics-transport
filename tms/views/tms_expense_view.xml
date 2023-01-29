@@ -169,7 +169,102 @@
                                 attrs="{'readonly':[('state','in', ['approved', 'cancel'])]}"
                                 context="{'default_expense_id': active_id, 'group_by_line_type': 1}"
                                 nolabel="1"
-                            />
+                            >
+                                <tree
+                                    decoration-info="line_type=='salary'"
+                                    decoration-success="line_type=='fuel'"
+                                    decoration-muted="line_type=='indirect_expense'"
+                                    decoration-danger="amount_total&lt;0"
+                                >
+                                    <field name="line_type" invisible="1" />
+                                    <field name="travel_id" />
+                                    <field name="product_id" />
+                                    <field name="name" />
+                                    <field name="product_uom_id" optional="hide" />
+                                    <field name="product_qty" optional="hide" />
+                                    <field name="price_unit" optional="hide" />
+                                    <field name="tax_ids" widget="many2many_tags" optional="hide" />
+                                    <field name="amount_subtotal" optional="hide" />
+                                    <field name="tax_amount" optional="hide" />
+                                    <field name="amount_total" />
+                                    <field name="invoice_id" optional="hide" />
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="travel_ids" invisible="1" />
+                                            <field name="expense_id" invisible="1" />
+                                            <field name="line_type" invisible="1" />
+                                            <field
+                                                name="travel_id"
+                                                domain="[('id', 'in', travel_ids)]"
+                                                options="{'no_create': True, 'no_open': True}"
+                                            />
+                                            <field
+                                                name="product_id"
+                                                domain="[('tms_product_category', 'in', ['real_expense','salary_retention','salary_discount','fuel','other_income', 'indirect_expense'])]"
+                                                options="{'no_create': True, 'no_open': True}"
+                                            />
+                                            <field name="name" />
+                                            <label
+                                                for="product_qty"
+                                                attrs="{'invisible':['|', ('line_type','in', ['real_expense', 'salary', 'refund', 'salary_retention', 'salary_discount', 'other_income']), ('line_type','=', False)]}"
+                                            />
+                                            <div
+                                                class="o_row"
+                                                attrs="{'invisible':['|', ('line_type','in', ['real_expense', 'salary', 'refund', 'salary_retention', 'salary_discount', 'other_income']), ('line_type','=', False)]}"
+                                            >
+                                                <field name="product_qty" />
+                                                <field
+                                                    name="product_uom_id"
+                                                    options="{'no_create': True, 'no_open': True}"
+                                                />
+                                            </div>
+                                            <field name='price_unit' required="1" />
+                                            <field
+                                                name='tax_ids'
+                                                widget='many2many_tags'
+                                                attrs="{'invisible':[('line_type','in', ['salary_discount', 'salary', 'salary_retention', 'other_income'])]}"
+                                            />
+                                            <field name="amount_subtotal" />
+                                            <field
+                                                name="tax_amount"
+                                                attrs="{'invisible':[('line_type','in', ['salary_discount', 'salary', 'salary_retention', 'other_income'])]}"
+                                            />
+                                            <field name="amount_total" required='1' />
+                                        </group>
+                                        <group
+                                            string="Supplier Details"
+                                            attrs="{'invisible':['|', ('line_type','=',False), ('line_type','in', ['salary','salary_retention','salary_discount','other_income'])]}"
+                                        >
+                                            <field
+                                                name="is_invoice"
+                                                attrs="{'invisible':['|', ('line_type','=', False), ('line_type','in',['salary','salary_retention','salary_discount','other_income', 'fuel',])]}"
+                                            />
+                                            <field
+                                                name="partner_id"
+                                                attrs="{'invisible':[('is_invoice', '=', False), ('line_type', '!=', 'fuel')],'required':['|', ('is_invoice', '=', True),('line_type', '=', 'fuel')]}"
+                                                widget="res_partner_many2one"
+                                                context="{'res_partner_search_mode': 'supplier', 'show_address': 1, 'default_is_company': True, 'show_vat': True}"
+                                                domain="[('is_company', '=', True)]"
+                                            />
+                                            <field
+                                                name="invoice_number"
+                                                attrs="{'invisible':[('is_invoice', '=', False), ('line_type', '!=', 'fuel')]}"
+                                            />
+                                            <field
+                                                name="date"
+                                                attrs="{'invisible':[('is_invoice', '=', False), ('line_type', '!=', 'fuel')],'required':['|', ('is_invoice', '=', True),('line_type', '=', 'fuel')]}"
+                                            />
+                                            <field
+                                                name="invoice_id"
+                                                attrs="{'invisible':['|', ('is_invoice', '=', False), ('invoice_id', '=', False)]}"
+                                                readonly="1"
+                                            />
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
                         </page>
                         <page string="Advances">
                             <field name="advance_ids" />
@@ -178,7 +273,7 @@
                             <field name="fuel_ids" />
                         </page>
                         <page string="Notes">
-                            <field name="notes" placeholder="Notes ..." />>
+                            <field name="notes" placeholder="Notes ..." />
                         </page>
                         <page string="Statistics">
                             <group nanem="distances" string="Distances">

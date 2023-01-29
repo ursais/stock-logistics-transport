@@ -31,7 +31,6 @@
         "views/product_template_view.xml",
         "views/tms_advance_view.xml",
         "views/tms_expense_view.xml",
-        "views/tms_expense_line_view.xml",
         "views/tms_factor_view.xml",
         "views/tms_route_view.xml",
         "views/tms_transportable_view.xml",

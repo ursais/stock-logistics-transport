@@ -929,7 +929,8 @@ class TmsExpenseLine(models.Model):
     _name = "tms.expense.line"
     _description = "Expense Line"
 
-    travel_id = fields.Many2one("tms.travel", readonly=True, ondelete="restrict")
+    travel_id = fields.Many2one("tms.travel", ondelete="restrict")
+    travel_ids = fields.Many2many("tms.travel", string="Travels", readonly=True, compute="_compute_travel_ids")
     expense_id = fields.Many2one("tms.expense", ondelete="cascade", readonly=True)
     product_qty = fields.Float(string="Qty", default=1.0)
     currency_id = fields.Many2one(related="expense_id.currency_id", store=True)
@@ -948,10 +949,10 @@ class TmsExpenseLine(models.Model):
     sequence = fields.Integer(default=10)
     amount_total = fields.Monetary(
         string="Total",
-        compute="_compute_amount_total",
+        compute="_compute_amounts",
     )
     tax_amount = fields.Monetary(
-        compute="_compute_tax_amount",
+        compute="_compute_amounts",
     )
     tax_ids = fields.Many2many("account.tax", string="Taxes", domain=[("type_tax_use", "=", "purchase")])
     notes = fields.Text()
@@ -974,6 +975,14 @@ class TmsExpenseLine(models.Model):
         required=True,
     )
     expense_fuel_log = fields.Boolean(readonly=True)
+
+    @api.model
+    def default_get(self, fields_list):
+        res = super().default_get(fields_list)
+        if self._context.get("default_expense_id"):
+            expense = self.env["tms.expense"].browse(self._context["default_expense_id"])
+            res.update({"travel_id": expense.travel_ids if len(expense.travel_ids) == 1 else False})
+        return res
 
     @api.onchange("product_id")
     def _onchange_product_id(self):
@@ -1007,12 +1016,13 @@ class TmsExpenseLine(models.Model):
                 }
             )
 
-    @api.constrains("amount_total", "amount_subtotal", "tax_amount", "product_qty")
+    @api.depends("expense_id.travel_ids")
+    def _compute_travel_ids(self):
+        for rec in self:
+            rec.travel_ids = rec.expense_id.travel_ids
+
+    @api.constrains("product_qty", "price_unit")
     def _check_amounts(self):
         for rec in self:
-            if not rec.amount_total:
+            if not rec.price_unit or not rec.product_qty:
                 raise UserError(_("Total amount cannot be zero!"))
-            discount_categories = self._get_discount_categories()
-            if rec.line_type in discount_categories:
-                if rec.amount_total > 0 or rec.amount_subtotal > 0 or rec.tax_amount > 0:
-                    raise UserError(_("This line type needs a negative value to continue!"))
