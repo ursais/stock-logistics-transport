@@ -20,6 +20,7 @@ class TmsExpense(models.Model):
     )
     travel_ids = fields.Many2many("tms.travel", string="Travels")
     unit_id = fields.Many2one("fleet.vehicle", required=True)
+    unit_ids = fields.Many2many("fleet.vehicle", string="Units", compute="_compute_unit_ids")
     currency_id = fields.Many2one(
         "res.currency",
         required=True,
@@ -150,6 +151,12 @@ class TmsExpense(models.Model):
         "res.company", string="Company", required=True, default=lambda self: self.env.user.company_id
     )
 
+    @api.onchange("unit_id")
+    def _onchange_unit_id(self):
+        if self.unit_id:
+            travels = self.env["tms.travel"].search([("unit_id", "=", self.unit_id.id), ("state", "=", "done")])
+            return {"domain": {"driver_id": [("id", "in", travels.mapped("driver_id").ids)]}}
+
     @api.depends(
         "move_id.line_ids.matched_debit_ids.debit_move_id.move_id.payment_id.is_matched",
         "move_id.line_ids.matched_debit_ids.debit_move_id.move_id.line_ids.amount_residual",
@@ -190,6 +197,12 @@ class TmsExpense(models.Model):
             rec.payment_move_ids = related_moves
             rec.payment_ids = related_moves.mapped("payment_id")
             rec.amount_residual = amount_residual
+
+    @api.depends("company_id")
+    def _compute_unit_ids(self):
+        travels = self.env["tms.travel"].search([("state", "=", "done"), ("company_id", "=", self.company_id.id)])
+        for rec in self:
+            rec.unit_ids = travels.mapped("unit_id")
 
     @api.depends("travel_ids")
     def _compute_income_km(self):
@@ -255,11 +268,9 @@ class TmsExpense(models.Model):
                 rec.expense_line_ids.filtered(lambda l: l.line_type == "real_expense").mapped("tax_amount")
             )
             amount_total_real = amount_real_expense + amount_tax_real
-            amount_advance = sum(
-                rec.mapped("travel_ids.advance_ids").filtered(lambda a: a.payment_move_id).mapped("amount")
-            )
+            amount_advance = sum(rec.mapped("travel_ids.advance_ids.amount"))
             amount_advance_expense_balance = amount_total_real - amount_advance
-            amount_salary_balance = amount_total_driver_expenses - amount_advance_expense_balance
+            amount_salary_balance = amount_total_driver_expenses + amount_advance_expense_balance
             amount_fuel = sum(rec.expense_line_ids.filtered(lambda l: l.line_type == "fuel").mapped("amount_total"))
             amount_tax_fuel = sum(rec.expense_line_ids.filtered(lambda l: l.line_type == "fuel").mapped("tax_amount"))
             amount_total_fuel = amount_fuel + amount_tax_fuel

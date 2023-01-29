@@ -101,11 +101,17 @@
                     <group>
                         <group>
                             <field
-                                attrs="{'readonly':[('state','in', ['approved', 'cancel'])]}"
-                                domain="[('fleet_type', '=', 'tractor')]"
                                 name="unit_id"
+                                attrs="{'readonly':[('state','in', ['approved', 'cancel'])]}"
+                                domain="[('id', 'in', unit_ids)]"
+                                options="{'no_create': True}"
                             />
-                            <field attrs="{'readonly':[('state','in', ['approved', 'cancel'])]}" name="driver_id" />
+                            <field name="unit_ids" invisible="1" />
+                            <field
+                                name="driver_id"
+                                attrs="{'invisible': [('unit_id', '=', False)], 'readonly':[('state','in', ['approved', 'cancel'])]}"
+                                options="{'no_create': True}"
+                            />
                         </group>
                         <group>
                             <field name="date" attrs="{'readonly':[('state','in', ['approved', 'cancel'])]}" />
@@ -113,8 +119,13 @@
                                 name="currency_id"
                                 attrs="{'readonly':[('state','in', ['approved', 'cancel'])]}"
                                 groups="base.group_multi_currency"
+                                options="{'no_create': True, 'no_open': True}"
                             />
-                            <field name="company_id" groups="base.group_multi_company" />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                                options="{'no_create': True, 'no_open': True}"
+                            />
                         </group>
                     </group>
                     <notebook>
