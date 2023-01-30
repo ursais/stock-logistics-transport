@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<odoo noupdate="1">
+<odoo>
     <record id="tms_account_journal_advance" model="account.journal">
         <field name="name">Advance Journal</field>
         <field name="type">general</field>
         <field name="code">AD</field>
         <field name="show_on_dashboard" eval="False" />
-        <field name="tms_type">advance</field>
     </record>
     <record id="tms_account_journal_expense" model="account.journal">
         <field name="name">Expense Journal</field>
         <field name="type">general</field>
         <field name="code">EXP</field>
         <field name="show_on_dashboard" eval="False" />
-        <field name="tms_type">expense</field>
     </record>
 </odoo>

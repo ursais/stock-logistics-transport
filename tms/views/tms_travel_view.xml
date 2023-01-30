@@ -379,7 +379,7 @@
                             >
                               <tree
                                     decoration-info="state=='draft'"
-                                    decoration-success="state=='approved'"
+                                    decoration-success="state=='confirmed'"
                                     decoration-muted="state=='closed'"
                                     decoration-danger="state=='cancel'"
                                     editable="bottom"
@@ -413,16 +413,16 @@
                                         name="state"
                                         widget="badge"
                                         decoration-info="state=='draft'"
-                                        decoration-success="state=='approved'"
+                                        decoration-success="state=='confirmed'"
                                         decoration-muted="state=='closed'"
                                         decoration-danger="state=='cancel'"
                                     />
                                     <button
                                         class="oe_highlight"
                                         icon="fa-check-square-o"
-                                        name="action_approve"
+                                        name="action_confirm"
                                         states="draft"
-                                        string="Approve"
+                                        string="Confirmed"
                                         type="object"
                                     />
                                 </tree>
@@ -432,7 +432,7 @@
                             <field name="advance_ids" attrs="{'readonly':[('state', 'in', ['done', 'closed'])]}">
                                 <tree
                                     decoration-muted="state=='closed'"
-                                    decoration-success="state=='approved'"
+                                    decoration-success="state=='confirmed'"
                                     decoration-info="state=='done'"
                                     decoration-danger="state=='cancel'"
                                     editable="bottom"
@@ -453,9 +453,9 @@
                                     <field name="state" optional="show" />
                                     <button
                                         icon="fa-arrow-right"
-                                        name="action_approve"
+                                        name="action_confirm"
                                         states="draft"
-                                        string="Approve"
+                                        string="Confirmed"
                                         type="object"
                                     />
                                 </tree>

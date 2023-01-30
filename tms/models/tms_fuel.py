@@ -33,6 +33,9 @@ class TmsFuel(models.Model):
         required=True,
         tracking=True,
     )
+    uom_category_id = fields.Many2one(
+        related="product_uom_id.category_id",
+    )
     product_qty = fields.Float(
         string="Quantity",
         default=1.0,
@@ -72,7 +75,7 @@ class TmsFuel(models.Model):
     state = fields.Selection(
         [
             ("draft", "Draft"),
-            ("approved", "Approved"),
+            ("confirmed", "Confirmed"),
             ("closed", "Closed"),
             ("cancel", "Cancelled"),
         ],
@@ -165,9 +168,9 @@ class TmsFuel(models.Model):
                 }
             )
 
-    def action_approve(self):
+    def action_confirm(self):
         for rec in self:
-            rec.state = "approved"
+            rec.state = "confirmed"
 
     def action_cancel(self):
         if self.mapped("move_id"):
@@ -194,7 +197,7 @@ class TmsFuel(models.Model):
         if self.mapped("move_id"):
             raise UserError(_("Could not Invoice Fuel Voucher! This Fuel Voucher is already Invoiced"))
         if any(rec.state in ["draft", "cancel"] for rec in self):
-            raise UserError(_("Could not Invoice Fuel Voucher! This Fuel Voucher must be approved or closed"))
+            raise UserError(_("Could not Invoice Fuel Voucher! This Fuel Voucher must be confirmed or closed"))
         invoice_batch = {}
         for rec in self:
             ref = " ".join(

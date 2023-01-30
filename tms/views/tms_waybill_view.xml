@@ -9,7 +9,7 @@
                 decoration-muted="state=='closed'"
                 decoration-danger="state=='cancel'"
                 decoration-info="state=='draft'"
-                decoration-success="state=='approved'"
+                decoration-success="state=='confirmed'"
             >
                 <header>
                     <button name="action_invoice" string="Create Invoice" type="object" />
@@ -28,7 +28,13 @@
                     decoration-success="payment_state in ('paid', 'reversed')"
                 />
                 <field name="state" />
-                <button icon="fa-check-square-o" name="action_approve" states="draft" string="Approve" type="object" />
+                <button
+                    icon="fa-check-square-o"
+                    name="action_confirm"
+                    states="draft"
+                    string="Confirmed"
+                    type="object"
+                />
             </tree>
         </field>
     </record>
@@ -41,9 +47,9 @@
                     <button
                         class="oe_highlight"
                         icon="fa-check-square-o"
-                        name="action_approve"
+                        name="action_confirm"
                         states="draft"
-                        string="Approve"
+                        string="Confirmed"
                         type="object"
                     />
                     <button name="compute_waybill_lines" string="Compute Lines" type="object" states="draft" />
@@ -52,7 +58,7 @@
                         name="action_invoice"
                         string="Create Invoice"
                         type="object"
-                        attrs="{'invisible': ['|', ('state', '!=', 'approved'), ('move_id', '!=', False)]}"
+                        attrs="{'invisible': ['|', ('state', '!=', 'confirmed'), ('move_id', '!=', False)]}"
                     />
                     <button
                         icon="fa-reply"
@@ -64,11 +70,11 @@
                     <button
                         icon="fa-times"
                         name="action_cancel"
-                        states="draft,approved,confirmed"
+                        states="draft,confirmed,confirmed"
                         string="Cancel"
                         type="object"
                     />
-                    <field name="state" statusbar_visible="draft,approved" widget="statusbar" />
+                    <field name="state" statusbar_visible="draft,confirmed" widget="statusbar" />
 
                 </header>
                 <sheet>
@@ -110,38 +116,39 @@
                         <group>
                             <field
                                 name="partner_id"
-                                attrs="{'readonly':[('state','in',['approved', 'cancel'])]}"
+                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
                                 widget="res_partner_many2one"
                                 context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"
                                 options="{'no_create': True}"
                             />
                             <field
                                 name="partner_order_id"
-                                attrs="{'readonly':[('state','in',['approved', 'cancel'])]}"
+                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
                                 domain="[('parent_id','=',partner_id), ('type', '=', 'contact')]"
                                 context="{'search_default_customer':1, 'show_address': 1}"
                                 options="{'no_create': True, 'no_open': True}"
                             />
                             <field
                                 name="invoice_partner_id"
-                                attrs="{'readonly':[('state','in',['approved', 'cancel'])]}"
+                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
                                 context="{'search_default_customer':1, 'show_address': 1}"
                                 domain="['|', ('id', '=', partner_id), '&amp;', ('parent_id', '=', partner_id), ('type', '=', 'invoice')]"
                                 options="{'no_create': True, 'no_open': True}"
                             />
                             <field
                                 name="travel_id"
-                                attrs="{'readonly':[('state','in',['approved', 'cancel'])], 'invisible': [('partner_id', '=', False)]}"
+                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])], 'invisible': [('partner_id', '=', False)]}"
                                 domain="[('state', 'not in', ['cancel','closed']), ('partner_ids', 'in', [partner_id])]"
                                 options="{'no_create': True}"
                             />
                         </group>
                         <group>
-                            <field name="date" attrs="{'readonly':[('state','in',['approved', 'cancel'])]}" />
+                            <field name="date" attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}" />
+                            <field name="user_id" attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}" />
                             <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" />
                             <field
                                 name="currency_id"
-                                attrs="{'readonly':[('state','in',['approved', 'cancel'])]}"
+                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
                                 groups="base.group_multi_currency"
                                 options="{'no_create': True, 'no_open': True}"
                             />
@@ -152,7 +159,7 @@
                             <label for="transportable_line_ids" />
                             <field
                                 name="transportable_line_ids"
-                                attrs="{'readonly':[('state','in',['approved', 'cancel'])]}"
+                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
                                 nolabel="1"
                             >
                                 <tree editable="bottom">
@@ -171,7 +178,7 @@
                             </field>
                             <label for="waybill_line_ids" />
                             <field
-                                attrs="{'readonly':[('state','in',['approved', 'cancel'])]}"
+                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
                                 name="waybill_line_ids"
                                 nolabel="1"
                             >
@@ -261,7 +268,7 @@
                 <field name="date" string="Waybill date" />
                 <field name="user_id" />
                 <filter name="pending" domain="[('state','=','draft')]" string="Pending" />
-                <filter name="approved" domain="[('state','=','approved')]" string="Approved" />
+                <filter name="confirmed" domain="[('state','=','confirmed')]" string="Confirmed" />
                 <filter name="invoiced" domain="[('move_id','!=', False)]" string="Invoiced" />
                 <filter name="not_invoiced" domain="[('move_id','=', False)]" string="Not Invoiced" />
                 <filter domain="[('state','!=','cancel')]" name="not_cancelled" string="Not Cancelled" />

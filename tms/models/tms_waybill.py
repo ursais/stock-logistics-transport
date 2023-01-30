@@ -19,7 +19,7 @@ class TmsWaybill(models.Model):
     name = fields.Char(readonly=True, copy=False)
     travel_id = fields.Many2one("tms.travel", copy=False, string="Travel", ondelete="restrict")
     state = fields.Selection(
-        [("draft", "Pending"), ("approved", "Approved"), ("closed", "Closed"), ("cancel", "Cancelled")],
+        [("draft", "Pending"), ("confirmed", "Confirmed"), ("closed", "Closed"), ("cancel", "Cancelled")],
         readonly=True,
         tracking=True,
         help="Gives the state of the Waybill.",
@@ -354,15 +354,15 @@ class TmsWaybill(models.Model):
             )
             rec.tax_totals_json = json.dumps(tax_totals)
 
-    def action_approve(self):
+    def action_confirm(self):
         for rec in self:
             if not rec.travel_id:
                 raise UserError(
                     _("Could not confirm Waybill !Waybill must be assigned to a Travel before confirming.")
                 )
             if not rec.waybill_line_ids.filtered(lambda l: l.product_id.tms_product_category == "freight"):
-                raise UserError(_("Could not approve this waybill, you must have freight product."))
-            rec.state = "approved"
+                raise UserError(_("Could not confirm this waybill, you must have freight product."))
+            rec.state = "confirmed"
 
     def action_cancel_draft(self):
         for waybill in self:

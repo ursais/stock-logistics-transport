@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="base.main_company" model="res.company">
+        <field name="advance_journal_id" ref="tms_account_journal_advance" />
+        <field name="expense_journal_id" ref="tms_account_journal_expense" />
+        <field name="driver_license_security_days">5</field>
+        <field name="insurance_security_days">5</field>
+        <field name="advance_account_id" ref="account_drivers" />
+        <field name="expense_negative_account_id" ref="account_negative_balance" />
+    </record>
+</odoo>

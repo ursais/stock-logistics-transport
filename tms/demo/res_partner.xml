@@ -35,4 +35,38 @@
         <field name="property_account_payable_id" ref="account_advances_expenses" />
         <field name="property_account_receivable_id" ref="account_advances_expenses" />
     </record>
+    <record id="res_partner_customer_01" model="res.partner">
+        <field name="name">Industrial Inc.</field>
+        <field name="company_type">company</field>
+    </record>
+    <record id="res_partner_customer_01_01" model="res.partner">
+        <field name="name">Industrial Inc. Warehouse 1</field>
+        <field name="company_type">person</field>
+        <field name="parent_id" ref="res_partner_customer_01" />
+        <field name="type">delivery</field>
+    </record>
+    <record id="res_partner_customer_01_02" model="res.partner">
+        <field name="name">Industrial Inc. Warehouse 2</field>
+        <field name="company_type">person</field>
+        <field name="parent_id" ref="res_partner_customer_01" />
+        <field name="type">delivery</field>
+    </record>
+    <record id="res_partner_customer_01_03" model="res.partner">
+        <field name="name">Industrial Inc. Warehouse 3</field>
+        <field name="company_type">person</field>
+        <field name="parent_id" ref="res_partner_customer_01" />
+        <field name="type">delivery</field>
+    </record>
+    <record id="res_partner_customer_01_04" model="res.partner">
+        <field name="name">Industrial Inc. Warehouse 4</field>
+        <field name="company_type">person</field>
+        <field name="parent_id" ref="res_partner_customer_01" />
+        <field name="type">delivery</field>
+    </record>
+    <record id="res_partner_customer_01_05" model="res.partner">
+        <field name="name">John Snow</field>
+        <field name="company_type">person</field>
+        <field name="parent_id" ref="res_partner_customer_01" />
+        <field name="type">contact</field>
+    </record>
 </odoo>

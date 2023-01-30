@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="tms_fuel_log_01" model="tms.fuel">
+        <field name="partner_id" ref="base.res_partner_1" />
+        <field name="travel_id" ref="tms_travel_01" />
+        <field name="product_id" ref="product_fuel" />
+        <field name="product_uom_id" ref="uom.product_uom_litre" />
+        <field name="product_qty">1773.001</field>
+        <field name="price_unit">25.0</field>
+        <field name="ref">1234</field>
+    </record>
+    <record id="tms_fuel_log_02" model="tms.fuel">
+        <field name="partner_id" ref="base.res_partner_1" />
+        <field name="travel_id" ref="tms_travel_01" />
+        <field name="product_id" ref="product_fuel" />
+        <field name="product_uom_id" ref="uom.product_uom_litre" />
+        <field name="product_qty">384.843</field>
+        <field name="price_unit">25.0</field>
+        <field name="ref">4321</field>
+    </record>
+    <record id="tms_fuel_log_03" model="tms.fuel">
+        <field name="partner_id" ref="base.res_partner_1" />
+        <field name="travel_id" ref="tms_travel_02" />
+        <field name="product_id" ref="product_fuel" />
+        <field name="product_uom_id" ref="uom.product_uom_litre" />
+        <field name="product_qty">59.207</field>
+        <field name="price_unit">25.0</field>
+        <field name="ref">5467</field>
+    </record>
+    <record id="tms_fuel_log_04" model="tms.fuel">
+        <field name="partner_id" ref="base.res_partner_1" />
+        <field name="travel_id" ref="tms_travel_03" />
+        <field name="product_id" ref="product_fuel" />
+        <field name="product_uom_id" ref="uom.product_uom_litre" />
+        <field name="product_qty">284.429</field>
+        <field name="price_unit">25.0</field>
+        <field name="ref">9867</field>
+    </record>
+    <record id="tms_fuel_log_05" model="tms.fuel">
+        <field name="partner_id" ref="base.res_partner_1" />
+        <field name="travel_id" ref="tms_travel_04" />
+        <field name="product_id" ref="product_fuel" />
+        <field name="product_uom_id" ref="uom.product_uom_litre" />
+        <field name="product_qty">59.207</field>
+        <field name="price_unit">25.0</field>
+        <field name="ref">8765</field>
+    </record>
+    <record id="tms_fuel_log_06" model="tms.fuel">
+        <field name="partner_id" ref="base.res_partner_1" />
+        <field name="travel_id" ref="tms_travel_05" />
+        <field name="product_id" ref="product_fuel" />
+        <field name="product_uom_id" ref="uom.product_uom_litre" />
+        <field name="product_qty">279.811</field>
+        <field name="price_unit">25.0</field>
+        <field name="ref">54388</field>
+    </record>
+    <function name="action_confirm" model="tms.fuel" eval="[ref('tms_fuel_log_01')]" />
+    <function name="action_confirm" model="tms.fuel" eval="[ref('tms_fuel_log_02')]" />
+</odoo>

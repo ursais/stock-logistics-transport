@@ -9,9 +9,9 @@
                     <button
                         class="oe_highlight"
                         icon="fa-check-square-o"
-                        name="action_approve"
+                        name="action_confirm"
                         states="draft"
-                        string="Approve"
+                        string="Confirmed"
                         type="object"
                     />
                     <button
@@ -19,12 +19,12 @@
                         name="action_invoice"
                         string="Create Invoice"
                         type="object"
-                        attrs="{'invisible': ['|', ('state', '!=', 'approved'), ('move_id', '!=', False)]}"
+                        attrs="{'invisible': ['|', ('state', '!=', 'confirmed'), ('move_id', '!=', False)]}"
                     />
                     <button
                         icon="fa-times"
                         name="action_cancel"
-                        states="draft,approved"
+                        states="draft,confirmed"
                         string="Cancel"
                         type="object"
                     />
@@ -37,7 +37,7 @@
                     />
                     <field
                         name="state"
-                        statusbar_visible="draft,approved,confirmed,cancel,closed"
+                        statusbar_visible="draft,confirmed,confirmed,cancel,closed"
                         widget="statusbar"
                     />
                 </header>
@@ -103,11 +103,16 @@
                         <page string="Fuel Details">
                             <group>
                                 <group>
+                                    <field name="uom_category_id" invisible="1" />
                                     <field name="product_id" attrs="{'readonly':[('state', '!=', 'draft')]}" />
                                     <label for="product_qty" />
                                     <div class="o_row">
                                         <field name="product_qty" attrs="{'readonly':[('state', '!=', 'draft')]}" />
-                                        <field name="product_uom_id" attrs="{'readonly':[('state', '!=', 'draft')]}" />
+                                        <field
+                                            name="product_uom_id"
+                                            attrs="{'readonly':[('state', '!=', 'draft')]}"
+                                            domain="[('category_id', '=', uom_category_id)]"
+                                        />
                                     </div>
                                     <field name="price_unit" />
                                     <field name="amount_untaxed" />
@@ -164,7 +169,7 @@
         <field name="arch" type="xml">
             <tree
                 decoration-info="state=='draft'"
-                decoration-success="state=='approved'"
+                decoration-success="state=='confirmed'"
                 decoration-muted="state=='closed'"
                 decoration-danger="state=='cancel'"
             >
@@ -187,16 +192,16 @@
                     name="state"
                     widget="badge"
                     decoration-info="state=='draft'"
-                    decoration-success="state=='approved'"
+                    decoration-success="state=='confirmed'"
                     decoration-muted="state=='closed'"
                     decoration-danger="state=='cancel'"
                 />
                 <button
                     class="oe_highlight"
                     icon="fa-check-square-o"
-                    name="action_approve"
+                    name="action_confirm"
                     states="draft"
-                    string="Approve"
+                    string="Confirmed"
                     type="object"
                 />
             </tree>

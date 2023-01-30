@@ -5,7 +5,7 @@
         <field name="model">tms.expense</field>
         <field name="priority">2</field>
         <field name="arch" type="xml">
-            <tree decoration-muted="state=='cancel'" decoration-info="state=='approved'">
+            <tree decoration-muted="state=='cancel'" decoration-info="state=='confirmed'">
                 <header>
                     <button name="action_register_payment" string="Register Payment" type="object" />
                 </header>
@@ -26,7 +26,7 @@
                     name="state"
                     widget="badge"
                     decoration-info="state == 'draft'"
-                    decoration-muted="state == 'approved'"
+                    decoration-muted="state == 'confirmed'"
                     decoration-danger="state == 'cancel'"
                 />
             </tree>
@@ -48,12 +48,12 @@
                     <button
                         class="oe_highlight"
                         icon="fa-check-square-o"
-                        name="action_approve"
+                        name="action_confirm"
                         states="draft"
-                        string="Approve"
+                        string="Confirmed"
                         type="object"
                     />
-                    <button name="action_cancel" states="approved" string="Cancel" type="object" />
+                    <button name="action_cancel" states="confirmed" string="Cancel" type="object" />
                     <button name="get_travel_info" states="draft" string="Update Expense" type="object" />
                     <field name="state" widget="statusbar" />
                 </header>
@@ -102,22 +102,22 @@
                         <group>
                             <field
                                 name="unit_id"
-                                attrs="{'readonly':[('state','in', ['approved', 'cancel'])]}"
+                                attrs="{'readonly':[('state','in', ['confirmed', 'cancel'])]}"
                                 domain="[('id', 'in', unit_ids)]"
                                 options="{'no_create': True}"
                             />
                             <field name="unit_ids" invisible="1" />
                             <field
                                 name="driver_id"
-                                attrs="{'invisible': [('unit_id', '=', False)], 'readonly':[('state','in', ['approved', 'cancel'])]}"
+                                attrs="{'invisible': [('unit_id', '=', False)], 'readonly':[('state','in', ['confirmed', 'cancel'])]}"
                                 options="{'no_create': True}"
                             />
                         </group>
                         <group>
-                            <field name="date" attrs="{'readonly':[('state','in', ['approved', 'cancel'])]}" />
+                            <field name="date" attrs="{'readonly':[('state','in', ['confirmed', 'cancel'])]}" />
                             <field
                                 name="currency_id"
-                                attrs="{'readonly':[('state','in', ['approved', 'cancel'])]}"
+                                attrs="{'readonly':[('state','in', ['confirmed', 'cancel'])]}"
                                 groups="base.group_multi_currency"
                                 options="{'no_create': True, 'no_open': True}"
                             />
@@ -159,14 +159,14 @@
                         <page string="Travels">
                             <field
                                 name="travel_ids"
-                                attrs="{'readonly':[('state','in', ['approved', 'cancel'])]}"
+                                attrs="{'readonly':[('state','in', ['confirmed', 'cancel'])]}"
                                 domain="[('driver_id','=', driver_id), ('state','=', 'done'), ('unit_id', '=', unit_id)]"
                             />
                         </page>
                         <page string="Expense Lines">
                             <field
                                 name="expense_line_ids"
-                                attrs="{'readonly':[('state','in', ['approved', 'cancel'])]}"
+                                attrs="{'readonly':[('state','in', ['confirmed', 'cancel'])]}"
                                 context="{'default_expense_id': active_id, 'group_by_line_type': 1}"
                                 nolabel="1"
                             >
@@ -299,7 +299,7 @@
                                     <field name="route_distance" />
                                     <field
                                         name="current_odometer"
-                                        attrs="{'readonly':[('state','in', ['approved', 'cancel'])]}"
+                                        attrs="{'readonly':[('state','in', ['confirmed', 'cancel'])]}"
                                     />
                                 </group>
                                 <group name="distances_real" string="Real">
@@ -341,7 +341,7 @@
                 <field name="unit_id" />
                 <field name="date" string="Expense date" />
                 <filter name="draft" domain="[('state','=','draft')]" string="Draft" />
-                <filter name="approved" domain="[('state','=','approved')]" string="Approved" />
+                <filter name="confirmed" domain="[('state','=','confirmed')]" string="Confirmed" />
                 <filter name="not_paid" string="Unpaid" domain="[('payment_state', 'in', ('not_paid', 'partial'))]" />
                 <filter name="paid" string="Paid" domain="[('payment_state', 'in', ('in_payment', 'paid'))]" />
                 <filter name="driver" context="{'group_by':'driver_id'}" string="Driver" />

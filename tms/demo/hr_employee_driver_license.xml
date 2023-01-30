@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_employee_driver_license_01" model="hr.employee.driver.license">
+        <field name="name">QROO002722</field>
+        <field name="employee_id" ref="tms_hr_employee_01" />
+        <field name="license_type">A</field>
+        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
+        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
+    </record>
+    <record id="hr_employee_driver_license_02" model="hr.employee.driver.license">
+        <field name="name">QROO002723</field>
+        <field name="employee_id" ref="tms_hr_employee_02" />
+        <field name="license_type">A</field>
+        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
+        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
+    </record>
+    <record id="hr_employee_driver_license_03" model="hr.employee.driver.license">
+        <field name="name">QROO002724</field>
+        <field name="employee_id" ref="tms_hr_employee_03" />
+        <field name="license_type">A</field>
+        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
+        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
+    </record>
+    <record id="hr_employee_driver_license_04" model="hr.employee.driver.license">
+        <field name="name">QROO002725</field>
+        <field name="employee_id" ref="tms_hr_employee_04" />
+        <field name="license_type">A</field>
+        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
+        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
+    </record>
+    <record id="hr_employee_driver_license_05" model="hr.employee.driver.license">
+        <field name="name">QROO002726</field>
+        <field name="employee_id" ref="tms_hr_employee_05" />
+        <field name="license_type">A</field>
+        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
+        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
+    </record>
+    <record id="hr_employee_driver_license_06" model="hr.employee.driver.license">
+        <field name="name">QROO002727</field>
+        <field name="employee_id" ref="tms_hr_employee_06" />
+        <field name="license_type">A</field>
+        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
+        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
+    </record>
+    <record id="hr_employee_driver_license_07" model="hr.employee.driver.license">
+        <field name="name">QROO002728</field>
+        <field name="employee_id" ref="tms_hr_employee_07" />
+        <field name="license_type">A</field>
+        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
+        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
+    </record>
+</odoo>

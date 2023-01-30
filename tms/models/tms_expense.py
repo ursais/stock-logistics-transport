@@ -27,7 +27,7 @@ class TmsExpense(models.Model):
         default=lambda self: self.env.user.company_id.currency_id,
     )
     state = fields.Selection(
-        [("draft", "Draft"), ("approved", "Approved"), ("cancel", "Cancelled")],
+        [("draft", "Draft"), ("confirmed", "Confirmed"), ("cancel", "Cancelled")],
         readonly=True,
         tracking=True,
         default="draft",
@@ -336,9 +336,9 @@ class TmsExpense(models.Model):
             travels = self.env["tms.travel"].search([("expense_id", "=", rec.id)])
             travels.write({"expense_id": False, "state": "done"})
             advances = self.env["tms.advance"].search([("expense_id", "=", rec.id)])
-            advances.write({"expense_id": False, "state": "approved"})
+            advances.write({"expense_id": False, "state": "confirmed"})
             fuel_logs = self.env["tms.fuel"].search([("expense_id", "=", rec.id)])
-            fuel_logs.write({"expense_id": False, "state": "approved"})
+            fuel_logs.write({"expense_id": False, "state": "confirmed"})
             return super().unlink()
 
     def action_draft(self):
@@ -631,10 +631,10 @@ class TmsExpense(models.Model):
             rec.reconcile_supplier_invoices(result["invoices"], move_id)
             rec.write({"move_id": move_id.id, "state": "confirmed"})
 
-    def action_approve(self):
+    def action_confirm(self):
         for rec in self:
-            if rec.move_id or rec.state == "approved":
-                raise UserError(_("You can not confirm a approved expense."))
+            if rec.move_id or rec.state == "confirmed":
+                raise UserError(_("You can not confirm a confirmed expense."))
             result = rec.higher_than_zero_move()
             for line in rec.expense_line_ids:
                 rec.create_expense_line_move_line(line, result)
@@ -647,7 +647,7 @@ class TmsExpense(models.Model):
         self.ensure_one()
         if self.payment_status != "not_paid":
             raise UserError(_("You cannot cancel an expense that is paid."))
-        if self.state == "approved":
+        if self.state == "confirmed":
             self.move_id.button_cancel()
             self.move_id.unlink()
             self.fuel_ids.filtered(lambda x: x.created_from_expense).unlink()
@@ -663,13 +663,13 @@ class TmsExpense(models.Model):
             travels = self.env["tms.travel"].search([("expense_id", "=", rec.id)])
             travels.write({"expense_id": False, "state": "done"})
             advances = self.env["tms.advance"].search([("expense_id", "=", rec.id)])
-            advances.write({"expense_id": False, "state": "approved"})
+            advances.write({"expense_id": False, "state": "confirmed"})
             fuel_logs = self.env["tms.fuel"].search(
                 [("expense_id", "=", rec.id), ("created_from_expense", "=", False)]
             )
-            fuel_logs.write({"expense_id": False, "state": "approved"})
+            fuel_logs.write({"expense_id": False, "state": "confirmed"})
             waybills = self.env["tms.waybill"].search([("expense_id", "=", rec.id)])
-            waybills.write({"expense_id": False, "state": "approved"})
+            waybills.write({"expense_id": False, "state": "confirmed"})
 
     def _get_advance_lines(self, advance):
         if advance.auto_expense and advance.state != "cancel":
@@ -761,28 +761,28 @@ class TmsExpense(models.Model):
         self.ensure_one()
         errors = []
         advances = self.travel_ids.mapped("advance_ids").filtered(
-            lambda a: a.state not in ["approved", "cancel"] or a.payment_state != "paid"
+            lambda a: a.state not in ["confirmed", "cancel"] or a.payment_state != "paid"
         )
         if advances:
             errors.append(
                 _(
-                    "All the advances must be approved or cancelled and paid.\nAdvances with error:\n%(advances)s\n",
+                    "All the advances must be confirmed or cancelled and paid.\nAdvances with error:\n%(advances)s\n",
                     advances="\n".join(advances.mapped("name")),
                 )
             )
-        fuels = self.travel_ids.mapped("fuel_ids").filtered(lambda f: f.state != "approved")
+        fuels = self.travel_ids.mapped("fuel_ids").filtered(lambda f: f.state != "confirmed")
         if fuels:
             errors.append(
                 _(
-                    "All the fuel vouchers must be approved.\nFuel vourchers with error:\n%(fuels)s",
+                    "All the fuel vouchers must be confirmed.\nFuel vourchers with error:\n%(fuels)s",
                     fuels="\n".join(fuels.mapped("name")),
                 )
             )
-        waybills = self.travel_ids.mapped("waybill_ids").filtered(lambda w: w.state != "approved")
+        waybills = self.travel_ids.mapped("waybill_ids").filtered(lambda w: w.state != "confirmed")
         if waybills:
             errors.append(
                 _(
-                    "All the waybills must be approved.\nWaybills with error:\n%(waybills)s",
+                    "All the waybills must be confirmed.\nWaybills with error:\n%(waybills)s",
                     waybills="\n".join(waybills.mapped("name")),
                 )
             )
@@ -794,13 +794,13 @@ class TmsExpense(models.Model):
             rec._unattach_info()
             rec._validate_records_for_expense()
             rec.travel_ids.write({"state": "closed", "expense_id": rec.id})
-            rec.travel_ids.mapped("fuel_ids").filtered(lambda f: f.state == "approved").write(
+            rec.travel_ids.mapped("fuel_ids").filtered(lambda f: f.state == "confirmed").write(
                 {"state": "closed", "expense_id": rec.id}
             )
-            rec.travel_ids.mapped("advance_ids").filtered(lambda f: f.state == "approved").write(
+            rec.travel_ids.mapped("advance_ids").filtered(lambda f: f.state == "confirmed").write(
                 {"state": "closed", "expense_id": rec.id}
             )
-            rec.travel_ids.mapped("waybill_ids").filtered(lambda f: f.state == "approved").write(
+            rec.travel_ids.mapped("waybill_ids").filtered(lambda f: f.state == "confirmed").write(
                 {"state": "closed", "expense_id": rec.id}
             )
             lines_to_create = []

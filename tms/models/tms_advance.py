@@ -16,7 +16,7 @@ class TmsAdvance(models.Model):
     state = fields.Selection(
         selection=[
             ("draft", "Draft"),
-            ("approved", "Approved"),
+            ("confirmed", "Confirmed"),
             ("done", "Done"),
             ("closed", "Closed"),
             ("cancel", "Cancelled"),
@@ -154,7 +154,7 @@ class TmsAdvance(models.Model):
             rec.payment_ids = related_moves.mapped("payment_id")
             rec.amount_residual = amount_residual
 
-    def action_approve(self):
+    def action_confirm(self):
         for rec in self:
             if rec.move_id:
                 raise UserError(_("You can not confirm a confirmed advance."))
@@ -164,7 +164,7 @@ class TmsAdvance(models.Model):
             rec.write(
                 {
                     "move_id": move.id,
-                    "state": "approved",
+                    "state": "confirmed",
                 }
             )
 

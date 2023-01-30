@@ -10,7 +10,7 @@
                 <field name="driver_id" />
                 <field name="state" />
                 <filter name="draft" domain="[('state','=','draft')]" string="Draft" />
-                <filter name="approved" domain="[('state','=','approved')]" string="Approved" />
+                <filter name="confirmed" domain="[('state','=','confirmed')]" string="Confirmed" />
                 <filter name="closed" domain="[('state','=','closed')]" string="Closed" />
                 <separator />
                 <filter name="cancelled" domain="[('state','=','cancel')]" string="Cancelled" />
@@ -38,7 +38,7 @@
         <field name="arch" type="xml">
             <tree
                 decoration-muted="state=='closed'"
-                decoration-success="state=='approved'"
+                decoration-success="state=='confirmed'"
                 decoration-info="state=='done'"
                 decoration-danger="state=='cancel'"
             >
@@ -67,12 +67,12 @@
                     name="state"
                     widget="badge"
                     decoration-info="state == 'draft'"
-                    decoration-success="state == 'approved'"
+                    decoration-success="state == 'confirmed'"
                     decoration-muted="state == 'done'"
                     decoration-warning="state == 'closed'"
                     decoration-danger="state == 'cancel'"
                 />
-                <button icon="fa-arrow-right" name="action_approve" states="draft" string="Approve" type="object" />
+                <button icon="fa-arrow-right" name="action_confirm" states="draft" string="Confirmed" type="object" />
             </tree>
         </field>
     </record>
@@ -83,18 +83,18 @@
             <form string="Advances">
                 <header>
                     <button
-                        name="action_approve"
+                        name="action_confirm"
                         icon="fa-thumbs-up"
                         class="oe_highlight"
                         states="draft"
-                        string="Approve"
+                        string="Confirmed"
                         type="object"
                     />
                     <button
                         name="action_register_payment"
                         icon="fa-usd"
                         class="oe_highlight"
-                        attrs="{'invisible': ['|', ('state', '!=', 'approved'), ('payment_state', '=', 'paid')]}"
+                        attrs="{'invisible': ['|', ('state', '!=', 'confirmed'), ('payment_state', '=', 'paid')]}"
                         string="Register Payment"
                         type="object"
                     />
@@ -108,7 +108,7 @@
                     <button
                         name="action_cancel"
                         icon="fa-times"
-                        states="draft,approved"
+                        states="draft,confirmed"
                         string="Cancel"
                         type="object"
                     />
