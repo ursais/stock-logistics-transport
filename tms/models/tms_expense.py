@@ -160,6 +160,16 @@ class TmsExpense(models.Model):
     company_id = fields.Many2one(
         "res.company", string="Company", required=True, default=lambda self: self.env.user.company_id
     )
+    analytic_account_id = fields.Many2one(
+        "account.analytic.account",
+        string="Analytic Account",
+        check_company=True,
+    )
+    analytic_tag_ids = fields.Many2many(
+        "account.analytic.tag",
+        string="Analytic Tags",
+        check_company=True,
+    )
 
     @api.onchange("unit_id")
     def _onchange_unit_id(self):
@@ -192,12 +202,13 @@ class TmsExpense(models.Model):
                 sum(
                     rec.move_id.line_ids.filtered(
                         lambda line: line.account_id.user_type_id.type in ("receivable", "payable")
+                        and line.partner_id == rec.driver_id.address_home_id
                     ).mapped("amount_residual")
                 )
             )
             if float_compare(amount_residual, 0.0, precision_rounding=rec.currency_id.rounding) == 0:
                 rec.payment_state = "paid"
-            elif float_compare(amount_residual, rec.amount, precision_rounding=rec.currency_id.rounding) == 0:
+            elif float_compare(amount_residual, rec.amount_salary_balance, precision_rounding=rec.currency_id.rounding) == 0:
                 rec.payment_state = "not_paid"
             else:
                 rec.payment_state = "partial"
@@ -429,58 +440,39 @@ class TmsExpense(models.Model):
         )
 
     @api.model
-    def create_fuel_vouchers(self, line):
-        for rec in self:
-            fuel_voucher = rec.env["tms.fuel"].create(
-                {
-                    "travel_id": line.travel_id.id,
-                    "vehicle_id": (line.travel_id.unit_id.id or line.expense_id.unit_id.id),
-                    "product_id": line.product_id.id,
-                    "price_unit": line.price_unit,
-                    "amount_untaxed": line.amount_untaxed,
-                    "vendor_id": line.partner_id.id,
-                    "product_qty": line.product_qty,
-                    "tax_amount": line.tax_amount,
-                    "state": "closed",
-                    "driver_id": rec.driver_id.id,
-                    "amount_total": line.amount_total,
-                    "date": line.date,
-                    "expense_id": rec.id,
-                    "ref": line.ref,
-                    "created_from_expense": True,
-                    "expense_line_id": line.id,
-                }
-            )
-            line.write({"expense_fuel_log": True})
-            return fuel_voucher
+    def _create_fuel_vouchers(self, line):
+        return self.env["tms.fuel"].create(
+            {
+                "travel_id": line.travel_id.id,
+                "product_id": line.product_id.id,
+                "price_unit": line.price_unit,
+                "amount_untaxed": line.amount_untaxed,
+                "partner_id": line.partner_id.id,
+                "product_qty": line.product_qty,
+                "tax_amount": line.tax_amount,
+                "state": "closed",
+                "date": line.date,
+                "expense_id": rec.id,
+                "ref": line.ref,
+                "created_from_expense": True,
+                "expense_line_id": line.id,
+            }
+        )
 
     def higher_than_zero_move(self):
         for rec in self:
             move_lines = []
             invoices = []
             move_obj = rec.env["account.move"]
-            journal_id = rec.company_id.expense_journal_id.id
-            advance_account_id = rec.driver_id.tms_advance_account_id.id
-            negative_account = rec.driver_id.tms_expense_negative_account_id.id
+            journal_id = rec._get_expense_journal()
+            advance_account_id = (
+                rec.driver_id.property_tms_advance_account_id.id or rec.company_id.advance_account_id.id
+            )
+            negative_account = (
+                rec.driver_id.property_tms_expense_negative_account_id.id
+                or rec.company_id.expense_negative_account_id.id
+            )
             driver_account_payable = rec.driver_id.address_home_id.property_account_payable_id.id
-            if not journal_id:
-                raise UserError(
-                    _(
-                        "Warning! The expense does not have a journal"
-                        " assigned. \nCheck if you already set the "
-                        "journal for expense moves in the Operating Unit."
-                    )
-                )
-            if not driver_account_payable:
-                raise UserError(
-                    _(
-                        "Warning! The driver does not have a home address"
-                        " assigned. \nCheck if you already set the "
-                        "home address for the employee."
-                    )
-                )
-            if not advance_account_id:
-                raise UserError(_("Warning! You must have configured the accounts of the tms for the Driver"))
             # We check if the advance amount is higher than zero to create
             # a move line
             if rec.amount_advance > 0:
@@ -494,7 +486,7 @@ class TmsExpense(models.Model):
                     rec.driver_id.address_home_id.id,
                 )
                 move_lines.append(move_line)
-            result = {
+            return {
                 "move_lines": move_lines,
                 "invoices": invoices,
                 "move_obj": move_obj,
@@ -503,7 +495,6 @@ class TmsExpense(models.Model):
                 "negative_account": negative_account,
                 "driver_account_payable": driver_account_payable,
             }
-            return result
 
     def check_expenseline_invoice(self, line, result, product_account):
         for rec in self:
@@ -523,14 +514,6 @@ class TmsExpense(models.Model):
                     result["journal_id"],
                     line.partner_id.id,
                 )
-            # if the expense line not be a invoice we make the move
-            # line based in the subtotal
-            elif rec.driver_id.outsourcing and line.product_id.tms_product_category in [
-                "salary",
-                "other_income",
-                "salary_discount",
-            ]:
-                continue
             else:
                 move_line = rec.prepare_move_line(
                     rec.name + " " + line.name,
@@ -540,7 +523,6 @@ class TmsExpense(models.Model):
                     (line.amount_untaxed * -1.0 if line.amount_untaxed < 0.0 else 0.0),
                     result["journal_id"],
                     rec.driver_id.address_home_id.id,
-                    rec.operating_unit_id.id,
                 )
             result["move_lines"].append(move_line)
             if line.is_invoice:
@@ -591,13 +573,7 @@ class TmsExpense(models.Model):
 
     def check_balance_value(self, result):
         for rec in self:
-            balance = rec.amount_balance
-            if rec.driver_id.outsourcing and rec.expense_line_ids.filtered(
-                lambda x: x.line_type in ["other_income", "salary"]
-            ):
-                balance = (balance - rec.amount_other_income - rec.amount_salary) - sum(
-                    rec.expense_line_ids.filtered(lambda y: y.line_type == "salary_discount").mapped("amount_total")
-                )
+            balance = rec.amount_salary_balance
             if balance < 0:
                 move_line = rec.prepare_move_line(
                     _("Negative Balance"),
@@ -638,18 +614,109 @@ class TmsExpense(models.Model):
             rec.reconcile_supplier_invoices(result["invoices"], move_id)
             rec.write({"move_id": move_id.id, "state": "confirmed"})
 
+    # def action_confirm(self):
+    #     for rec in self:
+    #         if rec.move_id or rec.state == "confirmed":
+    #             raise UserError(_("You can not confirm a confirmed expense."))
+    #         rec.get_travel_info()
+    #         result = rec.higher_than_zero_move()
+    #         for line in rec.expense_line_ids:
+    #             rec.create_expense_line_move_line(line, result)
+    #         # Here we check if the balance is positive or negative to create
+    #         # the move line with the correct values
+    #         rec.check_balance_value(result)
+    #         rec.reconcile_account_move(result)
+
     def action_confirm(self):
         for rec in self:
             if rec.move_id or rec.state == "confirmed":
                 raise UserError(_("You can not confirm a confirmed expense."))
             rec.get_travel_info()
-            result = rec.higher_than_zero_move()
-            for line in rec.expense_line_ids:
-                rec.create_expense_line_move_line(line, result)
-            # Here we check if the balance is positive or negative to create
-            # the move line with the correct values
-            rec.check_balance_value(result)
-            rec.reconcile_account_move(result)
+            rec._compute_amounts()
+            move_vals = rec._prepare_move_vals()
+            move = self.env["account.move"].create(move_vals)
+            move.action_post()
+            rec.write({"move_id": move.id, "state": "confirmed"})
+            # rec._reconcile_supplier_invoices()
+
+    def _prepare_move_vals(self):
+        self.ensure_one()
+        move_vals = {
+            "date": self.date,
+            "journal_id": self._get_expense_journal(),
+            "move_type": "entry",
+            "ref": self.name,
+            "line_ids": self._prepare_move_line_vals(),
+            "company_id": self.company_id.id,
+        }
+        return move_vals
+
+    def _prepare_move_line_vals(self):
+        self.ensure_one()
+        move_line_vals = []
+        for line in self.expense_line_ids:
+            if line.line_type == "fuel" and not line.control:
+                self._create_fuel_vouchers(line)
+            elif line.is_invoice:
+                invoice = self._create_supplier_invoice(line)
+                move_line_vals.extend(self._prepare_move_line(line, invoice))
+            elif line.line_type != "fuel":
+                move_line_vals.extend(self._prepare_move_line(line))
+        if self.amount_salary_balance:
+            move_line_vals.extend(self._prepare_move_line(line_type="balance"))
+        if self.amount_advance:
+            move_line_vals.extend(self._prepare_move_line(line_type="advance"))
+        return move_line_vals
+
+    def _prepare_move_line(self, line=False, invoice=False, line_type=False):
+        self.ensure_one()
+        move_line_vals = []
+        if line:
+            name = line.name
+            account_id = line.product_id.product_tmpl_id._get_product_accounts()["expense"].id
+            partner_id = line.partner_id.id if line.partner_id else line.expense_id.driver_id.address_home_id.id
+            debit = line.amount_total if line.amount_total > 0 else 0.0
+            credit = line.amount_total * -1 if line.amount_total < 0 else 0.0
+            analytic_account_id = line.analytic_account_id.id
+            analytic_tag_ids = [(6, 0, line.analytic_tag_ids.ids)]
+        if line and invoice:
+            name = _("%(name)s - Invoice %(id)s", name=line.name, id=invoice.id)
+            account_id = line.partner_id.property_account_payable_id.id
+            partner_id = invoice.partner_id.id
+        if line_type == "advance":
+            name = _("Expense %(name)s - Advance", name=self.name)
+            account_id = self.company_id.advance_account_id.id
+            partner_id = self.driver_id.address_home_id.id
+            debit = self.amount_advance * -1 if self.amount_advance < 0 else 0.0
+            credit = self.amount_advance if self.amount_advance > 0 else 0.0
+            analytic_account_id = self.analytic_account_id.id
+            analytic_tag_ids = [(6, 0, self.analytic_tag_ids.ids)]
+        if line_type == "balance" and self.amount_salary_balance:
+            name = _("Expense %(name)s - Salary Balance", name=self.name)
+            account_id = self.driver_id.address_home_id.property_account_payable_id.id
+            if self.amount_salary_balance < 0:
+                account_id = self.company_id.expense_negative_account_id.id
+            partner_id = self.driver_id.address_home_id.id
+            debit = self.amount_salary_balance * -1 if self.amount_salary_balance < 0 else 0.0
+            credit = self.amount_salary_balance if self.amount_salary_balance > 0 else 0.0
+            analytic_account_id = self.analytic_account_id.id
+            analytic_tag_ids = [(6, 0, self.analytic_tag_ids.ids)]
+        move_line_vals.append(
+            (
+                0,
+                0,
+                {
+                    "name": name,
+                    "account_id": account_id,
+                    "partner_id": partner_id,
+                    "debit": debit,
+                    "credit": credit,
+                    "analytic_account_id": analytic_account_id,
+                    "analytic_tag_ids": analytic_tag_ids,
+                },
+            )
+        )
+        return move_line_vals
 
     def action_cancel(self):
         self.ensure_one()
@@ -794,6 +861,15 @@ class TmsExpense(models.Model):
                     waybills="\n".join(waybills.mapped("name")),
                 )
             )
+        if any(x.tax_ids and not x.is_invoice for x in self.expense_line_ids):
+            errors.append(
+                _(
+                    "If you have taxes, you must have an invoice.\nLines with this issue:\n%(lines)s",
+                    lines="\n".join(
+                        self.waybill_line_ids.filtered(lambda l: l.tax_ids and not l.is_invoice).mapped("name")
+                    ),
+                )
+            )
         if errors:
             raise UserError("\n".join(errors))
 
@@ -822,55 +898,47 @@ class TmsExpense(models.Model):
             rec._compute_amounts()
 
     def _get_expense_journal(self):
-        return self.env["account.journal"].search([("tms_type", "=", "expense")], limit=1)
+        return self.company_id.expense_journal_id.id
 
-    def create_supplier_invoice(self, line):
-        journal_id = self._get_expense_journal()
+    def _prepare_supplier_invoice_line(self, line):
+        return [(0, 0, self._prepare_supplier_invoice_line_vals(line))]
+
+    def _prepare_supplier_invoice_line_vals(self, line):
         fpos = line.partner_id.property_account_position_id
         product_account = line.product_id.product_tmpl_id.get_product_accounts(fpos)["expense"]
-        if not product_account:
-            raise UserError(
-                _("Error !\nThere is no expense account defined for this product: %(name)s", name=line.product_id.name)
-            )
-        if not journal_id:
-            raise UserError(_("Error !\nYou have not defined Travel Expense Supplier Journal..."))
-        invoice_line = (
-            0,
-            0,
-            {
-                "name": _(
-                    "%(product)s (TMS Expense Record %(expense)s)",
-                    product=line.product_id.name,
-                    expense=line.expense_id.name,
-                ),
-                "account_id": product_account,
-                "quantity": line.product_qty,
-                "price_unit": line.price_unit,
-                "tax_ids": [(6, 0, line.tax_ids.ids)],
-                "product_uom_id": line.product_uom_id.id,
-                "product_id": line.product_id.id,
-            },
-        )
-        notes = line.expense_id.name + " - " + line.product_id.name
-        invoice = {
-            "invoice_origin": line.expense_id.name,
-            "move_type": "in_invoice",
-            "journal_id": journal_id,
-            "ref": line.ref,
-            "partner_id": line.partner_id.id,
-            "invoice_line_ids": [invoice_line],
-            "currency_id": line.expense_id.currency_id.id,
-            "invoice_payment_term_id": (
-                line.partner_id.property_supplier_payment_term_id.id
-                if line.partner_id.property_supplier_payment_term_id
-                else False
-            ),
-            "fiscal_position_id": (line.partner_id.property_account_position_id.id or False),
-            "narration": notes,
+        return {
+            "name": line.name,
+            "product_id": line.product_id.id,
+            "quantity": line.product_qty,
+            "price_unit": line.price_unit,
+            "account_id": product_account,
+            "product_uom_id": line.product_uom_id.id,
+            "analytic_tag_ids": [(6, 0, line.analytic_tag_ids.ids)],
+            "analytic_account_id": line.analytic_account_id.id,
+            "tax_ids": [(6, 0, line.tax_ids.ids)],
         }
-        move_id = self.env["account.move"].create(invoice)
-        line.move_id = move_id
-        return move_id
+
+    def _prepare_supplier_invoice(self, line):
+        return {
+            "partner_id": line.partner_id.id,
+            "ref": line.ref,
+            "invoice_origin": line.expense_id.name,
+            "company_id": line.expense_id.company_id.id,
+            "move_type": "in_invoice",
+            "invoice_line_ids": self._prepare_supplier_invoice_line(line),
+            "currency_id": line.currency_id.id,
+            "invoice_date": line.date,
+            "fiscal_position_id": line.partner_id.property_account_position_id.id,
+        }
+
+    def _create_supplier_invoice(self, line):
+        move = (
+            self.env["account.move"]
+            .with_context(default_move_type="in_invoice")
+            .create(self._prepare_supplier_invoice(line))
+        )
+        line.write({"move_id": move.id})
+        return move
 
     def reconcile_supplier_invoices(self, move_ids, move_id):
         move_line_obj = self.env["account.move.line"]
@@ -938,7 +1006,20 @@ class TmsExpenseLine(models.Model):
         string="Product",
         required=True,
     )
-    expense_fuel_log = fields.Boolean(readonly=True)
+    company_id = fields.Many2one(
+        related="expense_id.company_id",
+        store=True,
+    )
+    analytic_account_id = fields.Many2one(
+        "account.analytic.account",
+        string="Analytic Account",
+        check_company=True,
+    )
+    analytic_tag_ids = fields.Many2many(
+        "account.analytic.tag",
+        string="Analytic Tags",
+        check_company=True,
+    )
 
     @api.model
     def default_get(self, fields_list):
@@ -955,6 +1036,14 @@ class TmsExpenseLine(models.Model):
                 "tax_ids": [(6, 0, self.product_id.supplier_taxes_id.ids)],
                 "product_uom_id": self.product_id.uom_id.id,
                 "name": self.product_id.name,
+            }
+        )
+
+    @api.onchange("tax_ids")
+    def _onchange_tax_ids(self):
+        self.update(
+            {
+                "is_invoice": True if self.tax_ids else False,
             }
         )
 

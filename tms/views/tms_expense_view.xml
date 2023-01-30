@@ -121,6 +121,12 @@
                                 groups="base.group_multi_currency"
                                 options="{'no_create': True, 'no_open': True}"
                             />
+                            <field name="analytic_account_id" groups="analytic.group_analytic_accounting" />
+                            <field
+                                name="analytic_tag_ids"
+                                groups="analytic.group_analytic_tags"
+                                widget="many2many_tags"
+                            />
                             <field
                                 name="company_id"
                                 groups="base.group_multi_company"
@@ -243,6 +249,16 @@
                                                 attrs="{'invisible':[('line_type','in', ['salary_discount', 'salary', 'salary_retention', 'other_income'])]}"
                                             />
                                             <field name="amount_total" />
+                                            <field
+                                                name="analytic_account_id"
+                                                groups="analytic.group_analytic_accounting"
+                                            />
+                                            <field
+                                                name="analytic_tag_ids"
+                                                groups="analytic.group_analytic_tags"
+                                                widget="many2many_tags"
+                                            />
+                                            <field name="company_id" groups="base.group_multi_company" />
                                         </group>
                                         <group
                                             string="Supplier Details"
@@ -275,6 +291,7 @@
                                                 readonly="1"
                                             />
                                         </group>
+
                                     </group>
                                 </form>
                             </field>
