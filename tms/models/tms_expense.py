@@ -247,7 +247,14 @@ class TmsExpense(models.Model):
                 fuel_efficiency = rec.distance / rec.fuel_qty
             rec.fuel_efficiency = fuel_efficiency
 
-    @api.depends("expense_line_ids", "travel_ids", "expense_line_ids.price_unit", "expense_line_ids.product_qty")
+    @api.depends(
+        "expense_line_ids",
+        "travel_ids",
+        "expense_line_ids.price_unit",
+        "expense_line_ids.product_qty",
+        "expense_line_ids.tax_ids",
+        "expense_line_ids.product_id",
+    )
     def _compute_amounts(self):
         for rec in self:
             amount_salary = sum(
@@ -635,6 +642,7 @@ class TmsExpense(models.Model):
         for rec in self:
             if rec.move_id or rec.state == "confirmed":
                 raise UserError(_("You can not confirm a confirmed expense."))
+            rec.get_travel_info()
             result = rec.higher_than_zero_move()
             for line in rec.expense_line_ids:
                 rec.create_expense_line_move_line(line, result)
@@ -811,6 +819,7 @@ class TmsExpense(models.Model):
                     lines_to_create.extend(rec._get_fuel_lines(fuel))
                 lines_to_create.extend(rec._get_salary_lines(travel))
             rec.write({"expense_line_ids": lines_to_create})
+            rec._compute_amounts()
 
     def _get_expense_journal(self):
         return self.env["account.journal"].search([("tms_type", "=", "expense")], limit=1)

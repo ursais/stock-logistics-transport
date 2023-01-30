@@ -159,7 +159,7 @@
                 <filter name="travel_id_group_by" context="{'group_by':'travel_id'}" string="Travel" />
                 <filter name="state_group_by" context="{'group_by': 'state'}" string="State" />
                 <filter name="payment_state_group_by" context="{'group_by': 'payment_state'}" string="Payment State" />
-                <!-- <filter name="expense_id" context="{'group_by': 'expense_id'}" string="Expense Record" /> -->
+                <filter name="expense_id" context="{'group_by': 'expense_id'}" string="Expense Record" />
             </search>
         </field>
     </record>
@@ -180,13 +180,15 @@
                 <field name="travel_id" />
                 <field name="driver_id" />
                 <field name="partner_id" />
-                <field name="product_qty" />
+                <field name="product_qty" sum="Total" />
+                <field name="amount_total" sum="Total" optional="show" />
                 <field
                     name="payment_state"
                     widget="badge"
                     decoration-danger="payment_state == 'not_paid'"
                     decoration-warning="payment_state in ('partial', 'in_payment')"
                     decoration-success="payment_state in ('paid', 'reversed')"
+                    optional="show"
                 />
                 <field
                     name="state"
