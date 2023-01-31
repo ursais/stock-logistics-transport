@@ -50,7 +50,15 @@
                         icon="fa-check-square-o"
                         name="action_confirm"
                         states="draft"
-                        string="Confirmed"
+                        string="Confirm"
+                        type="object"
+                    />
+                    <button
+                        name="action_register_payment"
+                        icon="fa-usd"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|', ('state', '!=', 'confirmed'), ('payment_state', '=', 'paid')]}"
+                        string="Register Payment"
                         type="object"
                     />
                     <button name="action_cancel" states="confirmed" string="Cancel" type="object" />
