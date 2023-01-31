@@ -287,7 +287,6 @@
                                             <field
                                                 name="move_id"
                                                 attrs="{'invisible':['|', ('is_invoice', '=', False), ('move_id', '=', False)], 'readonly': [('control', '=', True)]}"
-                                                options="{'no_open': True}"
                                                 readonly="1"
                                             />
                                         </group>

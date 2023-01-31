@@ -65,7 +65,7 @@ class TmsExpense(models.Model):
         "Journal Entry",
         readonly=True,
         help="Link to the automatically generated Journal Items.",
-        ondelete="restrict",
+        ondelete="set null",
     )
     payment_state = fields.Selection(
         [
@@ -449,10 +449,11 @@ class TmsExpense(models.Model):
                 "amount_untaxed": line.amount_untaxed,
                 "partner_id": line.partner_id.id,
                 "product_qty": line.product_qty,
+                "product_uom_id": line.product_uom_id.id,
                 "tax_amount": line.tax_amount,
                 "state": "closed",
                 "date": line.date,
-                "expense_id": rec.id,
+                "expense_id": line.expense_id.id,
                 "ref": line.ref,
                 "created_from_expense": True,
                 "expense_line_id": line.id,
@@ -720,12 +721,15 @@ class TmsExpense(models.Model):
 
     def action_cancel(self):
         self.ensure_one()
-        if self.payment_status != "not_paid":
+        if self.payment_state != "not_paid":
             raise UserError(_("You cannot cancel an expense that is paid."))
         if self.state == "confirmed":
             self.move_id.button_cancel()
             self.move_id.unlink()
             self.fuel_ids.filtered(lambda x: x.created_from_expense).unlink()
+            invoices = self.expense_line_ids.filtered(lambda x: x.is_invoice).mapped("move_id")
+            invoices.button_cancel()
+            invoices.unlink()
         self.write(
             {
                 "state": "cancel",
@@ -1000,7 +1004,7 @@ class TmsExpenseLine(models.Model):
     )
     invoice_date = fields.Date()
     ref = fields.Char()
-    move_id = fields.Many2one("account.move", string="Supplier Invoice")
+    move_id = fields.Many2one("account.move", string="Supplier Invoice", ondelete="set null")
     product_id = fields.Many2one(
         "product.product",
         string="Product",
