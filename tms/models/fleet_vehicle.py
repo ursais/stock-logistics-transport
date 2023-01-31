@@ -20,6 +20,7 @@ class FleetVehicle(models.Model):
         "fleet.vehicle.insurance",
         compute="_compute_active_insurance_policy_id",
     )
+    insurance_ids = fields.One2many("fleet.vehicle.insurance", "unit_id", string="Insurances")
 
     _sql_constraints = [
         (
