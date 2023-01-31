@@ -112,8 +112,8 @@
                             <field name="name" />
                         </h1>
                     </div>
-                    <group>
-                        <group>
+                    <group name="waybill">
+                        <group name="left_waybill">
                             <field
                                 name="partner_id"
                                 attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
@@ -142,7 +142,7 @@
                                 options="{'no_create': True}"
                             />
                         </group>
-                        <group>
+                        <group name="right_waybill">
                             <field name="date" attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}" />
                             <field name="user_id" attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}" />
                             <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" />
