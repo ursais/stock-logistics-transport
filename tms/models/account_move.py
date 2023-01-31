@@ -11,12 +11,3 @@ class AccountMoveLine(models.Model):
     waybill_line_id = fields.Many2one("tms.waybill.line", string="Waybill Line", readonly=True, copy=False)
     waybill_id = fields.Many2one(related="waybill_line_id.waybill_id", string="Waybill", store=True)
     expense_line_id = fields.Many2one("tms.expense.line", string="Expense Line", readonly=True, copy=False)
-
-    def _copy_data_extend_business_fields(self, values):
-        values.update(
-            {
-                "fuel_id": self.fuel_id.id,
-                "waybill_line_id": self.waybill_line_id.id,
-            }
-        )
-        return super()._copy_data_extend_business_fields(values)
