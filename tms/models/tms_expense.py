@@ -638,7 +638,15 @@ class TmsExpense(models.Model):
             move = self.env["account.move"].create(move_vals)
             move.action_post()
             rec.write({"move_id": move.id, "state": "confirmed"})
-            # rec._reconcile_supplier_invoices()
+            rec._reconcile_supplier_invoices()
+
+    def _reconcile_supplier_invoices(self):
+        self.ensure_one()
+        for line in self.expense_line_ids.filtered(lambda l: l.is_invoice):
+            move_line = self.move_id.line_ids.filtered(lambda l: l.expense_line_id == line)
+            lines_to_reconcile = line.move_id.line_ids.filtered(lambda l: l.account_id == move_line.account_id)
+            lines_to_reconcile |= move_line
+            lines_to_reconcile.reconcile()
 
     def _prepare_move_vals(self):
         self.ensure_one()
@@ -681,7 +689,6 @@ class TmsExpense(models.Model):
             analytic_account_id = line.analytic_account_id.id
             analytic_tag_ids = [(6, 0, line.analytic_tag_ids.ids)]
         if line and invoice:
-            name = _("%(name)s - Invoice %(id)s", name=line.name, id=invoice.id)
             account_id = line.partner_id.property_account_payable_id.id
             partner_id = invoice.partner_id.id
         if line_type == "advance":
@@ -714,6 +721,7 @@ class TmsExpense(models.Model):
                     "credit": credit,
                     "analytic_account_id": analytic_account_id,
                     "analytic_tag_ids": analytic_tag_ids,
+                    "expense_line_id": line.id if line else False,
                 },
             )
         )
@@ -724,10 +732,12 @@ class TmsExpense(models.Model):
         if self.payment_state != "not_paid":
             raise UserError(_("You cannot cancel an expense that is paid."))
         if self.state == "confirmed":
+            self.move_id.line_ids.remove_move_reconcile()
             self.move_id.button_cancel()
             self.move_id.unlink()
             self.fuel_ids.filtered(lambda x: x.created_from_expense).unlink()
-            invoices = self.expense_line_ids.filtered(lambda x: x.is_invoice).mapped("move_id")
+            invoices = self.expense_line_ids.filtered(lambda x: not x.control).mapped("move_id")
+            invoices.line_ids.remove_move_reconcile()
             invoices.button_cancel()
             invoices.unlink()
         self.write(
@@ -941,6 +951,7 @@ class TmsExpense(models.Model):
             .with_context(default_move_type="in_invoice")
             .create(self._prepare_supplier_invoice(line))
         )
+        move.action_post()
         line.write({"move_id": move.id})
         return move
 
