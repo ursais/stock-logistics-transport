@@ -54,8 +54,8 @@ class TmsTravel(models.Model):
     travel_time_real = fields.Float(
         compute="_compute_travel_time_real", string="Duration Real", help="Travel Real duration in hours"
     )
-    route_travel_time = fields.Float(string="Duration Sched", readonly=True)
-    route_distance = fields.Float(readonly=True)
+    route_travel_time = fields.Float(string="Duration Sched", readonly=True, store=True)
+    route_distance = fields.Float(readonly=True, compute="_compute_route_distance")
     route_distance_loaded = fields.Float(readonly=True)
     route_distance_empty = fields.Float(readonly=True)
     distance = fields.Float("Distance traveled", compute="_compute_distance", store=True)
@@ -139,6 +139,11 @@ class TmsTravel(models.Model):
     def _compute_distance(self):
         for rec in self:
             rec.distance = rec.distance_empty + rec.distance_loaded
+
+    @api.depends("route_distance_empty", "route_distance_loaded")
+    def _compute_route_distance(self):
+        for rec in self:
+            rec.route_distance = rec.route_distance_empty + rec.route_distance_loaded
 
     @api.depends("driver_id", "unit_id", "trailer1_id", "dolly_id", "trailer2_id", "date_start")
     def _compute_error_message(self):

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="tms_fleet_vehicle_01" model="fleet.vehicle">
-        <field name="license_plate">0924</field>
+        <field name="license_plate">AS0924</field>
         <field name="economic_number">T1</field>
         <field name="odometer_unit">kilometers</field>
         <field name="model_id" ref="fleet_vehicle_model_t800" />
         <field name="fleet_type">tractor</field>
     </record>
     <record id="tms_fleet_vehicle_02" model="fleet.vehicle">
-        <field name="license_plate">8943</field>
+        <field name="license_plate">AS8943</field>
         <field name="economic_number">C1</field>
         <field name="odometer_unit">kilometers</field>
         <field name="model_id" ref="fleet_vehicle_model_trailking_flatbed" />
         <field name="fleet_type">trailer</field>
     </record>
     <record id="tms_fleet_vehicle_03" model="fleet.vehicle">
-        <field name="license_plate">928374</field>
+        <field name="license_plate">AS928374</field>
         <field name="economic_number">C2</field>
         <field name="odometer_unit">kilometers</field>
         <field name="model_id" ref="fleet_vehicle_model_trailking_flatbed" />
@@ -29,21 +29,21 @@
         <field name="fleet_type">dolly</field>
     </record>
     <record id="tms_fleet_vehicle_05" model="fleet.vehicle">
-        <field name="license_plate">8723</field>
+        <field name="license_plate">AS8723</field>
         <field name="economic_number">T2</field>
         <field name="odometer_unit">kilometers</field>
         <field name="model_id" ref="fleet_vehicle_model_t800" />
         <field name="fleet_type">tractor</field>
     </record>
     <record id="tms_fleet_vehicle_06" model="fleet.vehicle">
-        <field name="license_plate">2389</field>
+        <field name="license_plate">AS2389</field>
         <field name="economic_number">C3</field>
         <field name="odometer_unit">kilometers</field>
         <field name="model_id" ref="fleet_vehicle_model_trailking_flatbed" />
         <field name="fleet_type">trailer</field>
     </record>
      <record id="tms_fleet_vehicle_07" model="fleet.vehicle">
-        <field name="license_plate">9823</field>
+        <field name="license_plate">AS9823</field>
         <field name="economic_number">C4</field>
         <field name="odometer_unit">kilometers</field>
         <field name="model_id" ref="fleet_vehicle_model_trailking_flatbed" />
@@ -57,21 +57,21 @@
         <field name="fleet_type">dolly</field>
     </record>
     <record id="tms_fleet_vehicle_09" model="fleet.vehicle">
-        <field name="license_plate">54316</field>
+        <field name="license_plate">AS54316</field>
         <field name="economic_number">T3</field>
         <field name="odometer_unit">kilometers</field>
         <field name="model_id" ref="fleet_vehicle_model_t800" />
         <field name="fleet_type">tractor</field>
     </record>
     <record id="tms_fleet_vehicle_10" model="fleet.vehicle">
-        <field name="license_plate">63316</field>
+        <field name="license_plate">AS63316</field>
         <field name="economic_number">C5</field>
         <field name="odometer_unit">kilometers</field>
         <field name="model_id" ref="fleet_vehicle_model_trailking_flatbed" />
         <field name="fleet_type">trailer</field>
     </record>
      <record id="tms_fleet_vehicle_11" model="fleet.vehicle">
-        <field name="license_plate">643123</field>
+        <field name="license_plate">AS643123</field>
         <field name="economic_number">C6</field>
         <field name="odometer_unit">kilometers</field>
         <field name="model_id" ref="fleet_vehicle_model_trailking_flatbed" />
@@ -85,21 +85,21 @@
         <field name="fleet_type">dolly</field>
     </record>
     <record id="tms_fleet_vehicle_13" model="fleet.vehicle">
-        <field name="license_plate">6542</field>
+        <field name="license_plate">AS6542</field>
         <field name="economic_number">T4</field>
         <field name="odometer_unit">kilometers</field>
         <field name="model_id" ref="fleet_vehicle_model_t800" />
         <field name="fleet_type">tractor</field>
     </record>
     <record id="tms_fleet_vehicle_14" model="fleet.vehicle">
-        <field name="license_plate">96312</field>
+        <field name="license_plate">AS96312</field>
         <field name="economic_number">C7</field>
         <field name="odometer_unit">kilometers</field>
         <field name="model_id" ref="fleet_vehicle_model_trailking_flatbed" />
         <field name="fleet_type">trailer</field>
     </record>
      <record id="tms_fleet_vehicle_15" model="fleet.vehicle">
-        <field name="license_plate">45421</field>
+        <field name="license_plate">AS45421</field>
         <field name="economic_number">C8</field>
         <field name="odometer_unit">kilometers</field>
         <field name="model_id" ref="fleet_vehicle_model_trailking_flatbed" />
@@ -113,21 +113,21 @@
         <field name="fleet_type">dolly</field>
     </record>
     <record id="tms_fleet_vehicle_17" model="fleet.vehicle">
-        <field name="license_plate">62341</field>
+        <field name="license_plate">AS62341</field>
         <field name="economic_number">T5</field>
         <field name="odometer_unit">kilometers</field>
         <field name="model_id" ref="fleet_vehicle_model_t800" />
         <field name="fleet_type">tractor</field>
     </record>
     <record id="tms_fleet_vehicle_18" model="fleet.vehicle">
-        <field name="license_plate">21289</field>
+        <field name="license_plate">AS21289</field>
         <field name="economic_number">C9</field>
         <field name="odometer_unit">kilometers</field>
         <field name="model_id" ref="fleet_vehicle_model_trailking_flatbed" />
         <field name="fleet_type">trailer</field>
     </record>
      <record id="tms_fleet_vehicle_19" model="fleet.vehicle">
-        <field name="license_plate">92812</field>
+        <field name="license_plate">AS92812</field>
         <field name="economic_number">C10</field>
         <field name="odometer_unit">kilometers</field>
         <field name="model_id" ref="fleet_vehicle_model_trailking_flatbed" />

@@ -55,7 +55,7 @@
                                 context="{'default_type': 'delivery', 'default_parent_id': partner_id, 'default_company_type': 'person'}"
                             />
                         </group>
-                        <group string="Factor Information">
+                        <group string="Factor Information" name="factor_information">
                             <field name="factor_type" />
                             <field name="category" invisible="1" />
                             <field name="name" />

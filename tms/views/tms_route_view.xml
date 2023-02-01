@@ -41,12 +41,12 @@
                             <field name="name" />
                         </h1>
                     </group>
-                    <group>
-                        <group>
+                    <group name="route">
+                        <group name="route_left">
                             <field name="distance" />
                             <field name="distance_loaded" />
                         </group>
-                        <group>
+                        <group name="route_right">
                             <field name="travel_time" widget="float_time" />
                             <field name="distance_empty" />
                         </group>

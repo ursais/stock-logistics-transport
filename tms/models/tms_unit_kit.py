@@ -20,7 +20,8 @@ class TmsUnitKit(models.Model):
     date_start = fields.Datetime(tracking=True)
     date_end = fields.Datetime(tracking=True)
     active = fields.Boolean(default=True, tracking=True)
+    company_id = fields.Many2one("res.company", default=lambda self: self.env.user.company_id, required=True)
 
     _sql_constraints = [
-        ("name_uniq", "unique(name)", "Name must be unique!"),
+        ("name_uniq", "unique(name, company_id)", "The name of the unit kit must be unique per company!"),
     ]

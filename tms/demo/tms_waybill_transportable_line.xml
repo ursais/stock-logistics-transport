@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="tms_waybill_transportable_line_01" model="tms.waybill.transportable.line">
+        <field name="waybill_id" ref="tms_waybill_01" />
+        <field name="transportable_id" ref="tms_transportable_01" />
+        <field name="name">Sand</field>
+        <field name="product_uom_id" ref="uom.product_uom_ton" />
+        <field name="notes">1021</field>
+        <field name="quantity">48</field>
+    </record>
+    <record id="tms_waybill_transportable_line_02" model="tms.waybill.transportable.line">
+        <field name="waybill_id" ref="tms_waybill_02" />
+        <field name="transportable_id" ref="tms_transportable_01" />
+        <field name="name">Sand</field>
+        <field name="product_uom_id" ref="uom.product_uom_ton" />
+        <field name="notes">1025</field>
+        <field name="quantity">43</field>
+    </record>
+    <function name="compute_waybill_lines" model="tms.waybill" eval="[ref('tms_waybill_01')]" />
+    <function name="action_confirm" model="tms.waybill" eval="[ref('tms_waybill_01')]" />
+</odoo>

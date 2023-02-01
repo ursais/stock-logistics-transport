@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="tms_factor_driver_01" model="tms.factor">
+        <field name="factor_type">weight</field>
+        <field name="category">driver</field>
+        <field name="name">Weight</field>
+        <field name="factor">50.0</field>
+        <field name="driver_route_id" ref="tms_route_01" />
+    </record>
+    <record id="tms_factor_customer_01" model="tms.factor">
+        <field name="factor_type">weight</field>
+        <field name="category">customer</field>
+        <field name="name">Weight</field>
+        <field name="factor">500.0</field>
+        <field name="customer_route_id" ref="tms_route_01" />
+        <field name="partner_id" ref="tms.res_partner_customer_01" />
+        <field name="departure_address_id" ref="tms.res_partner_customer_01_01" />
+        <field name="arrival_address_id" ref="tms.res_partner_customer_01_02" />
+    </record>
+    <record id="tms_factor_driver_02" model="tms.factor">
+        <field name="factor_type">weight</field>
+        <field name="category">driver</field>
+        <field name="name">Weight</field>
+        <field name="factor">60.0</field>
+        <field name="driver_route_id" ref="tms_route_02" />
+    </record>
+    <record id="tms_factor_customer_02" model="tms.factor">
+        <field name="factor_type">weight</field>
+        <field name="category">customer</field>
+        <field name="name">Weight</field>
+        <field name="factor">500.0</field>
+        <field name="customer_route_id" ref="tms_route_02" />
+        <field name="partner_id" ref="tms.res_partner_customer_01" />
+        <field name="departure_address_id" ref="tms.res_partner_customer_01_03" />
+        <field name="arrival_address_id" ref="tms.res_partner_customer_01_04" />
+    </record>
+    <record id="tms_factor_driver_03" model="tms.factor">
+        <field name="factor_type">weight</field>
+        <field name="category">driver</field>
+        <field name="name">Weight</field>
+        <field name="factor">100.0</field>
+        <field name="driver_route_id" ref="tms_route_03" />
+    </record>
+    <record id="tms_factor_customer_03" model="tms.factor">
+        <field name="factor_type">weight</field>
+        <field name="category">customer</field>
+        <field name="name">Weight</field>
+        <field name="factor">1500.0</field>
+        <field name="customer_route_id" ref="tms_route_03" />
+        <field name="partner_id" ref="tms.res_partner_customer_01" />
+        <field name="departure_address_id" ref="tms.res_partner_customer_01_01" />
+        <field name="arrival_address_id" ref="tms.res_partner_customer_01_04" />
+    </record>
+</odoo>

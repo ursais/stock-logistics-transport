@@ -244,23 +244,23 @@ class TmsWaybill(models.Model):
         for rec in self:
             rec.product_qty = sum(rec.transportable_line_ids.mapped("quantity"))
 
-    @api.depends("transportable_line_ids.transportable_product_uom_id", "transportable_line_ids.quantity")
+    @api.depends("transportable_line_ids.product_uom_id", "transportable_line_ids.quantity")
     def _compute_product_volume(self):
         vol_categ = self.env.ref("uom.product_uom_categ_vol")
         for rec in self:
             rec.product_volume = sum(
                 rec.transportable_line_ids.filtered(
-                    lambda l: l.transportable_product_uom_id.category_id == vol_categ
+                    lambda l: l.product_uom_id.category_id == vol_categ
                 ).mapped("quantity")
             )
 
-    @api.depends("transportable_line_ids.transportable_product_uom_id", "transportable_line_ids.quantity")
+    @api.depends("transportable_line_ids.product_uom_id", "transportable_line_ids.quantity")
     def _compute_product_weight(self):
         weight_categ = self.env.ref("uom.product_uom_categ_kgm")
         for rec in self:
             rec.product_weight = sum(
                 rec.transportable_line_ids.filtered(
-                    lambda l: l.transportable_product_uom_id.category_id == weight_categ
+                    lambda l: l.product_uom_id.category_id == weight_categ
                 ).mapped("quantity")
             )
 
@@ -530,13 +530,13 @@ class TmsWaybillTransportableLine(models.Model):
         string="Description",
         required=True,
     )
-    transportable_product_uom_id = fields.Many2one(
+    product_uom_id = fields.Many2one(
         comodel_name="uom.uom",
         string="Unit of Measure ",
         required=True,
     )
     uom_categ_id = fields.Many2one(
-        related="transportable_product_uom_id.category_id",
+        related="product_uom_id.category_id",
         store=True,
     )
     quantity = fields.Float(
@@ -558,6 +558,6 @@ class TmsWaybillTransportableLine(models.Model):
         self.update(
             {
                 "name": self.transportable_id.name,
-                "transportable_product_uom_id": self.transportable_id.product_uom_id.id,
+                "product_uom_id": self.transportable_id.product_uom_id.id,
             }
         )

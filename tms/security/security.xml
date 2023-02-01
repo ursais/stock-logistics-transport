@@ -34,7 +34,7 @@
         <field name="category_id" ref="tms_group_category" />
         <field name="users" eval="[(4, ref('base.user_admin'))]" />
     </record>
-    <!-- <record id="tms_waybill_comp_rule" model="ir.rule">
+    <record id="tms_waybill_comp_rule" model="ir.rule">
         <field name="name">Waybill</field>
         <field name="model_id" ref="model_tms_waybill" />
         <field name="global" eval="True" />
@@ -52,15 +52,9 @@
         <field name="global" eval="True" />
         <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
     </record>
-    <record id="fleet_vehicle_log_fuel_comp_rule" model="ir.rule">
+    <record id="tms_fuel_comp_rule" model="ir.rule">
         <field name="name">Fuel Log</field>
-        <field name="model_id" ref="model_fleet_vehicle_log_fuel" />
-        <field name="global" eval="True" />
-        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
-    </record>
-    <record id="tms_expense_loan_comp_rule" model="ir.rule">
-        <field name="name">Loan</field>
-        <field name="model_id" ref="model_tms_expense_loan" />
+        <field name="model_id" ref="model_tms_fuel" />
         <field name="global" eval="True" />
         <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
     </record>
@@ -69,5 +63,11 @@
         <field name="model_id" ref="model_tms_expense" />
         <field name="global" eval="True" />
         <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
-    </record> -->
+    </record>
+    <record id="tms_unit_kit_comp_rule" model="ir.rule">
+        <field name="name">Unit Kit</field>
+        <field name="model_id" ref="model_tms_unit_kit" />
+        <field name="global" eval="True" />
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
 </odoo>
