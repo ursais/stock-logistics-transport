@@ -24,6 +24,7 @@ class TmsRoute(models.Model):
     distance_empty = fields.Float(string="Distance Empty (mi./km)", required=True)
     travel_time = fields.Float("Travel Time (hrs)", help="Route travel time (hours)")
     partner_ids = fields.Many2many("res.partner", string="Customers", compute="_compute_partner_ids", store=True)
+    company_id = fields.Many2one("res.company", default=lambda self: self.env.user.company_id)
 
     @api.constrains("distance_loaded", "distance_empty", "travel_time")
     def _check_route(self):

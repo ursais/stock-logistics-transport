@@ -16,11 +16,11 @@ class TmsUnitKit(models.Model):
     trailer1_id = fields.Many2one("fleet.vehicle", "Trailer 1", tracking=True)
     dolly_id = fields.Many2one("fleet.vehicle", "Dolly", tracking=True)
     trailer2_id = fields.Many2one("fleet.vehicle", "Trailer 2", tracking=True)
-    driver_id = fields.Many2one("hr.employee", domain=[("driver", "=", True)], tracking=True)
+    driver_id = fields.Many2one("hr.employee", domain=[("driver", "=", True)], tracking=True, company_dependent=True)
     date_start = fields.Datetime(tracking=True)
     date_end = fields.Datetime(tracking=True)
     active = fields.Boolean(default=True, tracking=True)
-    company_id = fields.Many2one("res.company", default=lambda self: self.env.user.company_id, required=True)
+    company_id = fields.Many2one("res.company", default=lambda self: self.env.user.company_id)
 
     _sql_constraints = [
         ("name_uniq", "unique(name, company_id)", "The name of the unit kit must be unique per company!"),
