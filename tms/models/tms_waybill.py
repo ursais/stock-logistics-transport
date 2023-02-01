@@ -249,9 +249,9 @@ class TmsWaybill(models.Model):
         vol_categ = self.env.ref("uom.product_uom_categ_vol")
         for rec in self:
             rec.product_volume = sum(
-                rec.transportable_line_ids.filtered(
-                    lambda l: l.product_uom_id.category_id == vol_categ
-                ).mapped("quantity")
+                rec.transportable_line_ids.filtered(lambda l: l.product_uom_id.category_id == vol_categ).mapped(
+                    "quantity"
+                )
             )
 
     @api.depends("transportable_line_ids.product_uom_id", "transportable_line_ids.quantity")
@@ -259,9 +259,9 @@ class TmsWaybill(models.Model):
         weight_categ = self.env.ref("uom.product_uom_categ_kgm")
         for rec in self:
             rec.product_weight = sum(
-                rec.transportable_line_ids.filtered(
-                    lambda l: l.product_uom_id.category_id == weight_categ
-                ).mapped("quantity")
+                rec.transportable_line_ids.filtered(lambda l: l.product_uom_id.category_id == weight_categ).mapped(
+                    "quantity"
+                )
             )
 
     @api.depends("travel_id.route_id.distance")

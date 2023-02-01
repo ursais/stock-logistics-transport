@@ -16,7 +16,12 @@
                 <field name="company_id" groups="base.group_multi_company" />
                 <filter name="unit" context="{'group_by' : 'unit_id'}" string="Unit" />
                 <filter name="driver" context="{'group_by' : 'driver_id'}" string="Driver" />
-                <filter name="company" context="{'group_by' : 'company_id'}" string="Company" groups="base.group_multi_company" />
+                <filter
+                    name="company"
+                    context="{'group_by' : 'company_id'}"
+                    string="Company"
+                    groups="base.group_multi_company"
+                />
                 <separator />
                 <filter name="archived" string="Archived" domain="[('active', '=', False)]" />
             </search>
