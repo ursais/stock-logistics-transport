@@ -80,6 +80,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xs-12 col-md-6 o_setting_box" id="tms_fuel_ieps">
+                            <div class="o_setting_left_pane">
+                                <field name="module_tms_fuel_ieps" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Enable IEPS in Fuel" for="module_tms_fuel_ieps" />
+                                <div class="text-muted">
+                                    Use Fuel IEPS in TMS
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </xpath>

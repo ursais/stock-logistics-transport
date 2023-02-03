@@ -41,8 +41,9 @@ class TmsFuel(models.Model):
         default=1.0,
         tracking=True,
         required=True,
+        digits="Fuel Qty"
     )
-    tax_amount = fields.Float(
+    tax_amount = fields.Monetary(
         compute="_compute_amounts",
         store=True,
     )
@@ -52,7 +53,7 @@ class TmsFuel(models.Model):
         domain=[("type_tax_use", "=", "purchase")],
         tracking=True,
     )
-    amount_total = fields.Float(
+    amount_total = fields.Monetary(
         string="Total",
         compute="_compute_amounts",
         store=True,
@@ -61,8 +62,9 @@ class TmsFuel(models.Model):
         string="Unit Price",
         tracking=True,
         required=True,
+        digits="Fuel Price"
     )
-    amount_untaxed = fields.Float(
+    amount_untaxed = fields.Monetary(
         string="Subtotal",
         compute="_compute_amounts",
         store=True,
@@ -86,6 +88,7 @@ class TmsFuel(models.Model):
     )
     partner_id = fields.Many2one(
         "res.partner",
+        string="Supplier",
         required=True,
         domain=[("is_company", "=", True)],
     )
@@ -157,7 +160,13 @@ class TmsFuel(models.Model):
                 partner=rec.partner_id,
             )
             rec.tax_amount = sum(t.get("amount", 0.0) for t in taxes.get("taxes", []))
-            rec.amount_total = rec.amount_untaxed + rec.tax_amount
+            special_tax_amount = rec._get_special_tax_amount()
+            rec.amount_total = rec.amount_untaxed + rec.tax_amount + special_tax_amount
+
+    def _get_special_tax_amount(self):
+        """ This method is created to be inherited by other modules."""
+        self.ensure_one()
+        return 0.0
 
     @api.depends("move_line_ids.move_id", "move_line_ids")
     def _compute_move_id(self):

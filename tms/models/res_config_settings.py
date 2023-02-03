@@ -10,6 +10,9 @@ class ResConfigSettings(models.TransientModel):
     module_tms_operating_unit = fields.Boolean(
         string="Operating Unit in TMS",
     )
+    module_tms_fuel_ieps = fields.Boolean(
+        string="IEPS in TMS Fuel",
+    )
     driver_license_security_days = fields.Integer(
         related="company_id.driver_license_security_days",
         readonly=False,

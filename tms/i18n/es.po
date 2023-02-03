@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-03 10:59+0000\n"
-"PO-Revision-Date: 2023-02-03 04:59-0600\n"
+"POT-Creation-Date: 2023-02-03 11:50+0000\n"
+"PO-Revision-Date: 2023-02-03 05:50-0600\n"
 "Last-Translator: Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -1002,6 +1002,11 @@ msgstr "Empleado"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
+msgid "Enable IEPS in Fuel"
+msgstr "Habilitar IEPS en Combustible"
+
+#. module: tms
+#: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
 msgid "Enable Operating Unit"
 msgstr "Habilitar unidad operativa"
 
@@ -1363,6 +1368,11 @@ msgstr "Casetas"
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_transportable_line__id
 msgid "ID"
 msgstr "Identificación"
+
+#. module: tms
+#: model:ir.model.fields,field_description:tms.field_res_config_settings__module_tms_fuel_ieps
+msgid "IEPS in TMS Fuel"
+msgstr "IEPS en Combustible de TMS"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_insurance__activity_exception_icon
@@ -2060,8 +2070,7 @@ msgstr "Parcialmente Pagado"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_insurance__partner_id
-#: model:ir.model.fields,field_description:tms.field_tms_factor__partner_id model:ir.model.fields,field_description:tms.field_tms_fuel__partner_id
-#: model:ir.model.fields,field_description:tms.field_tms_waybill__partner_id
+#: model:ir.model.fields,field_description:tms.field_tms_factor__partner_id model:ir.model.fields,field_description:tms.field_tms_waybill__partner_id
 msgid "Partner"
 msgstr "Cliente"
 
@@ -2588,7 +2597,8 @@ msgid "Sum Weight"
 msgstr "Suma de Peso"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_expense_line__partner_id model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
+#: model:ir.model.fields,field_description:tms.field_tms_expense_line__partner_id model:ir.model.fields,field_description:tms.field_tms_fuel__partner_id
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
 msgid "Supplier"
 msgstr "Proveedor"
 
@@ -3041,6 +3051,11 @@ msgstr "UdM"
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
 msgid "Update Expense"
 msgstr "Actualizar Gasto"
+
+#. module: tms
+#: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
+msgid "Use Fuel IEPS in TMS"
+msgstr "Usar IEPS de combustible en TMS"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form

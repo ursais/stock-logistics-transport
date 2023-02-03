@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="fuel_decimal_precision" model="decimal.precision">
+        <field name="name">Fuel Price</field>
+        <field name="digits">6</field>
+    </record>
+    <record id="fuel_qty_precision" model="decimal.precision">
+        <field name="name">Fuel Qty</field>
+        <field name="digits">4</field>
+    </record>
+</odoo>
