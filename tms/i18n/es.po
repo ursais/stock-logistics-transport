@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-03 10:38+0000\n"
-"PO-Revision-Date: 2023-02-03 04:39-0600\n"
+"POT-Creation-Date: 2023-02-03 10:59+0000\n"
+"PO-Revision-Date: 2023-02-03 04:59-0600\n"
 "Last-Translator: Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -413,6 +413,12 @@ msgstr "Dirección de llegada para la Ruta y el Socio actual."
 #, python-format
 msgid "At least one of the selected advances is already paid."
 msgstr "Al menos uno de los anticipos seleccionados ya está pagado."
+
+#. module: tms
+#: code:addons/tms/models/tms_expense.py:0
+#, python-format
+msgid "At least one of the selected expenses has a negative balance."
+msgstr "Al menos uno de los gastos seleccionados tiene saldo negativo."
 
 #. module: tms
 #: code:addons/tms/models/tms_expense.py:0
@@ -1564,7 +1570,7 @@ msgstr "Indica el estado de pago del gasto."
 #: model:ir.model,name:tms.model_account_move model:ir.model.fields,field_description:tms.field_tms_advance__move_id
 #: model:ir.model.fields,field_description:tms.field_tms_expense__move_id
 msgid "Journal Entry"
-msgstr "Asiento de diario"
+msgstr "Asiento contable"
 
 #. module: tms
 #: model:ir.model,name:tms.model_account_move_line
@@ -1798,7 +1804,8 @@ msgid "Name must be unique"
 msgstr "El nombre debe ser único"
 
 #. module: tms
-#: code:addons/tms/models/product_template.py:0
+#: code:addons/tms/models/product_template.py:0 model:product.product,name:tms.product_negative_balance
+#: model:product.template,name:tms.product_negative_balance_product_template
 #, python-format
 msgid "Negative Balance"
 msgstr "Balance negativo"
@@ -2974,15 +2981,16 @@ msgstr "Unidad del odómetro "
 #: model:ir.ui.menu,name:tms.menu_tms_settings_unit model:ir.ui.menu,name:tms.tms_fleet_vehicle_menu model:product.product,uom_name:tms.product_discount
 #: model:product.product,uom_name:tms.product_freight model:product.product,uom_name:tms.product_highway_tolls
 #: model:product.product,uom_name:tms.product_indirect_expense model:product.product,uom_name:tms.product_insurance
-#: model:product.product,uom_name:tms.product_move model:product.product,uom_name:tms.product_other
-#: model:product.product,uom_name:tms.product_other_income model:product.product,uom_name:tms.product_real_expense
-#: model:product.product,uom_name:tms.product_retention model:product.product,uom_name:tms.product_salary
-#: model:product.template,uom_name:tms.product_discount_product_template model:product.template,uom_name:tms.product_freight_product_template
-#: model:product.template,uom_name:tms.product_highway_tolls_product_template
+#: model:product.product,uom_name:tms.product_move model:product.product,uom_name:tms.product_negative_balance
+#: model:product.product,uom_name:tms.product_other model:product.product,uom_name:tms.product_other_income
+#: model:product.product,uom_name:tms.product_real_expense model:product.product,uom_name:tms.product_retention
+#: model:product.product,uom_name:tms.product_salary model:product.template,uom_name:tms.product_discount_product_template
+#: model:product.template,uom_name:tms.product_freight_product_template model:product.template,uom_name:tms.product_highway_tolls_product_template
 #: model:product.template,uom_name:tms.product_indirect_expense_product_template model:product.template,uom_name:tms.product_insurance_product_template
-#: model:product.template,uom_name:tms.product_move_product_template model:product.template,uom_name:tms.product_other_income_product_template
-#: model:product.template,uom_name:tms.product_other_product_template model:product.template,uom_name:tms.product_real_expense_product_template
-#: model:product.template,uom_name:tms.product_retention_product_template model:product.template,uom_name:tms.product_salary_product_template
+#: model:product.template,uom_name:tms.product_move_product_template model:product.template,uom_name:tms.product_negative_balance_product_template
+#: model:product.template,uom_name:tms.product_other_income_product_template model:product.template,uom_name:tms.product_other_product_template
+#: model:product.template,uom_name:tms.product_real_expense_product_template model:product.template,uom_name:tms.product_retention_product_template
+#: model:product.template,uom_name:tms.product_salary_product_template
 msgid "Units"
 msgstr "Unidades"
 

@@ -380,6 +380,8 @@ class TmsExpense(models.Model):
     def action_register_payment(self):
         if any(advance.payment_state == "paid" for advance in self):
             raise UserError(_("At least one of the selected expenses is already paid."))
+        if any(rec.amount_salary_balance < 0 for rec in self):
+            raise UserError(_("At least one of the selected expenses has a negative balance."))
         return {
             "name": _("Register Payment"),
             "res_model": "account.payment.register",

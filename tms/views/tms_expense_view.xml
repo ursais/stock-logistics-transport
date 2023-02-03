@@ -57,7 +57,7 @@
                         name="action_register_payment"
                         icon="fa-usd"
                         class="oe_highlight"
-                        attrs="{'invisible': ['|', ('state', '!=', 'confirmed'), ('payment_state', '=', 'paid')]}"
+                        attrs="{'invisible': ['|', '|', ('state', '!=', 'confirmed'), ('payment_state', '=', 'paid'), ('amount_salary_balance', '&lt;', 0)]}"
                         string="Register Payment"
                         type="object"
                     />
