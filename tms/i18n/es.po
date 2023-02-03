@@ -2284,7 +2284,7 @@ msgstr "Usuario responsable"
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
 msgid "Resume"
-msgstr "Reanudar"
+msgstr "Resumen"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_travel__route_id model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form

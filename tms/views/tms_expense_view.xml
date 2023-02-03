@@ -65,6 +65,13 @@
                     <button name="get_travel_info" states="draft" string="Update Expense" type="object" />
                     <field name="state" widget="statusbar" />
                 </header>
+                <div
+                    class="alert alert-warning mb-0"
+                    role="alert"
+                    attrs="{'invisible': [('account_negative_balance', '=', 0)]}"
+                >
+                    <p>This driver has a negative balance of <field name="account_negative_balance" />.</p>
+                </div>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button

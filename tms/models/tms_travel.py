@@ -247,6 +247,8 @@ class TmsTravel(models.Model):
 
     def action_progress(self):
         for rec in self:
+            if not rec.waybill_ids:
+                raise UserError(_("You must add at least one waybill."))
             if rec.error_message:
                 raise UserError(rec._get_error_message_text())
             travels = rec.search(

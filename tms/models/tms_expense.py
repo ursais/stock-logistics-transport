@@ -171,6 +171,9 @@ class TmsExpense(models.Model):
         string="Analytic Tags",
         check_company=True,
     )
+    account_negative_balance = fields.Monetary(
+        compute="_compute_account_negative_balance",
+    )
 
     @api.onchange("unit_id")
     def _onchange_unit_id(self):
@@ -224,6 +227,18 @@ class TmsExpense(models.Model):
             rec.payment_move_ids = related_moves
             rec.payment_ids = related_moves.mapped("payment_id")
             rec.amount_residual = amount_residual
+
+    @api.depends("driver_id")
+    def _compute_account_negative_balance(self):
+        for rec in self:
+            lines = self.env["account.move.line"].search(
+                [
+                    ("partner_id", "=", rec.driver_id.address_home_id.id),
+                    ("account_id", "=", rec.company_id.expense_negative_account_id.id),
+                    ("reconciled", "=", False),
+                ]
+            )
+            rec.account_negative_balance = abs(sum(lines.mapped("amount_residual")))
 
     @api.depends("company_id")
     def _compute_unit_ids(self):
@@ -521,7 +536,7 @@ class TmsExpense(models.Model):
         for line in self.expense_line_ids:
             if line.line_type == "fuel" and not line.control:
                 self._create_fuel_vouchers(line)
-            elif line.is_invoice:
+            elif line.is_invoice and line.line_type != "fuel":
                 invoice = self._create_supplier_invoice(line)
                 move_line_vals.extend(self._prepare_move_line(line, invoice))
             elif line.line_type != "fuel":
