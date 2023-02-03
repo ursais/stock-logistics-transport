@@ -28,13 +28,7 @@
                     decoration-success="payment_state in ('paid', 'reversed')"
                 />
                 <field name="state" />
-                <button
-                    icon="fa-check-square-o"
-                    name="action_confirm"
-                    states="draft"
-                    string="Confirmed"
-                    type="object"
-                />
+                <button icon="fa-check-square-o" name="action_confirm" states="draft" string="Confirm" type="object" />
             </tree>
         </field>
     </record>
@@ -49,7 +43,7 @@
                         icon="fa-check-square-o"
                         name="action_confirm"
                         states="draft"
-                        string="Confirmed"
+                        string="Confirm"
                         type="object"
                     />
                     <button name="compute_waybill_lines" string="Compute Lines" type="object" states="draft" />

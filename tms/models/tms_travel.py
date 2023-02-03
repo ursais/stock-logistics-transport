@@ -52,16 +52,16 @@ class TmsTravel(models.Model):
     date_start_real = fields.Datetime("Start Real", readonly=True, copy=False)
     date_end_real = fields.Datetime("End Real", readonly=True, copy=False)
     travel_time_real = fields.Float(
-        compute="_compute_travel_time_real", string="Duration Real", help="Travel Real duration in hours"
+        compute="_compute_travel_time_real", string="Duration Real", help="Travel Real duration in hours", store=True
     )
-    route_travel_time = fields.Float(string="Duration Sched", readonly=True, store=True)
+    route_travel_time = fields.Float(string="Duration Sched", readonly=True, copy=False)
     route_distance = fields.Float(readonly=True, compute="_compute_route_distance")
-    route_distance_loaded = fields.Float(readonly=True)
-    route_distance_empty = fields.Float(readonly=True)
+    route_distance_loaded = fields.Float(readonly=True, copy=False)
+    route_distance_empty = fields.Float(readonly=True, copy=False)
     distance = fields.Float("Distance traveled", compute="_compute_distance", store=True)
-    distance_loaded = fields.Float()
-    distance_empty = fields.Float()
-    odometer = fields.Float(readonly=True)
+    distance_loaded = fields.Float(copy=False)
+    distance_empty = fields.Float(copy=False)
+    odometer = fields.Float(readonly=True, copy=False)
     odometer_unit = fields.Selection(related="unit_id.odometer_unit", store=True)
     notes = fields.Html("Description")
     user_id = fields.Many2one("res.users", "Responsible", default=lambda self: self.env.user, required=True)
@@ -78,8 +78,8 @@ class TmsTravel(models.Model):
         group_expand="_group_expand_stage_id",
     )
     waybill_ids = fields.One2many("tms.waybill", "travel_id", string="Waybills")
-    fuel_ids = fields.One2many("tms.fuel", "travel_id", string="Fuel Vouchers")
-    advance_ids = fields.One2many("tms.advance", "travel_id", string="Advances")
+    fuel_ids = fields.One2many("tms.fuel", "travel_id", string="Fuel Vouchers", copy=True)
+    advance_ids = fields.One2many("tms.advance", "travel_id", string="Advances", copy=True)
     partner_ids = fields.Many2many("res.partner", string="Customers", domain=[("is_company", "=", True)])
     expense_id = fields.Many2one("tms.expense", readonly=True, copy=False)
 

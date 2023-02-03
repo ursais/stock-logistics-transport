@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-03 11:50+0000\n"
-"PO-Revision-Date: 2023-02-03 05:50-0600\n"
+"POT-Creation-Date: 2023-02-03 14:50+0000\n"
+"PO-Revision-Date: 2023-02-03 08:51-0600\n"
 "Last-Translator: Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -175,6 +175,11 @@ msgid ""
 msgstr ""
 "Un producto configurado con esta categoría se utilizará para calcular el monto de los peajes en la Carta Porte.<br/> Puede configurar solo un "
 "producto con esta categoría."
+
+#. module: tms
+#: model:ir.model.fields,field_description:tms.field_tms_expense__account_negative_balance
+msgid "Account Negative Balance"
+msgstr "Saldo negativo de la cuenta"
 
 #. module: tms
 #: model:ir.model.fields,help:tms.field_hr_employee__property_tms_advance_account_id
@@ -551,7 +556,10 @@ msgid "Configuration"
 msgstr "Configuración"
 
 #. module: tms
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_tree model_terms:ir.ui.view,arch_db:tms.tms_fuel_view_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form model_terms:ir.ui.view,arch_db:tms.view_tms_advance_tree
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_tree
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -560,11 +568,8 @@ msgstr "Confirmar"
 #: model:ir.model.fields.selection,name:tms.selection__tms_expense__state__confirmed
 #: model:ir.model.fields.selection,name:tms.selection__tms_fuel__state__confirmed
 #: model:ir.model.fields.selection,name:tms.selection__tms_waybill__state__confirmed model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
-#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_tree model_terms:ir.ui.view,arch_db:tms.tms_fuel_view_form
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_tree model_terms:ir.ui.view,arch_db:tms.view_tms_expense_filter
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search model_terms:ir.ui.view,arch_db:tms.view_tms_expense_filter
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_filter
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_tree
 msgid "Confirmed"
 msgstr "Confirmado"
 
@@ -1580,7 +1585,7 @@ msgstr "Indica el estado de pago del gasto."
 #: model:ir.model,name:tms.model_account_move model:ir.model.fields,field_description:tms.field_tms_advance__move_id
 #: model:ir.model.fields,field_description:tms.field_tms_expense__move_id
 msgid "Journal Entry"
-msgstr "Asiento contable"
+msgstr "Asiento de diario"
 
 #. module: tms
 #: model:ir.model,name:tms.model_account_move_line
@@ -2736,6 +2741,11 @@ msgid "This Waybill is already invoiced."
 msgstr "Esta Carta Porte ya está facturada."
 
 #. module: tms
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
+msgid "This driver has a negative balance of"
+msgstr "Este conductor tiene un saldo negativo de"
+
+#. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.tms_product_template_view
 msgid "This product will be used in the Expense, to add a fuel in cash to the driver."
 msgstr "Este producto se utilizará en el Gasto, para agregar un combustible en efectivo al conductor."
@@ -3246,6 +3256,12 @@ msgstr "No se puede cancelar un gasto que ha sido pagado."
 #, python-format
 msgid "You cannot unlink the invoice of this waybill because the invoice is still valid, please check it."
 msgstr "No puede desvincular la factura de esta Carta Porte porque la factura aún es válida, verifíquela."
+
+#. module: tms
+#: code:addons/tms/models/tms_travel.py:0
+#, python-format
+msgid "You must add at least one waybill."
+msgstr "Debe agregar al menos una Carta Porte."
 
 #. module: tms
 #: code:addons/tms/models/tms_expense.py:0

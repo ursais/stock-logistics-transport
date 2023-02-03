@@ -11,7 +11,7 @@
                         icon="fa-check-square-o"
                         name="action_confirm"
                         states="draft"
-                        string="Confirmed"
+                        string="Confirm"
                         type="object"
                     />
                     <button
@@ -214,7 +214,7 @@
                     icon="fa-check-square-o"
                     name="action_confirm"
                     states="draft"
-                    string="Confirmed"
+                    string="Confirm"
                     type="object"
                 />
             </tree>
