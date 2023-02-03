@@ -465,7 +465,8 @@
                             <group>
                                 <field
                                     name="waybill_ids"
-                                    attrs="{'readonly':[('state', 'in', ['done', 'closed'])]}"
+                                    attrs="{'readonly':['|', '|', ('state', 'in', ['done', 'closed']), ('partner_ids', '=', []), ('name', '=', '/')]}"
+                                    context="{'default_travel_id': active_id, 'default_partner_id': partner_ids[0]}"
                                     nolabel="1"
                                 />
                             </group>
