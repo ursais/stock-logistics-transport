@@ -457,6 +457,14 @@ class TmsExpense(models.Model):
             move.action_post()
             rec.write({"move_id": move.id, "state": "confirmed"})
             rec._reconcile_supplier_invoices()
+            rec._reconcile_advance_moves()
+
+    def _reconcile_advance_moves(self):
+        self.ensure_one()
+        account = self.driver_id.property_tms_advance_account_id or self.company_id.advance_account_id
+        lines = self.advance_ids.mapped("move_id.line_ids").filtered(lambda l: l.account_id == account)
+        lines |= self.move_id.line_ids.filtered(lambda l: l.account_id == account)
+        lines.reconcile()
 
     def _reconcile_supplier_invoices(self):
         self.ensure_one()

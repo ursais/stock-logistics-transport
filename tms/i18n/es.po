@@ -2028,7 +2028,7 @@ msgstr "Otro"
 #: model:ir.model.fields,field_description:tms.field_tms_expense__amount_other_income model:product.product,name:tms.product_other_income
 #: model:product.template,name:tms.product_other_income_product_template
 msgid "Other Income"
-msgstr "Otros ingreso"
+msgstr "Otros Ingresos"
 
 #. module: tms
 #: model:ir.model.fields.selection,name:tms.selection__tms_advance__payment_state__paid
@@ -2346,27 +2346,27 @@ msgstr "Salario"
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_expense__amount_salary_balance
 msgid "Salary Balance"
-msgstr "Saldo salarial"
+msgstr "Balance Salario"
 
 #. module: tms
 #: model:product.product,name:tms.product_discount model:product.template,name:tms.product_discount_product_template
 msgid "Salary Discount"
-msgstr "Descuento salarial"
+msgstr "Descuento Salarial"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_expense__amount_salary_discount
 msgid "Salary Discounts"
-msgstr "Descuentos salariales"
+msgstr "Descuentos Salariales"
 
 #. module: tms
 #: model:product.product,name:tms.product_retention model:product.template,name:tms.product_retention_product_template
 msgid "Salary Retention"
-msgstr "Retención de salario"
+msgstr "Retención de Salario"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_expense__amount_salary_retention
 msgid "Salary Retentions"
-msgstr "Retenciones de salario"
+msgstr "Retenciones de Salario"
 
 #. module: tms
 #: code:addons/tms/models/tms_expense.py:0
