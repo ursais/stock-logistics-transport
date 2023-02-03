@@ -209,7 +209,7 @@ class TmsExpense(models.Model):
             if float_compare(amount_residual, 0.0, precision_rounding=rec.currency_id.rounding) == 0:
                 rec.payment_state = "paid"
             elif (
-                float_compare(amount_residual, rec.amount_salary_balance, precision_rounding=rec.currency_id.rounding)
+                float_compare(amount_residual, abs(rec.amount_salary_balance), precision_rounding=rec.currency_id.rounding)
                 == 0
             ):
                 rec.payment_state = "not_paid"
