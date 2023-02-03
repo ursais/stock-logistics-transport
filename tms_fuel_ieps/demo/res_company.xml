@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="base.main_company" model="res.company">
+        <field name="ieps_account_id" ref="tms.account_fuel_expense" />
+    </record>
+</odoo>
