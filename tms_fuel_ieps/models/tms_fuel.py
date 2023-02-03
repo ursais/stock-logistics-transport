@@ -25,10 +25,7 @@ class TmsFuel(models.Model):
         store=True,
     )
     price_unit_ieps = fields.Float(
-        string="IEPS Unit Price",
-        compute="_compute_amounts_ieps",
-        store=True,
-        digits="Fuel Price"
+        string="IEPS Unit Price", compute="_compute_amounts_ieps", store=True, digits="Fuel Price"
     )
     amount_total_ieps = fields.Monetary(
         string="IEPS Total Amount",
@@ -73,12 +70,14 @@ class TmsFuel(models.Model):
         if self.partner_country_code and self.partner_country_code != "MX":
             return res
         vals = self._prepare_move_line_vals()
-        vals.update({
-            "name": vals["name"] + " IEPS",
-            "price_unit": self.amount_ieps,
-            "quantity": 1.0,
-            "account_id": self.company_id.ieps_account_id.id,
-            "tax_ids": [],
-        })
+        vals.update(
+            {
+                "name": vals["name"] + " IEPS",
+                "price_unit": self.amount_ieps,
+                "quantity": 1.0,
+                "account_id": self.company_id.ieps_account_id.id,
+                "tax_ids": [],
+            }
+        )
         res.append((0, 0, vals))
         return res
