@@ -36,13 +36,7 @@ class TmsFuel(models.Model):
     uom_category_id = fields.Many2one(
         related="product_uom_id.category_id",
     )
-    product_qty = fields.Float(
-        string="Quantity",
-        default=1.0,
-        tracking=True,
-        required=True,
-        digits="Fuel Qty"
-    )
+    product_qty = fields.Float(string="Quantity", default=1.0, tracking=True, required=True, digits="Fuel Qty")
     tax_amount = fields.Monetary(
         compute="_compute_amounts",
         store=True,
@@ -58,12 +52,7 @@ class TmsFuel(models.Model):
         compute="_compute_amounts",
         store=True,
     )
-    price_unit = fields.Float(
-        string="Unit Price",
-        tracking=True,
-        required=True,
-        digits="Fuel Price"
-    )
+    price_unit = fields.Float(string="Unit Price", tracking=True, required=True, digits="Fuel Price")
     amount_untaxed = fields.Monetary(
         string="Subtotal",
         compute="_compute_amounts",
@@ -164,7 +153,7 @@ class TmsFuel(models.Model):
             rec.amount_total = rec.amount_untaxed + rec.tax_amount + special_tax_amount
 
     def _get_special_tax_amount(self):
-        """ This method is created to be inherited by other modules."""
+        """This method is created to be inherited by other modules."""
         self.ensure_one()
         return 0.0
 

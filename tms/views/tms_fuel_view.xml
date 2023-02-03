@@ -114,7 +114,11 @@
                                             domain="[('category_id', '=', uom_category_id)]"
                                         />
                                     </div>
-                                    <field name="price_unit" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                    <field
+                                        name="price_unit"
+                                        widget="monetary"
+                                        options="{'currency_field': 'currency_id'}"
+                                    />
                                     <field name="amount_untaxed" />
                                     <field name="tax_ids" widget="many2many_tags" />
                                     <field name="tax_amount" />
