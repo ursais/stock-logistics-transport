@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-02 22:14+0000\n"
-"PO-Revision-Date: 2023-02-02 16:58-0600\n"
+"POT-Creation-Date: 2023-02-03 10:38+0000\n"
+"PO-Revision-Date: 2023-02-03 04:39-0600\n"
 "Last-Translator: Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -537,7 +537,7 @@ msgstr "Calcular líneas"
 #. module: tms
 #: model:ir.model,name:tms.model_res_config_settings
 msgid "Config Settings"
-msgstr "Ajustes de configuración"
+msgstr "Opciones de configuración"
 
 #. module: tms
 #: model:ir.ui.menu,name:tms.menu_tms_settings
@@ -1983,7 +1983,7 @@ msgstr "Unidad de odómetro"
 #. module: tms
 #: model:ir.model,name:tms.model_fleet_vehicle_odometer
 msgid "Odometer log for a vehicle"
-msgstr "Registro de odómetro de un vehículo"
+msgstr "Registro del odómetro para un vehículo"
 
 #. module: tms
 #: model:ir.model.fields,help:tms.field_tms_expense__current_odometer
@@ -2351,7 +2351,7 @@ msgstr "Balance Salario"
 #. module: tms
 #: model:product.product,name:tms.product_discount model:product.template,name:tms.product_discount_product_template
 msgid "Salary Discount"
-msgstr "Descuento Salarial"
+msgstr "Descuento salarial"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_expense__amount_salary_discount
@@ -2359,9 +2359,14 @@ msgid "Salary Discounts"
 msgstr "Descuentos Salariales"
 
 #. module: tms
+#: model:ir.model.fields,field_description:tms.field_tms_expense__amount_negative_balance
+msgid "Salary Negative Balance"
+msgstr "Saldo Salario Negativo"
+
+#. module: tms
 #: model:product.product,name:tms.product_retention model:product.template,name:tms.product_retention_product_template
 msgid "Salary Retention"
-msgstr "Retención de Salario"
+msgstr "Retención de salario"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_expense__amount_salary_retention
@@ -2378,6 +2383,11 @@ msgstr "Salario por viajes: "
 #: model:ir.model.fields,field_description:tms.field_tms_waybill__user_id model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_filter
 msgid "Salesman"
 msgstr "Vendedor"
+
+#. module: tms
+#: model:tms.transportable,name:tms.tms_transportable_01
+msgid "Sand"
+msgstr "Arena"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form model_terms:ir.ui.view,arch_db:tms.view_tms_travel_tree
@@ -3070,6 +3080,11 @@ msgstr "Vale de combustible del vehículo"
 #, python-format
 msgid "Volume"
 msgstr "Volúmen"
+
+#. module: tms
+#: model:tms.transportable,name:tms.tms_transportable_02
+msgid "Water"
+msgstr "Agua"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_account_bank_statement_line__waybill_id

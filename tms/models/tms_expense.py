@@ -44,6 +44,7 @@ class TmsExpense(models.Model):
     amount_net_salary = fields.Monetary(string="Net Salary", compute="_compute_amounts", store=True)
     amount_salary_retention = fields.Monetary(string="Salary Retentions", compute="_compute_amounts", store=True)
     amount_salary_discount = fields.Monetary(string="Salary Discounts", compute="_compute_amounts", store=True)
+    amount_negative_balance = fields.Monetary(string="Salary Negative Balance", compute="_compute_amounts", store=True)
     amount_total_driver_expenses = fields.Monetary(
         string="Total Driver Expenses", compute="_compute_amounts", store=True
     )
@@ -209,7 +210,9 @@ class TmsExpense(models.Model):
             if float_compare(amount_residual, 0.0, precision_rounding=rec.currency_id.rounding) == 0:
                 rec.payment_state = "paid"
             elif (
-                float_compare(amount_residual, abs(rec.amount_salary_balance), precision_rounding=rec.currency_id.rounding)
+                float_compare(
+                    amount_residual, abs(rec.amount_salary_balance), precision_rounding=rec.currency_id.rounding
+                )
                 == 0
             ):
                 rec.payment_state = "not_paid"
@@ -283,8 +286,15 @@ class TmsExpense(models.Model):
             amount_salary_retention = sum(
                 rec.expense_line_ids.filtered(lambda l: l.line_type == "salary_retention").mapped("amount_total")
             )
+            amount_negative_balance = sum(
+                rec.expense_line_ids.filtered(lambda l: l.line_type == "negative_balance").mapped("amount_total")
+            )
             amount_total_driver_expenses = (
-                amount_salary + amount_other_income + amount_salary_discount + amount_salary_retention
+                amount_salary
+                + amount_other_income
+                + amount_salary_discount
+                + amount_salary_retention
+                + amount_negative_balance
             )
             amount_real_expense = sum(
                 rec.expense_line_ids.filtered(lambda l: l.line_type == "real_expense").mapped("amount_untaxed")
@@ -313,6 +323,7 @@ class TmsExpense(models.Model):
                     "amount_other_income": amount_other_income,
                     "amount_salary_discount": amount_salary_discount,
                     "amount_salary_retention": amount_salary_retention,
+                    "amount_negative_balance": amount_negative_balance,
                     "amount_total_driver_expenses": amount_total_driver_expenses,
                     "amount_real_expense": amount_real_expense,
                     "amount_tax_real": amount_tax_real,
@@ -458,6 +469,22 @@ class TmsExpense(models.Model):
             rec.write({"move_id": move.id, "state": "confirmed"})
             rec._reconcile_supplier_invoices()
             rec._reconcile_advance_moves()
+            rec._reconcile_negative_balance()
+
+    def _reconcile_negative_balance(self):
+        self.ensure_one()
+        account = (
+            self.driver_id.property_tms_expense_negative_account_id or self.company_id.expense_negative_account_id
+        )
+        lines = self.move_id.line_ids.filtered(lambda l: l.account_id == account)
+        lines |= self.env["account.move.line"].search(
+            [
+                ("partner_id", "=", self.driver_id.address_home_id.id),
+                ("account_id", "=", account.id),
+                ("reconciled", "=", False),
+            ]
+        )
+        lines.reconcile()
 
     def _reconcile_advance_moves(self):
         self.ensure_one()
@@ -517,6 +544,11 @@ class TmsExpense(models.Model):
         if line and invoice:
             account_id = line.partner_id.property_account_payable_id.id
             partner_id = invoice.partner_id.id
+        if line and line.line_type == "negative_balance":
+            account_id = (
+                self.driver_id.property_tms_expense_negative_account_id.id
+                or self.company_id.expense_negative_account_id.id
+            )
         if line_type == "advance":
             name = _("Expense %(name)s - Advance", name=self.name)
             account_id = self.company_id.advance_account_id.id
@@ -874,7 +906,7 @@ class TmsExpenseLine(models.Model):
         )
 
     def _get_discount_categories(self):
-        return ["salary_retention", "salary_discount"]
+        return ["salary_retention", "salary_discount", "negative_balance"]
 
     @api.depends("tax_ids", "product_qty", "price_unit", "line_type", "product_id")
     def _compute_amounts(self):
