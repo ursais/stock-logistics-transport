@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-03 11:33+0000\n"
-"PO-Revision-Date: 2023-02-03 05:34-0600\n"
+"POT-Creation-Date: 2023-02-03 14:53+0000\n"
+"PO-Revision-Date: 2023-02-03 08:56-0600\n"
 "Last-Translator: Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -34,6 +34,11 @@ msgid "Config Settings"
 msgstr "Opciones de configuración"
 
 #. module: tms_fuel_ieps
+#: model:ir.model.fields,field_description:tms_fuel_ieps.field_tms_fuel__partner_country_code
+msgid "Country Code"
+msgstr "Código de país"
+
+#. module: tms_fuel_ieps
 #: model:ir.model,name:tms_fuel_ieps.model_tms_fuel
 msgid "Fuel Logs"
 msgstr "Registros de combustible"
@@ -43,6 +48,31 @@ msgstr "Registros de combustible"
 #: model:ir.model.fields,field_description:tms_fuel_ieps.field_res_config_settings__ieps_account_id
 msgid "IEPS Account"
 msgstr "Cuenta IEPS"
+
+#. module: tms_fuel_ieps
+#: model:ir.model.fields,field_description:tms_fuel_ieps.field_tms_fuel__amount_ieps
+msgid "IEPS Amount"
+msgstr "Monto IEPS"
+
+#. module: tms_fuel_ieps
+#: model:ir.model.fields,field_description:tms_fuel_ieps.field_tms_fuel__tax_amount_ieps
+msgid "IEPS Tax Amount"
+msgstr "Monto del Impuesto (IEPS)"
+
+#. module: tms_fuel_ieps
+#: model:ir.model.fields,field_description:tms_fuel_ieps.field_tms_fuel__amount_total_ieps
+msgid "IEPS Total Amount"
+msgstr "Monto total (IEPS)"
+
+#. module: tms_fuel_ieps
+#: model:ir.model.fields,field_description:tms_fuel_ieps.field_tms_fuel__price_unit_ieps
+msgid "IEPS Unit Price"
+msgstr "Precio Unitario (IEPS)"
+
+#. module: tms_fuel_ieps
+#: model:ir.model.fields,field_description:tms_fuel_ieps.field_tms_fuel__amount_untaxed_ieps
+msgid "IEPS Untaxed Amount"
+msgstr "Subtotal (IEPS)"
 
 #. module: tms_fuel_ieps
 #: model_terms:ir.ui.view,arch_db:tms_fuel_ieps.res_config_settings_view_form
@@ -57,3 +87,32 @@ msgstr ""
 #: model:ir.actions.act_window,name:tms_fuel_ieps.action_tms_config
 msgid "Settings"
 msgstr "Ajustes"
+
+#. module: tms_fuel_ieps
+#: model_terms:ir.ui.view,arch_db:tms_fuel_ieps.tms_fuel_view_form
+msgid "Tax Amount"
+msgstr "Importe impuesto"
+
+#. module: tms_fuel_ieps
+#: model:ir.model.fields,help:tms_fuel_ieps.field_tms_fuel__partner_country_code
+msgid ""
+"The ISO country code in two chars. \n"
+"You can use this field for quick search."
+msgstr ""
+"El código de país ISO en dos caracteres.\n"
+"Puede utilizar este campo para una búsqueda rápida."
+
+#. module: tms_fuel_ieps
+#: model_terms:ir.ui.view,arch_db:tms_fuel_ieps.tms_fuel_view_form
+msgid "Total Amount"
+msgstr "Monto Total"
+
+#. module: tms_fuel_ieps
+#: model_terms:ir.ui.view,arch_db:tms_fuel_ieps.tms_fuel_view_form
+msgid "Unit Price"
+msgstr "Precio unitario"
+
+#. module: tms_fuel_ieps
+#: model_terms:ir.ui.view,arch_db:tms_fuel_ieps.tms_fuel_view_form
+msgid "Untaxed Amount"
+msgstr "Subtotal"
