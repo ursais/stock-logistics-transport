@@ -91,6 +91,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xs-12 col-md-6 o_setting_box" id="tms_driver_loan">
+                            <div class="o_setting_left_pane">
+                                <field name="module_tms_driver_loan" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Enable Loans for Drivers" for="module_tms_driver_loan" />
+                                <div class="text-muted">
+                                    Use Loans for Drivers in TMS
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </xpath>

@@ -13,6 +13,9 @@ class ResConfigSettings(models.TransientModel):
     module_tms_fuel_ieps = fields.Boolean(
         string="IEPS in TMS Fuel",
     )
+    module_tms_driver_loan = fields.Boolean(
+        string="Driver Loans in TMS",
+    )
     driver_license_security_days = fields.Integer(
         related="company_id.driver_license_security_days",
         readonly=False,
