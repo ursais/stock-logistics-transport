@@ -20,6 +20,7 @@
         "views/hr_employee_view.xml",
         "views/tms_expense_view.xml",
         "security/ir.model.access.csv",
+        "security/ir_rule.xml",
     ],
     "demo": [
         "demo/account_account.xml",
