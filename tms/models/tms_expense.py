@@ -310,6 +310,7 @@ class TmsExpense(models.Model):
                 + amount_salary_discount
                 + amount_salary_retention
                 + amount_negative_balance
+                + rec._get_other_salary_discounts()
             )
             amount_real_expense = sum(
                 rec.expense_line_ids.filtered(lambda l: l.line_type == "real_expense").mapped("amount_untaxed")
@@ -354,6 +355,10 @@ class TmsExpense(models.Model):
                     "fuel_qty": fuel_qty,
                 }
             )
+
+    def _get_other_salary_discounts(self):
+        self.ensure_one()
+        return 0
 
     @api.depends("travel_ids")
     def _compute_distances(self):
@@ -776,15 +781,20 @@ class TmsExpense(models.Model):
             rec.travel_ids.mapped("waybill_ids").filtered(lambda f: f.state == "confirmed").write(
                 {"state": "closed", "expense_id": rec.id}
             )
-            lines_to_create = []
-            for travel in rec.travel_ids:
-                for advance in travel.advance_ids:
-                    lines_to_create.extend(rec._get_advance_lines(advance))
-                for fuel in travel.fuel_ids:
-                    lines_to_create.extend(rec._get_fuel_lines(fuel))
-                lines_to_create.extend(rec._get_salary_lines(travel))
+            lines_to_create = rec._get_expense_lines()
             rec.write({"expense_line_ids": lines_to_create})
             rec._compute_amounts()
+
+    def _get_expense_lines(self):
+        self.ensure_one()
+        lines = []
+        for travel in self.travel_ids:
+            for advance in travel.advance_ids:
+                lines.extend(self._get_advance_lines(advance))
+            for fuel in travel.fuel_ids:
+                lines.extend(self._get_fuel_lines(fuel))
+            lines.extend(self._get_salary_lines(travel))
+        return lines
 
     def _get_expense_journal(self):
         return self.company_id.expense_journal_id.id

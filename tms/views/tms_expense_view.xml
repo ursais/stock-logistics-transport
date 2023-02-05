@@ -150,7 +150,7 @@
                         </group>
                     </group>
                     <notebook>
-                        <page string="Resume">
+                        <page string="Resume" name="resume">
                             <group>
                                 <group>
                                     <separator string="Driver Expenses" />
@@ -178,14 +178,14 @@
                                 </group>
                             </group>
                         </page>
-                        <page string="Travels">
+                        <page string="Travels" name="travels">
                             <field
                                 name="travel_ids"
                                 attrs="{'readonly':[('state','in', ['confirmed', 'cancel'])]}"
                                 domain="[('driver_id','=', driver_id), ('state','=', 'done'), ('unit_id', '=', unit_id)]"
                             />
                         </page>
-                        <page string="Expense Lines">
+                        <page string="Expense Lines" name="expense_lines">
                             <field
                                 name="expense_line_ids"
                                 attrs="{'readonly':[('state','in', ['confirmed', 'cancel'])]}"
@@ -311,19 +311,19 @@
                                 </form>
                             </field>
                         </page>
-                        <page string="Advances">
+                        <page string="Advances" name="advances">
                             <field name="advance_ids" />
                         </page>
-                        <page string="Fuel Vouchers">
+                        <page string="Fuel Vouchers" name="fuel_vouchers">
                             <field name="fuel_ids" />
                         </page>
-                        <page string="Waybills">
+                        <page string="Waybills" name="waybills">
                             <field name="waybill_ids" />
                         </page>
-                        <page string="Notes">
+                        <page string="Notes" name="notes">
                             <field name="notes" placeholder="Notes ..." />
                         </page>
-                        <page string="Statistics">
+                        <page string="Statistics" name="statistics">
                             <group nanem="distances" string="Distances">
                                 <group name="planned" string="Planned">
                                     <field name="route_distance_loaded" />
