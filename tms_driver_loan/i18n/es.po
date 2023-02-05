@@ -1,0 +1,708 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* tms_driver_loan
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-05 20:56+0000\n"
+"PO-Revision-Date: 2023-02-05 14:56-0600\n"
+"Last-Translator: Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.2.2\n"
+
+#. module: tms_driver_loan
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_form
+msgid "<span class=\"o_form_label\">Driver Loan</span>"
+msgstr "<span class=\"o_form_label\">Préstamo de conductor</span>"
+
+#. module: tms_driver_loan
+#: code:addons/tms_driver_loan/models/tms_loan.py:0
+#, python-format
+msgid "<ul>Loan: %(name)s</ul><ul>Driver: %(driver)s</ul>"
+msgstr "<ul>Préstamo: %(name)s</ul><ul> Conductor: %(driver)s</ul>"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,help:tms_driver_loan.field_res_company__loan_account_id
+#: model:ir.model.fields,help:tms_driver_loan.field_res_config_settings__loan_account_id
+msgid "Account used to record the Loans of Drivers"
+msgstr "Cuenta utilizada para registrar los Préstamos de Conductores"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,help:tms_driver_loan.field_hr_employee__property_tms_loan_account_id
+msgid ""
+"Account used to register loans for drivers, if not set it will take the "
+"default account from the company"
+msgstr ""
+"Cuenta utilizada para registrar préstamos para conductores, si no se "
+"define, tomará la cuenta predeterminada de la empresa"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__message_needaction
+msgid "Action Needed"
+msgstr "Acción requerida"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Emblema de actividad de excepción"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Ícono de tipo de actvidad"
+
+#. module: tms_driver_loan
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_search
+msgid "All"
+msgstr "Todos"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__amount
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_tree
+msgid "Amount"
+msgstr "Monto"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_expense__amount_loan
+msgid "Amount Loan"
+msgstr "Monto del préstamo"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__amount_residual
+msgid "Amount Residual"
+msgstr "Monto Residual"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__amount_residual_driver
+msgid "Amount Residual Driver"
+msgstr "Monto Restante Conductor"
+
+#. module: tms_driver_loan
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_search
+msgid "Archived"
+msgstr "Archivado"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__message_attachment_count
+msgid "Attachment Count"
+msgstr "Nº de archivos adjuntos"
+
+#. module: tms_driver_loan
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_tree
+msgid "Balance"
+msgstr "Balance"
+
+#. module: tms_driver_loan
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields.selection,name:tms_driver_loan.selection__tms_loan__state__cancel
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields.selection,name:tms_driver_loan.selection__tms_loan__state__closed
+msgid "Closed"
+msgstr "Cerrado"
+
+#. module: tms_driver_loan
+#: model:ir.model,name:tms_driver_loan.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__company_id
+msgid "Company"
+msgstr "Empresa"
+
+#. module: tms_driver_loan
+#: model:ir.model,name:tms_driver_loan.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de configuración"
+
+#. module: tms_driver_loan
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields.selection,name:tms_driver_loan.selection__tms_loan__state__confirmed
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_search
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__date_confirmed
+msgid "Confirmed Date"
+msgstr "Fecha de Confirmación"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__discount_factor
+msgid "Discount Factor"
+msgstr "Factor de Descuento"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__discount_method
+msgid "Discount Method"
+msgstr "Método de descuento"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__product_id
+msgid "Discount Product"
+msgstr "Producto de Descuento"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__discount_type
+msgid "Discount Type"
+msgstr "Tipo de Descuento"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields.selection,name:tms_driver_loan.selection__tms_loan__state__draft
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_search
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__driver_id
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_search
+msgid "Driver"
+msgstr "Conductor"
+
+#. module: tms_driver_loan
+#: model:product.product,name:tms_driver_loan.product_driver_loan
+#: model:product.template,name:tms_driver_loan.product_driver_loan_product_template
+msgid "Driver Loan"
+msgstr "Préstamo de conductor"
+
+#. module: tms_driver_loan
+#: model:ir.actions.act_window,name:tms_driver_loan.action_tms_loan
+#: model:ir.ui.menu,name:tms_driver_loan.tms_menu_tms_loan
+msgid "Drivers Loans"
+msgstr "Préstamos para conductores"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields.selection,name:tms_driver_loan.selection__tms_loan__discount_method__each
+msgid "Each Travel Expense Record"
+msgstr "Cada registro de gastos de viaje"
+
+#. module: tms_driver_loan
+#: model:ir.model,name:tms_driver_loan.model_hr_employee
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__expense_ids
+msgid "Expense"
+msgstr "Gasto"
+
+#. module: tms_driver_loan
+#: model:ir.model,name:tms_driver_loan.model_tms_expense_line
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__expense_line_ids
+msgid "Expense Line"
+msgstr "Línea de Gastos"
+
+#. module: tms_driver_loan
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_form
+msgid "Expense Lines"
+msgstr "Líneas de Gastos"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields.selection,name:tms_driver_loan.selection__tms_loan__discount_type__fixed
+msgid "Fixed"
+msgstr "Fijo"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Contactos)"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,help:tms_driver_loan.field_tms_loan__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono de Font Awesome ej. fa-tasks"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields.selection,name:tms_driver_loan.selection__tms_loan__discount_method__fortnightly
+msgid "Fortnightly"
+msgstr "Quincenalmente"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__id
+msgid "ID"
+msgstr "Identificación"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__activity_exception_icon
+msgid "Icon"
+msgstr "Ícono"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,help:tms_driver_loan.field_tms_loan__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Ícono para indicar una actividad de excepción."
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,help:tms_driver_loan.field_tms_loan__message_needaction
+#: model:ir.model.fields,help:tms_driver_loan.field_tms_loan__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado hay nuevos mensajes que requieren su atención."
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,help:tms_driver_loan.field_tms_loan__message_has_error
+#: model:ir.model.fields,help:tms_driver_loan.field_tms_loan__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__message_is_follower
+msgid "Is Follower"
+msgstr "Es un seguidor"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,help:tms_driver_loan.field_tms_loan__payment_state
+msgid "It indicates the payment status of the expense."
+msgstr "Indica el estado de pago del gasto."
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__move_id
+msgid "Journal Entry"
+msgstr "Asiento de diario"
+
+#. module: tms_driver_loan
+#: model:ir.model,name:tms_driver_loan.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,help:tms_driver_loan.field_res_company__loan_journal_id
+#: model:ir.model.fields,help:tms_driver_loan.field_res_config_settings__loan_journal_id
+msgid "Journal used to record the Loans of Drivers"
+msgstr "Diario utilizado para registrar los Préstamos de Conductores"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__write_uid
+msgid "Last Updated by"
+msgstr "Última modificación por"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__write_date
+msgid "Last Updated on"
+msgstr "Última modificación en"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,help:tms_driver_loan.field_tms_loan__move_id
+msgid "Link to the automatically generated Journal Items."
+msgstr "Enlace a los elementos del diario generados automáticamente."
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_account_move_line__loan_id
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_expense_line__loan_id
+msgid "Loan"
+msgstr "Préstamo"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_hr_employee__property_tms_loan_account_id
+#: model:ir.model.fields,field_description:tms_driver_loan.field_res_company__loan_account_id
+#: model:ir.model.fields,field_description:tms_driver_loan.field_res_config_settings__loan_account_id
+msgid "Loan Account"
+msgstr "Cuenta de préstamo"
+
+#. module: tms_driver_loan
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_form
+msgid "Loan Details"
+msgstr "Detalles del Préstamo"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_res_company__loan_journal_id
+#: model:ir.model.fields,field_description:tms_driver_loan.field_res_config_settings__loan_journal_id
+msgid "Loan Journal"
+msgstr "Diario de préstamo"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields.selection,name:tms_driver_loan.selection__tms_loan__discount_type__percent
+msgid "Loan Percentage"
+msgstr "Porcentaje de préstamo"
+
+#. module: tms_driver_loan
+#: code:addons/tms_driver_loan/models/tms_expense.py:0
+#: code:addons/tms_driver_loan/models/tms_loan.py:0
+#, python-format
+msgid "Loan: %(name)s"
+msgstr "Préstamo: %(name)s"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_expense__loan_ids
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.tms_expense_view_form
+msgid "Loans"
+msgstr "Préstamos"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjuntos principales"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de Envío de Mensaje"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields.selection,name:tms_driver_loan.selection__tms_loan__discount_method__monthly
+msgid "Monthly"
+msgstr "Mensual"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Fecha límite de Mi Actividad"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: tms_driver_loan
+#: code:addons/tms_driver_loan/models/tms_loan.py:0
+#, python-format
+msgid "New"
+msgstr "Nuevo"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha de vencimiento de siguiente actividad"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo de actividad Siguiente"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields.selection,name:tms_driver_loan.selection__tms_loan__payment_state__not_paid
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_form
+msgid "Not Paid"
+msgstr "No Pagado"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__notes
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_form
+msgid "Notes"
+msgstr "Notas"
+
+#. module: tms_driver_loan
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_form
+msgid "Notes..."
+msgstr "Notas..."
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__message_has_error_counter
+msgid "Number of errors"
+msgstr "Numero de errores"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,help:tms_driver_loan.field_tms_loan__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,help:tms_driver_loan.field_tms_loan__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de envío"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,help:tms_driver_loan.field_tms_loan__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes no leidos"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields.selection,name:tms_driver_loan.selection__tms_loan__payment_state__paid
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_form
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_search
+msgid "Paid"
+msgstr "Pagado"
+
+#. module: tms_driver_loan
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_form
+msgid "Partial"
+msgstr "Parcial"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields.selection,name:tms_driver_loan.selection__tms_loan__payment_state__partial
+msgid "Partially Paid"
+msgstr "Parcialmente Pagado"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__payment_ids
+msgid "Payment"
+msgstr "Pago"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__payment_move_ids
+msgid "Payment Entries"
+msgstr "Entradas de pago"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__payment_state
+msgid "Payment State"
+msgstr "Estado del Pago"
+
+#. module: tms_driver_loan
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_form
+msgid "Payments"
+msgstr "Pagos"
+
+#. module: tms_driver_loan
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_search
+msgid "Product"
+msgstr "Producto"
+
+#. module: tms_driver_loan
+#: model:ir.model,name:tms_driver_loan.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: tms_driver_loan
+#: code:addons/tms_driver_loan/models/tms_loan.py:0
+#: model:ir.model,name:tms_driver_loan.model_account_payment_register
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_form
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_tree
+#, python-format
+msgid "Register Payment"
+msgstr "Registrar pago"
+
+#. module: tms_driver_loan
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_form
+msgid "Related Moves"
+msgstr "Movimientos Relacionados"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega del SMS"
+
+#. module: tms_driver_loan
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.res_config_settings_view_form
+msgid ""
+"Select the default account that will be used to record the loans made to "
+"drivers."
+msgstr ""
+"Seleccione la cuenta predeterminada que se utilizará para registrar los "
+"préstamos realizados a los conductores."
+
+#. module: tms_driver_loan
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.res_config_settings_view_form
+msgid "Select the journal where the driver loans will be posted."
+msgstr "Seleccione el diario donde se registrarán los préstamos de conductor."
+
+#. module: tms_driver_loan
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_form
+msgid "Set to Draft"
+msgstr "Establecer a borrador"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__state
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_search
+msgid "State"
+msgstr "Estado"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,help:tms_driver_loan.field_tms_loan__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado basado en actividades\n"
+"Vencida: la fecha límite ya pasó\n"
+"Hoy: la fecha límite es hoy\n"
+"Planificada: actividades futuras."
+
+#. module: tms_driver_loan
+#: model:ir.model,name:tms_driver_loan.model_tms_loan
+msgid "TMS Loan"
+msgstr "Préstamo TMS"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_product_product__tms_product_category
+#: model:ir.model.fields,field_description:tms_driver_loan.field_product_template__tms_product_category
+msgid "TMS Product Category"
+msgstr "Categoría de producto TMS"
+
+#. module: tms_driver_loan
+#: code:addons/tms_driver_loan/models/tms_loan.py:0
+#, python-format
+msgid "The discount factor must be greater than zero"
+msgstr "El factor de descuento debe ser mayor que cero"
+
+#. module: tms_driver_loan
+#: code:addons/tms_driver_loan/models/tms_loan.py:0
+#, python-format
+msgid "The percentage discount must be less than 100.0"
+msgstr "El porcentaje de descuento debe ser inferior a 100.0"
+
+#. module: tms_driver_loan
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_form
+msgid "Total"
+msgstr "Total"
+
+#. module: tms_driver_loan
+#: model:ir.model,name:tms_driver_loan.model_tms_expense
+msgid "Travel Expenses"
+msgstr "Gastos de Viaje"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,help:tms_driver_loan.field_tms_loan__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de actividad de excepción registrada."
+
+#. module: tms_driver_loan
+#: model:product.product,uom_name:tms_driver_loan.product_driver_loan
+#: model:product.template,uom_name:tms_driver_loan.product_driver_loan_product_template
+msgid "Units"
+msgstr "Unidades"
+
+#. module: tms_driver_loan
+#: model_terms:ir.ui.view,arch_db:tms_driver_loan.view_tms_loan_search
+msgid "Unpaid"
+msgstr "No pagado"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__message_unread
+msgid "Unread Messages"
+msgstr "Mensajes sin leer"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Contador de mensajes sin leer"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,field_description:tms_driver_loan.field_tms_loan__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del Sitio Web"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields,help:tms_driver_loan.field_tms_loan__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"
+
+#. module: tms_driver_loan
+#: model:ir.model.fields.selection,name:tms_driver_loan.selection__tms_loan__discount_method__weekly
+msgid "Weekly"
+msgstr "Semanal"
+
+#. module: tms_driver_loan
+#: code:addons/tms_driver_loan/models/tms_loan.py:0
+#, python-format
+msgid "You can not cancel a loan that has payments"
+msgstr "No se puede cancelar un préstamo que tiene pagos"
+
+#. module: tms_driver_loan
+#: code:addons/tms_driver_loan/models/tms_loan.py:0
+#, python-format
+msgid "You can not confirm a confirmed loan."
+msgstr "No se puede confirmar un préstamo confirmado."
+
+#. module: tms_driver_loan
+#: code:addons/tms_driver_loan/models/tms_loan.py:0
+#, python-format
+msgid "You can not delete a Loan in status confirmed or closed"
+msgstr "No se puede eliminar un Préstamo en estado confirmado o cerrado"
+
+#. module: tms_driver_loan
+#: code:addons/tms_driver_loan/models/tms_loan.py:0
+#, python-format
+msgid "You need to configure the loan account in the Settings of TMS Module."
+msgstr ""
+"Debe configurar la cuenta de préstamo en la configuración del módulo TMS."
+
+#. module: tms_driver_loan
+#: code:addons/tms_driver_loan/models/tms_loan.py:0
+#, python-format
+msgid "You need to configure the loan journal in the Settins of TMS Module."
+msgstr "Debe configurar el diario de préstamos en los ajustes del módulo TMS."

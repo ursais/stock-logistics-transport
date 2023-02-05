@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="base.main_company" model="res.company">
+        <field name="loan_account_id" ref="account_loan" />
+        <field name="loan_journal_id" ref="tms_account_journal_loan" />
+    </record>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="tms_expense_view_form" model="ir.ui.view">
+        <field name="name">tms.expense.view.form</field>
+        <field name="model">tms.expense</field>
+        <field name="inherit_id" ref="tms.view_tms_expense_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='waybills']" position="after">
+                <page name="loans" string="Loans">
+                    <field name="loan_ids" nolabel="1" />
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='amount_salary_retention']" position="after">
+                <field name="amount_loan" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

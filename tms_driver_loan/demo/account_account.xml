@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="account_loan" model="account.account">
+        <field name="name">Driver Loan</field>
+        <field name="code">107.05.04</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="reconcile" eval="1" />
+    </record>
+</odoo>

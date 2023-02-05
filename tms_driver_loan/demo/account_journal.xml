@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="tms_account_journal_loan" model="account.journal">
+        <field name="name">Loan Journal</field>
+        <field name="type">general</field>
+        <field name="code">LO</field>
+        <field name="show_on_dashboard" eval="False" />
+    </record>
+</odoo>

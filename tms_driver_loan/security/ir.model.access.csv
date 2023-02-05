@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+monitoring_tms_loan,monitoring_tms_loan,model_tms_loan,tms.group_tms_monitoring,1,0,0,0
+traffic_tms_loan,access_tms_loan,model_tms_loan,tms.group_tms_traffic,1,1,1,0
+expenses_tms_loan,expenses_tms_loan,model_tms_loan,tms.group_tms_expenses,1,1,1,1
