@@ -13,7 +13,7 @@ class TmsFuel(models.Model):
     )
     amount_ieps = fields.Monetary(
         string="IEPS Amount",
-        compute="_compute_amount_ieps",
+        compute="_compute_amounts_ieps",
         store=True,
     )
     tax_amount_ieps = fields.Monetary(
