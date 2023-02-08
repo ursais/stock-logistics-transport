@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-08 04:19+0000\n"
-"PO-Revision-Date: 2023-02-07 22:22-0600\n"
+"POT-Creation-Date: 2023-02-08 14:31+0000\n"
+"PO-Revision-Date: 2023-02-08 08:31-0600\n"
 "Last-Translator: Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -1628,7 +1628,7 @@ msgstr "Indica el estado de pago del gasto."
 #: model:ir.model,name:tms.model_account_move model:ir.model.fields,field_description:tms.field_tms_advance__move_id
 #: model:ir.model.fields,field_description:tms.field_tms_expense__move_id
 msgid "Journal Entry"
-msgstr "Asiento contable"
+msgstr "Asiento de diario"
 
 #. module: tms
 #: model:ir.model,name:tms.model_account_move_line
@@ -2930,7 +2930,7 @@ msgstr "Transportable"
 #. module: tms
 #: model:ir.model,name:tms.model_tms_transportable
 msgid "Transportable Product"
-msgstr "Producto Transportable"
+msgstr "Producto Transporte"
 
 #. module: tms
 #: code:addons/tms/models/tms_factor.py:0 model:ir.actions.act_window,name:tms.open_view_tms_travel_form model:ir.model,name:tms.model_tms_travel
@@ -3360,3 +3360,9 @@ msgstr "Debe configurar la cuenta de anticipos en la configuración del módulo 
 #, python-format
 msgid "You need to configure the advance journal in the Settins of TMS Module."
 msgstr "Debe configurar el diario de anticipos en la configuración del módulo TMS."
+
+#. module: tms
+#: code:addons/tms/models/tms_advance.py:0
+#, python-format
+msgid "You need to configure the payable account in the partner."
+msgstr "Debe configurar la cuenta de pago en el conductor."
