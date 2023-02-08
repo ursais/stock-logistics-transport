@@ -9,41 +9,107 @@
                 <field
                     name="price_unit_ieps"
                     string="Unit Price"
-                    attrs="{'invisible': [('partner_country_code', '!=', 'MX')]}"
+                    attrs="{
+                        'invisible': [
+                            '|',
+                            ('partner_country_code', '!=', 'MX'),
+                            '&amp;',
+                            ('partner_country_code', '=', 'MX'),
+                            ('is_prepaid', '=', True)
+                        ],
+                    }"
                     widget="monetary"
                     options="{'currency_field': 'currency_id'}"
                 />
                 <field
                     name="amount_untaxed_ieps"
                     string="Untaxed Amount"
-                    attrs="{'invisible': [('partner_country_code', '!=', 'MX')]}"
+                    attrs="{
+                        'invisible': [
+                            '|',
+                            ('partner_country_code', '!=', 'MX'),
+                            '&amp;',
+                            ('partner_country_code', '=', 'MX'),
+                            ('is_prepaid', '=', True)
+                        ],
+                    }"
                 />
             </xpath>
             <xpath expr="//field[@name='tax_amount']" position="after">
                 <field
                     name="tax_amount_ieps"
                     string="Tax Amount"
-                    attrs="{'invisible': [('partner_country_code', '!=', 'MX')]}"
+                    attrs="{
+                        'invisible': [
+                            '|',
+                            ('partner_country_code', '!=', 'MX'),
+                            '&amp;',
+                            ('partner_country_code', '=', 'MX'),
+                            ('is_prepaid', '=', True)
+                        ],
+                        'readonly': [('state', '!=', 'draft')],
+                    }"
                 />
-                <field name="amount_ieps" attrs="{'invisible': [('partner_country_code', '!=', 'MX')]}" />
+                <field
+                    name="amount_ieps"
+                    attrs="{
+                        'invisible': [
+                            '|',
+                            ('partner_country_code', '!=', 'MX'),
+                            '&amp;',
+                            ('partner_country_code', '=', 'MX'),
+                            ('is_prepaid', '=', True)
+                        ],
+                    }"
+                />
                 <field
                     name="amount_total_ieps"
                     string="Total Amount"
-                    attrs="{'invisible': [('partner_country_code', '!=', 'MX')]}"
+                    attrs="{
+                        'invisible': [
+                            '|',
+                            ('partner_country_code', '!=', 'MX'),
+                            '&amp;',
+                            ('partner_country_code', '=', 'MX'),
+                            ('is_prepaid', '=', True)
+                        ],
+                        'readonly': [('state', '!=', 'draft')],
+                    }"
                 />
                 <field name="partner_country_code" invisible="1" />
             </xpath>
             <xpath expr="//field[@name='tax_amount']" position="attributes">
-                <attribute name="attrs">{'invisible': [('partner_country_code', '=', 'MX')]}</attribute>
+                <attribute name="attrs">{
+                    'invisible': [
+                        ('partner_country_code', '=', 'MX'),
+                        ('is_prepaid', '=', False),
+                    ],
+                }</attribute>
             </xpath>
             <xpath expr="//field[@name='price_unit']" position="attributes">
-                <attribute name="attrs">{'invisible': [('partner_country_code', '=', 'MX')]}</attribute>
+                <attribute name="attrs">{
+                    'invisible': [
+                        ('partner_country_code', '=', 'MX'),
+                        ('is_prepaid', '=', False),
+                    ],
+                    'readonly': [('state', '!=', 'draft')],
+                }</attribute>
             </xpath>
             <xpath expr="//field[@name='amount_untaxed']" position="attributes">
-                <attribute name="attrs">{'invisible': [('partner_country_code', '=', 'MX')]}</attribute>
+                <attribute name="attrs">{
+                    'invisible': [
+                        ('partner_country_code', '=', 'MX'),
+                        ('is_prepaid', '=', False),
+                    ],
+                }</attribute>
             </xpath>
             <xpath expr="//field[@name='amount_total']" position="attributes">
-                <attribute name="attrs">{'invisible': [('partner_country_code', '=', 'MX')]}</attribute>
+                <attribute name="attrs">{
+                    'invisible': [
+                        ('partner_country_code', '=', 'MX'),
+                        ('is_prepaid', '=', False),
+                    ],
+                }</attribute>
             </xpath>
         </field>
     </record>

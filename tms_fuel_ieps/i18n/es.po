@@ -6,16 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-03 14:53+0000\n"
-"PO-Revision-Date: 2023-02-03 08:56-0600\n"
-"Last-Translator: Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com>\n"
+"POT-Creation-Date: 2023-02-08 04:25+0000\n"
+"PO-Revision-Date: 2023-02-08 04:25+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
-"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 3.2.2\n"
 
 #. module: tms_fuel_ieps
 #: model:ir.model.fields,help:tms_fuel_ieps.field_res_company__ieps_account_id
@@ -82,11 +80,6 @@ msgid ""
 msgstr ""
 "Seleccione la cuenta predeterminada que se utilizará para registrar el "
 "impuesto IEPS en las facturas de combustible."
-
-#. module: tms_fuel_ieps
-#: model:ir.actions.act_window,name:tms_fuel_ieps.action_tms_config
-msgid "Settings"
-msgstr "Ajustes"
 
 #. module: tms_fuel_ieps
 #: model_terms:ir.ui.view,arch_db:tms_fuel_ieps.tms_fuel_view_form

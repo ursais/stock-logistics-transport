@@ -67,7 +67,7 @@ class TmsFuel(models.Model):
 
     def _prepare_move_line(self):
         res = super()._prepare_move_line()
-        if self.partner_country_code and self.partner_country_code != "MX":
+        if self.is_prepaid or self.partner_country_code and self.partner_country_code != "MX":
             return res
         vals = self._prepare_move_line_vals()
         vals.update(
