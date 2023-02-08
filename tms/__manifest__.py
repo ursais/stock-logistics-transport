@@ -38,6 +38,7 @@
         "data/product_product_data.xml",
         "data/decimal_precision_data.xml",
         "views/tms_view.xml",
+        "views/account_move_view.xml",
     ],
     "demo": [
         "demo/account_account.xml",

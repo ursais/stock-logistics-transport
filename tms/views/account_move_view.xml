@@ -5,11 +5,26 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
-            <notebook position="inside">
-                <page attrs="{'invisible':[('waybill_ids', '=', [])]}" string="Waybills">
-                    <field name="waybill_ids" />
-                </page>
-            </notebook>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    name="action_open_waybill"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-bars"
+                    string="Waybill"
+                    attrs="{'invisible': [('waybill_id', '=', False)]}"
+                />
+                <button
+                    name="action_open_travel"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-truck"
+                    string="Travel"
+                    attrs="{'invisible': [('travel_id', '=', False)]}"
+                />
+                <field name="waybill_id" invisible="1" />
+                <field name="travel_id" invisible="1" />
+            </xpath>
         </field>
     </record>
 </odoo>

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-03 14:50+0000\n"
-"PO-Revision-Date: 2023-02-03 08:51-0600\n"
+"POT-Creation-Date: 2023-02-08 02:12+0000\n"
+"PO-Revision-Date: 2023-02-07 20:13-0600\n"
 "Last-Translator: Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -959,6 +959,11 @@ msgid "Driver License Security Days"
 msgstr "Días de seguridad de la licencia de conducir"
 
 #. module: tms
+#: model:ir.model.fields,field_description:tms.field_res_config_settings__module_tms_driver_loan
+msgid "Driver Loans in TMS"
+msgstr "Préstamos para conductores en TMS"
+
+#. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_factor__driver_route_id
 msgid "Driver Route"
 msgstr "Ruta del conductor"
@@ -1009,6 +1014,11 @@ msgstr "Empleado"
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
 msgid "Enable IEPS in Fuel"
 msgstr "Habilitar IEPS en Combustible"
+
+#. module: tms
+#: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
+msgid "Enable Loans for Drivers"
+msgstr "Habilitar préstamos para conductores"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
@@ -2881,11 +2891,15 @@ msgstr "Producto Transportable"
 
 #. module: tms
 #: code:addons/tms/models/tms_factor.py:0 model:ir.actions.act_window,name:tms.open_view_tms_travel_form model:ir.model,name:tms.model_tms_travel
+#: model:ir.model.fields,field_description:tms.field_account_bank_statement_line__travel_id
+#: model:ir.model.fields,field_description:tms.field_account_move__travel_id
+#: model:ir.model.fields,field_description:tms.field_account_payment__travel_id
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_odometer__travel_id
 #: model:ir.model.fields,field_description:tms.field_tms_advance__travel_id
 #: model:ir.model.fields,field_description:tms.field_tms_expense_line__travel_id model:ir.model.fields,field_description:tms.field_tms_fuel__travel_id
 #: model:ir.model.fields,field_description:tms.field_tms_waybill__travel_id model:ir.ui.menu,name:tms.menu_tms_travel_form
-#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
+#: model_terms:ir.ui.view,arch_db:tms.account_move_tms_form model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
 #, python-format
 msgid "Travel"
 msgstr "Viaje"
@@ -3069,6 +3083,11 @@ msgstr "Usar IEPS de combustible en TMS"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
+msgid "Use Loans for Drivers in TMS"
+msgstr "Usar préstamos para conductores en TMS"
+
+#. module: tms
+#: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
 msgid "Use Operating Units in TMS"
 msgstr "Usar Unidades Operativas en TMS"
 
@@ -3125,8 +3144,8 @@ msgstr "Agua"
 #: model:ir.model.fields,field_description:tms.field_account_move_line__waybill_id
 #: model:ir.model.fields,field_description:tms.field_account_payment__waybill_id
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_line__waybill_id
-#: model:ir.model.fields,field_description:tms.field_tms_waybill_transportable_line__waybill_id model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_graph
+#: model:ir.model.fields,field_description:tms.field_tms_waybill_transportable_line__waybill_id model_terms:ir.ui.view,arch_db:tms.account_move_tms_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_graph
 msgid "Waybill"
 msgstr "Carta de Porte"
 
