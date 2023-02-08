@@ -36,6 +36,10 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.advance_account_id",
         readonly=False,
     )
+    fuel_prepaid_journal_id = fields.Many2one(
+        related="company_id.fuel_prepaid_journal_id",
+        readonly=False,
+    )
     expense_negative_account_id = fields.Many2one(
         related="company_id.expense_negative_account_id",
         readonly=False,

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-08 02:12+0000\n"
-"PO-Revision-Date: 2023-02-07 20:13-0600\n"
+"POT-Creation-Date: 2023-02-08 04:19+0000\n"
+"PO-Revision-Date: 2023-02-07 22:22-0600\n"
 "Last-Translator: Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -465,6 +465,11 @@ msgid "Balance"
 msgstr "Balance"
 
 #. module: tms
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__balance_prepaid
+msgid "Balance Prepaid"
+msgstr "Saldo prepago"
+
+#. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.tms_fuel_view_form model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form
@@ -606,6 +611,18 @@ msgstr "¡No se pudo facturar el vale de combustible! Este ya está Facturado"
 #, python-format
 msgid "Could not Invoice Fuel Voucher! This Fuel Voucher must be confirmed or closed"
 msgstr "¡No se pudo facturar el vale de combustible! Este debe estar confirmado o cerrado"
+
+#. module: tms
+#: code:addons/tms/models/tms_fuel.py:0
+#, python-format
+msgid "Could not Invoice Fuel Voucher! You can not invoice prepaid and non-prepaid Fuel Vouchers together"
+msgstr "¡No se pudo facturar el vale de combustible! No se pueden facturar vales con prepago y sin prepago juntos"
+
+#. module: tms
+#: code:addons/tms/models/tms_fuel.py:0
+#, python-format
+msgid "Could not Invoice Fuel Voucher! You do not have enough balance in your prepaid account"
+msgstr "¡No se pudo facturar el vale de combustible! No tienes saldo suficiente en tu cuenta prepago"
 
 #. module: tms
 #: code:addons/tms/models/tms_fuel.py:0
@@ -1294,6 +1311,17 @@ msgid "Fuel Logs"
 msgstr "Registros de combustible"
 
 #. module: tms
+#: model:product.product,name:tms.product_fuel_prepaid model:product.template,name:tms.product_fuel_prepaid_product_template
+msgid "Fuel Prepaid"
+msgstr "Combustible Prepago"
+
+#. module: tms
+#: model:ir.model.fields,field_description:tms.field_res_company__fuel_prepaid_journal_id
+#: model:ir.model.fields,field_description:tms.field_res_config_settings__fuel_prepaid_journal_id
+msgid "Fuel Prepaid Journal"
+msgstr "Diario de prepago de combustible"
+
+#. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_expense__fuel_qty
 msgid "Fuel Qty"
 msgstr "Cantidad de Combustible"
@@ -1582,6 +1610,11 @@ msgid "Is Invoice?"
 msgstr "¿Tiene Factura?"
 
 #. module: tms
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__is_prepaid
+msgid "Is Prepaid"
+msgstr "Es prepago"
+
+#. module: tms
 #: model:ir.model.fields,help:tms.field_tms_advance__payment_state
 msgid "It indicates the payment status of the advance."
 msgstr "Indica el estado de pago del anticipo."
@@ -1595,7 +1628,7 @@ msgstr "Indica el estado de pago del gasto."
 #: model:ir.model,name:tms.model_account_move model:ir.model.fields,field_description:tms.field_tms_advance__move_id
 #: model:ir.model.fields,field_description:tms.field_tms_expense__move_id
 msgid "Journal Entry"
-msgstr "Asiento de diario"
+msgstr "Asiento contable"
 
 #. module: tms
 #: model:ir.model,name:tms.model_account_move_line
@@ -2474,6 +2507,11 @@ msgstr "Seleccione el diario donde se contabilizará el anticipo."
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
+msgid "Select the journal where the fuel comsuption moves will be posted."
+msgstr "Seleccione el diario donde se contabilizarán los movimientos de consumo de combustible."
+
+#. module: tms
+#: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
 msgid "Select the journal where the travel expense will be posted."
 msgstr "Seleccione el diario donde se registrarán los gastos de viaje."
 
@@ -2784,6 +2822,11 @@ msgstr "Este producto se utilizará en el Expense, para sumar un ingreso extra a
 #: model:ir.model.fields,help:tms.field_tms_travel_stage__state
 msgid "This stage will be used only for the selected state."
 msgstr "Esta etapa se utilizará únicamente para el estado seleccionado."
+
+#. module: tms
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_view_form
+msgid "This supplier has a prepaid balance of"
+msgstr "Este proveedor tiene un saldo prepago de"
 
 #. module: tms
 #: code:addons/tms/models/tms_travel.py:0

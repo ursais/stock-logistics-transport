@@ -3,6 +3,7 @@
     <record id="base.main_company" model="res.company">
         <field name="advance_journal_id" ref="tms_account_journal_advance" />
         <field name="expense_journal_id" ref="tms_account_journal_expense" />
+        <field name="fuel_prepaid_journal_id" ref="tms_account_journal_prepaid" />
         <field name="driver_license_security_days">5</field>
         <field name="insurance_security_days">5</field>
         <field name="advance_account_id" ref="account_drivers" />

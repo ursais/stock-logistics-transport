@@ -41,6 +41,13 @@
                         widget="statusbar"
                     />
                 </header>
+                <div
+                    class="alert alert-warning mb-0"
+                    role="alert"
+                    attrs="{'invisible': ['|', ('balance_prepaid', '=', 0), ('is_prepaid', '=', False)]}"
+                >
+                    <p>This supplier has a prepaid balance of <field name="balance_prepaid" />.</p>
+                </div>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button
@@ -118,20 +125,39 @@
                                         name="price_unit"
                                         widget="monetary"
                                         options="{'currency_field': 'currency_id'}"
+                                        attrs="{'readonly':[('state', '!=', 'draft')]}"
                                     />
                                     <field name="amount_untaxed" />
-                                    <field name="tax_ids" widget="many2many_tags" />
+                                    <field
+                                        name="tax_ids"
+                                        widget="many2many_tags"
+                                        attrs="{'invisible': [('is_prepaid', '=', True)], 'readonly':[('state', '!=', 'draft')]}"
+                                    />
                                     <field name="tax_amount" />
                                     <field name="amount_total" />
                                 </group>
                                 <group>
-                                    <field name="analytic_account_id" groups="analytic.group_analytic_accounting" />
+                                    <field
+                                        name="is_prepaid"
+                                        widget="boolean_toggle"
+                                        attrs="{'readonly':[('state', '!=', 'draft')]}"
+                                    />
+                                    <field
+                                        name="analytic_account_id"
+                                        groups="analytic.group_analytic_accounting"
+                                        attrs="{'readonly':[('state', '!=', 'draft')]}"
+                                    />
                                     <field
                                         name="analytic_tag_ids"
                                         groups="analytic.group_analytic_tags"
                                         widget="many2many_tags"
+                                        attrs="{'readonly':[('state', '!=', 'draft')]}"
                                     />
-                                    <field name="company_id" groups="base.group_multi_company" />
+                                    <field
+                                        name="company_id"
+                                        groups="base.group_multi_company"
+                                        attrs="{'readonly':[('state', '!=', 'draft')]}"
+                                    />
                                 </group>
                             </group>
                         </page>

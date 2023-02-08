@@ -124,33 +124,63 @@ class TmsFuel(models.Model):
         string="Journal Items",
         readonly=True,
     )
+    is_prepaid = fields.Boolean()
+    balance_prepaid = fields.Monetary(
+        compute="_compute_balance_prepaid",
+    )
 
-    @api.onchange("product_id")
+    @api.onchange("product_id", "is_prepaid")
     def _onchange_product_id(self):
         if self.product_id:
             fpos = self.partner_id.property_account_position_id
             self.update(
                 {
                     "product_uom_id": self.product_id.uom_id.id,
-                    "tax_ids": fpos.map_tax(self.product_id.supplier_taxes_id),
+                    "tax_ids": fpos.map_tax(self.product_id.supplier_taxes_id) if not self.is_prepaid else False,
                     "price_unit": self.product_id.standard_price,
                 }
             )
 
-    @api.depends("product_qty", "price_unit", "product_id")
+    @api.depends("partner_id", "product_id", "is_prepaid")
+    def _compute_balance_prepaid(self):
+        for rec in self:
+            balance_prepaid = 0.0
+            if rec.is_prepaid:
+                fpos = rec.partner_id.property_account_position_id
+                account_id = self.product_id.product_tmpl_id.get_product_accounts(fpos).get("expense", False).id
+                moves = self.env["account.move.line"].search(
+                    [
+                        ("account_id", "=", account_id),
+                        ("partner_id", "=", self.partner_id.id),
+                        ("reconciled", "=", False),
+                        ("amount_residual", ">", 0.0),
+                    ]
+                )
+                balance_prepaid = sum(moves.mapped("amount_residual"))
+            rec.balance_prepaid = balance_prepaid
+
+    @api.depends("product_qty", "price_unit", "product_id", "is_prepaid", "tax_ids")
     def _compute_amounts(self):
         for rec in self:
-            rec.amount_untaxed = rec.product_qty * rec.price_unit
-            taxes = rec.tax_ids.compute_all(
-                price_unit=rec.price_unit,
-                currency=rec.currency_id,
-                quantity=rec.product_qty,
-                product=rec.product_id,
-                partner=rec.partner_id,
-            )
-            rec.tax_amount = sum(t.get("amount", 0.0) for t in taxes.get("taxes", []))
+            tax_amount = 0.0
+            if not rec.is_prepaid:
+                taxes = rec.tax_ids.compute_all(
+                    price_unit=rec.price_unit,
+                    currency=rec.currency_id,
+                    quantity=rec.product_qty,
+                    product=rec.product_id,
+                    partner=rec.partner_id,
+                )
+                tax_amount = sum(t.get("amount", 0.0) for t in taxes.get("taxes", []))
+            amount_untaxed = rec.product_qty * rec.price_unit
             special_tax_amount = rec._get_special_tax_amount()
-            rec.amount_total = rec.amount_untaxed + rec.tax_amount + special_tax_amount
+            rec.update(
+                {
+                    "tax_amount": tax_amount,
+                    "amount_untaxed": amount_untaxed,
+                    "amount_total": amount_untaxed + tax_amount + special_tax_amount,
+                }
+            )
 
     def _get_special_tax_amount(self):
         """This method is created to be inherited by other modules."""
@@ -196,6 +226,14 @@ class TmsFuel(models.Model):
             raise UserError(_("Could not Invoice Fuel Voucher! This Fuel Voucher is already Invoiced"))
         if any(rec.state in ["draft", "cancel"] for rec in self):
             raise UserError(_("Could not Invoice Fuel Voucher! This Fuel Voucher must be confirmed or closed"))
+        if len(set(self.mapped("is_prepaid"))) > 1:
+            raise UserError(
+                _("Could not Invoice Fuel Voucher! You can not invoice prepaid and non-prepaid Fuel Vouchers together")
+            )
+        if any(rec.is_prepaid and rec.balance_prepaid < rec.amount_total for rec in self):
+            raise UserError(
+                _("Could not Invoice Fuel Voucher! You do not have enough balance in your prepaid account")
+            )
         invoice_batch = {}
         for rec in self:
             ref = " ".join(
@@ -204,14 +242,33 @@ class TmsFuel(models.Model):
                 )
             )
             invoice_batch.setdefault(rec.currency_id, {}).setdefault(rec.partner_id, rec._prepare_move(ref))[
-                "invoice_line_ids"
+                "invoice_line_ids" if not rec.is_prepaid else "line_ids"
             ].extend(rec._prepare_move_line())
         invoice_to_create = []
         for partners in invoice_batch.values():
             for data in partners.values():
                 invoice_to_create.append(data)
         invoices = self.env["account.move"].create(invoice_to_create)
+        self._reconcile_prepaid_fuel_voucher()
         return self.action_view_invoice(invoices)
+
+    def _reconcile_prepaid_fuel_voucher(self):
+        for rec in self:
+            if not rec.is_prepaid:
+                continue
+            rec.move_id.action_post()
+            fpos = rec.partner_id.property_account_position_id
+            account_id = self.product_id.product_tmpl_id.get_product_accounts(fpos).get("expense", False).id
+            moves = self.env["account.move.line"].search(
+                [
+                    ("account_id", "=", account_id),
+                    ("partner_id", "=", self.partner_id.id),
+                    ("reconciled", "=", False),
+                    ("amount_residual", ">", 0.0),
+                ]
+            )
+            moves |= rec.move_line_ids.filtered(lambda r: r.account_id.id == account_id)
+            moves.reconcile()
 
     def action_view_invoice(self, invoices=False):
         """This function returns an action that display existing vendor bills of
@@ -258,22 +315,54 @@ class TmsFuel(models.Model):
             "fuel_id": self.id,
         }
 
+    def _prepare_prepaid_move_line_vals(self, move_type):
+        self.ensure_one()
+        fpos = self.partner_id.property_account_position_id
+        account_id = self.product_id.product_tmpl_id.get_product_accounts(fpos).get("expense", False).id
+        if move_type == "debit":
+            account_id = self.product_id.product_tmpl_id.get_product_accounts(fpos).get("income", False).id
+        return {
+            "name": self.name,
+            "product_id": self.product_id.id,
+            "product_uom_id": self.product_uom_id.id,
+            "quantity": self.product_qty,
+            "price_unit": self.price_unit,
+            "tax_ids": [(6, 0, self.tax_ids.ids)],
+            "account_id": account_id,
+            "analytic_account_id": self.analytic_account_id.id,
+            "analytic_tag_ids": [(6, 0, self.analytic_tag_ids.ids)],
+            "fuel_id": self.id,
+            "debit": self.amount_total if move_type == "debit" else 0.0,
+            "credit": self.amount_total if move_type == "credit" else 0.0,
+        }
+
     def _prepare_move_line(self):
         self.ensure_one()
-        return [(0, 0, self._prepare_move_line_vals())]
+        if not self.is_prepaid:
+            return [(0, 0, self._prepare_move_line_vals())]
+        return [(0, 0, self._prepare_prepaid_move_line_vals(move_type)) for move_type in ["debit", "credit"]]
 
     def _prepare_move(self, ref):
         self.ensure_one()
         move = {
             "move_type": "in_invoice",
             "ref": ref,
-            "date": self.date,
+            "invoice_date": self.date,
             "company_id": self.company_id.id,
             "currency_id": self.currency_id.id,
             "partner_id": self.partner_id.id,
             "invoice_line_ids": [],
             "narration": self.notes,
         }
+        if self.is_prepaid:
+            move.update(
+                {
+                    "journal_id": self.company_id.fuel_prepaid_journal_id.id,
+                    "move_type": "entry",
+                    "line_ids": [],
+                }
+            )
+            move.pop("invoice_line_ids")
         return move
 
     @api.constrains("product_qty", "price_unit")

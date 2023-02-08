@@ -70,6 +70,16 @@
         <field name="uom_id" ref="uom.product_uom_litre" />
         <field name="uom_po_id" ref="uom.product_uom_litre" />
     </record>
+    <record id="product_fuel_prepaid" model="product.product">
+        <field name="name">Fuel Prepaid</field>
+        <field name="type">consu</field>
+        <field eval="True" name="purchase_ok" />
+        <field eval="False" name="sale_ok" />
+        <field name="tms_product_category">fuel</field>
+        <field name="categ_id" ref="product.product_category_all" />
+        <field name="uom_id" ref="uom.product_uom_litre" />
+        <field name="uom_po_id" ref="uom.product_uom_litre" />
+    </record>
     <record id="product_salary" model="product.product">
         <field name="name">Salary</field>
         <field name="type">service</field>

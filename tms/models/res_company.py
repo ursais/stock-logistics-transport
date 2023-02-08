@@ -16,6 +16,10 @@ class ResCompany(models.Model):
         comodel_name="account.journal",
         domain=[("type", "=", "general")],
     )
+    fuel_prepaid_journal_id = fields.Many2one(
+        comodel_name="account.journal",
+        domain=[("type", "=", "general")],
+    )
     driver_license_security_days = fields.Integer(
         help="Number of days to show the expiration date of the driver license",
     )

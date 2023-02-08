@@ -3,6 +3,10 @@
     <record id="product_fuel" model="product.product">
         <field name="property_account_expense_id" ref="account_fuel_expense" />
     </record>
+    <record id="product_fuel_prepaid" model="product.product">
+        <field name="property_account_expense_id" ref="account_fuel_prepaid" />
+        <field name="property_account_income_id" ref="account_fuel_expense" />
+    </record>
     <record id="product.expense_product" model="product.product">
         <field name="active" eval="0" />
     </record>

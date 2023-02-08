@@ -50,6 +50,15 @@
                         </div>
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_right_pane">
+                                <label for="fuel_prepaid_journal_id" />
+                                <field name="fuel_prepaid_journal_id" />
+                                <div class="text-muted">
+                                    Select the journal where the fuel comsuption moves will be posted.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_right_pane">
                                 <label for="advance_account_id" />
                                 <field name="advance_account_id" />
                                 <div class="text-muted">

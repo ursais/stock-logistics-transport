@@ -23,4 +23,10 @@
         <field name="code">601.48.01</field>
         <field name="user_type_id" ref="account.data_account_type_expenses" />
     </record>
+    <record id="account_fuel_prepaid" model="account.account">
+        <field name="name">Fuel Prepaid</field>
+        <field name="code">120.01.02</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="reconcile" eval="1" />
+    </record>
 </odoo>
