@@ -561,11 +561,13 @@ class TmsExpense(models.Model):
             partner_id = line.partner_id.id if line.partner_id else line.expense_id.driver_id.address_home_id.id
             debit = line.amount_total if line.amount_total > 0 else 0.0
             credit = line.amount_total * -1 if line.amount_total < 0 else 0.0
-            analytic_account_id = line.analytic_account_id.id
-            analytic_tag_ids = [(6, 0, line.analytic_tag_ids.ids)]
+            analytic_account_id = line.analytic_account_id.id or self.analytic_account_id.id
+            analytic_tag_ids = [(6, 0, line.analytic_tag_ids.ids or self.analytic_tag_ids.ids)]
         if line and invoice:
             account_id = line.partner_id.property_account_payable_id.id
             partner_id = invoice.partner_id.id
+            analytic_account_id = False
+            analytic_tag_ids = False
         if line and line.line_type == "negative_balance":
             account_id = (
                 self.driver_id.property_tms_expense_negative_account_id.id
@@ -577,8 +579,8 @@ class TmsExpense(models.Model):
             partner_id = self.driver_id.address_home_id.id
             debit = self.amount_advance * -1 if self.amount_advance < 0 else 0.0
             credit = self.amount_advance if self.amount_advance > 0 else 0.0
-            analytic_account_id = self.analytic_account_id.id
-            analytic_tag_ids = [(6, 0, self.analytic_tag_ids.ids)]
+            analytic_account_id = False
+            analytic_tag_ids = False
         if line_type == "balance" and self.amount_salary_balance:
             name = _("Expense %(name)s - Salary Balance", name=self.name)
             account_id = self.driver_id.address_home_id.property_account_payable_id.id
@@ -587,8 +589,8 @@ class TmsExpense(models.Model):
             partner_id = self.driver_id.address_home_id.id
             debit = self.amount_salary_balance * -1 if self.amount_salary_balance < 0 else 0.0
             credit = self.amount_salary_balance if self.amount_salary_balance > 0 else 0.0
-            analytic_account_id = self.analytic_account_id.id
-            analytic_tag_ids = [(6, 0, self.analytic_tag_ids.ids)]
+            analytic_account_id = False
+            analytic_tag_ids = False
         move_line_vals.append(
             (
                 0,
