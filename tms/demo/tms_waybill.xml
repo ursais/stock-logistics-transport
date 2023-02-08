@@ -16,4 +16,7 @@
         <field name="invoice_partner_id" ref="res_partner_customer_01" />
         <field name="travel_id" eval="ref('tms.tms_travel_02')" />
     </record>
+    <function name="action_schedule" model="tms.travel" eval="[ref('tms_travel_01')]" />
+    <function name="action_progress" model="tms.travel" eval="[ref('tms_travel_01')]" />
+    <function name="action_done" model="tms.travel" eval="[ref('tms_travel_01')]" />
 </odoo>
