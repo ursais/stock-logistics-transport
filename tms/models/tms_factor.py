@@ -79,6 +79,8 @@ class TmsFactor(models.Model):
         volume=0.0,
         income=0.0,
     ):
+        if not self:
+            raise UserError(_("There is no factor to calculate. Please check the route."))
         factor_list = {
             "weight": weight,
             "distance": distance,

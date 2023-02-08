@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-08 14:31+0000\n"
-"PO-Revision-Date: 2023-02-08 08:31-0600\n"
+"POT-Creation-Date: 2023-02-08 14:49+0000\n"
+"PO-Revision-Date: 2023-02-08 08:50-0600\n"
 "Last-Translator: Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -2781,6 +2781,12 @@ msgstr "La unidad %(unit_name)s no tiene póliza de seguro."
 #, python-format
 msgid "The unit or driver are already in use!"
 msgstr "¡La unidad o el conductor ya están en viaje!"
+
+#. module: tms
+#: code:addons/tms/models/tms_factor.py:0
+#, python-format
+msgid "There is no factor to calculate. Please check the route."
+msgstr "No hay factor para calcular. Por favor, compruebe la ruta."
 
 #. module: tms
 #: code:addons/tms/models/tms_waybill.py:0
