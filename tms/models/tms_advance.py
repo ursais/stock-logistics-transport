@@ -197,7 +197,7 @@ class TmsAdvance(models.Model):
             account = self.driver_id.address_home_id.property_account_payable_id.id
         if not account and nature == "debit":
             raise UserError(_("You need to configure the advance account in the Settings of TMS Module."))
-        elif not account and nature == "credit":
+        if not account and nature == "credit":
             raise UserError(_("You need to configure the payable account in the partner."))
         return {
             "name": self.name,
