@@ -3,7 +3,7 @@
 
 {
     "name": "TMS Fuel IEPS",
-    "version": "15.0.1.0.0",
+    "version": "15.0.1.0.1",
     "category": "Transport",
     "author": "Jarsa",
     "website": "https://www.jarsa.com.mx/page/transport-management-system",
@@ -15,6 +15,7 @@
     "data": [
         "views/tms_fuel_view.xml",
         "views/res_config_settings_view.xml",
+        "views/tms_travel_view.xml",
     ],
     "demo": [
         "demo/tms_fuel.xml",
