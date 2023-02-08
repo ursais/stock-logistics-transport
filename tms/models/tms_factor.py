@@ -57,6 +57,14 @@ class TmsFactor(models.Model):
         help="Arrival address for current Route and Partner.",
     )
 
+    _sql_constraints = [
+        (
+            "route_partner_uniq",
+            "unique (customer_route_id, partner_id)",
+            "You can not have two factors with the same route and partner!",
+        ),
+    ]
+
     @api.onchange("factor_type")
     def _onchange_factor_type(self):
         values = {
