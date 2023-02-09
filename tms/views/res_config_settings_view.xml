@@ -111,6 +111,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xs-12 col-md-6 o_setting_box" id="tms_tier_validation">
+                            <div class="o_setting_left_pane">
+                                <field name="module_tms_tier_validation" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label
+                                    string="Enable Tier Validation for TMS Documents"
+                                    for="module_tms_tier_validation"
+                                />
+                                <div class="text-muted">
+                                    Allow to configure custom validation rules for Advances, Expenses and Fuel vouchers.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </xpath>

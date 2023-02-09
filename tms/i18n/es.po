@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-08 14:49+0000\n"
-"PO-Revision-Date: 2023-02-08 08:50-0600\n"
+"POT-Creation-Date: 2023-02-09 17:29+0000\n"
+"PO-Revision-Date: 2023-02-09 11:30-0600\n"
 "Last-Translator: Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -344,6 +344,11 @@ msgstr ""
 "Todas las Cartas Porte deben ser confirmadas.\n"
 "Cartas Porte con error:\n"
 "%(waybills)s"
+
+#. module: tms
+#: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
+msgid "Allow to configure custom validation rules for Advances, Expenses and Fuel vouchers."
+msgstr "Permitir configurar reglas de validación personalizadas para Anticipos, Gastos y Vales de Combustible."
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_advance__amount
@@ -1041,6 +1046,11 @@ msgstr "Habilitar préstamos para conductores"
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
 msgid "Enable Operating Unit"
 msgstr "Habilitar unidad operativa"
+
+#. module: tms
+#: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
+msgid "Enable Tier Validation for TMS Documents"
+msgstr "Habilitar validación de nivel para documentos TMS"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_travel__date_end_real
@@ -3141,6 +3151,11 @@ msgid "Use Operating Units in TMS"
 msgstr "Usar Unidades Operativas en TMS"
 
 #. module: tms
+#: model:ir.model.fields,field_description:tms.field_res_config_settings__module_tms_tier_validation
+msgid "Use Tier Validation for TMS Documents"
+msgstr "Usar validación de nivel para documentos TMS"
+
+#. module: tms
 #: model:ir.model.fields,help:tms.field_hr_employee__driver
 msgid "Used to define if this person will be used as a Driver"
 msgstr "Se utiliza para definir si esta persona se utilizará como conductor"
@@ -3273,6 +3288,11 @@ msgstr "No se puede confirmar un anticipo confirmado."
 #, python-format
 msgid "You can not confirm a confirmed expense."
 msgstr "No se puede confirmar un gasto confirmado."
+
+#. module: tms
+#: model:ir.model.constraint,message:tms.constraint_tms_factor_route_partner_uniq
+msgid "You can not have two factors with the same route and partner!"
+msgstr "¡No se pueden tener dos factores con la misma ruta y cliente!"
 
 #. module: tms
 #: model:ir.model.constraint,message:tms.constraint_fleet_vehicle_economic_number_company_uniq

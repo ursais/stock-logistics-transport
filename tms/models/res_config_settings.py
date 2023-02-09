@@ -16,6 +16,9 @@ class ResConfigSettings(models.TransientModel):
     module_tms_driver_loan = fields.Boolean(
         string="Driver Loans in TMS",
     )
+    module_tms_tier_validation = fields.Boolean(
+        string="Use Tier Validation for TMS Documents",
+    )
     driver_license_security_days = fields.Integer(
         related="company_id.driver_license_security_days",
         readonly=False,
