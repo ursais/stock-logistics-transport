@@ -1,1 +1,2 @@
 enterprise git@github.com:Jarsa/enterprise.git
+server-ux git@github.com:Jarsa/server-ux.git
