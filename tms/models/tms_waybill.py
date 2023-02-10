@@ -195,6 +195,7 @@ class TmsWaybill(models.Model):
             for data in partners.values():
                 invoice_to_create.append(data)
         invoices = self.env["account.move"].create(invoice_to_create)
+        invoices._onchange_partner_id()
         return self.action_view_invoice(invoices)
 
     def action_view_invoice(self, invoices=False):
