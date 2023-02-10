@@ -86,8 +86,10 @@ class TmsFactor(models.Model):
         qty=0.0,
         volume=0.0,
         income=0.0,
+        partner=None,
     ):
-        if not self:
+        factors = self.filtered(lambda f: f.partner_id == partner) if partner else self
+        if not factors:
             raise UserError(_("There is no factor to calculate. Please check the route."))
         factor_list = {
             "weight": weight,
@@ -96,10 +98,9 @@ class TmsFactor(models.Model):
             "qty": qty,
             "volume": volume,
         }
-        amount = 0.0
+        amount = fixed_amount = 0.0
         quantity = 1.0
-        fixed_amount = 0.0
-        for rec in self:
+        for rec in factors:
             if rec.factor_type == "travel" or rec.mixed:
                 fixed_amount = rec.fixed_amount
             elif rec.factor_type == "percent":

@@ -106,6 +106,7 @@ class TmsWaybill(models.Model):
                 qty=rec.product_qty,
                 weight=rec.product_weight,
                 volume=rec.product_volume,
+                partner=rec.partner_id,
             )
             product = self.env["product.product"].search([("tms_product_category", "=", "freight")], limit=1)
             fpos = rec.partner_id.property_account_position_id
