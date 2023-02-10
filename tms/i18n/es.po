@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-09 17:29+0000\n"
-"PO-Revision-Date: 2023-02-09 11:30-0600\n"
+"POT-Creation-Date: 2023-02-10 14:44+0000\n"
+"PO-Revision-Date: 2023-02-10 08:44-0600\n"
 "Last-Translator: Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -378,7 +378,7 @@ msgid "Amount Untaxed"
 msgstr "Monto sin Impuestos"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_advance__analytic_account_id
+#: model:ir.model.fields,field_description:tms.field_fleet_vehicle__analytic_account_id
 #: model:ir.model.fields,field_description:tms.field_tms_expense__analytic_account_id
 #: model:ir.model.fields,field_description:tms.field_tms_expense_line__analytic_account_id
 #: model:ir.model.fields,field_description:tms.field_tms_fuel__analytic_account_id
@@ -387,7 +387,7 @@ msgid "Analytic Account"
 msgstr "Cuenta Analítica"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_advance__analytic_tag_ids
+#: model:ir.model.fields,field_description:tms.field_fleet_vehicle__analytic_tag_ids
 #: model:ir.model.fields,field_description:tms.field_tms_expense__analytic_tag_ids
 #: model:ir.model.fields,field_description:tms.field_tms_expense_line__analytic_tag_ids
 #: model:ir.model.fields,field_description:tms.field_tms_fuel__analytic_tag_ids
@@ -3362,12 +3362,6 @@ msgstr "Debe crear un producto para el salario del conductor con la categoría d
 #, python-format
 msgid "You must define a Home Address for this Driver"
 msgstr "Debe definir una dirección particular para este conductor"
-
-#. module: tms
-#: code:addons/tms/models/tms_travel.py:0
-#, python-format
-msgid "You must set the distance traveled."
-msgstr "Debe establecer la distancia recorrida."
 
 #. module: tms
 #: code:addons/tms/models/tms_travel.py:0

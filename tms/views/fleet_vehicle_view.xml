@@ -37,6 +37,19 @@
                     <field name="policy_ids" invisible="1" />
                 </button>
             </xpath>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field
+                    name="analytic_account_id"
+                    groups="analytic.group_analytic_accounting"
+                    attrs="{'invisible': [('fleet_type', '!=', 'tractor')]}"
+                />
+                <field
+                    name="analytic_tag_ids"
+                    widget="many2many_tags"
+                    groups="analytic.group_analytic_tags"
+                    attrs="{'invisible': [('fleet_type', '!=', 'tractor')]}"
+                />
+            </xpath>
         </field>
     </record>
     <record model='ir.ui.view' id='fleet_vehicle_tms_kanban'>

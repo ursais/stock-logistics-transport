@@ -272,7 +272,13 @@ class TmsTravel(models.Model):
     def action_done(self):
         for rec in self:
             if not rec.distance:
-                raise UserError(_("You must set the distance traveled."))
+                rec.update(
+                    {
+                        "distance_loaded": rec.route_distance_loaded,
+                        "distance_empty": rec.route_distance_empty,
+                        "distance": rec.route_distance,
+                    }
+                )
             odometer = self.env["fleet.vehicle.odometer"].create(
                 {
                     "date": fields.Date.context_today(self),

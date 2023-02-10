@@ -13,7 +13,7 @@ class FleetVehicle(models.Model):
         default="tractor",
         string="Unit Fleet Type",
     )
-    economic_number = fields.Char()
+    economic_number = fields.Char(copy=False)
     policy_ids = fields.One2many("fleet.vehicle.insurance", "unit_id", string="Policies")
     insurance_policy_expiration_date = fields.Date(compute="_compute_insurance_policy_expiration_date", store=True)
     active_insurance_policy_id = fields.Many2one(
@@ -21,6 +21,10 @@ class FleetVehicle(models.Model):
         compute="_compute_active_insurance_policy_id",
     )
     insurance_ids = fields.One2many("fleet.vehicle.insurance", "unit_id", string="Insurances")
+    analytic_account_id = fields.Many2one(
+        "account.analytic.account", company_dependent=True, check_company=True, copy=False
+    )
+    analytic_tag_ids = fields.Many2many("account.analytic.tag", string="Analytic Tags", copy=False)
 
     _sql_constraints = [
         (

@@ -179,6 +179,12 @@ class TmsExpense(models.Model):
     def _onchange_unit_id(self):
         if self.unit_id:
             travels = self.env["tms.travel"].search([("unit_id", "=", self.unit_id.id), ("state", "=", "done")])
+            self.update(
+                {
+                    "analytic_account_id": self.unit_id.analytic_account_id.id,
+                    "analytic_tag_ids": [(6, 0, self.unit_id.analytic_tag_ids.ids)],
+                }
+            )
             return {"domain": {"driver_id": [("id", "in", travels.mapped("driver_id").ids)]}}
 
     @api.depends(

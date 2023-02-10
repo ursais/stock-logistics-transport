@@ -129,7 +129,7 @@ class TmsFuel(models.Model):
         compute="_compute_balance_prepaid",
     )
 
-    @api.onchange("product_id", "is_prepaid")
+    @api.onchange("product_id", "is_prepaid", "unit_id")
     def _onchange_product_id(self):
         if self.product_id:
             fpos = self.partner_id.property_account_position_id
@@ -138,6 +138,8 @@ class TmsFuel(models.Model):
                     "product_uom_id": self.product_id.uom_id.id,
                     "tax_ids": fpos.map_tax(self.product_id.supplier_taxes_id) if not self.is_prepaid else False,
                     "price_unit": self.product_id.standard_price,
+                    "analytic_account_id": self.unit_id.analytic_account_id.id,
+                    "analytic_tag_ids": [(6, 0, self.unit_id.analytic_tag_ids.ids)],
                 }
             )
 
