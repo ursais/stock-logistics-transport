@@ -251,6 +251,7 @@ class TmsFuel(models.Model):
             for data in partners.values():
                 invoice_to_create.append(data)
         invoices = self.env["account.move"].create(invoice_to_create)
+        invoices._onchange_partner_id()
         self._reconcile_prepaid_fuel_voucher()
         return self.action_view_invoice(invoices)
 
