@@ -47,6 +47,12 @@ class TmsFactor(models.Model):
     mixed = fields.Boolean()
     sequence = fields.Integer(help="Gives the sequence calculation for these factors.", default=10)
     notes = fields.Html()
+    driver_ids = fields.Many2many(
+        "hr.employee",
+        string="Drivers",
+        domain=[("driver", "=", True)],
+        help="Drivers to apply this factor. If you leave it empty, it will be applied to all drivers.",
+    )
     partner_id = fields.Many2one("res.partner", domain=[("is_company", "=", True)])
     departure_address_id = fields.Many2one(
         "res.partner",
@@ -87,8 +93,12 @@ class TmsFactor(models.Model):
         volume=0.0,
         income=0.0,
         partner=None,
+        driver=None,
     ):
         factors = self.filtered(lambda f: f.partner_id == partner) if partner else self
+        factors = factors.filtered(lambda f: driver in f.driver_ids) if driver else factors
+        if not factors and driver:
+            factors = self.filtered(lambda f: not f.driver_ids)
         if not factors:
             raise UserError(_("There is no factor to calculate. Please check the route."))
         factor_list = {
@@ -100,7 +110,7 @@ class TmsFactor(models.Model):
         }
         amount = fixed_amount = 0.0
         quantity = 1.0
-        for rec in factors:
+        for rec in factors.sorted(key=lambda r: r.sequence, reverse=True):
             if rec.factor_type == "travel" or rec.mixed:
                 fixed_amount = rec.fixed_amount
             elif rec.factor_type == "percent":

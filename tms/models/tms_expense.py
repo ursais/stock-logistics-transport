@@ -622,7 +622,7 @@ class TmsExpense(models.Model):
         if self.state == "confirmed":
             self.move_id.line_ids.remove_move_reconcile()
             self.move_id.button_cancel()
-            self.move_id.unlink()
+            self.move_id.with_context(force_delete=True).unlink()
             self.fuel_ids.filtered(lambda x: x.created_from_expense).unlink()
             invoices = self.expense_line_ids.filtered(lambda x: not x.control).mapped("move_id")
             invoices.line_ids.remove_move_reconcile()
@@ -731,6 +731,7 @@ class TmsExpense(models.Model):
                 .filtered(lambda r: r.product_id.apply_for_salary)
                 .mapped("amount_untaxed")
             ),
+            driver=travel.driver_id,
         )
         return price_values["fixed_amount"] + (price_values["amount"] * price_values["quantity"])
 

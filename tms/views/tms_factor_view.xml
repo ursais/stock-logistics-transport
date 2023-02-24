@@ -6,6 +6,7 @@
         <field name="priority">2</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="sequence" widget="handle" />
                 <field invisible="1" name="category" />
                 <field name="name" />
                 <field name="factor_type" />
@@ -38,7 +39,23 @@
                                 options="{'no_create': True}"
                             />
                         </group>
-                        <group attrs="{'invisible': [('category', '!=', 'customer')]}" />
+                        <group
+                            name="driver_information"
+                            string="Driver Information"
+                            attrs="{'invisible': [('category', '!=', 'driver')]}"
+                        >
+                            <field
+                                name="driver_ids"
+                                options="{'no_create': True}"
+                                widget="many2many_avatar_employee"
+                            />
+                        </group>
+                        <group>
+                            <span
+                                attrs="{'invisible': [('category', '!=', 'driver')]}"
+                            >Drivers to apply this factor.<br
+                                /> If you leave it empty, it will be applied to all drivers.</span>
+                        </group>
                         <group attrs="{'invisible': [('category', '!=', 'customer')]}">
                             <field
                                 name="departure_address_id"

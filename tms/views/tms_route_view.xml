@@ -53,7 +53,20 @@
                     </group>
                     <notebook>
                         <page string="Driver Factor" name="driver_factor">
-                            <field name="driver_factor_ids" context="{'default_category': 'driver'}" />
+                            <field name="driver_factor_ids" context="{'default_category': 'driver'}">
+                                <tree>
+                                    <field name="sequence" widget="handle" />
+                                    <field invisible="1" name="category" />
+                                    <field name="name" />
+                                    <field name="factor_type" />
+                                    <field name="driver_ids" optional="show" widget="many2many_avatar_employee" />
+                                    <field name="factor" optional="show" />
+                                    <field name="range_start" optional="hide" />
+                                    <field name="range_end" optional="hide" />
+                                    <field name="fixed_amount" optional="show" />
+                                    <field name="mixed" optional="hide" />
+                                </tree>
+                            </field>
                         </page>
                         <page string="Customer Factor" name="customer_factor">
                             <field name="customer_factor_ids" context="{'default_category': 'customer'}">
