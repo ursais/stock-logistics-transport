@@ -33,6 +33,7 @@
                     </div>
                     <group>
                         <group name="customer_information" string="Customer Information">
+                            <field name="description" attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}" />
                             <field
                                 name="partner_id"
                                 attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
@@ -56,7 +57,12 @@
                             />
                         </group>
                         <group name="route_information" string="Route Information">
-                            <field name="route_id" attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}" />
+                            <field
+                                name="route_id"
+                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
+                                domain="[('partner_ids', 'in', [partner_id])]"
+                                options="{'no_create': True}"
+                            />
                             <field
                                 name="transportable_id"
                                 attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
@@ -121,6 +127,9 @@
                             <label for="waybill_ids" string="Waybill Documents" />
                             <field name="waybill_ids" nolabel="1" />
                         </page>
+                        <page name="notes" string="Notes">
+                            <field name="notes" nolabel="1" />
+                        </page>
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
@@ -137,6 +146,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name" />
+                <field name="description" />
                 <field name="partner_id" />
                 <field name="route_id" />
                 <field name="date_start" optional="hide" />
@@ -151,7 +161,10 @@
         <field name="model">tms.agreement</field>
         <field name="arch" type="xml">
             <search>
-                <field name="name" />
+                <field
+                    name="name"
+                    filter_domain="['|', '|', '|', ('name', 'ilike', self), ('description', 'ilike', self), ('route_id', 'ilike', self), ('partner_id', 'ilike', self)]"
+                />
                 <field name="partner_id" />
                 <field name="route_id" />
                 <filter name="group_by_partner" string="Partner" context="{'group_by': 'partner_id'}" />

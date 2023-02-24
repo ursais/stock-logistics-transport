@@ -116,5 +116,10 @@ class TmsAgreementWizard(models.TransientModel):
         travel = self.env["tms.travel"].create(travel_vals)
         travel._onchange_route_date_start()
         action = self.env["ir.actions.actions"]._for_xml_id("tms.open_view_tms_travel_form")
+        form_view = [(self.env.ref("tms.view_tms_travel_form").id, "form")]
+        if "views" in action:
+            action["views"] = form_view + [(state, view) for state, view in action["views"] if view != "form"]
+        else:
+            action["views"] = form_view
         action["res_id"] = travel.id
         return action

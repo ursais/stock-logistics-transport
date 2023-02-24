@@ -9,7 +9,8 @@ class TmsAgreement(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Agreements"
 
-    name = fields.Char(required=True, readonly=True, copy=False)
+    name = fields.Char(readonly=True, copy=False)
+    description = fields.Char(required=True, tracking=True)
     partner_id = fields.Many2one("res.partner", string="Customer", required=True, tracking=True)
     invoice_partner_id = fields.Many2one("res.partner", string="Invoice Address", required=True, tracking=True)
     partner_order_id = fields.Many2one("res.partner", string="Ordering Contact", required=True, tracking=True)
@@ -38,6 +39,7 @@ class TmsAgreement(models.Model):
     date_end = fields.Date(string="End Date")
     active = fields.Boolean(default=True)
     company_id = fields.Many2one("res.company", string="Company", required=True, default=lambda self: self.env.company)
+    notes = fields.Html()
 
     def action_confirm(self):
         self.state = "confirmed"
