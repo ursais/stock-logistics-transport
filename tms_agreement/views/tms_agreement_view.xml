@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="tms_agreement_view_form" model="ir.ui.view">
+        <field name="name">tms.agreement.view.form</field>
+        <field name="model">tms.agreement</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Confirm" name="action_confirm" states="draft" type="object" class="oe_highlight" />
+                    <button
+                        name="action_create_documents"
+                        states="confirmed"
+                        string="Create Documents"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        icon="fa-times"
+                        name="action_cancel"
+                        states="draft,confirmed"
+                        string="Cancel"
+                        type="object"
+                    />
+                    <button icon="fa-reply" name="action_draft" states="cancel" string="Set to Draft" type="object" />
+                    <field name="state" statusbar_visible="draft,confirmed" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <span class="o_form_label">Agreement</span>
+                        <h1 class="mt0">
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="customer_information" string="Customer Information">
+                            <field name="partner_id" />
+                            <field name="invoice_partner_id" />
+                            <field name="partner_order_id" />
+                        </group>
+                        <group name="route_information" string="Route Information">
+                            <field name="route_id" />
+                            <field name="transportable_id" />
+                            <field
+                                name="currency_id"
+                                groups="base.group_multi_currency"
+                                options="{'no_create': True, 'no_open': True}"
+                            />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                                options="{'no_create': True, 'no_open': True}"
+                            />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="fuel" string="Fuel">
+                            <field name="agreement_fuel_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="uom_category_id" invisible="1" />
+                                    <field name="partner_id" options="{'no_create': 1}" />
+                                    <field name="product_id" options="{'no_create': 1}" />
+                                    <field name="product_qty" />
+                                    <field
+                                        name="product_uom_id"
+                                        options="{'no_create': 1}"
+                                        domain="[('category_id', '=', uom_category_id)]"
+                                    />
+                                    <field name="analytic_account_id" optional="hide" />
+                                    <field name="analytic_tag_ids" optional="hide" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="advances" string="Advances">
+                            <field name="agreement_advance_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="product_id" options="{'no_create': 1}" />
+                                    <field name="amount" sum="Amount Total" />
+                                    <field name="currency_id" optional="hide" />
+                                    <field name="auto_expense" widget="boolean_toggle" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="related_documents" string="Related Documents">
+                            <label for="fuel_ids" string="Fuel Documents" />
+                            <field name="fuel_ids" nolabel="1" />
+                            <label for="advance_ids" string="Advance Documents" />
+                            <field name="advance_ids" nolabel="1" />
+                            <label for="travel_ids" string="Travel Documents" />
+                            <field name="travel_ids" nolabel="1" />
+                            <label for="waybill_ids" string="Waybill Documents" />
+                            <field name="waybill_ids" nolabel="1" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="tms_agreement_view_tree" model="ir.ui.view">
+        <field name="name">tms.agreement.view.tree</field>
+        <field name="model">tms.agreement</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="partner_id" />
+                <field name="route_id" />
+                <field name="date_start" optional="hide" />
+                <field name="date_end" optional="hide" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+    <record id="tms_agreement_view_search" model="ir.ui.view">
+        <field name="name">tms.agreement.view.search</field>
+        <field name="model">tms.agreement</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="partner_id" />
+                <field name="route_id" />
+                <filter name="group_by_partner" string="Partner" context="{'group_by': 'partner_id'}" />
+                <filter name="group_by_route" string="Route" context="{'group_by': 'route_id'}" />
+                <filter name="group_by_state" string="State" context="{'group_by': 'state'}" />
+                <filter name="group_by_company" string="Company" context="{'group_by': 'company_id'}" />
+            </search>
+        </field>
+    </record>
+    <record id="tms_agreement_action" model="ir.actions.act_window">
+        <field name="name">Agreements</field>
+        <field name="res_model">tms.agreement</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="tms_agreement_menu"
+        name="Agreements"
+        parent="tms.menu_tms_travels"
+        action="tms_agreement_action"
+        sequence="60"
+    />
+</odoo>

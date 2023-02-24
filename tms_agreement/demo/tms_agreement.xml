@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="tms_agreeemet_01" model="tms.agreement">
+        <field name="partner_id" ref="tms.res_partner_customer_01" />
+        <field name="invoice_partner_id" ref="tms.res_partner_customer_01" />
+        <field name="partner_order_id" ref="tms.res_partner_customer_01_05" />
+        <field name="transportable_id" ref="tms.tms_transportable_01" />
+        <field name="route_id" ref="tms.tms_route_01" />
+        <field name="state">confirmed</field>
+    </record>
+</odoo>

@@ -1,0 +1,603 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* tms_agreement
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-24 17:59+0000\n"
+"PO-Revision-Date: 2023-02-24 12:09-0600\n"
+"Last-Translator: Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.2.2\n"
+
+#. module: tms_agreement
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_form
+msgid "<span class=\"o_form_label\">Agreement</span>"
+msgstr "<span class=\"o_form_label\">Acuerdo</span>"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__message_needaction
+msgid "Action Needed"
+msgstr "Acción requerida"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Emblema de actividad de excepción"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Ícono de tipo de actvidad"
+
+#. module: tms_agreement
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_form
+msgid "Advance Documents"
+msgstr "Documentos de Anticipos"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__agreement_advance_ids
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_form
+msgid "Advances"
+msgstr "Anticipos"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_advance__agreement_id
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_advance__agreement_id
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_fuel__agreement_id
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_wizard__agreement_id
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_fuel__agreement_id
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_travel__agreement_id
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_waybill__agreement_id
+msgid "Agreement"
+msgstr "Acuerdo"
+
+#. module: tms_agreement
+#: model:ir.model,name:tms_agreement.model_tms_agreement_advance
+msgid "Agreement Advance"
+msgstr "Anticipos de Acuerdo"
+
+#. module: tms_agreement
+#: model:ir.model,name:tms_agreement.model_tms_agreement_fuel
+msgid "Agreement Fuel"
+msgstr "Combustibles de Acuerdos"
+
+#. module: tms_agreement
+#: model:ir.actions.act_window,name:tms_agreement.tms_agreement_action
+#: model:ir.model,name:tms_agreement.model_tms_agreement
+#: model:ir.ui.menu,name:tms_agreement.tms_agreement_menu
+msgid "Agreements"
+msgstr "Acuerdos"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_advance__amount
+msgid "Amount"
+msgstr "Monto"
+
+#. module: tms_agreement
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_form
+msgid "Amount Total"
+msgstr "Monto Total"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_fuel__analytic_account_id
+msgid "Analytic Account"
+msgstr "Cuenta Analítica"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_fuel__analytic_tag_ids
+msgid "Analytic Tags"
+msgstr "Etiquetas Analíticas"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__message_attachment_count
+msgid "Attachment Count"
+msgstr "Nº de archivos adjuntos"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_advance__auto_expense
+msgid "Auto Expense"
+msgstr "Gasto Pre-Autorizado"
+
+#. module: tms_agreement
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_form
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_wizard_view_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: tms_agreement
+#: model:ir.model.fields.selection,name:tms_agreement.selection__tms_agreement__state__cancel
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_fuel__uom_category_id
+msgid "Category"
+msgstr "Categoría"
+
+#. module: tms_agreement
+#: model:ir.model.fields,help:tms_agreement.field_tms_agreement_advance__auto_expense
+msgid ""
+"Check this if you want this product and amount to be automatically created "
+"when Travel Expense Record is created."
+msgstr ""
+"Marque esto sí desea que este producto y la cantidad se creen "
+"automáticamente cuando se crea el Registro de gastos de viaje."
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__company_id
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_advance__company_id
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_fuel__company_id
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_search
+msgid "Company"
+msgstr "Empresa"
+
+#. module: tms_agreement
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: tms_agreement
+#: model:ir.model.fields.selection,name:tms_agreement.selection__tms_agreement__state__confirmed
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#. module: tms_agreement
+#: model:ir.model.fields,help:tms_agreement.field_tms_agreement_fuel__uom_category_id
+msgid ""
+"Conversion between Units of Measure can only occur if they belong to the "
+"same category. The conversion will be made based on the ratios."
+msgstr ""
+"La conversión entre las unidades de medidas sólo pueden ocurrir si "
+"pertenecen a la misma categoría. La conversión se basará en los ratios "
+"establecidos."
+
+#. module: tms_agreement
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_form
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_wizard_view_form
+msgid "Create Documents"
+msgstr "Crear documentos"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__create_uid
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_advance__create_uid
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_fuel__create_uid
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_wizard__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__create_date
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_advance__create_date
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_fuel__create_date
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_wizard__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__currency_id
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_advance__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__partner_id
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: tms_agreement
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_form
+msgid "Customer Information"
+msgstr "Información del Cliente"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_wizard__date_start
+msgid "Date Start"
+msgstr "Fecha Comienzo"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__display_name
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_advance__display_name
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_fuel__display_name
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_wizard__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_wizard__dolly_id
+msgid "Dolly"
+msgstr "Dolly"
+
+#. module: tms_agreement
+#: model:ir.model.fields.selection,name:tms_agreement.selection__tms_agreement__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_wizard__driver_id
+msgid "Driver"
+msgstr "Conductor"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__date_end
+msgid "End Date"
+msgstr "Fecha fin"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Contactos)"
+
+#. module: tms_agreement
+#: model:ir.model.fields,help:tms_agreement.field_tms_agreement__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono de Font Awesome ej. fa-tasks"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__agreement_fuel_ids
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_form
+msgid "Fuel"
+msgstr "Combustible"
+
+#. module: tms_agreement
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_form
+msgid "Fuel Documents"
+msgstr "Documentos de combustible"
+
+#. module: tms_agreement
+#: model:ir.model,name:tms_agreement.model_tms_fuel
+msgid "Fuel Logs"
+msgstr "Registros de combustible"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__id
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_advance__id
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_fuel__id
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_wizard__id
+msgid "ID"
+msgstr "Identificación"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__activity_exception_icon
+msgid "Icon"
+msgstr "Ícono"
+
+#. module: tms_agreement
+#: model:ir.model.fields,help:tms_agreement.field_tms_agreement__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Ícono para indicar una actividad de excepción."
+
+#. module: tms_agreement
+#: model:ir.model.fields,help:tms_agreement.field_tms_agreement__message_needaction
+#: model:ir.model.fields,help:tms_agreement.field_tms_agreement__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado hay nuevos mensajes que requieren su atención."
+
+#. module: tms_agreement
+#: model:ir.model.fields,help:tms_agreement.field_tms_agreement__message_has_error
+#: model:ir.model.fields,help:tms_agreement.field_tms_agreement__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__invoice_partner_id
+msgid "Invoice Address"
+msgstr "Dirección de facturación"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__message_is_follower
+msgid "Is Follower"
+msgstr "Es un seguidor"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement____last_update
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_advance____last_update
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_fuel____last_update
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_wizard____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__write_uid
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_advance__write_uid
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_fuel__write_uid
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Última modificación por"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__write_date
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_advance__write_date
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_fuel__write_date
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_wizard__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjuntos principales"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de Envío de Mensaje"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: tms_agreement
+#: model:ir.model,name:tms_agreement.model_tms_advance
+msgid "Money advance payments for Travel expenses"
+msgstr "Anticipos de dinero para gastos de viaje"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Fecha límite de Mi Actividad"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: tms_agreement
+#: code:addons/tms_agreement/models/tms_agreement.py:0
+#, python-format
+msgid "New"
+msgstr "Nuevo"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha de vencimiento de siguiente actividad"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo de actividad Siguiente"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__message_has_error_counter
+msgid "Number of errors"
+msgstr "Numero de errores"
+
+#. module: tms_agreement
+#: model:ir.model.fields,help:tms_agreement.field_tms_agreement__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: tms_agreement
+#: model:ir.model.fields,help:tms_agreement.field_tms_agreement__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de envío"
+
+#. module: tms_agreement
+#: model:ir.model.fields,help:tms_agreement.field_tms_agreement__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes no leidos"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__partner_order_id
+msgid "Ordering Contact"
+msgstr "Contacto de pedido"
+
+#. module: tms_agreement
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_search
+msgid "Partner"
+msgstr "Cliente"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_advance__product_id
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_fuel__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_fuel__product_qty
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__advance_ids
+msgid "Related Advances"
+msgstr "Avances relacionados"
+
+#. module: tms_agreement
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_form
+msgid "Related Documents"
+msgstr "Documentos Relacionados"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__fuel_ids
+msgid "Related Fuel Logs"
+msgstr "Registros de combustible relacionados"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__travel_ids
+msgid "Related Travels"
+msgstr "Viajes relacionados"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__waybill_ids
+msgid "Related Waybills"
+msgstr "Cartas de Porte Relacionadas"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario Responsable"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__route_id
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_search
+msgid "Route"
+msgstr "Ruta"
+
+#. module: tms_agreement
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_form
+msgid "Route Information"
+msgstr "Información de ruta"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega del SMS"
+
+#. module: tms_agreement
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_form
+msgid "Set to Draft"
+msgstr "Establecer a borrador"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__date_start
+msgid "Start Date"
+msgstr "Fecha de inicio"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__state
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_search
+msgid "State"
+msgstr "Estado"
+
+#. module: tms_agreement
+#: model:ir.model.fields,help:tms_agreement.field_tms_agreement__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado basado en actividades\n"
+"Vencida: la fecha límite ya pasó\n"
+"Hoy: la fecha límite es hoy\n"
+"Planificada: actividades futuras."
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_fuel__partner_id
+msgid "Supplier"
+msgstr "Proveedor"
+
+#. module: tms_agreement
+#: model:ir.model,name:tms_agreement.model_tms_agreement_wizard
+msgid "TMS Agreement Wizard"
+msgstr "Asistente para acuerdos TMS"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_wizard__trailer1_id
+msgid "Trailer 1"
+msgstr "Tráiler 1"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_wizard__trailer2_id
+msgid "Trailer 2"
+msgstr "Tráiler 2"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__transportable_id
+msgid "Transportable"
+msgstr "Transportable"
+
+#. module: tms_agreement
+#: model:ir.model,name:tms_agreement.model_tms_travel
+msgid "Travel"
+msgstr "Viaje"
+
+#. module: tms_agreement
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_form
+msgid "Travel Documents"
+msgstr "Documentos de viaje"
+
+#. module: tms_agreement
+#: model:ir.model.fields,help:tms_agreement.field_tms_agreement__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de actividad de excepción registrada."
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_wizard__unit_id
+msgid "Unit"
+msgstr "Unidad"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_wizard__kit_id
+msgid "Unit Kit"
+msgstr "Juego de unidad"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__message_unread
+msgid "Unread Messages"
+msgstr "Mensajes sin leer"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Contador de mensajes sin leer"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_fuel__product_uom_id
+msgid "UoM"
+msgstr "UdM"
+
+#. module: tms_agreement
+#: model_terms:ir.ui.view,arch_db:tms_agreement.tms_agreement_view_form
+msgid "Waybill Documents"
+msgstr "Documentos de carta de porte"
+
+#. module: tms_agreement
+#: model:ir.model,name:tms_agreement.model_tms_waybill
+msgid "Waybills"
+msgstr "Carta Porte"
+
+#. module: tms_agreement
+#: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del Sitio Web"
+
+#. module: tms_agreement
+#: model:ir.model.fields,help:tms_agreement.field_tms_agreement__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"

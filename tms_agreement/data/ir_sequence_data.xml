@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record model="ir.sequence" id="agreement_sequence">
+        <field name="name">Agreement Sequence</field>
+        <field name="implementation">standard</field>
+        <field name="code">tms.agreement</field>
+        <field name="prefix">AG</field>
+        <field name="padding">4</field>
+        <field name="number_increment">1</field>
+    </record>
+</odoo>
