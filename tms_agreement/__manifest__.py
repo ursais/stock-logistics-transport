@@ -2,17 +2,15 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 {
-    "name": "Freight Management",
+    "name": "Agreement for TMS",
     "version": "15.0.2.0.3",
     "category": "Transport",
     "author": "Jarsa",
     "website": "https://www.jarsa.com.mx/page/transport-management-system",
     "depends": [
-        "fleet",
-        "hr",
-        "account",
+        "tms",
     ],
-    "summary": "Management System for Carriers, Trucking and other companies",
+    "summary": "Agreement for TMS",
     "license": "LGPL-3",
     "data": [
         "security/ir.model.access.csv",

@@ -33,28 +33,55 @@
                     </div>
                     <group>
                         <group name="customer_information" string="Customer Information">
-                            <field name="partner_id" />
-                            <field name="invoice_partner_id" />
-                            <field name="partner_order_id" />
+                            <field
+                                name="partner_id"
+                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
+                                widget="res_partner_many2one"
+                                context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"
+                                options="{'no_create': True}"
+                            />
+                            <field
+                                name="partner_order_id"
+                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
+                                domain="[('parent_id','=',partner_id), ('type', '=', 'contact')]"
+                                context="{'search_default_customer':1, 'show_address': 1}"
+                                options="{'no_create': True, 'no_open': True}"
+                            />
+                            <field
+                                name="invoice_partner_id"
+                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
+                                context="{'search_default_customer':1, 'show_address': 1}"
+                                domain="['|', ('id', '=', partner_id), '&amp;', ('parent_id', '=', partner_id), ('type', '=', 'invoice')]"
+                                options="{'no_create': True, 'no_open': True}"
+                            />
                         </group>
                         <group name="route_information" string="Route Information">
-                            <field name="route_id" />
-                            <field name="transportable_id" />
+                            <field name="route_id" attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}" />
+                            <field
+                                name="transportable_id"
+                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
+                            />
                             <field
                                 name="currency_id"
                                 groups="base.group_multi_currency"
                                 options="{'no_create': True, 'no_open': True}"
+                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
                             />
                             <field
                                 name="company_id"
                                 groups="base.group_multi_company"
                                 options="{'no_create': True, 'no_open': True}"
+                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
                             />
                         </group>
                     </group>
                     <notebook>
                         <page name="fuel" string="Fuel">
-                            <field name="agreement_fuel_ids" nolabel="1">
+                            <field
+                                name="agreement_fuel_ids"
+                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
+                                nolabel="1"
+                            >
                                 <tree editable="bottom">
                                     <field name="uom_category_id" invisible="1" />
                                     <field name="partner_id" options="{'no_create': 1}" />
@@ -71,7 +98,11 @@
                             </field>
                         </page>
                         <page name="advances" string="Advances">
-                            <field name="agreement_advance_ids" nolabel="1">
+                            <field
+                                name="agreement_advance_ids"
+                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
+                                nolabel="1"
+                            >
                                 <tree editable="bottom">
                                     <field name="product_id" options="{'no_create': 1}" />
                                     <field name="amount" sum="Amount Total" />
