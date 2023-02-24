@@ -56,6 +56,8 @@ class TmsExpense(models.Model):
     amount_salary_balance = fields.Monetary(string="Salary Balance", compute="_compute_amounts", store=True)
     amount_indirect_expense = fields.Monetary(string="Indirect Expenses", compute="_compute_amounts", store=True)
     amount_total = fields.Monetary(string="Total (All)", compute="_compute_amounts", store=True)
+    amount_income = fields.Monetary(string="Income", compute="_compute_amounts", store=True)
+    amount_margin = fields.Monetary(string="Margin", compute="_compute_amounts", store=True)
     amount_untaxed_total = fields.Monetary(string="SubTotal (All)", compute="_compute_amounts", store=True)
     last_odometer = fields.Float("Last Read")
     vehicle_odometer = fields.Float()
@@ -337,6 +339,8 @@ class TmsExpense(models.Model):
             amount_total = (
                 amount_total_driver_expenses + amount_total_real + amount_total_fuel + amount_indirect_expense
             )
+            amount_income = sum(rec.mapped("travel_ids.waybill_ids.amount_total"))
+            amount_margin = amount_income - amount_total
 
             fuel_qty = sum(rec.expense_line_ids.filtered(lambda l: l.line_type == "fuel").mapped("product_qty"))
             rec.update(
@@ -359,6 +363,8 @@ class TmsExpense(models.Model):
                     "amount_indirect_expense": amount_indirect_expense,
                     "amount_total": amount_total,
                     "fuel_qty": fuel_qty,
+                    "amount_income": amount_income,
+                    "amount_margin": amount_margin,
                 }
             )
 

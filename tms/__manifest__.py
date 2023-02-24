@@ -3,7 +3,7 @@
 
 {
     "name": "Freight Management",
-    "version": "15.0.2.0.3",
+    "version": "15.0.2.0.4",
     "category": "Transport",
     "author": "Jarsa",
     "website": "https://www.jarsa.com.mx/page/transport-management-system",

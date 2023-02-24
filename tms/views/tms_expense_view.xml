@@ -154,27 +154,71 @@
                             <group>
                                 <group>
                                     <separator string="Driver Expenses" />
-                                    <field name="amount_salary" />
-                                    <field name="amount_other_income" />
-                                    <field name="amount_salary_discount" />
-                                    <field name="amount_salary_retention" />
-                                    <field name="amount_negative_balance" />
-                                    <field name="amount_total_driver_expenses" />
+                                    <field name="amount_salary" attrs="{'invisible': [('amount_salary', '=', 0)]}" />
+                                    <field
+                                        name="amount_other_income"
+                                        attrs="{'invisible': [('amount_other_income', '=', 0)]}"
+                                    />
+                                    <field
+                                        name="amount_salary_discount"
+                                        attrs="{'invisible': [('amount_salary_discount', '=', 0)]}"
+                                    />
+                                    <field
+                                        name="amount_salary_retention"
+                                        attrs="{'invisible': [('amount_salary_retention', '=', 0)]}"
+                                    />
+                                    <field
+                                        name="amount_negative_balance"
+                                        attrs="{'invisible': [('amount_negative_balance', '=', 0)]}"
+                                    />
+                                    <field
+                                        name="amount_total_driver_expenses"
+                                        attrs="{'invisible': [('amount_total_driver_expenses', '=', 0)]}"
+                                    />
                                     <separator string="Real Expenses" />
-                                    <field name="amount_real_expense" />
-                                    <field name="amount_tax_real" />
-                                    <field name="amount_total_real" />
-                                    <field name="amount_advance" />
-                                    <field name="amount_advance_expense_balance" />
+                                    <field
+                                        name="amount_real_expense"
+                                        attrs="{'invisible': [('amount_real_expense', '=', 0)]}"
+                                    />
+                                    <field
+                                        name="amount_tax_real"
+                                        attrs="{'invisible': [('amount_tax_real', '=', 0)]}"
+                                    />
+                                    <field
+                                        name="amount_total_real"
+                                        attrs="{'invisible': [('amount_total_real', '=', 0)]}"
+                                    />
+                                    <field name="amount_advance" attrs="{'invisible': [('amount_advance', '=', 0)]}" />
+                                    <field
+                                        name="amount_advance_expense_balance"
+                                        attrs="{'invisible': [('amount_advance_expense_balance', '=', 0)]}"
+                                    />
                                     <separator string="Total Driver Salary" />
-                                    <field name="amount_salary_balance" />
-                                    <separator string="Fuel Expenses" />
-                                    <field name="amount_fuel" />
-                                    <field name="amount_tax_fuel" />
-                                    <field name="amount_total_fuel" />
+                                    <field
+                                        name="amount_salary_balance"
+                                        attrs="{'invisible': [('amount_salary_balance', '=', 0)]}"
+                                    />
+                                    <separator
+                                        string="Fuel Expenses"
+                                        attrs="{'invisible': [('amount_fuel', '=', 0)] }"
+                                    />
+                                    <field name="amount_fuel" attrs="{'invisible': [('amount_fuel', '=', 0)]}" />
+                                    <field
+                                        name="amount_tax_fuel"
+                                        attrs="{'invisible': [('amount_tax_fuel', '=', 0)]}"
+                                    />
+                                    <field
+                                        name="amount_total_fuel"
+                                        attrs="{'invisible': [('amount_total_fuel', '=', 0)]}"
+                                    />
                                     <separator string="Total Expenses" />
-                                    <field name="amount_indirect_expense" />
-                                    <field name="amount_total" />
+                                    <field
+                                        name="amount_indirect_expense"
+                                        attrs="{'invisible': [('amount_indirect_expense', '=', 0)]}"
+                                    />
+                                    <field name="amount_total" attrs="{'invisible': [('amount_total', '=', 0)]}" />
+                                    <field name="amount_income" attrs="{'invisible': [('amount_income', '=', 0)]}" />
+                                    <field name="amount_margin" attrs="{'invisible': [('amount_margin', '=', 0)]}" />
                                 </group>
                             </group>
                         </page>
