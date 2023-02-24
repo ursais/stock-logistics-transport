@@ -125,6 +125,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xs-12 col-md-6 o_setting_box" id="tms_agreement">
+                            <div class="o_setting_left_pane">
+                                <field name="module_tms_agreement" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label string="Enable TMS Agreements" for="module_tms_agreement" />
+                                <div class="text-muted">
+                                    Automate the creation of TMS documents based on agreements.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </xpath>

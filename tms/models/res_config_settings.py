@@ -19,6 +19,9 @@ class ResConfigSettings(models.TransientModel):
     module_tms_tier_validation = fields.Boolean(
         string="Use Tier Validation for TMS Documents",
     )
+    module_tms_agreement = fields.Boolean(
+        string="Agreements in TMS",
+    )
     driver_license_security_days = fields.Integer(
         related="company_id.driver_license_security_days",
         readonly=False,

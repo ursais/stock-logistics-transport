@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-10 14:44+0000\n"
-"PO-Revision-Date: 2023-02-10 08:44-0600\n"
+"POT-Creation-Date: 2023-02-24 13:56+0000\n"
+"PO-Revision-Date: 2023-02-24 07:57-0600\n"
 "Last-Translator: Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -39,6 +39,15 @@ msgstr "<i class=\"fa fa-long-arrow-right mx-1\" aria-label=\"Arrow icon\" title
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_unit_kit_form
 msgid "<i class=\"fa fa-long-arrow-right mx-1\" aria-label=\"Arrow icon\" title=\"Arrow\"/>"
 msgstr "<i class=\"fa fa-long-arrow-right mx-1\" aria-label=\"Arrow icon\" title=\"Arrow\"/>"
+
+#. module: tms
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_factor_form
+msgid ""
+"<span attrs=\"{'invisible': [('category', '!=', 'driver')]}\">Drivers to apply this factor.<br/> If you leave it empty, it will be applied to all "
+"drivers.</span>"
+msgstr ""
+"<span attrs=\"{'invisible': [('category', '!=', 'driver')]}\">Conductores para aplicar este factor.<br/> Si lo deja vacío, se aplicará a todos los "
+"conductores.</span>"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form
@@ -310,6 +319,11 @@ msgid "Advances"
 msgstr "Anticipos"
 
 #. module: tms
+#: model:ir.model.fields,field_description:tms.field_res_config_settings__module_tms_agreement
+msgid "Agreements in TMS"
+msgstr "Acuerdos en TMS"
+
+#. module: tms
 #: code:addons/tms/models/tms_expense.py:0
 #, python-format
 msgid ""
@@ -455,6 +469,11 @@ msgid "Auto Expense"
 msgstr "Gasto Pre-Autorizado"
 
 #. module: tms
+#: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
+msgid "Automate the creation of TMS documents based on agreements."
+msgstr "Automatice la creación de documentos TMS basados en acuerdos."
+
+#. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_expense_line__automatic
 msgid "Automatic"
 msgstr "Automático"
@@ -558,7 +577,7 @@ msgstr "Calcular líneas"
 #. module: tms
 #: model:ir.model,name:tms.model_res_config_settings
 msgid "Config Settings"
-msgstr "Opciones de configuración"
+msgstr "Ajustes de configuración"
 
 #. module: tms
 #: model:ir.ui.menu,name:tms.menu_tms_settings
@@ -969,6 +988,11 @@ msgid "Driver Factor"
 msgstr "Factor conductor"
 
 #. module: tms
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_factor_form
+msgid "Driver Information"
+msgstr "Información del Conductor"
+
+#. module: tms
 #: model:ir.actions.act_window,name:tms.hr_employee_driver_license_action model:ir.model,name:tms.model_hr_employee_driver_license
 #: model_terms:ir.ui.view,arch_db:tms.view_employee_form_tms
 msgid "Driver License"
@@ -996,10 +1020,15 @@ msgid "Driver and Units"
 msgstr "Conductor y Unidades"
 
 #. module: tms
-#: model:ir.actions.act_window,name:tms.tms_open_view_employee_list model:ir.ui.menu,name:tms.menu_tms_open_view_employee_list
-#: model:ir.ui.menu,name:tms.menu_tms_settings_drivers
+#: model:ir.actions.act_window,name:tms.tms_open_view_employee_list model:ir.model.fields,field_description:tms.field_tms_factor__driver_ids
+#: model:ir.ui.menu,name:tms.menu_tms_open_view_employee_list model:ir.ui.menu,name:tms.menu_tms_settings_drivers
 msgid "Drivers"
 msgstr "Conductores"
+
+#. module: tms
+#: model:ir.model.fields,help:tms.field_tms_factor__driver_ids
+msgid "Drivers to apply this factor. If you leave it empty, it will be applied to all drivers."
+msgstr "Conductores para aplicar este factor. Si lo deja vacío, se aplicará a todos los conductores."
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_travel__travel_time_real
@@ -1046,6 +1075,11 @@ msgstr "Habilitar préstamos para conductores"
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
 msgid "Enable Operating Unit"
 msgstr "Habilitar unidad operativa"
+
+#. module: tms
+#: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
+msgid "Enable TMS Agreements"
+msgstr "Habilitar Acuerdos en TMS"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
@@ -1494,8 +1528,8 @@ msgstr ""
 
 #. module: tms
 #: model:ir.model.fields.selection,name:tms.selection__tms_travel__state__progress
-#: model:ir.model.fields.selection,name:tms.selection__tms_travel_stage__state__progress model:tms.travel.stage,name:tms.travel_stage_progress
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
+#: model:ir.model.fields.selection,name:tms.selection__tms_travel_stage__state__progress model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
 msgid "In Progress"
 msgstr "En Proceso"
 
@@ -1643,7 +1677,7 @@ msgstr "Asiento de diario"
 #. module: tms
 #: model:ir.model,name:tms.model_account_move_line
 msgid "Journal Item"
-msgstr "Apunte contable"
+msgstr "Apunte de diario"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_fuel__move_line_ids
@@ -3007,6 +3041,11 @@ msgstr "El tiempo de viaje debe ser mayor que cero."
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
 msgid "Travels"
 msgstr "Viajes"
+
+#. module: tms
+#: model:tms.travel.stage,name:tms.travel_stage_progress
+msgid "Tránsito"
+msgstr "Tránsito"
 
 #. module: tms
 #: model:ir.model.fields,help:tms.field_fleet_vehicle_insurance__activity_exception_decoration
