@@ -64,7 +64,7 @@
                     <button
                         icon="fa-times"
                         name="action_cancel"
-                        states="draft,confirmed,confirmed"
+                        states="draft,confirmed"
                         string="Cancel"
                         type="object"
                     />

@@ -35,11 +35,7 @@
                         string="Back to Draft"
                         type="object"
                     />
-                    <field
-                        name="state"
-                        statusbar_visible="draft,confirmed,confirmed,cancel,closed"
-                        widget="statusbar"
-                    />
+                    <field name="state" statusbar_visible="draft,confirmed,cancel,closed" widget="statusbar" />
                 </header>
                 <div
                     class="alert alert-warning mb-0"
