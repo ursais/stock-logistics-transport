@@ -15,7 +15,11 @@ class FleetVehicle(models.Model):
     )
     economic_number = fields.Char(copy=False)
     policy_ids = fields.One2many("fleet.vehicle.insurance", "unit_id", string="Policies")
-    insurance_policy_expiration_date = fields.Date(compute="_compute_insurance_policy_expiration_date", store=True)
+    insurance_policy_expiration_date = fields.Date(
+        compute="_compute_insurance_policy_expiration_date",
+        store=True,
+        default=fields.Date.context_today,
+    )
     active_insurance_policy_id = fields.Many2one(
         "fleet.vehicle.insurance",
         compute="_compute_active_insurance_policy_id",
