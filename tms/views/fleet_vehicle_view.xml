@@ -29,7 +29,6 @@
                 <button name="action_open_insurance_policy" type="object" class="oe_stat_button" icon="fa-shield">
                     <field
                         name="insurance_policy_expiration_date"
-                        widget="statinfo"
                         string="Insurance"
                         attrs="{'invisible':[('policy_ids','=',[])]}"
                     />
