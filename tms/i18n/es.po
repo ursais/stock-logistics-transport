@@ -30,23 +30,31 @@ msgstr "<b>Ruta:</b><br/>"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
-msgid "<i class=\"fa fa-long-arrow-right mx-1\" aria-label=\"Arrow icon\" title=\"Arrow\" attrs=\"{'invisible': [('date_end_real', '=', False)]}\"/>"
-msgstr "<i class=\"fa fa-long-arrow-right mx-1\" aria-label=\"Arrow icon\" title=\"Arrow\" attrs=\"{'invisible': [('date_end_real', '=', False)]}\"/>"
+msgid ""
+"<i class=\"fa fa-long-arrow-right mx-1\" aria-label=\"Arrow icon\" "
+"title=\"Arrow\" attrs=\"{'invisible': [('date_end_real', '=', False)]}\"/>"
+msgstr ""
 
 #. module: tms
-#: model_terms:ir.ui.view,arch_db:tms.fleet_vehicle_insurance_view_form model_terms:ir.ui.view,arch_db:tms.hr_employee_driver_license_view_form
-#: model_terms:ir.ui.view,arch_db:tms.tms_travel_view_kanban model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
+#: model_terms:ir.ui.view,arch_db:tms.fleet_vehicle_insurance_view_form
+#: model_terms:ir.ui.view,arch_db:tms.hr_employee_driver_license_view_form
+#: model_terms:ir.ui.view,arch_db:tms.tms_travel_view_kanban
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_unit_kit_form
-msgid "<i class=\"fa fa-long-arrow-right mx-1\" aria-label=\"Arrow icon\" title=\"Arrow\"/>"
-msgstr "<i class=\"fa fa-long-arrow-right mx-1\" aria-label=\"Arrow icon\" title=\"Arrow\"/>"
+msgid ""
+"<i class=\"fa fa-long-arrow-right mx-1\" aria-label=\"Arrow icon\" "
+"title=\"Arrow\"/>"
+msgstr ""
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_factor_form
 msgid ""
-"<span attrs=\"{'invisible': [('category', '!=', 'driver')]}\">Drivers to apply this factor.<br/> If you leave it empty, it will be applied to all "
+"<span attrs=\"{'invisible': [('category', '!=', 'driver')]}\">Drivers to "
+"apply this factor.<br/> If you leave it empty, it will be applied to all "
 "drivers.</span>"
 msgstr ""
-"<span attrs=\"{'invisible': [('category', '!=', 'driver')]}\">Conductores para aplicar este factor.<br/> Si lo deja vacío, se aplicará a todos los "
+"<span attrs=\"{'invisible': [('category', '!=', 'driver')]}\">Conductores "
+"para aplicar este factor.<br/> Si lo deja vacío, se aplicará a todos los "
 "conductores.</span>"
 
 #. module: tms
@@ -112,8 +120,12 @@ msgstr "<strong>Etapa:</strong>"
 #. module: tms
 #: code:addons/tms/models/tms_travel.py:0
 #, python-format
-msgid "<strong>This travel cannot be dispateched due to the following errors:</strong><br/>%(errors)s"
-msgstr "<strong>Este viaje no puede ser despachado debido a los siguientes errores:</strong><br/>%(errors)s"
+msgid ""
+"<strong>This travel cannot be dispateched due to the following "
+"errors:</strong><br/>%(errors)s"
+msgstr ""
+"<strong>Este viaje no puede ser despachado debido a los siguientes "
+"errores:</strong><br/>%(errors)s"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.tms_travel_view_gantt
@@ -123,13 +135,21 @@ msgstr "<strong>Unidad:</strong>"
 #. module: tms
 #: code:addons/tms/models/tms_advance.py:0
 #, python-format
-msgid "<ul>Advance: %(name)s</ul><ul>Travel: %(travel)s</ul><ul>Driver: %(driver)s</ul><ul>Vehicle: %(vehicle)s</ul>"
-msgstr "<ul>Anticipo: %(name)s</ul><ul> Viaje: %(travel)s</ul><ul> Conductor: %(driver)s</ul><ul> Vehículo: %(vehicle)s</ul>"
+msgid ""
+"<ul>Advance: %(name)s</ul><ul>Travel: %(travel)s</ul><ul>Driver: "
+"%(driver)s</ul><ul>Vehicle: %(vehicle)s</ul>"
+msgstr ""
+"<ul>Anticipo: %(name)s</ul><ul> Viaje: %(travel)s</ul><ul> Conductor: "
+"%(driver)s</ul><ul> Vehículo: %(vehicle)s</ul>"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.tms_product_template_view
-msgid "A product configured with this category will be used in Fuel Vouchers and in the Expense."
-msgstr "Un producto configurado con esta categoría se utilizará en los Vales de Combustible y en el Gasto."
+msgid ""
+"A product configured with this category will be used in Fuel Vouchers and in"
+" the Expense."
+msgstr ""
+"Un producto configurado con esta categoría se utilizará en los Vales de "
+"Combustible y en el Gasto."
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.tms_product_template_view
@@ -137,7 +157,8 @@ msgid ""
 "A product configured with this category will be used to compute the freight amount in the Waybill.<br/>\n"
 "                            You can configure only one product with this category."
 msgstr ""
-"Un producto configurado con esta categoría se utilizará para calcular el monto del flete en la Carta Porte.<br/> Puede configurar solo un producto "
+"Un producto configurado con esta categoría se utilizará para calcular el "
+"monto del flete en la Carta Porte.<br/> Puede configurar solo un producto "
 "con esta categoría."
 
 #. module: tms
@@ -146,7 +167,8 @@ msgid ""
 "A product configured with this category will be used to compute the insurance amount in the Waybill.<br/>\n"
 "                            You can configure only one product with this category."
 msgstr ""
-"Un producto configurado con esta categoría se utilizará para calcular el monto del seguro en la Carta Porte.<br/> Puede configurar solo un producto "
+"Un producto configurado con esta categoría se utilizará para calcular el "
+"monto del seguro en la Carta Porte.<br/> Puede configurar solo un producto "
 "con esta categoría."
 
 #. module: tms
@@ -155,7 +177,8 @@ msgid ""
 "A product configured with this category will be used to compute the move amount in the Waybill.<br/>\n"
 "                            You can configure only one product with this category."
 msgstr ""
-"Un producto configurado con esta categoría se utilizará para calcular el monto de la Carta Porte.<br/> Puede configurar solo un producto con esta "
+"Un producto configurado con esta categoría se utilizará para calcular el "
+"monto de la Carta Porte.<br/> Puede configurar solo un producto con esta "
 "categoría."
 
 #. module: tms
@@ -164,7 +187,8 @@ msgid ""
 "A product configured with this category will be used to compute the other amount in the Waybill.<br/>\n"
 "                            You can configure only one product with this category."
 msgstr ""
-"Un producto configurado con esta categoría se utilizará para calcular el otro monto en la Carta Porte.<br/> Puede configurar solo un producto con "
+"Un producto configurado con esta categoría se utilizará para calcular el "
+"otro monto en la Carta Porte.<br/> Puede configurar solo un producto con "
 "esta categoría."
 
 #. module: tms
@@ -173,7 +197,8 @@ msgid ""
 "A product configured with this category will be used to compute the salary in the Expense.<br/>\n"
 "                            You can configure only one product with this category."
 msgstr ""
-"Un producto configurado con esta categoría se utilizará para calcular el salario en el Gasto.<br/> Puede configurar solo un producto con esta "
+"Un producto configurado con esta categoría se utilizará para calcular el "
+"salario en el Gasto.<br/> Puede configurar solo un producto con esta "
 "categoría."
 
 #. module: tms
@@ -182,7 +207,8 @@ msgid ""
 "A product configured with this category will be used to compute the tolls amount in the Waybill.<br/>\n"
 "                            You can configure only one product with this category."
 msgstr ""
-"Un producto configurado con esta categoría se utilizará para calcular el monto de los peajes en la Carta Porte.<br/> Puede configurar solo un "
+"Un producto configurado con esta categoría se utilizará para calcular el "
+"monto de los peajes en la Carta Porte.<br/> Puede configurar solo un "
 "producto con esta categoría."
 
 #. module: tms
@@ -192,13 +218,21 @@ msgstr "Saldo negativo de la cuenta"
 
 #. module: tms
 #: model:ir.model.fields,help:tms.field_hr_employee__property_tms_advance_account_id
-msgid "Account used to register advances in the expense, if not set it will take the default account from the company"
-msgstr "Cuenta utilizada para registrar anticipos en el gasto, si no se configura tomará la cuenta por defecto de la empresa"
+msgid ""
+"Account used to register advances in the expense, if not set it will take "
+"the default account from the company"
+msgstr ""
+"Cuenta utilizada para registrar anticipos en el gasto, si no se configura "
+"tomará la cuenta por defecto de la empresa"
 
 #. module: tms
 #: model:ir.model.fields,help:tms.field_hr_employee__property_tms_expense_negative_account_id
-msgid "Account used to register negative balance in the expense, if not set it will take the default account from the company"
-msgstr "Cuenta utilizada para registrar saldo negativo en el gasto, si no se configura tomará la cuenta por defecto de la empresa"
+msgid ""
+"Account used to register negative balance in the expense, if not set it will"
+" take the default account from the company"
+msgstr ""
+"Cuenta utilizada para registrar saldo negativo en el gasto, si no se "
+"configura tomará la cuenta por defecto de la empresa"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
@@ -219,8 +253,10 @@ msgid "Action Needed"
 msgstr "Acción requerida"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_route__active model:ir.model.fields,field_description:tms.field_tms_transportable__active
-#: model:ir.model.fields,field_description:tms.field_tms_travel_stage__active model:ir.model.fields,field_description:tms.field_tms_unit_kit__active
+#: model:ir.model.fields,field_description:tms.field_tms_route__active
+#: model:ir.model.fields,field_description:tms.field_tms_transportable__active
+#: model:ir.model.fields,field_description:tms.field_tms_travel_stage__active
+#: model:ir.model.fields,field_description:tms.field_tms_unit_kit__active
 #: model:ir.model.fields.selection,name:tms.selection__fleet_vehicle_insurance__state__active
 #: model:ir.model.fields.selection,name:tms.selection__hr_employee_driver_license__state__active
 msgid "Active"
@@ -240,8 +276,10 @@ msgstr "Licencia Activa"
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_insurance__activity_ids
 #: model:ir.model.fields,field_description:tms.field_hr_employee_driver_license__activity_ids
 #: model:ir.model.fields,field_description:tms.field_tms_advance__activity_ids
-#: model:ir.model.fields,field_description:tms.field_tms_expense__activity_ids model:ir.model.fields,field_description:tms.field_tms_fuel__activity_ids
-#: model:ir.model.fields,field_description:tms.field_tms_route__activity_ids model:ir.model.fields,field_description:tms.field_tms_travel__activity_ids
+#: model:ir.model.fields,field_description:tms.field_tms_expense__activity_ids
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__activity_ids
+#: model:ir.model.fields,field_description:tms.field_tms_route__activity_ids
+#: model:ir.model.fields,field_description:tms.field_tms_travel__activity_ids
 #: model:ir.model.fields,field_description:tms.field_tms_unit_kit__activity_ids
 #: model:ir.model.fields,field_description:tms.field_tms_waybill__activity_ids
 msgid "Activities"
@@ -305,16 +343,21 @@ msgid "Advance Number"
 msgstr "Número de Anticipo"
 
 #. module: tms
-#: code:addons/tms/models/tms_advance.py:0 code:addons/tms/models/tms_expense.py:0
+#: code:addons/tms/models/tms_advance.py:0
+#: code:addons/tms/models/tms_expense.py:0
 #, python-format
 msgid "Advance: %(name)s"
 msgstr "Anticipo: %(name)s"
 
 #. module: tms
-#: model:ir.actions.act_window,name:tms.open_view_tms_advance_form model:ir.model.fields,field_description:tms.field_tms_expense__advance_ids
-#: model:ir.model.fields,field_description:tms.field_tms_travel__advance_ids model:ir.ui.menu,name:tms.menu_tms_advance_form
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
+#: model:ir.actions.act_window,name:tms.open_view_tms_advance_form
+#: model:ir.model.fields,field_description:tms.field_tms_expense__advance_ids
+#: model:ir.model.fields,field_description:tms.field_tms_travel__advance_ids
+#: model:ir.ui.menu,name:tms.menu_tms_advance_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
 msgid "Advances"
 msgstr "Anticipos"
 
@@ -361,8 +404,12 @@ msgstr ""
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
-msgid "Allow to configure custom validation rules for Advances, Expenses and Fuel vouchers."
-msgstr "Permitir configurar reglas de validación personalizadas para Anticipos, Gastos y Vales de Combustible."
+msgid ""
+"Allow to configure custom validation rules for Advances, Expenses and Fuel "
+"vouchers."
+msgstr ""
+"Permitir configurar reglas de validación personalizadas para Anticipos, "
+"Gastos y Vales de Combustible."
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_advance__amount
@@ -381,7 +428,8 @@ msgid "Amount Residual"
 msgstr "Monto Residual"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_waybill_line__amount_total model_terms:ir.ui.view,arch_db:tms.view_tms_advance_tree
+#: model:ir.model.fields,field_description:tms.field_tms_waybill_line__amount_total
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_tree
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
 msgid "Amount Total"
 msgstr "Monto Total"
@@ -416,9 +464,12 @@ msgid "Apply For Salary"
 msgstr "Aplica para Salario"
 
 #. module: tms
-#: model_terms:ir.ui.view,arch_db:tms.tms_transportable_view_search model_terms:ir.ui.view,arch_db:tms.tms_travel_stage_view_form
-#: model_terms:ir.ui.view,arch_db:tms.tms_travel_stage_view_search model_terms:ir.ui.view,arch_db:tms.view_tms_route_form
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_unit_kit_form model_terms:ir.ui.view,arch_db:tms.view_tms_unit_kit_search
+#: model_terms:ir.ui.view,arch_db:tms.tms_transportable_view_search
+#: model_terms:ir.ui.view,arch_db:tms.tms_travel_stage_view_form
+#: model_terms:ir.ui.view,arch_db:tms.tms_travel_stage_view_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_route_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_unit_kit_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_unit_kit_search
 msgid "Archived"
 msgstr "Archivado"
 
@@ -486,7 +537,7 @@ msgstr "Volver a Borrador"
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_expense__amount_balance
 msgid "Balance"
-msgstr "Balance"
+msgstr ""
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_fuel__balance_prepaid
@@ -494,8 +545,10 @@ msgid "Balance Prepaid"
 msgstr "Saldo prepago"
 
 #. module: tms
-#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_view_form model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_view_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form
 msgid "Cancel"
 msgstr "Cancelar"
@@ -506,27 +559,39 @@ msgstr "Cancelar"
 #: model:ir.model.fields.selection,name:tms.selection__tms_fuel__state__cancel
 #: model:ir.model.fields.selection,name:tms.selection__tms_travel__state__cancel
 #: model:ir.model.fields.selection,name:tms.selection__tms_travel_stage__state__cancel
-#: model:ir.model.fields.selection,name:tms.selection__tms_waybill__state__cancel model:tms.travel.stage,name:tms.travel_stage_cancel
-#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
+#: model:ir.model.fields.selection,name:tms.selection__tms_waybill__state__cancel
+#: model:tms.travel.stage,name:tms.travel_stage_cancel
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
 msgid "Cancelled"
 msgstr "Cancelado"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_factor__category model:ir.model.fields,field_description:tms.field_tms_fuel__uom_category_id
+#: model:ir.model.fields,field_description:tms.field_tms_factor__category
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__uom_category_id
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_transportable_line__uom_categ_id
 msgid "Category"
 msgstr "Categoría"
 
 #. module: tms
 #: model:ir.model.fields,help:tms.field_tms_advance__auto_expense
-msgid "Check this if you want this product and amount to be automatically created when Travel Expense Record is created."
-msgstr "Marque esto sí desea que este producto y la cantidad se creen automáticamente cuando se crea el Registro de gastos de viaje."
+msgid ""
+"Check this if you want this product and amount to be automatically created "
+"when Travel Expense Record is created."
+msgstr ""
+"Marque esto sí desea que este producto y la cantidad se creen "
+"automáticamente cuando se crea el Registro de gastos de viaje."
 
 #. module: tms
 #: model:ir.model.fields,help:tms.field_tms_expense_line__automatic
-msgid "Check this if you want to create Advances and/or Fuel Vouchers for this line automatically"
-msgstr "Marque esto si desea crear Anticipos y/o Vales de Combustible para esta línea automáticamente"
+msgid ""
+"Check this if you want to create Advances and/or Fuel Vouchers for this line"
+" automatically"
+msgstr ""
+"Marque esto si desea crear Anticipos y/o Vales de Combustible para esta "
+"línea automáticamente"
 
 #. module: tms
 #: model_terms:ir.actions.act_window,help:tms.hr_employee_driver_license_action
@@ -548,9 +613,12 @@ msgstr "Haga clic para agregar una nueva póliza de seguro."
 #: model:ir.model.fields.selection,name:tms.selection__tms_fuel__state__closed
 #: model:ir.model.fields.selection,name:tms.selection__tms_travel__state__closed
 #: model:ir.model.fields.selection,name:tms.selection__tms_travel_stage__state__closed
-#: model:ir.model.fields.selection,name:tms.selection__tms_waybill__state__closed model:tms.travel.stage,name:tms.travel_stage_closed
-#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
+#: model:ir.model.fields.selection,name:tms.selection__tms_waybill__state__closed
+#: model:tms.travel.stage,name:tms.travel_stage_closed
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
 msgid "Closed"
 msgstr "Cerrado"
 
@@ -560,11 +628,16 @@ msgid "Companies"
 msgstr "Empresas"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_advance__company_id model:ir.model.fields,field_description:tms.field_tms_expense__company_id
-#: model:ir.model.fields,field_description:tms.field_tms_expense_line__company_id model:ir.model.fields,field_description:tms.field_tms_fuel__company_id
-#: model:ir.model.fields,field_description:tms.field_tms_route__company_id model:ir.model.fields,field_description:tms.field_tms_travel__company_id
-#: model:ir.model.fields,field_description:tms.field_tms_unit_kit__company_id model:ir.model.fields,field_description:tms.field_tms_waybill__company_id
-#: model:ir.model.fields,field_description:tms.field_tms_waybill_line__company_id model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
+#: model:ir.model.fields,field_description:tms.field_tms_advance__company_id
+#: model:ir.model.fields,field_description:tms.field_tms_expense__company_id
+#: model:ir.model.fields,field_description:tms.field_tms_expense_line__company_id
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__company_id
+#: model:ir.model.fields,field_description:tms.field_tms_route__company_id
+#: model:ir.model.fields,field_description:tms.field_tms_travel__company_id
+#: model:ir.model.fields,field_description:tms.field_tms_unit_kit__company_id
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__company_id
+#: model:ir.model.fields,field_description:tms.field_tms_waybill_line__company_id
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_unit_kit_search
 msgid "Company"
 msgstr "Empresa"
@@ -585,10 +658,14 @@ msgid "Configuration"
 msgstr "Configuración"
 
 #. module: tms
-#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_tree model_terms:ir.ui.view,arch_db:tms.tms_fuel_view_form
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form model_terms:ir.ui.view,arch_db:tms.view_tms_advance_tree
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_tree
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_tree
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_view_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_tree
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_tree
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -596,27 +673,39 @@ msgstr "Confirmar"
 #: model:ir.model.fields.selection,name:tms.selection__tms_advance__state__confirmed
 #: model:ir.model.fields.selection,name:tms.selection__tms_expense__state__confirmed
 #: model:ir.model.fields.selection,name:tms.selection__tms_fuel__state__confirmed
-#: model:ir.model.fields.selection,name:tms.selection__tms_waybill__state__confirmed model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search model_terms:ir.ui.view,arch_db:tms.view_tms_expense_filter
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_filter
+#: model:ir.model.fields.selection,name:tms.selection__tms_waybill__state__confirmed
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_filter
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_filter
 msgid "Confirmed"
 msgstr "Confirmado"
 
 #. module: tms
-#: model:ir.model.fields,help:tms.field_product_product__apply_for_salary model:ir.model.fields,help:tms.field_product_template__apply_for_salary
-msgid "Consider this product for salary calculation when the expense is computed if this product is on a waybill line."
-msgstr "Considere este producto para el cálculo del salario cuando se calcule el gasto si este producto está en una línea de Carta Porte."
+#: model:ir.model.fields,help:tms.field_product_product__apply_for_salary
+#: model:ir.model.fields,help:tms.field_product_template__apply_for_salary
+msgid ""
+"Consider this product for salary calculation when the expense is computed if"
+" this product is on a waybill line."
+msgstr ""
+"Considere este producto para el cálculo del salario cuando se calcule el "
+"gasto si este producto está en una línea de Carta Porte."
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_expense_line__control
 msgid "Control"
-msgstr "Control"
+msgstr ""
 
 #. module: tms
-#: model:ir.model.fields,help:tms.field_tms_fuel__uom_category_id model:ir.model.fields,help:tms.field_tms_waybill_transportable_line__uom_categ_id
-msgid "Conversion between Units of Measure can only occur if they belong to the same category. The conversion will be made based on the ratios."
+#: model:ir.model.fields,help:tms.field_tms_fuel__uom_category_id
+#: model:ir.model.fields,help:tms.field_tms_waybill_transportable_line__uom_categ_id
+msgid ""
+"Conversion between Units of Measure can only occur if they belong to the "
+"same category. The conversion will be made based on the ratios."
 msgstr ""
-"La conversión entre las unidades de medidas sólo pueden ocurrir si pertenecen a la misma categoría. La conversión se basará en los ratios "
+"La conversión entre las unidades de medidas sólo pueden ocurrir si "
+"pertenecen a la misma categoría. La conversión se basará en los ratios "
 "establecidos."
 
 #. module: tms
@@ -633,20 +722,32 @@ msgstr "¡No se pudo facturar el vale de combustible! Este ya está Facturado"
 #. module: tms
 #: code:addons/tms/models/tms_fuel.py:0
 #, python-format
-msgid "Could not Invoice Fuel Voucher! This Fuel Voucher must be confirmed or closed"
-msgstr "¡No se pudo facturar el vale de combustible! Este debe estar confirmado o cerrado"
+msgid ""
+"Could not Invoice Fuel Voucher! This Fuel Voucher must be confirmed or "
+"closed"
+msgstr ""
+"¡No se pudo facturar el vale de combustible! Este debe estar confirmado o "
+"cerrado"
 
 #. module: tms
 #: code:addons/tms/models/tms_fuel.py:0
 #, python-format
-msgid "Could not Invoice Fuel Voucher! You can not invoice prepaid and non-prepaid Fuel Vouchers together"
-msgstr "¡No se pudo facturar el vale de combustible! No se pueden facturar vales con prepago y sin prepago juntos"
+msgid ""
+"Could not Invoice Fuel Voucher! You can not invoice prepaid and non-prepaid "
+"Fuel Vouchers together"
+msgstr ""
+"¡No se pudo facturar el vale de combustible! No se pueden facturar vales con"
+" prepago y sin prepago juntos"
 
 #. module: tms
 #: code:addons/tms/models/tms_fuel.py:0
 #, python-format
-msgid "Could not Invoice Fuel Voucher! You do not have enough balance in your prepaid account"
-msgstr "¡No se pudo facturar el vale de combustible! No tienes saldo suficiente en tu cuenta prepago"
+msgid ""
+"Could not Invoice Fuel Voucher! You do not have enough balance in your "
+"prepaid account"
+msgstr ""
+"¡No se pudo facturar el vale de combustible! No tienes saldo suficiente en "
+"tu cuenta prepago"
 
 #. module: tms
 #: code:addons/tms/models/tms_fuel.py:0
@@ -657,38 +758,54 @@ msgstr "¡No se pudo cancelar el vale de combustible! Este ya está Facturado"
 #. module: tms
 #: code:addons/tms/models/tms_fuel.py:0
 #, python-format
-msgid "Could not cancel Fuel Voucher! This Fuel Voucher is already linked to a Travel Expense"
-msgstr "¡No se pudo cancelar el vale de combustible! Este ya está vinculado a un Gasto de Viaje"
+msgid ""
+"Could not cancel Fuel Voucher! This Fuel Voucher is already linked to a "
+"Travel Expense"
+msgstr ""
+"¡No se pudo cancelar el vale de combustible! Este ya está vinculado a un "
+"Gasto de Viaje"
 
 #. module: tms
 #: code:addons/tms/models/tms_advance.py:0
 #, python-format
-msgid "Could not cancel this advance because the advance is already paid. Please cancel the payment first."
-msgstr "No se pudo cancelar este anticipo porque el anticipo ya está pagado. Cancele primero el pago."
+msgid ""
+"Could not cancel this advance because the advance is already paid. Please "
+"cancel the payment first."
+msgstr ""
+"No se pudo cancelar este anticipo porque el anticipo ya está pagado. Cancele"
+" primero el pago."
 
 #. module: tms
 #: code:addons/tms/models/tms_waybill.py:0
 #, python-format
-msgid "Could not confirm Waybill !Waybill must be assigned to a Travel before confirming."
-msgstr "¡No se pudo confirmar la Carta Porte! Debe asignarse a un viaje antes de confirmarlo."
+msgid ""
+"Could not confirm Waybill !Waybill must be assigned to a Travel before "
+"confirming."
+msgstr ""
+"¡No se pudo confirmar la Carta Porte! Debe asignarse a un viaje antes de "
+"confirmarlo."
 
 #. module: tms
 #: code:addons/tms/models/tms_waybill.py:0
 #, python-format
 msgid "Could not confirm this waybill, you must have freight product."
-msgstr "No se pudo confirmar esta carta porte, debe tener el producto de flete."
+msgstr ""
+"No se pudo confirmar esta carta porte, debe tener el producto de flete."
 
 #. module: tms
 #: code:addons/tms/models/tms_advance.py:0
 #, python-format
 msgid "Could not set this advance to draft because the travel is cancelled."
-msgstr "No se pudo configurar este anticipo como borrador porque el viaje se canceló."
+msgstr ""
+"No se pudo configurar este anticipo como borrador porque el viaje se "
+"canceló."
 
 #. module: tms
 #: code:addons/tms/models/tms_waybill.py:0
 #, python-format
 msgid "Could not set to draft this Waybill, the travel is Cancelled."
-msgstr "No se pudo cambiar a borrador esta Carta Porte, el viaje está cancelado."
+msgstr ""
+"No se pudo cambiar a borrador esta Carta Porte, el viaje está cancelado."
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
@@ -696,8 +813,10 @@ msgid "Create Date"
 msgstr "Fecha de Creación"
 
 #. module: tms
-#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_tree model_terms:ir.ui.view,arch_db:tms.tms_fuel_view_form
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_tree
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_tree
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_view_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_tree
 msgid "Create Invoice"
 msgstr "Crear Factura"
 
@@ -709,14 +828,17 @@ msgstr "Creado a partir de gastos"
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_insurance__create_uid
 #: model:ir.model.fields,field_description:tms.field_hr_employee_driver_license__create_uid
-#: model:ir.model.fields,field_description:tms.field_tms_advance__create_uid model:ir.model.fields,field_description:tms.field_tms_expense__create_uid
+#: model:ir.model.fields,field_description:tms.field_tms_advance__create_uid
+#: model:ir.model.fields,field_description:tms.field_tms_expense__create_uid
 #: model:ir.model.fields,field_description:tms.field_tms_expense_line__create_uid
-#: model:ir.model.fields,field_description:tms.field_tms_factor__create_uid model:ir.model.fields,field_description:tms.field_tms_fuel__create_uid
+#: model:ir.model.fields,field_description:tms.field_tms_factor__create_uid
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__create_uid
 #: model:ir.model.fields,field_description:tms.field_tms_route__create_uid
 #: model:ir.model.fields,field_description:tms.field_tms_transportable__create_uid
 #: model:ir.model.fields,field_description:tms.field_tms_travel__create_uid
 #: model:ir.model.fields,field_description:tms.field_tms_travel_stage__create_uid
-#: model:ir.model.fields,field_description:tms.field_tms_unit_kit__create_uid model:ir.model.fields,field_description:tms.field_tms_waybill__create_uid
+#: model:ir.model.fields,field_description:tms.field_tms_unit_kit__create_uid
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__create_uid
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_line__create_uid
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_transportable_line__create_uid
 msgid "Created by"
@@ -725,9 +847,11 @@ msgstr "Creado por"
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_insurance__create_date
 #: model:ir.model.fields,field_description:tms.field_hr_employee_driver_license__create_date
-#: model:ir.model.fields,field_description:tms.field_tms_advance__create_date model:ir.model.fields,field_description:tms.field_tms_expense__create_date
+#: model:ir.model.fields,field_description:tms.field_tms_advance__create_date
+#: model:ir.model.fields,field_description:tms.field_tms_expense__create_date
 #: model:ir.model.fields,field_description:tms.field_tms_expense_line__create_date
-#: model:ir.model.fields,field_description:tms.field_tms_factor__create_date model:ir.model.fields,field_description:tms.field_tms_fuel__create_date
+#: model:ir.model.fields,field_description:tms.field_tms_factor__create_date
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__create_date
 #: model:ir.model.fields,field_description:tms.field_tms_route__create_date
 #: model:ir.model.fields,field_description:tms.field_tms_transportable__create_date
 #: model:ir.model.fields,field_description:tms.field_tms_travel__create_date
@@ -740,9 +864,11 @@ msgid "Created on"
 msgstr "Creado en"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_advance__currency_id model:ir.model.fields,field_description:tms.field_tms_expense__currency_id
+#: model:ir.model.fields,field_description:tms.field_tms_advance__currency_id
+#: model:ir.model.fields,field_description:tms.field_tms_expense__currency_id
 #: model:ir.model.fields,field_description:tms.field_tms_expense_line__currency_id
-#: model:ir.model.fields,field_description:tms.field_tms_fuel__currency_id model:ir.model.fields,field_description:tms.field_tms_waybill__currency_id
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__currency_id
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__currency_id
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_line__currency_id
 msgid "Currency"
 msgstr "Moneda"
@@ -758,7 +884,8 @@ msgid "Customer"
 msgstr "Cliente"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_route__customer_factor_ids model_terms:ir.ui.view,arch_db:tms.view_tms_route_form
+#: model:ir.model.fields,field_description:tms.field_tms_route__customer_factor_ids
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_route_form
 msgid "Customer Factor"
 msgstr "Factor de Cliente"
 
@@ -773,13 +900,16 @@ msgid "Customer Route"
 msgstr "Ruta del cliente"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_route__partner_ids model:ir.model.fields,field_description:tms.field_tms_travel__partner_ids
+#: model:ir.model.fields,field_description:tms.field_tms_route__partner_ids
+#: model:ir.model.fields,field_description:tms.field_tms_travel__partner_ids
 msgid "Customers"
 msgstr "Clientes"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_advance__date model:ir.model.fields,field_description:tms.field_tms_expense__date
-#: model:ir.model.fields,field_description:tms.field_tms_expense_line__date model:ir.model.fields,field_description:tms.field_tms_fuel__date
+#: model:ir.model.fields,field_description:tms.field_tms_advance__date
+#: model:ir.model.fields,field_description:tms.field_tms_expense__date
+#: model:ir.model.fields,field_description:tms.field_tms_expense_line__date
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__date
 #: model:ir.model.fields,field_description:tms.field_tms_waybill__date
 msgid "Date"
 msgstr "Fecha"
@@ -831,7 +961,8 @@ msgid "Departure address for current Route and Partner."
 msgstr "Dirección de salida de la ruta y el socio actual."
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_expense_line__name model:ir.model.fields,field_description:tms.field_tms_travel__notes
+#: model:ir.model.fields,field_description:tms.field_tms_expense_line__name
+#: model:ir.model.fields,field_description:tms.field_tms_travel__notes
 #: model:ir.model.fields,field_description:tms.field_tms_travel_stage__description
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_line__name
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_transportable_line__name
@@ -859,7 +990,8 @@ msgstr "Enviar Viaje"
 #: model:ir.model.fields,field_description:tms.field_tms_advance__display_name
 #: model:ir.model.fields,field_description:tms.field_tms_expense__display_name
 #: model:ir.model.fields,field_description:tms.field_tms_expense_line__display_name
-#: model:ir.model.fields,field_description:tms.field_tms_factor__display_name model:ir.model.fields,field_description:tms.field_tms_fuel__display_name
+#: model:ir.model.fields,field_description:tms.field_tms_factor__display_name
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__display_name
 #: model:ir.model.fields,field_description:tms.field_tms_route__display_name
 #: model:ir.model.fields,field_description:tms.field_tms_transportable__display_name
 #: model:ir.model.fields,field_description:tms.field_tms_travel__display_name
@@ -904,7 +1036,8 @@ msgid "Distance Loaded (mi./km)"
 msgstr "Distancia cargada (mi./km)"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_expense__distance model:ir.model.fields,field_description:tms.field_tms_waybill__distance_real
+#: model:ir.model.fields,field_description:tms.field_tms_expense__distance
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__distance_real
 msgid "Distance Real"
 msgstr "Distancia real"
 
@@ -942,16 +1075,19 @@ msgid "Distances"
 msgstr "Distancias"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_travel__dolly_id model:ir.model.fields,field_description:tms.field_tms_unit_kit__dolly_id
+#: model:ir.model.fields,field_description:tms.field_tms_travel__dolly_id
+#: model:ir.model.fields,field_description:tms.field_tms_unit_kit__dolly_id
 #: model:ir.model.fields.selection,name:tms.selection__fleet_vehicle__fleet_type__dolly
 msgid "Dolly"
-msgstr "Dolly"
+msgstr ""
 
 #. module: tms
 #: model:ir.model.fields.selection,name:tms.selection__tms_advance__state__done
 #: model:ir.model.fields.selection,name:tms.selection__tms_travel__state__done
-#: model:ir.model.fields.selection,name:tms.selection__tms_travel_stage__state__done model:tms.travel.stage,name:tms.travel_stage_done
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
+#: model:ir.model.fields.selection,name:tms.selection__tms_travel_stage__state__done
+#: model:tms.travel.stage,name:tms.travel_stage_done
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
 msgid "Done"
 msgstr "Hecho"
 
@@ -960,19 +1096,27 @@ msgstr "Hecho"
 #: model:ir.model.fields.selection,name:tms.selection__tms_expense__state__draft
 #: model:ir.model.fields.selection,name:tms.selection__tms_fuel__state__draft
 #: model:ir.model.fields.selection,name:tms.selection__tms_travel__state__draft
-#: model:ir.model.fields.selection,name:tms.selection__tms_travel_stage__state__draft model:tms.travel.stage,name:tms.travel_stage_draft
-#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_filter model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
+#: model:ir.model.fields.selection,name:tms.selection__tms_travel_stage__state__draft
+#: model:tms.travel.stage,name:tms.travel_stage_draft
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_filter
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
 msgid "Draft"
 msgstr "Borrador"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_hr_employee__driver model:ir.model.fields,field_description:tms.field_tms_advance__driver_id
-#: model:ir.model.fields,field_description:tms.field_tms_expense__driver_id model:ir.model.fields,field_description:tms.field_tms_fuel__driver_id
-#: model:ir.model.fields,field_description:tms.field_tms_travel__driver_id model:ir.model.fields,field_description:tms.field_tms_unit_kit__driver_id
-#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_filter model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
+#: model:ir.model.fields,field_description:tms.field_hr_employee__driver
+#: model:ir.model.fields,field_description:tms.field_tms_advance__driver_id
+#: model:ir.model.fields,field_description:tms.field_tms_expense__driver_id
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__driver_id
+#: model:ir.model.fields,field_description:tms.field_tms_travel__driver_id
+#: model:ir.model.fields,field_description:tms.field_tms_unit_kit__driver_id
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_filter
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_unit_kit_search
 msgid "Driver"
 msgstr "Conductor"
@@ -983,7 +1127,8 @@ msgid "Driver Expenses"
 msgstr "Gastos del conductor"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_route__driver_factor_ids model_terms:ir.ui.view,arch_db:tms.view_tms_route_form
+#: model:ir.model.fields,field_description:tms.field_tms_route__driver_factor_ids
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_route_form
 msgid "Driver Factor"
 msgstr "Factor conductor"
 
@@ -993,7 +1138,8 @@ msgid "Driver Information"
 msgstr "Información del Conductor"
 
 #. module: tms
-#: model:ir.actions.act_window,name:tms.hr_employee_driver_license_action model:ir.model,name:tms.model_hr_employee_driver_license
+#: model:ir.actions.act_window,name:tms.hr_employee_driver_license_action
+#: model:ir.model,name:tms.model_hr_employee_driver_license
 #: model_terms:ir.ui.view,arch_db:tms.view_employee_form_tms
 msgid "Driver License"
 msgstr "Licencia de conducir"
@@ -1020,15 +1166,21 @@ msgid "Driver and Units"
 msgstr "Conductor y Unidades"
 
 #. module: tms
-#: model:ir.actions.act_window,name:tms.tms_open_view_employee_list model:ir.model.fields,field_description:tms.field_tms_factor__driver_ids
-#: model:ir.ui.menu,name:tms.menu_tms_open_view_employee_list model:ir.ui.menu,name:tms.menu_tms_settings_drivers
+#: model:ir.actions.act_window,name:tms.tms_open_view_employee_list
+#: model:ir.model.fields,field_description:tms.field_tms_factor__driver_ids
+#: model:ir.ui.menu,name:tms.menu_tms_open_view_employee_list
+#: model:ir.ui.menu,name:tms.menu_tms_settings_drivers
 msgid "Drivers"
 msgstr "Conductores"
 
 #. module: tms
 #: model:ir.model.fields,help:tms.field_tms_factor__driver_ids
-msgid "Drivers to apply this factor. If you leave it empty, it will be applied to all drivers."
-msgstr "Conductores para aplicar este factor. Si lo deja vacío, se aplicará a todos los conductores."
+msgid ""
+"Drivers to apply this factor. If you leave it empty, it will be applied to "
+"all drivers."
+msgstr ""
+"Conductores para aplicar este factor. Si lo deja vacío, se aplicará a todos "
+"los conductores."
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_travel__travel_time_real
@@ -1057,7 +1209,8 @@ msgid "Emission Date"
 msgstr "Fecha de emisión"
 
 #. module: tms
-#: model:ir.model,name:tms.model_hr_employee model:ir.model.fields,field_description:tms.field_hr_employee_driver_license__employee_id
+#: model:ir.model,name:tms.model_hr_employee
+#: model:ir.model.fields,field_description:tms.field_hr_employee_driver_license__employee_id
 msgid "Employee"
 msgstr "Empleado"
 
@@ -1113,8 +1266,10 @@ msgstr "Errores"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_advance__expense_id
-#: model:ir.model.fields,field_description:tms.field_tms_expense_line__expense_id model:ir.model.fields,field_description:tms.field_tms_fuel__expense_id
-#: model:ir.model.fields,field_description:tms.field_tms_travel__expense_id model:ir.model.fields,field_description:tms.field_tms_waybill__expense_id
+#: model:ir.model.fields,field_description:tms.field_tms_expense_line__expense_id
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__expense_id
+#: model:ir.model.fields,field_description:tms.field_tms_travel__expense_id
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__expense_id
 msgid "Expense"
 msgstr "Gasto"
 
@@ -1147,13 +1302,15 @@ msgid "Expense Km"
 msgstr "Gasto Km"
 
 #. module: tms
-#: model:ir.model,name:tms.model_tms_expense_line model:ir.model.fields,field_description:tms.field_account_move_line__expense_line_id
+#: model:ir.model,name:tms.model_tms_expense_line
+#: model:ir.model.fields,field_description:tms.field_account_move_line__expense_line_id
 #: model:ir.model.fields,field_description:tms.field_tms_fuel__expense_line_id
 msgid "Expense Line"
 msgstr "Línea de Gastos"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_expense__expense_line_ids model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
+#: model:ir.model.fields,field_description:tms.field_tms_expense__expense_line_ids
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
 msgid "Expense Lines"
 msgstr "Líneas de Gastos"
 
@@ -1174,7 +1331,8 @@ msgid "Expense date"
 msgstr "Fecha de gasto"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_expense__amount_real_expense model:res.groups,name:tms.group_tms_expenses
+#: model:ir.model.fields,field_description:tms.field_tms_expense__amount_real_expense
+#: model:res.groups,name:tms.group_tms_expenses
 msgid "Expenses"
 msgstr "Gastos"
 
@@ -1185,10 +1343,12 @@ msgid "Expiration Date"
 msgstr "Fecha de expiración"
 
 #. module: tms
-#: code:addons/tms/models/fleet_vehicle_insurance.py:0 code:addons/tms/models/hr_employee_driver_license.py:0
+#: code:addons/tms/models/fleet_vehicle_insurance.py:0
+#: code:addons/tms/models/hr_employee_driver_license.py:0
 #, python-format
 msgid "Expiration date must be greater than valid from date!"
-msgstr "¡La fecha de vencimiento debe ser mayor que la fecha de inicio de vigencia!"
+msgstr ""
+"¡La fecha de vencimiento debe ser mayor que la fecha de inicio de vigencia!"
 
 #. module: tms
 #: model:ir.model.fields.selection,name:tms.selection__fleet_vehicle_insurance__state__expired
@@ -1199,7 +1359,7 @@ msgstr "Expirado"
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_factor__factor
 msgid "Factor"
-msgstr "Factor"
+msgstr ""
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_factor_form
@@ -1214,7 +1374,8 @@ msgstr "Tipo de factor"
 #. module: tms
 #: model:ir.model,name:tms.model_tms_factor
 msgid "Factors to calculate Payment (Driver/Supplier) & Client charge"
-msgstr "Factores para calcular el pago (conductor/proveedor) y el cargo del cliente"
+msgstr ""
+"Factores para calcular el pago (conductor/proveedor) y el cargo del cliente"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
@@ -1265,9 +1426,12 @@ msgstr "Seguidores (Contactos)"
 #. module: tms
 #: model:ir.model.fields,help:tms.field_fleet_vehicle_insurance__activity_type_icon
 #: model:ir.model.fields,help:tms.field_hr_employee_driver_license__activity_type_icon
-#: model:ir.model.fields,help:tms.field_tms_advance__activity_type_icon model:ir.model.fields,help:tms.field_tms_expense__activity_type_icon
-#: model:ir.model.fields,help:tms.field_tms_fuel__activity_type_icon model:ir.model.fields,help:tms.field_tms_route__activity_type_icon
-#: model:ir.model.fields,help:tms.field_tms_travel__activity_type_icon model:ir.model.fields,help:tms.field_tms_unit_kit__activity_type_icon
+#: model:ir.model.fields,help:tms.field_tms_advance__activity_type_icon
+#: model:ir.model.fields,help:tms.field_tms_expense__activity_type_icon
+#: model:ir.model.fields,help:tms.field_tms_fuel__activity_type_icon
+#: model:ir.model.fields,help:tms.field_tms_route__activity_type_icon
+#: model:ir.model.fields,help:tms.field_tms_travel__activity_type_icon
+#: model:ir.model.fields,help:tms.field_tms_unit_kit__activity_type_icon
 #: model:ir.model.fields,help:tms.field_tms_waybill__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
 msgstr "Icono de Font Awesome ej. fa-tasks"
@@ -1298,23 +1462,27 @@ msgstr ""
 " - Porcentaje de ingresos"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_waybill__amount_freight model:product.product,name:tms.product_freight
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__amount_freight
+#: model:product.product,name:tms.product_freight
 #: model:product.template,name:tms.product_freight_product_template
 msgid "Freight"
 msgstr "Flete"
 
 #. module: tms
-#: model:ir.ui.menu,name:tms.menu_tms model:ir.ui.menu,name:tms.menu_tms_travels
+#: model:ir.ui.menu,name:tms.menu_tms
+#: model:ir.ui.menu,name:tms.menu_tms_travels
 msgid "Freights"
 msgstr "Fletes"
 
 #. module: tms
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_filter
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_filter
 msgid "From this month"
 msgstr "Desde este mes"
 
 #. module: tms
-#: model:product.product,name:tms.product_fuel model:product.template,name:tms.product_fuel_product_template
+#: model:product.product,name:tms.product_fuel
+#: model:product.template,name:tms.product_fuel_product_template
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
 msgid "Fuel"
 msgstr "Combustible"
@@ -1345,7 +1513,8 @@ msgid "Fuel Expenses"
 msgstr "Gastos de Combustible"
 
 #. module: tms
-#: model:ir.actions.act_window,name:tms.tms_fuel_action model:ir.model.fields,field_description:tms.field_account_move_line__fuel_id
+#: model:ir.actions.act_window,name:tms.tms_fuel_action
+#: model:ir.model.fields,field_description:tms.field_account_move_line__fuel_id
 msgid "Fuel Log"
 msgstr "Registro de combustible"
 
@@ -1355,7 +1524,8 @@ msgid "Fuel Logs"
 msgstr "Registros de combustible"
 
 #. module: tms
-#: model:product.product,name:tms.product_fuel_prepaid model:product.template,name:tms.product_fuel_prepaid_product_template
+#: model:product.product,name:tms.product_fuel_prepaid
+#: model:product.template,name:tms.product_fuel_prepaid_product_template
 msgid "Fuel Prepaid"
 msgstr "Combustible Prepago"
 
@@ -1373,11 +1543,14 @@ msgstr "Cantidad de Combustible"
 #. module: tms
 #: model:ir.model.fields,help:tms.field_tms_expense__fuel_diff
 msgid ""
-"Fuel Qty Difference between Fuel Vouchers + Fuel Paid in Cash versus Fuel qty computed based on Distance Real and Global Fuel Efficiency Real "
-"obtained by electronic reading and/or GPS"
+"Fuel Qty Difference between Fuel Vouchers + Fuel Paid in Cash versus Fuel "
+"qty computed based on Distance Real and Global Fuel Efficiency Real obtained"
+" by electronic reading and/or GPS"
 msgstr ""
-"Cantidad de Combustible Diferencia entre Vales de Combustible + Combustible Pagado en Efectivo versus Cantidad de Combustible calculada en base a "
-"Distancia Real y Eficiencia Global de Combustible Real obtenida por lectura electrónica y/o GPS"
+"Cantidad de Combustible Diferencia entre Vales de Combustible + Combustible "
+"Pagado en Efectivo versus Cantidad de Combustible calculada en base a "
+"Distancia Real y Eficiencia Global de Combustible Real obtenida por lectura "
+"electrónica y/o GPS"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_expense__fuel_qty_real
@@ -1386,9 +1559,13 @@ msgstr "Cantidad de combustible Real"
 
 #. module: tms
 #: model:ir.model.fields,help:tms.field_tms_expense__fuel_qty_real
-msgid "Fuel Qty computed based on Distance Real and Global Fuel Efficiency Real obtained by electronic reading and/or GPS"
+msgid ""
+"Fuel Qty computed based on Distance Real and Global Fuel Efficiency Real "
+"obtained by electronic reading and/or GPS"
 msgstr ""
-"Cantidad de Combustible calculada en base a la Distancia Real y la Eficiencia Global de Combustible Real obtenida por lectura electrónica y/o GPS"
+"Cantidad de Combustible calculada en base a la Distancia Real y la "
+"Eficiencia Global de Combustible Real obtenida por lectura electrónica y/o "
+"GPS"
 
 #. module: tms
 #: model:ir.ui.menu,name:tms.fuel_vehicle_log_menu
@@ -1396,7 +1573,8 @@ msgid "Fuel Voucher"
 msgstr "Vale de Combustible"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_expense__fuel_ids model:ir.model.fields,field_description:tms.field_tms_travel__fuel_ids
+#: model:ir.model.fields,field_description:tms.field_tms_expense__fuel_ids
+#: model:ir.model.fields,field_description:tms.field_tms_travel__fuel_ids
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
 msgid "Fuel Vouchers"
 msgstr "Vales de combustible"
@@ -1420,7 +1598,9 @@ msgstr "Da el cálculo de la secuencia para estos factores."
 #. module: tms
 #: model:ir.model.fields,help:tms.field_tms_waybill_line__sequence
 msgid "Gives the sequence order when displaying a list of waybill lines."
-msgstr "Da el orden de secuencia cuando se muestra una lista de líneas de carta porte."
+msgstr ""
+"Da el orden de secuencia cuando se muestra una lista de líneas de carta "
+"porte."
 
 #. module: tms
 #: model:ir.model.fields,help:tms.field_tms_waybill__state
@@ -1430,27 +1610,37 @@ msgstr "Da el estado de una Carta Porte."
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_insurance__has_message
 #: model:ir.model.fields,field_description:tms.field_hr_employee_driver_license__has_message
-#: model:ir.model.fields,field_description:tms.field_tms_advance__has_message model:ir.model.fields,field_description:tms.field_tms_expense__has_message
-#: model:ir.model.fields,field_description:tms.field_tms_fuel__has_message model:ir.model.fields,field_description:tms.field_tms_route__has_message
-#: model:ir.model.fields,field_description:tms.field_tms_travel__has_message model:ir.model.fields,field_description:tms.field_tms_unit_kit__has_message
+#: model:ir.model.fields,field_description:tms.field_tms_advance__has_message
+#: model:ir.model.fields,field_description:tms.field_tms_expense__has_message
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__has_message
+#: model:ir.model.fields,field_description:tms.field_tms_route__has_message
+#: model:ir.model.fields,field_description:tms.field_tms_travel__has_message
+#: model:ir.model.fields,field_description:tms.field_tms_unit_kit__has_message
 #: model:ir.model.fields,field_description:tms.field_tms_waybill__has_message
 msgid "Has Message"
 msgstr "Tiene mensaje"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_waybill__amount_highway_tolls model:product.product,name:tms.product_highway_tolls
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__amount_highway_tolls
+#: model:product.product,name:tms.product_highway_tolls
 #: model:product.template,name:tms.product_highway_tolls_product_template
 msgid "Highway Tolls"
 msgstr "Casetas"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_insurance__id
-#: model:ir.model.fields,field_description:tms.field_hr_employee_driver_license__id model:ir.model.fields,field_description:tms.field_tms_advance__id
-#: model:ir.model.fields,field_description:tms.field_tms_expense__id model:ir.model.fields,field_description:tms.field_tms_expense_line__id
-#: model:ir.model.fields,field_description:tms.field_tms_factor__id model:ir.model.fields,field_description:tms.field_tms_fuel__id
-#: model:ir.model.fields,field_description:tms.field_tms_route__id model:ir.model.fields,field_description:tms.field_tms_transportable__id
-#: model:ir.model.fields,field_description:tms.field_tms_travel__id model:ir.model.fields,field_description:tms.field_tms_travel_stage__id
-#: model:ir.model.fields,field_description:tms.field_tms_unit_kit__id model:ir.model.fields,field_description:tms.field_tms_waybill__id
+#: model:ir.model.fields,field_description:tms.field_hr_employee_driver_license__id
+#: model:ir.model.fields,field_description:tms.field_tms_advance__id
+#: model:ir.model.fields,field_description:tms.field_tms_expense__id
+#: model:ir.model.fields,field_description:tms.field_tms_expense_line__id
+#: model:ir.model.fields,field_description:tms.field_tms_factor__id
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__id
+#: model:ir.model.fields,field_description:tms.field_tms_route__id
+#: model:ir.model.fields,field_description:tms.field_tms_transportable__id
+#: model:ir.model.fields,field_description:tms.field_tms_travel__id
+#: model:ir.model.fields,field_description:tms.field_tms_travel_stage__id
+#: model:ir.model.fields,field_description:tms.field_tms_unit_kit__id
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__id
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_line__id
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_transportable_line__id
 msgid "ID"
@@ -1477,9 +1667,12 @@ msgstr "Ícono"
 #. module: tms
 #: model:ir.model.fields,help:tms.field_fleet_vehicle_insurance__activity_exception_icon
 #: model:ir.model.fields,help:tms.field_hr_employee_driver_license__activity_exception_icon
-#: model:ir.model.fields,help:tms.field_tms_advance__activity_exception_icon model:ir.model.fields,help:tms.field_tms_expense__activity_exception_icon
-#: model:ir.model.fields,help:tms.field_tms_fuel__activity_exception_icon model:ir.model.fields,help:tms.field_tms_route__activity_exception_icon
-#: model:ir.model.fields,help:tms.field_tms_travel__activity_exception_icon model:ir.model.fields,help:tms.field_tms_unit_kit__activity_exception_icon
+#: model:ir.model.fields,help:tms.field_tms_advance__activity_exception_icon
+#: model:ir.model.fields,help:tms.field_tms_expense__activity_exception_icon
+#: model:ir.model.fields,help:tms.field_tms_fuel__activity_exception_icon
+#: model:ir.model.fields,help:tms.field_tms_route__activity_exception_icon
+#: model:ir.model.fields,help:tms.field_tms_travel__activity_exception_icon
+#: model:ir.model.fields,help:tms.field_tms_unit_kit__activity_exception_icon
 #: model:ir.model.fields,help:tms.field_tms_waybill__activity_exception_icon
 msgid "Icon to indicate an exception activity."
 msgstr "Ícono para indicar una actividad de excepción."
@@ -1488,13 +1681,20 @@ msgstr "Ícono para indicar una actividad de excepción."
 #: model:ir.model.fields,help:tms.field_fleet_vehicle_insurance__message_needaction
 #: model:ir.model.fields,help:tms.field_fleet_vehicle_insurance__message_unread
 #: model:ir.model.fields,help:tms.field_hr_employee_driver_license__message_needaction
-#: model:ir.model.fields,help:tms.field_hr_employee_driver_license__message_unread model:ir.model.fields,help:tms.field_tms_advance__message_needaction
-#: model:ir.model.fields,help:tms.field_tms_advance__message_unread model:ir.model.fields,help:tms.field_tms_expense__message_needaction
-#: model:ir.model.fields,help:tms.field_tms_expense__message_unread model:ir.model.fields,help:tms.field_tms_fuel__message_needaction
-#: model:ir.model.fields,help:tms.field_tms_fuel__message_unread model:ir.model.fields,help:tms.field_tms_route__message_needaction
-#: model:ir.model.fields,help:tms.field_tms_route__message_unread model:ir.model.fields,help:tms.field_tms_travel__message_needaction
-#: model:ir.model.fields,help:tms.field_tms_travel__message_unread model:ir.model.fields,help:tms.field_tms_unit_kit__message_needaction
-#: model:ir.model.fields,help:tms.field_tms_unit_kit__message_unread model:ir.model.fields,help:tms.field_tms_waybill__message_needaction
+#: model:ir.model.fields,help:tms.field_hr_employee_driver_license__message_unread
+#: model:ir.model.fields,help:tms.field_tms_advance__message_needaction
+#: model:ir.model.fields,help:tms.field_tms_advance__message_unread
+#: model:ir.model.fields,help:tms.field_tms_expense__message_needaction
+#: model:ir.model.fields,help:tms.field_tms_expense__message_unread
+#: model:ir.model.fields,help:tms.field_tms_fuel__message_needaction
+#: model:ir.model.fields,help:tms.field_tms_fuel__message_unread
+#: model:ir.model.fields,help:tms.field_tms_route__message_needaction
+#: model:ir.model.fields,help:tms.field_tms_route__message_unread
+#: model:ir.model.fields,help:tms.field_tms_travel__message_needaction
+#: model:ir.model.fields,help:tms.field_tms_travel__message_unread
+#: model:ir.model.fields,help:tms.field_tms_unit_kit__message_needaction
+#: model:ir.model.fields,help:tms.field_tms_unit_kit__message_unread
+#: model:ir.model.fields,help:tms.field_tms_waybill__message_needaction
 #: model:ir.model.fields,help:tms.field_tms_waybill__message_unread
 msgid "If checked, new messages require your attention."
 msgstr "Si está marcado hay nuevos mensajes que requieren su atención."
@@ -1504,13 +1704,20 @@ msgstr "Si está marcado hay nuevos mensajes que requieren su atención."
 #: model:ir.model.fields,help:tms.field_fleet_vehicle_insurance__message_has_sms_error
 #: model:ir.model.fields,help:tms.field_hr_employee_driver_license__message_has_error
 #: model:ir.model.fields,help:tms.field_hr_employee_driver_license__message_has_sms_error
-#: model:ir.model.fields,help:tms.field_tms_advance__message_has_error model:ir.model.fields,help:tms.field_tms_advance__message_has_sms_error
-#: model:ir.model.fields,help:tms.field_tms_expense__message_has_error model:ir.model.fields,help:tms.field_tms_expense__message_has_sms_error
-#: model:ir.model.fields,help:tms.field_tms_fuel__message_has_error model:ir.model.fields,help:tms.field_tms_fuel__message_has_sms_error
-#: model:ir.model.fields,help:tms.field_tms_route__message_has_error model:ir.model.fields,help:tms.field_tms_route__message_has_sms_error
-#: model:ir.model.fields,help:tms.field_tms_travel__message_has_error model:ir.model.fields,help:tms.field_tms_travel__message_has_sms_error
-#: model:ir.model.fields,help:tms.field_tms_unit_kit__message_has_error model:ir.model.fields,help:tms.field_tms_unit_kit__message_has_sms_error
-#: model:ir.model.fields,help:tms.field_tms_waybill__message_has_error model:ir.model.fields,help:tms.field_tms_waybill__message_has_sms_error
+#: model:ir.model.fields,help:tms.field_tms_advance__message_has_error
+#: model:ir.model.fields,help:tms.field_tms_advance__message_has_sms_error
+#: model:ir.model.fields,help:tms.field_tms_expense__message_has_error
+#: model:ir.model.fields,help:tms.field_tms_expense__message_has_sms_error
+#: model:ir.model.fields,help:tms.field_tms_fuel__message_has_error
+#: model:ir.model.fields,help:tms.field_tms_fuel__message_has_sms_error
+#: model:ir.model.fields,help:tms.field_tms_route__message_has_error
+#: model:ir.model.fields,help:tms.field_tms_route__message_has_sms_error
+#: model:ir.model.fields,help:tms.field_tms_travel__message_has_error
+#: model:ir.model.fields,help:tms.field_tms_travel__message_has_sms_error
+#: model:ir.model.fields,help:tms.field_tms_unit_kit__message_has_error
+#: model:ir.model.fields,help:tms.field_tms_unit_kit__message_has_sms_error
+#: model:ir.model.fields,help:tms.field_tms_waybill__message_has_error
+#: model:ir.model.fields,help:tms.field_tms_waybill__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
 
@@ -1528,7 +1735,8 @@ msgstr ""
 
 #. module: tms
 #: model:ir.model.fields.selection,name:tms.selection__tms_travel__state__progress
-#: model:ir.model.fields.selection,name:tms.selection__tms_travel_stage__state__progress model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
+#: model:ir.model.fields.selection,name:tms.selection__tms_travel_stage__state__progress
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
 msgid "In Progress"
 msgstr "En Proceso"
@@ -1550,7 +1758,8 @@ msgid "Income Percent"
 msgstr "Porcentaje de ingreso"
 
 #. module: tms
-#: code:addons/tms/models/product_template.py:0 model:product.product,name:tms.product_indirect_expense
+#: code:addons/tms/models/product_template.py:0
+#: model:product.product,name:tms.product_indirect_expense
 #: model:product.template,name:tms.product_indirect_expense_product_template
 #, python-format
 msgid "Indirect Expense"
@@ -1562,13 +1771,16 @@ msgid "Indirect Expenses"
 msgstr "Gastos Indirectos"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_waybill__amount_insurance model:product.product,name:tms.product_insurance
-#: model:product.template,name:tms.product_insurance_product_template model_terms:ir.ui.view,arch_db:tms.fleet_vehicle_form_inherit_tms
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__amount_insurance
+#: model:product.product,name:tms.product_insurance
+#: model:product.template,name:tms.product_insurance_product_template
+#: model_terms:ir.ui.view,arch_db:tms.fleet_vehicle_form_inherit_tms
 msgid "Insurance"
 msgstr "Aseguradora"
 
 #. module: tms
-#: model:ir.actions.act_window,name:tms.fleet_vehicle_insurance_action model:ir.model.fields,field_description:tms.field_fleet_vehicle_insurance__name
+#: model:ir.actions.act_window,name:tms.fleet_vehicle_insurance_action
+#: model:ir.model.fields,field_description:tms.field_fleet_vehicle_insurance__name
 msgid "Insurance Policy"
 msgstr "Póliza de seguro"
 
@@ -1596,17 +1808,26 @@ msgstr "Seguros"
 #. module: tms
 #: code:addons/tms/models/tms_travel.py:0
 #, python-format
-msgid "Invalid Insurance Policy for unit %(unit_name)s. Valid from %(emission_date)s to %(expiration_date)s."
-msgstr "Póliza de seguro no válida para la unidad %(unit_name)s. Válido de %(emission_date)s a %(expiration_date)s."
+msgid ""
+"Invalid Insurance Policy for unit %(unit_name)s. Valid from "
+"%(emission_date)s to %(expiration_date)s."
+msgstr ""
+"Póliza de seguro no válida para la unidad %(unit_name)s. Válido de "
+"%(emission_date)s a %(expiration_date)s."
 
 #. module: tms
 #: code:addons/tms/models/tms_travel.py:0
 #, python-format
-msgid "Invalid driver licence for %(driver_name)s. Valid from %(emission_date)s to %(expiration_date)s."
-msgstr "Licencia de conducir no válida para %(driver_name)s. Válido de %(emission_date)s a %(expiration_date)s."
+msgid ""
+"Invalid driver licence for %(driver_name)s. Valid from %(emission_date)s to "
+"%(expiration_date)s."
+msgstr ""
+"Licencia de conducir no válida para %(driver_name)s. Válido de "
+"%(emission_date)s a %(expiration_date)s."
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_fuel__move_id model:ir.model.fields,field_description:tms.field_tms_waybill__move_id
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__move_id
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__move_id
 msgid "Invoice"
 msgstr "Factura"
 
@@ -1674,7 +1895,8 @@ msgid "It indicates the payment status of the expense."
 msgstr "Indica el estado de pago del gasto."
 
 #. module: tms
-#: model:ir.model,name:tms.model_account_move model:ir.model.fields,field_description:tms.field_tms_advance__move_id
+#: model:ir.model,name:tms.model_account_move
+#: model:ir.model.fields,field_description:tms.field_tms_advance__move_id
 #: model:ir.model.fields,field_description:tms.field_tms_expense__move_id
 msgid "Journal Entry"
 msgstr "Asiento de diario"
@@ -1694,7 +1916,7 @@ msgstr "Apuntes contables"
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_travel__kit_id
 msgid "Kit"
-msgstr "Kit"
+msgstr ""
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_unit_kit_form
@@ -1707,7 +1929,8 @@ msgstr "Arreglo de Kit"
 #: model:ir.model.fields,field_description:tms.field_tms_advance____last_update
 #: model:ir.model.fields,field_description:tms.field_tms_expense____last_update
 #: model:ir.model.fields,field_description:tms.field_tms_expense_line____last_update
-#: model:ir.model.fields,field_description:tms.field_tms_factor____last_update model:ir.model.fields,field_description:tms.field_tms_fuel____last_update
+#: model:ir.model.fields,field_description:tms.field_tms_factor____last_update
+#: model:ir.model.fields,field_description:tms.field_tms_fuel____last_update
 #: model:ir.model.fields,field_description:tms.field_tms_route____last_update
 #: model:ir.model.fields,field_description:tms.field_tms_transportable____last_update
 #: model:ir.model.fields,field_description:tms.field_tms_travel____last_update
@@ -1728,12 +1951,17 @@ msgstr "Última lectura"
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_insurance__write_uid
 #: model:ir.model.fields,field_description:tms.field_hr_employee_driver_license__write_uid
-#: model:ir.model.fields,field_description:tms.field_tms_advance__write_uid model:ir.model.fields,field_description:tms.field_tms_expense__write_uid
-#: model:ir.model.fields,field_description:tms.field_tms_expense_line__write_uid model:ir.model.fields,field_description:tms.field_tms_factor__write_uid
-#: model:ir.model.fields,field_description:tms.field_tms_fuel__write_uid model:ir.model.fields,field_description:tms.field_tms_route__write_uid
+#: model:ir.model.fields,field_description:tms.field_tms_advance__write_uid
+#: model:ir.model.fields,field_description:tms.field_tms_expense__write_uid
+#: model:ir.model.fields,field_description:tms.field_tms_expense_line__write_uid
+#: model:ir.model.fields,field_description:tms.field_tms_factor__write_uid
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__write_uid
+#: model:ir.model.fields,field_description:tms.field_tms_route__write_uid
 #: model:ir.model.fields,field_description:tms.field_tms_transportable__write_uid
-#: model:ir.model.fields,field_description:tms.field_tms_travel__write_uid model:ir.model.fields,field_description:tms.field_tms_travel_stage__write_uid
-#: model:ir.model.fields,field_description:tms.field_tms_unit_kit__write_uid model:ir.model.fields,field_description:tms.field_tms_waybill__write_uid
+#: model:ir.model.fields,field_description:tms.field_tms_travel__write_uid
+#: model:ir.model.fields,field_description:tms.field_tms_travel_stage__write_uid
+#: model:ir.model.fields,field_description:tms.field_tms_unit_kit__write_uid
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__write_uid
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_line__write_uid
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_transportable_line__write_uid
 msgid "Last Updated by"
@@ -1742,14 +1970,17 @@ msgstr "Última modificación por"
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_insurance__write_date
 #: model:ir.model.fields,field_description:tms.field_hr_employee_driver_license__write_date
-#: model:ir.model.fields,field_description:tms.field_tms_advance__write_date model:ir.model.fields,field_description:tms.field_tms_expense__write_date
+#: model:ir.model.fields,field_description:tms.field_tms_advance__write_date
+#: model:ir.model.fields,field_description:tms.field_tms_expense__write_date
 #: model:ir.model.fields,field_description:tms.field_tms_expense_line__write_date
-#: model:ir.model.fields,field_description:tms.field_tms_factor__write_date model:ir.model.fields,field_description:tms.field_tms_fuel__write_date
+#: model:ir.model.fields,field_description:tms.field_tms_factor__write_date
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__write_date
 #: model:ir.model.fields,field_description:tms.field_tms_route__write_date
 #: model:ir.model.fields,field_description:tms.field_tms_transportable__write_date
 #: model:ir.model.fields,field_description:tms.field_tms_travel__write_date
 #: model:ir.model.fields,field_description:tms.field_tms_travel_stage__write_date
-#: model:ir.model.fields,field_description:tms.field_tms_unit_kit__write_date model:ir.model.fields,field_description:tms.field_tms_waybill__write_date
+#: model:ir.model.fields,field_description:tms.field_tms_unit_kit__write_date
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__write_date
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_line__write_date
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_transportable_line__write_date
 msgid "Last Updated on"
@@ -1786,7 +2017,8 @@ msgid "Lines"
 msgstr "Líneas"
 
 #. module: tms
-#: model:ir.model.fields,help:tms.field_tms_advance__move_id model:ir.model.fields,help:tms.field_tms_expense__move_id
+#: model:ir.model.fields,help:tms.field_tms_advance__move_id
+#: model:ir.model.fields,help:tms.field_tms_expense__move_id
 msgid "Link to the automatically generated Journal Items."
 msgstr "Enlace a los elementos del diario generados automáticamente."
 
@@ -1840,9 +2072,12 @@ msgstr "Error de Envío de Mensaje"
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_insurance__message_ids
 #: model:ir.model.fields,field_description:tms.field_hr_employee_driver_license__message_ids
-#: model:ir.model.fields,field_description:tms.field_tms_advance__message_ids model:ir.model.fields,field_description:tms.field_tms_expense__message_ids
-#: model:ir.model.fields,field_description:tms.field_tms_fuel__message_ids model:ir.model.fields,field_description:tms.field_tms_route__message_ids
-#: model:ir.model.fields,field_description:tms.field_tms_travel__message_ids model:ir.model.fields,field_description:tms.field_tms_unit_kit__message_ids
+#: model:ir.model.fields,field_description:tms.field_tms_advance__message_ids
+#: model:ir.model.fields,field_description:tms.field_tms_expense__message_ids
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__message_ids
+#: model:ir.model.fields,field_description:tms.field_tms_route__message_ids
+#: model:ir.model.fields,field_description:tms.field_tms_travel__message_ids
+#: model:ir.model.fields,field_description:tms.field_tms_unit_kit__message_ids
 #: model:ir.model.fields,field_description:tms.field_tms_waybill__message_ids
 msgid "Messages"
 msgstr "Mensajes"
@@ -1863,7 +2098,8 @@ msgid "Monitoring"
 msgstr "Monitoreo"
 
 #. module: tms
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search model_terms:ir.ui.view,arch_db:tms.view_tms_expense_filter
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_filter
 msgid "Month"
 msgstr "Mes"
 
@@ -1873,12 +2109,14 @@ msgid "Motorized Unit"
 msgstr "Unidad motorizada"
 
 #. module: tms
-#: model:product.product,name:tms.product_move model:product.template,name:tms.product_move_product_template
+#: model:product.product,name:tms.product_move
+#: model:product.template,name:tms.product_move_product_template
 msgid "Move"
 msgstr "Movimiento"
 
 #. module: tms
-#: code:addons/tms/models/product_template.py:0 model:ir.model.fields,field_description:tms.field_tms_waybill__amount_move
+#: code:addons/tms/models/product_template.py:0
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__amount_move
 #, python-format
 msgid "Moves"
 msgstr "Movimientos"
@@ -1902,21 +2140,26 @@ msgid "My Waybills"
 msgstr "Mis Cartas Porte"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_expense__name model:ir.model.fields,field_description:tms.field_tms_factor__name
-#: model:ir.model.fields,field_description:tms.field_tms_fuel__name model:ir.model.fields,field_description:tms.field_tms_transportable__name
-#: model:ir.model.fields,field_description:tms.field_tms_travel_stage__name model:ir.model.fields,field_description:tms.field_tms_unit_kit__name
+#: model:ir.model.fields,field_description:tms.field_tms_expense__name
+#: model:ir.model.fields,field_description:tms.field_tms_factor__name
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__name
+#: model:ir.model.fields,field_description:tms.field_tms_transportable__name
+#: model:ir.model.fields,field_description:tms.field_tms_travel_stage__name
+#: model:ir.model.fields,field_description:tms.field_tms_unit_kit__name
 #: model:ir.model.fields,field_description:tms.field_tms_waybill__name
 msgid "Name"
 msgstr "Nombre"
 
 #. module: tms
-#: code:addons/tms/models/tms_transportable.py:0 model:ir.model.constraint,message:tms.constraint_tms_transportable_name_unique
+#: code:addons/tms/models/tms_transportable.py:0
+#: model:ir.model.constraint,message:tms.constraint_tms_transportable_name_unique
 #, python-format
 msgid "Name must be unique"
 msgstr "El nombre debe ser único"
 
 #. module: tms
-#: code:addons/tms/models/product_template.py:0 model:product.product,name:tms.product_negative_balance
+#: code:addons/tms/models/product_template.py:0
+#: model:product.product,name:tms.product_negative_balance
 #: model:product.template,name:tms.product_negative_balance_product_template
 #, python-format
 msgid "Negative Balance"
@@ -1933,8 +2176,10 @@ msgid "Net Salary"
 msgstr "Salario neto"
 
 #. module: tms
-#: code:addons/tms/models/tms_advance.py:0 code:addons/tms/models/tms_expense.py:0 code:addons/tms/models/tms_fuel.py:0
-#: code:addons/tms/models/tms_travel.py:0 code:addons/tms/models/tms_waybill.py:0
+#: code:addons/tms/models/tms_advance.py:0
+#: code:addons/tms/models/tms_expense.py:0
+#: code:addons/tms/models/tms_fuel.py:0 code:addons/tms/models/tms_travel.py:0
+#: code:addons/tms/models/tms_waybill.py:0
 #, python-format
 msgid "New"
 msgstr "Nuevo"
@@ -1990,20 +2235,28 @@ msgstr "No Facturado"
 
 #. module: tms
 #: model:ir.model.fields.selection,name:tms.selection__tms_advance__payment_state__not_paid
-#: model:ir.model.fields.selection,name:tms.selection__tms_expense__payment_state__not_paid model_terms:ir.ui.view,arch_db:tms.tms_fuel_view_form
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
+#: model:ir.model.fields.selection,name:tms.selection__tms_expense__payment_state__not_paid
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_view_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form
 msgid "Not Paid"
 msgstr "No Pagado"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_advance__notes model:ir.model.fields,field_description:tms.field_tms_expense__notes
-#: model:ir.model.fields,field_description:tms.field_tms_expense_line__notes model:ir.model.fields,field_description:tms.field_tms_factor__notes
-#: model:ir.model.fields,field_description:tms.field_tms_fuel__notes model:ir.model.fields,field_description:tms.field_tms_route__notes
+#: model:ir.model.fields,field_description:tms.field_tms_advance__notes
+#: model:ir.model.fields,field_description:tms.field_tms_expense__notes
+#: model:ir.model.fields,field_description:tms.field_tms_expense_line__notes
+#: model:ir.model.fields,field_description:tms.field_tms_factor__notes
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__notes
+#: model:ir.model.fields,field_description:tms.field_tms_route__notes
 #: model:ir.model.fields,field_description:tms.field_tms_waybill__notes
-#: model:ir.model.fields,field_description:tms.field_tms_waybill_transportable_line__notes model_terms:ir.ui.view,arch_db:tms.tms_fuel_view_form
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_factor_form model_terms:ir.ui.view,arch_db:tms.view_tms_route_form
+#: model:ir.model.fields,field_description:tms.field_tms_waybill_transportable_line__notes
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_view_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_factor_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_route_form
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form
 msgid "Notes"
 msgstr "Notas"
@@ -2035,7 +2288,9 @@ msgstr "Número de acciones"
 #: model:ir.model.fields,help:tms.field_res_company__driver_license_security_days
 #: model:ir.model.fields,help:tms.field_res_config_settings__driver_license_security_days
 msgid "Number of days to show the expiration date of the driver license"
-msgstr "Número de días para mostrar la fecha de vencimiento de la licencia de conducir"
+msgstr ""
+"Número de días para mostrar la fecha de vencimiento de la licencia de "
+"conducir"
 
 #. module: tms
 #: model:ir.model.fields,help:tms.field_res_company__insurance_security_days
@@ -2061,7 +2316,8 @@ msgstr "Numero de errores"
 #: model:ir.model.fields,help:tms.field_hr_employee_driver_license__message_needaction_counter
 #: model:ir.model.fields,help:tms.field_tms_advance__message_needaction_counter
 #: model:ir.model.fields,help:tms.field_tms_expense__message_needaction_counter
-#: model:ir.model.fields,help:tms.field_tms_fuel__message_needaction_counter model:ir.model.fields,help:tms.field_tms_route__message_needaction_counter
+#: model:ir.model.fields,help:tms.field_tms_fuel__message_needaction_counter
+#: model:ir.model.fields,help:tms.field_tms_route__message_needaction_counter
 #: model:ir.model.fields,help:tms.field_tms_travel__message_needaction_counter
 #: model:ir.model.fields,help:tms.field_tms_unit_kit__message_needaction_counter
 #: model:ir.model.fields,help:tms.field_tms_waybill__message_needaction_counter
@@ -2072,8 +2328,10 @@ msgstr "Número de mensajes que requieren una acción"
 #: model:ir.model.fields,help:tms.field_fleet_vehicle_insurance__message_has_error_counter
 #: model:ir.model.fields,help:tms.field_hr_employee_driver_license__message_has_error_counter
 #: model:ir.model.fields,help:tms.field_tms_advance__message_has_error_counter
-#: model:ir.model.fields,help:tms.field_tms_expense__message_has_error_counter model:ir.model.fields,help:tms.field_tms_fuel__message_has_error_counter
-#: model:ir.model.fields,help:tms.field_tms_route__message_has_error_counter model:ir.model.fields,help:tms.field_tms_travel__message_has_error_counter
+#: model:ir.model.fields,help:tms.field_tms_expense__message_has_error_counter
+#: model:ir.model.fields,help:tms.field_tms_fuel__message_has_error_counter
+#: model:ir.model.fields,help:tms.field_tms_route__message_has_error_counter
+#: model:ir.model.fields,help:tms.field_tms_travel__message_has_error_counter
 #: model:ir.model.fields,help:tms.field_tms_unit_kit__message_has_error_counter
 #: model:ir.model.fields,help:tms.field_tms_waybill__message_has_error_counter
 msgid "Number of messages with delivery error"
@@ -2082,9 +2340,12 @@ msgstr "Número de mensajes con error de envío"
 #. module: tms
 #: model:ir.model.fields,help:tms.field_fleet_vehicle_insurance__message_unread_counter
 #: model:ir.model.fields,help:tms.field_hr_employee_driver_license__message_unread_counter
-#: model:ir.model.fields,help:tms.field_tms_advance__message_unread_counter model:ir.model.fields,help:tms.field_tms_expense__message_unread_counter
-#: model:ir.model.fields,help:tms.field_tms_fuel__message_unread_counter model:ir.model.fields,help:tms.field_tms_route__message_unread_counter
-#: model:ir.model.fields,help:tms.field_tms_travel__message_unread_counter model:ir.model.fields,help:tms.field_tms_unit_kit__message_unread_counter
+#: model:ir.model.fields,help:tms.field_tms_advance__message_unread_counter
+#: model:ir.model.fields,help:tms.field_tms_expense__message_unread_counter
+#: model:ir.model.fields,help:tms.field_tms_fuel__message_unread_counter
+#: model:ir.model.fields,help:tms.field_tms_route__message_unread_counter
+#: model:ir.model.fields,help:tms.field_tms_travel__message_unread_counter
+#: model:ir.model.fields,help:tms.field_tms_unit_kit__message_unread_counter
 #: model:ir.model.fields,help:tms.field_tms_waybill__message_unread_counter
 msgid "Number of unread messages"
 msgstr "Número de mensajes no leidos"
@@ -2113,7 +2374,8 @@ msgstr "Medida odómetro del vehículo en el momento de este registro"
 #: code:addons/tms/models/tms_travel.py:0
 #, python-format
 msgid "Only canceled or scheduled travels can be set to draft."
-msgstr "Solo los viajes cancelados o programados se pueden cambiar a borrador."
+msgstr ""
+"Solo los viajes cancelados o programados se pueden cambiar a borrador."
 
 #. module: tms
 #: code:addons/tms/models/product_template.py:0
@@ -2138,29 +2400,37 @@ msgstr "Contacto de pedido"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_waybill__amount_other
-#: model:ir.model.fields.selection,name:tms.selection__fleet_vehicle__fleet_type__other model:product.product,name:tms.product_other
+#: model:ir.model.fields.selection,name:tms.selection__fleet_vehicle__fleet_type__other
+#: model:product.product,name:tms.product_other
 #: model:product.template,name:tms.product_other_product_template
 msgid "Other"
 msgstr "Otro"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_expense__amount_other_income model:product.product,name:tms.product_other_income
+#: model:ir.model.fields,field_description:tms.field_tms_expense__amount_other_income
+#: model:product.product,name:tms.product_other_income
 #: model:product.template,name:tms.product_other_income_product_template
 msgid "Other Income"
 msgstr "Otros Ingresos"
 
 #. module: tms
 #: model:ir.model.fields.selection,name:tms.selection__tms_advance__payment_state__paid
-#: model:ir.model.fields.selection,name:tms.selection__tms_expense__payment_state__paid model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
-#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_view_form model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search model_terms:ir.ui.view,arch_db:tms.view_tms_expense_filter
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form
+#: model:ir.model.fields.selection,name:tms.selection__tms_expense__payment_state__paid
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_view_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_filter
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form
 msgid "Paid"
 msgstr "Pagado"
 
 #. module: tms
-#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_view_form model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_view_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form
 msgid "Partial"
 msgstr "Parcial"
 
@@ -2172,12 +2442,14 @@ msgstr "Parcialmente Pagado"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_insurance__partner_id
-#: model:ir.model.fields,field_description:tms.field_tms_factor__partner_id model:ir.model.fields,field_description:tms.field_tms_waybill__partner_id
+#: model:ir.model.fields,field_description:tms.field_tms_factor__partner_id
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__partner_id
 msgid "Partner"
 msgstr "Cliente"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_advance__payment_ids model:ir.model.fields,field_description:tms.field_tms_expense__payment_ids
+#: model:ir.model.fields,field_description:tms.field_tms_advance__payment_ids
+#: model:ir.model.fields,field_description:tms.field_tms_expense__payment_ids
 msgid "Payment"
 msgstr "Pago"
 
@@ -2194,7 +2466,8 @@ msgstr "Entrada de pago"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_advance__payment_state
-#: model:ir.model.fields,field_description:tms.field_tms_expense__payment_state model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
+#: model:ir.model.fields,field_description:tms.field_tms_expense__payment_state
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_filter
 msgid "Payment State"
 msgstr "Estado del Pago"
@@ -2211,12 +2484,14 @@ msgid "Payment Status"
 msgstr "Estado de pago"
 
 #. module: tms
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
 msgid "Payments"
 msgstr "Pagos"
 
 #. module: tms
-#: model:ir.model.fields.selection,name:tms.selection__tms_waybill__state__draft model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_filter
+#: model:ir.model.fields.selection,name:tms.selection__tms_waybill__state__draft
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_filter
 msgid "Pending"
 msgstr "Pendiente"
 
@@ -2228,7 +2503,7 @@ msgstr "Periodo"
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_pivot
 msgid "Pivot"
-msgstr "Pivot"
+msgstr ""
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
@@ -2259,7 +2534,8 @@ msgstr "Precio Unitario"
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_advance__product_id
-#: model:ir.model.fields,field_description:tms.field_tms_expense_line__product_id model:ir.model.fields,field_description:tms.field_tms_fuel__product_id
+#: model:ir.model.fields,field_description:tms.field_tms_expense_line__product_id
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__product_id
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_line__product_id
 msgid "Product"
 msgstr "Producto"
@@ -2275,7 +2551,8 @@ msgid "Productivity Percentage"
 msgstr "Porcentaje de productividad"
 
 #. module: tms
-#: model:ir.actions.act_window,name:tms.tms_open_view_product_list model:ir.ui.menu,name:tms.menu_tms_open_view_product_list
+#: model:ir.actions.act_window,name:tms.tms_open_view_product_list
+#: model:ir.ui.menu,name:tms.menu_tms_open_view_product_list
 #: model:ir.ui.menu,name:tms.menu_tms_settings_products
 msgid "Products"
 msgstr "Productos"
@@ -2286,7 +2563,8 @@ msgid "Qty"
 msgstr "Cantidad"
 
 #. module: tms
-#: code:addons/tms/models/tms_factor.py:0 model:ir.model.fields,field_description:tms.field_tms_fuel__product_qty
+#: code:addons/tms/models/tms_factor.py:0
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__product_qty
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_line__product_qty
 #, python-format
 msgid "Quantity"
@@ -2310,7 +2588,7 @@ msgstr "Rango de inicio"
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
 msgid "Real"
-msgstr "Real"
+msgstr ""
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
@@ -2318,7 +2596,8 @@ msgid "Real Distances"
 msgstr "Distancias Reales"
 
 #. module: tms
-#: model:product.product,name:tms.product_real_expense model:product.template,name:tms.product_real_expense_product_template
+#: model:product.product,name:tms.product_real_expense
+#: model:product.template,name:tms.product_real_expense_product_template
 msgid "Real Expense"
 msgstr "Gastos reales"
 
@@ -2333,20 +2612,26 @@ msgid "Real date"
 msgstr "Fecha real"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_expense_line__ref model:ir.model.fields,field_description:tms.field_tms_fuel__ref
+#: model:ir.model.fields,field_description:tms.field_tms_expense_line__ref
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__ref
 msgid "Ref"
-msgstr "Ref"
+msgstr ""
 
 #. module: tms
-#: code:addons/tms/models/tms_advance.py:0 code:addons/tms/models/tms_expense.py:0 model:ir.model,name:tms.model_account_payment_register
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form model_terms:ir.ui.view,arch_db:tms.view_tms_advance_tree
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form model_terms:ir.ui.view,arch_db:tms.view_tms_expense_tree
+#: code:addons/tms/models/tms_advance.py:0
+#: code:addons/tms/models/tms_expense.py:0
+#: model:ir.model,name:tms.model_account_payment_register
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_tree
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_tree
 #, python-format
 msgid "Register Payment"
 msgstr "Registrar pago"
 
 #. module: tms
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
 msgid "Related Moves"
 msgstr "Movimientos Relacionados"
 
@@ -2389,7 +2674,8 @@ msgid "Resume"
 msgstr "Resumen"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_travel__route_id model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
+#: model:ir.model.fields,field_description:tms.field_tms_travel__route_id
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
 msgid "Route"
 msgstr "Ruta"
 
@@ -2436,7 +2722,9 @@ msgid "Route travel time (hours)"
 msgstr "Tiempo de viaje de la ruta (horas)"
 
 #. module: tms
-#: model:ir.model,name:tms.model_tms_route model:ir.ui.menu,name:tms.menu_tms_settings_route_form model:ir.ui.menu,name:tms.menu_tms_settings_routes
+#: model:ir.model,name:tms.model_tms_route
+#: model:ir.ui.menu,name:tms.menu_tms_settings_route_form
+#: model:ir.ui.menu,name:tms.menu_tms_settings_routes
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_route_form
 msgid "Routes"
 msgstr "Rutas"
@@ -2455,8 +2743,10 @@ msgid "SMS Delivery error"
 msgstr "Error de entrega del SMS"
 
 #. module: tms
-#: code:addons/tms/models/product_template.py:0 model:ir.model.fields,field_description:tms.field_tms_expense__amount_salary
-#: model:product.product,name:tms.product_salary model:product.template,name:tms.product_salary_product_template
+#: code:addons/tms/models/product_template.py:0
+#: model:ir.model.fields,field_description:tms.field_tms_expense__amount_salary
+#: model:product.product,name:tms.product_salary
+#: model:product.template,name:tms.product_salary_product_template
 #, python-format
 msgid "Salary"
 msgstr "Salario"
@@ -2467,7 +2757,8 @@ msgid "Salary Balance"
 msgstr "Balance Salario"
 
 #. module: tms
-#: model:product.product,name:tms.product_discount model:product.template,name:tms.product_discount_product_template
+#: model:product.product,name:tms.product_discount
+#: model:product.template,name:tms.product_discount_product_template
 msgid "Salary Discount"
 msgstr "Descuento salarial"
 
@@ -2482,7 +2773,8 @@ msgid "Salary Negative Balance"
 msgstr "Saldo Salario Negativo"
 
 #. module: tms
-#: model:product.product,name:tms.product_retention model:product.template,name:tms.product_retention_product_template
+#: model:product.product,name:tms.product_retention
+#: model:product.template,name:tms.product_retention_product_template
 msgid "Salary Retention"
 msgstr "Retención de salario"
 
@@ -2498,7 +2790,8 @@ msgid "Salary for travel: "
 msgstr "Salario por viajes: "
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_waybill__user_id model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_filter
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__user_id
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_filter
 msgid "Salesman"
 msgstr "Vendedor"
 
@@ -2508,14 +2801,17 @@ msgid "Sand"
 msgstr "Arena"
 
 #. module: tms
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form model_terms:ir.ui.view,arch_db:tms.view_tms_travel_tree
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_tree
 msgid "Schedule"
 msgstr "Programar"
 
 #. module: tms
 #: model:ir.model.fields.selection,name:tms.selection__tms_travel__state__scheduled
-#: model:ir.model.fields.selection,name:tms.selection__tms_travel_stage__state__scheduled model:tms.travel.stage,name:tms.travel_stage_scheduled
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
+#: model:ir.model.fields.selection,name:tms.selection__tms_travel_stage__state__scheduled
+#: model:tms.travel.stage,name:tms.travel_stage_scheduled
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
 msgid "Scheduled"
 msgstr "Programado"
 
@@ -2546,13 +2842,20 @@ msgstr "Días de Seguridad para Seguros"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
-msgid "Select the default account that will be used to generate an advance to pay."
-msgstr "Seleccione la cuenta predeterminada que se utilizará para generar un anticipo para pagar."
+msgid ""
+"Select the default account that will be used to generate an advance to pay."
+msgstr ""
+"Seleccione la cuenta predeterminada que se utilizará para generar un "
+"anticipo para pagar."
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
-msgid "Select the default account that will be used to generate an expense negative move."
-msgstr "Seleccione la cuenta predeterminada que se usará para generar un movimiento negativo de gastos."
+msgid ""
+"Select the default account that will be used to generate an expense negative"
+" move."
+msgstr ""
+"Seleccione la cuenta predeterminada que se usará para generar un movimiento "
+"negativo de gastos."
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
@@ -2562,7 +2865,9 @@ msgstr "Seleccione el diario donde se contabilizará el anticipo."
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
 msgid "Select the journal where the fuel comsuption moves will be posted."
-msgstr "Seleccione el diario donde se contabilizarán los movimientos de consumo de combustible."
+msgstr ""
+"Seleccione el diario donde se contabilizarán los movimientos de consumo de "
+"combustible."
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
@@ -2570,7 +2875,8 @@ msgid "Select the journal where the travel expense will be posted."
 msgstr "Seleccione el diario donde se registrarán los gastos de viaje."
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_expense_line__sequence model:ir.model.fields,field_description:tms.field_tms_factor__sequence
+#: model:ir.model.fields,field_description:tms.field_tms_expense_line__sequence
+#: model:ir.model.fields,field_description:tms.field_tms_factor__sequence
 #: model:ir.model.fields,field_description:tms.field_tms_travel_stage__sequence
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_line__sequence
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_transportable_line__sequence
@@ -2579,16 +2885,25 @@ msgstr "Secuencia"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
-msgid "Set the number of days before the expiration date of the driver license to show a warning."
-msgstr "Configure el número de días antes de la fecha de vencimiento de la licencia de conducir para mostrar una advertencia."
+msgid ""
+"Set the number of days before the expiration date of the driver license to "
+"show a warning."
+msgstr ""
+"Configure el número de días antes de la fecha de vencimiento de la licencia "
+"de conducir para mostrar una advertencia."
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
-msgid "Set the number of days before the expiration date of the unit insurance to show a warning."
-msgstr "Establezca el número de días antes de la fecha de vencimiento del seguro de la unidad para mostrar una advertencia."
+msgid ""
+"Set the number of days before the expiration date of the unit insurance to "
+"show a warning."
+msgstr ""
+"Establezca el número de días antes de la fecha de vencimiento del seguro de "
+"la unidad para mostrar una advertencia."
 
 #. module: tms
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form
 msgid "Set to Draft"
 msgstr "Establecer a borrador"
 
@@ -2598,7 +2913,8 @@ msgid "Set to draft"
 msgstr "Establecer en borrador"
 
 #. module: tms
-#: model:ir.actions.act_window,name:tms.action_tms_config model:ir.ui.menu,name:tms.menu_tms_config
+#: model:ir.actions.act_window,name:tms.action_tms_config
+#: model:ir.ui.menu,name:tms.menu_tms_config
 msgid "Settings"
 msgstr "Ajustes"
 
@@ -2618,7 +2934,8 @@ msgid "Shipped Products"
 msgstr "Productos enviados"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_travel__stage_id model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
+#: model:ir.model.fields,field_description:tms.field_tms_travel__stage_id
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
 msgid "Stage"
 msgstr "Etapa"
 
@@ -2635,26 +2952,36 @@ msgstr "Inicio Programado"
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_insurance__state
 #: model:ir.model.fields,field_description:tms.field_hr_employee_driver_license__state
-#: model:ir.model.fields,field_description:tms.field_tms_advance__state model:ir.model.fields,field_description:tms.field_tms_expense__state
-#: model:ir.model.fields,field_description:tms.field_tms_fuel__state model:ir.model.fields,field_description:tms.field_tms_travel__state
-#: model:ir.model.fields,field_description:tms.field_tms_travel_stage__state model:ir.model.fields,field_description:tms.field_tms_waybill__state
-#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_filter model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
+#: model:ir.model.fields,field_description:tms.field_tms_advance__state
+#: model:ir.model.fields,field_description:tms.field_tms_expense__state
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__state
+#: model:ir.model.fields,field_description:tms.field_tms_travel__state
+#: model:ir.model.fields,field_description:tms.field_tms_travel_stage__state
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__state
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_filter
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_filter
 msgid "State"
 msgstr "Estado"
 
 #. module: tms
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
 msgid "Statistics"
 msgstr "Estadísticas"
 
 #. module: tms
 #: model:ir.model.fields,help:tms.field_fleet_vehicle_insurance__activity_state
-#: model:ir.model.fields,help:tms.field_hr_employee_driver_license__activity_state model:ir.model.fields,help:tms.field_tms_advance__activity_state
-#: model:ir.model.fields,help:tms.field_tms_expense__activity_state model:ir.model.fields,help:tms.field_tms_fuel__activity_state
-#: model:ir.model.fields,help:tms.field_tms_route__activity_state model:ir.model.fields,help:tms.field_tms_travel__activity_state
-#: model:ir.model.fields,help:tms.field_tms_unit_kit__activity_state model:ir.model.fields,help:tms.field_tms_waybill__activity_state
+#: model:ir.model.fields,help:tms.field_hr_employee_driver_license__activity_state
+#: model:ir.model.fields,help:tms.field_tms_advance__activity_state
+#: model:ir.model.fields,help:tms.field_tms_expense__activity_state
+#: model:ir.model.fields,help:tms.field_tms_fuel__activity_state
+#: model:ir.model.fields,help:tms.field_tms_route__activity_state
+#: model:ir.model.fields,help:tms.field_tms_travel__activity_state
+#: model:ir.model.fields,help:tms.field_tms_unit_kit__activity_state
+#: model:ir.model.fields,help:tms.field_tms_waybill__activity_state
 msgid ""
 "Status based on activities\n"
 "Overdue: Due date is already passed\n"
@@ -2669,7 +2996,7 @@ msgstr ""
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_waybill__amount_untaxed
 msgid "SubTotal"
-msgstr "SubTotal"
+msgstr ""
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_expense__amount_untaxed_total
@@ -2681,7 +3008,7 @@ msgstr "Subtotal (todos)"
 #: model:ir.model.fields,field_description:tms.field_tms_fuel__amount_untaxed
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_line__amount_untaxed
 msgid "Subtotal"
-msgstr "Subtotal"
+msgstr ""
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_waybill__distance_route
@@ -2704,7 +3031,8 @@ msgid "Sum Weight"
 msgstr "Suma de Peso"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_expense_line__partner_id model:ir.model.fields,field_description:tms.field_tms_fuel__partner_id
+#: model:ir.model.fields,field_description:tms.field_tms_expense_line__partner_id
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__partner_id
 #: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
 msgid "Supplier"
 msgstr "Proveedor"
@@ -2722,12 +3050,13 @@ msgstr "Factura de proveedor"
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.fleet_vehicle_form_inherit_tms
 msgid "T101"
-msgstr "T101"
+msgstr ""
 
 #. module: tms
-#: model:ir.module.category,name:tms.tms_group_category model_terms:ir.ui.view,arch_db:tms.view_employee_form_tms
+#: model:ir.module.category,name:tms.tms_group_category
+#: model_terms:ir.ui.view,arch_db:tms.view_employee_form_tms
 msgid "TMS"
-msgstr "TMS"
+msgstr ""
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.res_config_settings_view_form
@@ -2747,14 +3076,17 @@ msgid "TMS Routes"
 msgstr "Rutas TMS"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_expense_line__tax_amount model:ir.model.fields,field_description:tms.field_tms_fuel__tax_amount
+#: model:ir.model.fields,field_description:tms.field_tms_expense_line__tax_amount
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__tax_amount
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_line__tax_amount
 msgid "Tax Amount"
 msgstr "Importe impuesto"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_expense_line__tax_ids model:ir.model.fields,field_description:tms.field_tms_fuel__tax_ids
-#: model:ir.model.fields,field_description:tms.field_tms_waybill__amount_tax model:ir.model.fields,field_description:tms.field_tms_waybill_line__tax_ids
+#: model:ir.model.fields,field_description:tms.field_tms_expense_line__tax_ids
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__tax_ids
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__amount_tax
+#: model:ir.model.fields,field_description:tms.field_tms_waybill_line__tax_ids
 msgid "Taxes"
 msgstr "Impuestos"
 
@@ -2787,8 +3119,11 @@ msgstr "¡El ID de licencia debe ser único!"
 
 #. module: tms
 #: model:ir.model.fields,help:tms.field_tms_waybill__partner_order_id
-msgid "The name and address of the contact who requested the order or quotation."
-msgstr "El nombre y la dirección del contacto que solicitó el pedido o la cotización."
+msgid ""
+"The name and address of the contact who requested the order or quotation."
+msgstr ""
+"El nombre y la dirección del contacto que solicitó el pedido o la "
+"cotización."
 
 #. module: tms
 #: model:ir.model.constraint,message:tms.constraint_tms_unit_kit_name_uniq
@@ -2797,8 +3132,11 @@ msgstr "¡El nombre del kit de unidad debe ser único por empresa!"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.tms_product_template_view
-msgid "The products in this category can be used in an Advance and in the Expense."
-msgstr "Los productos de esta categoría se pueden utilizar en un Anticipo y en el Gasto."
+msgid ""
+"The products in this category can be used in an Advance and in the Expense."
+msgstr ""
+"Los productos de esta categoría se pueden utilizar en un Anticipo y en el "
+"Gasto."
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.tms_product_template_view
@@ -2806,14 +3144,17 @@ msgid ""
 "The products in this category can be used in the Expense.<br/>\n"
 "                            If you set a product of this category, this will affect the balance of the Expense."
 msgstr ""
-"Los productos de esta categoría se pueden utilizar en el Gasto.<br/> Si configura un producto de esta categoría, esto afectará el saldo del Gasto."
+"Los productos de esta categoría se pueden utilizar en el Gasto.<br/> Si "
+"configura un producto de esta categoría, esto afectará el saldo del Gasto."
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.tms_product_template_view
 msgid ""
 "The products in this category can be used in the Expense.<br/>\n"
 "                            If you set a product of this category, this will deduce the salary."
-msgstr "Los productos de esta categoría se pueden utilizar en el Gasto.<br/> Si establece un producto de esta categoría, esto le deducirá el salario."
+msgstr ""
+"Los productos de esta categoría se pueden utilizar en el Gasto.<br/> Si "
+"establece un producto de esta categoría, esto le deducirá el salario."
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.tms_product_template_view
@@ -2821,7 +3162,8 @@ msgid ""
 "The products in this category can be used in the Expense.<br/>\n"
 "                            The expenses that are on this category will be considered in the total of the expense, but it won't affect drivers salary."
 msgstr ""
-"Los productos de esta categoría se pueden utilizar en el Gasto.<br/> Los gastos que se encuentran en esta categoría serán considerados en el total "
+"Los productos de esta categoría se pueden utilizar en el Gasto.<br/> Los "
+"gastos que se encuentran en esta categoría serán considerados en el total "
 "del gasto, pero no afectará el salario de los conductores."
 
 #. module: tms
@@ -2855,28 +3197,47 @@ msgstr "Este conductor tiene un saldo negativo de"
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.tms_product_template_view
-msgid "This product will be used in the Expense, to add a fuel in cash to the driver."
-msgstr "Este producto se utilizará en el Gasto, para agregar un combustible en efectivo al conductor."
+msgid ""
+"This product will be used in the Expense, to add a fuel in cash to the "
+"driver."
+msgstr ""
+"Este producto se utilizará en el Gasto, para agregar un combustible en "
+"efectivo al conductor."
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.tms_product_template_view
-msgid "This product will be used in the Expense, to add a negative balance to the driver."
-msgstr "Este producto se utilizará en el Gasto, para sumar un saldo negativo al conductor."
+msgid ""
+"This product will be used in the Expense, to add a negative balance to the "
+"driver."
+msgstr ""
+"Este producto se utilizará en el Gasto, para sumar un saldo negativo al "
+"conductor."
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.tms_product_template_view
-msgid "This product will be used in the Expense, to add a refund to the driver."
-msgstr "Este producto se utilizará en el Gasto, para agregar un reembolso al conductor."
+msgid ""
+"This product will be used in the Expense, to add a refund to the driver."
+msgstr ""
+"Este producto se utilizará en el Gasto, para agregar un reembolso al "
+"conductor."
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.tms_product_template_view
-msgid "This product will be used in the Expense, to add a tollstation expense to the driver."
-msgstr "Este producto se utilizará en el Gasto, para añadir un gasto de casetas al conductor."
+msgid ""
+"This product will be used in the Expense, to add a tollstation expense to "
+"the driver."
+msgstr ""
+"Este producto se utilizará en el Gasto, para añadir un gasto de casetas al "
+"conductor."
 
 #. module: tms
 #: model_terms:ir.ui.view,arch_db:tms.tms_product_template_view
-msgid "This product will be used in the Expense, to add an extra income to the driver."
-msgstr "Este producto se utilizará en el Expense, para sumar un ingreso extra al conductor."
+msgid ""
+"This product will be used in the Expense, to add an extra income to the "
+"driver."
+msgstr ""
+"Este producto se utilizará en el Expense, para sumar un ingreso extra al "
+"conductor."
 
 #. module: tms
 #: model:ir.model.fields,help:tms.field_tms_travel_stage__state
@@ -2900,10 +3261,11 @@ msgstr ""
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_expense_line__amount_total
-#: model:ir.model.fields,field_description:tms.field_tms_fuel__amount_total model:ir.model.fields,field_description:tms.field_tms_waybill__amount_total
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__amount_total
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__amount_total
 #: model_terms:ir.ui.view,arch_db:tms.tms_fuel_tree
 msgid "Total"
-msgstr "Total"
+msgstr ""
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_expense__amount_total
@@ -2982,10 +3344,12 @@ msgid "Trailer2"
 msgstr "Tráiler2"
 
 #. module: tms
-#: model:ir.actions.act_window,name:tms.action_tms_transportable model:ir.model.fields,field_description:tms.field_tms_waybill__transportable_line_ids
-#: model:ir.model.fields,field_description:tms.field_tms_waybill_transportable_line__transportable_id model:ir.ui.menu,name:tms.tms_transportable_menu
+#: model:ir.actions.act_window,name:tms.action_tms_transportable
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__transportable_line_ids
+#: model:ir.model.fields,field_description:tms.field_tms_waybill_transportable_line__transportable_id
+#: model:ir.ui.menu,name:tms.tms_transportable_menu
 msgid "Transportable"
-msgstr "Transportable"
+msgstr ""
 
 #. module: tms
 #: model:ir.model,name:tms.model_tms_transportable
@@ -2993,23 +3357,31 @@ msgid "Transportable Product"
 msgstr "Producto Transporte"
 
 #. module: tms
-#: code:addons/tms/models/tms_factor.py:0 model:ir.actions.act_window,name:tms.open_view_tms_travel_form model:ir.model,name:tms.model_tms_travel
+#: code:addons/tms/models/tms_factor.py:0
+#: model:ir.actions.act_window,name:tms.open_view_tms_travel_form
+#: model:ir.model,name:tms.model_tms_travel
 #: model:ir.model.fields,field_description:tms.field_account_bank_statement_line__travel_id
 #: model:ir.model.fields,field_description:tms.field_account_move__travel_id
 #: model:ir.model.fields,field_description:tms.field_account_payment__travel_id
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_odometer__travel_id
 #: model:ir.model.fields,field_description:tms.field_tms_advance__travel_id
-#: model:ir.model.fields,field_description:tms.field_tms_expense_line__travel_id model:ir.model.fields,field_description:tms.field_tms_fuel__travel_id
-#: model:ir.model.fields,field_description:tms.field_tms_waybill__travel_id model:ir.ui.menu,name:tms.menu_tms_travel_form
-#: model_terms:ir.ui.view,arch_db:tms.account_move_tms_form model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
+#: model:ir.model.fields,field_description:tms.field_tms_expense_line__travel_id
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__travel_id
+#: model:ir.model.fields,field_description:tms.field_tms_waybill__travel_id
+#: model:ir.ui.menu,name:tms.menu_tms_travel_form
+#: model_terms:ir.ui.view,arch_db:tms.account_move_tms_form
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
 #, python-format
 msgid "Travel"
 msgstr "Viaje"
 
 #. module: tms
-#: model:ir.actions.act_window,name:tms.action_tms_expense_form model:ir.model,name:tms.model_tms_expense model:ir.ui.menu,name:tms.menu_tms_expense
-#: model_terms:ir.actions.act_window,help:tms.action_tms_expense_form model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
+#: model:ir.actions.act_window,name:tms.action_tms_expense_form
+#: model:ir.model,name:tms.model_tms_expense
+#: model:ir.ui.menu,name:tms.menu_tms_expense
+#: model_terms:ir.actions.act_window,help:tms.action_tms_expense_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
 msgid "Travel Expenses"
 msgstr "Gastos de Viaje"
 
@@ -3029,7 +3401,8 @@ msgid "Travel Stage"
 msgstr "Etapa de viaje"
 
 #. module: tms
-#: model:ir.actions.act_window,name:tms.tms_travel_stage_action model:ir.ui.menu,name:tms.tms_travel_stage_menu
+#: model:ir.actions.act_window,name:tms.tms_travel_stage_action
+#: model:ir.ui.menu,name:tms.tms_travel_stage_menu
 msgid "Travel Stages"
 msgstr "Etapas de viaje"
 
@@ -3046,8 +3419,10 @@ msgstr "El tiempo de viaje debe ser mayor que cero."
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_tms_expense__travel_ids
-#: model:ir.model.fields,field_description:tms.field_tms_expense_line__travel_ids model_terms:ir.ui.view,arch_db:tms.tms_travel_view_gantt
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form model_terms:ir.ui.view,arch_db:tms.view_tms_travel_calendar
+#: model:ir.model.fields,field_description:tms.field_tms_expense_line__travel_ids
+#: model_terms:ir.ui.view,arch_db:tms.tms_travel_view_gantt
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_calendar
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
 msgid "Travels"
 msgstr "Viajes"
@@ -3055,7 +3430,7 @@ msgstr "Viajes"
 #. module: tms
 #: model:tms.travel.stage,name:tms.travel_stage_progress
 msgid "Tránsito"
-msgstr "Tránsito"
+msgstr ""
 
 #. module: tms
 #: model:ir.model.fields,help:tms.field_fleet_vehicle_insurance__activity_exception_decoration
@@ -3072,10 +3447,14 @@ msgstr "Tipo de actividad de excepción registrada."
 
 #. module: tms
 #: model:ir.model.fields,field_description:tms.field_fleet_vehicle_insurance__unit_id
-#: model:ir.model.fields,field_description:tms.field_tms_advance__unit_id model:ir.model.fields,field_description:tms.field_tms_expense__unit_id
-#: model:ir.model.fields,field_description:tms.field_tms_fuel__unit_id model:ir.model.fields,field_description:tms.field_tms_travel__unit_id
-#: model:ir.model.fields,field_description:tms.field_tms_unit_kit__unit_id model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_filter model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
+#: model:ir.model.fields,field_description:tms.field_tms_advance__unit_id
+#: model:ir.model.fields,field_description:tms.field_tms_expense__unit_id
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__unit_id
+#: model:ir.model.fields,field_description:tms.field_tms_travel__unit_id
+#: model:ir.model.fields,field_description:tms.field_tms_unit_kit__unit_id
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_filter
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_search
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_unit_kit_search
 msgid "Unit"
 msgstr "Unidad"
@@ -3086,7 +3465,8 @@ msgid "Unit Fleet Type"
 msgstr "Unidad Tipo de Flota"
 
 #. module: tms
-#: model:ir.actions.act_window,name:tms.open_view_tms_unit_kit_form model:ir.ui.menu,name:tms.menu_tms_config_unit_kit_form
+#: model:ir.actions.act_window,name:tms.open_view_tms_unit_kit_form
+#: model:ir.ui.menu,name:tms.menu_tms_config_unit_kit_form
 msgid "Unit Kits"
 msgstr "Kits de Unidades"
 
@@ -3119,31 +3499,47 @@ msgid "Unit of the odometer "
 msgstr "Unidad del odómetro "
 
 #. module: tms
-#: model:ir.actions.act_window,name:tms.action_fleet_vehicle_tms model:ir.model.fields,field_description:tms.field_tms_expense__unit_ids
-#: model:ir.ui.menu,name:tms.menu_tms_settings_unit model:ir.ui.menu,name:tms.tms_fleet_vehicle_menu model:product.product,uom_name:tms.product_discount
-#: model:product.product,uom_name:tms.product_freight model:product.product,uom_name:tms.product_highway_tolls
-#: model:product.product,uom_name:tms.product_indirect_expense model:product.product,uom_name:tms.product_insurance
-#: model:product.product,uom_name:tms.product_move model:product.product,uom_name:tms.product_negative_balance
-#: model:product.product,uom_name:tms.product_other model:product.product,uom_name:tms.product_other_income
-#: model:product.product,uom_name:tms.product_real_expense model:product.product,uom_name:tms.product_retention
-#: model:product.product,uom_name:tms.product_salary model:product.template,uom_name:tms.product_discount_product_template
-#: model:product.template,uom_name:tms.product_freight_product_template model:product.template,uom_name:tms.product_highway_tolls_product_template
-#: model:product.template,uom_name:tms.product_indirect_expense_product_template model:product.template,uom_name:tms.product_insurance_product_template
-#: model:product.template,uom_name:tms.product_move_product_template model:product.template,uom_name:tms.product_negative_balance_product_template
-#: model:product.template,uom_name:tms.product_other_income_product_template model:product.template,uom_name:tms.product_other_product_template
-#: model:product.template,uom_name:tms.product_real_expense_product_template model:product.template,uom_name:tms.product_retention_product_template
+#: model:ir.actions.act_window,name:tms.action_fleet_vehicle_tms
+#: model:ir.model.fields,field_description:tms.field_tms_expense__unit_ids
+#: model:ir.ui.menu,name:tms.menu_tms_settings_unit
+#: model:ir.ui.menu,name:tms.tms_fleet_vehicle_menu
+#: model:product.product,uom_name:tms.product_discount
+#: model:product.product,uom_name:tms.product_freight
+#: model:product.product,uom_name:tms.product_highway_tolls
+#: model:product.product,uom_name:tms.product_indirect_expense
+#: model:product.product,uom_name:tms.product_insurance
+#: model:product.product,uom_name:tms.product_move
+#: model:product.product,uom_name:tms.product_negative_balance
+#: model:product.product,uom_name:tms.product_other
+#: model:product.product,uom_name:tms.product_other_income
+#: model:product.product,uom_name:tms.product_real_expense
+#: model:product.product,uom_name:tms.product_retention
+#: model:product.product,uom_name:tms.product_salary
+#: model:product.template,uom_name:tms.product_discount_product_template
+#: model:product.template,uom_name:tms.product_freight_product_template
+#: model:product.template,uom_name:tms.product_highway_tolls_product_template
+#: model:product.template,uom_name:tms.product_indirect_expense_product_template
+#: model:product.template,uom_name:tms.product_insurance_product_template
+#: model:product.template,uom_name:tms.product_move_product_template
+#: model:product.template,uom_name:tms.product_negative_balance_product_template
+#: model:product.template,uom_name:tms.product_other_income_product_template
+#: model:product.template,uom_name:tms.product_other_product_template
+#: model:product.template,uom_name:tms.product_real_expense_product_template
+#: model:product.template,uom_name:tms.product_retention_product_template
 #: model:product.template,uom_name:tms.product_salary_product_template
 msgid "Units"
 msgstr "Unidades"
 
 #. module: tms
-#: model:ir.model,name:tms.model_tms_unit_kit model_terms:ir.ui.view,arch_db:tms.view_tms_unit_kit_form
+#: model:ir.model,name:tms.model_tms_unit_kit
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_unit_kit_form
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_unit_kit_search
 msgid "Units Kits"
 msgstr "Kits de Unidades"
 
 #. module: tms
-#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_advance_search
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_filter
 msgid "Unpaid"
 msgstr "No pagado"
@@ -3175,7 +3571,8 @@ msgid "Unread Messages Counter"
 msgstr "Contador de mensajes sin leer"
 
 #. module: tms
-#: model:ir.model.fields,field_description:tms.field_tms_fuel__product_uom_id model_terms:ir.ui.view,arch_db:tms.tms_transportable_view_search
+#: model:ir.model.fields,field_description:tms.field_tms_fuel__product_uom_id
+#: model_terms:ir.ui.view,arch_db:tms.tms_transportable_view_search
 msgid "UoM"
 msgstr "UdM"
 
@@ -3210,13 +3607,15 @@ msgid "Used to define if this person will be used as a Driver"
 msgstr "Se utiliza para definir si esta persona se utilizará como conductor"
 
 #. module: tms
-#: model_terms:ir.ui.view,arch_db:tms.fleet_vehicle_insurance_view_form model_terms:ir.ui.view,arch_db:tms.hr_employee_driver_license_view_form
+#: model_terms:ir.ui.view,arch_db:tms.fleet_vehicle_insurance_view_form
+#: model_terms:ir.ui.view,arch_db:tms.hr_employee_driver_license_view_form
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_unit_kit_form
 msgid "Validity"
 msgstr "Validez"
 
 #. module: tms
-#: model:ir.model,name:tms.model_fleet_vehicle model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
+#: model:ir.model,name:tms.model_fleet_vehicle
+#: model_terms:ir.ui.view,arch_db:tms.tms_fuel_filter_search
 msgid "Vehicle"
 msgstr "Vehículo"
 
@@ -3257,13 +3656,16 @@ msgstr "Agua"
 #: model:ir.model.fields,field_description:tms.field_account_move_line__waybill_id
 #: model:ir.model.fields,field_description:tms.field_account_payment__waybill_id
 #: model:ir.model.fields,field_description:tms.field_tms_waybill_line__waybill_id
-#: model:ir.model.fields,field_description:tms.field_tms_waybill_transportable_line__waybill_id model_terms:ir.ui.view,arch_db:tms.account_move_tms_form
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_graph
+#: model:ir.model.fields,field_description:tms.field_tms_waybill_transportable_line__waybill_id
+#: model_terms:ir.ui.view,arch_db:tms.account_move_tms_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_graph
 msgid "Waybill"
 msgstr "Carta de Porte"
 
 #. module: tms
-#: model:ir.model,name:tms.model_tms_waybill_line model:ir.model.fields,field_description:tms.field_account_move_line__waybill_line_id
+#: model:ir.model,name:tms.model_tms_waybill_line
+#: model:ir.model.fields,field_description:tms.field_account_move_line__waybill_line_id
 msgid "Waybill Line"
 msgstr "Línea de carta de porte"
 
@@ -3278,10 +3680,14 @@ msgid "Waybill date"
 msgstr "Fecha de la carta de porte"
 
 #. module: tms
-#: model:ir.actions.act_window,name:tms.action_tms_waybill_form model:ir.model,name:tms.model_tms_waybill
-#: model:ir.model.fields,field_description:tms.field_tms_expense__waybill_ids model:ir.model.fields,field_description:tms.field_tms_travel__waybill_ids
-#: model:ir.ui.menu,name:tms.menu_tms_waybill model_terms:ir.actions.act_window,help:tms.action_tms_waybill_form
-#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
+#: model:ir.actions.act_window,name:tms.action_tms_waybill_form
+#: model:ir.model,name:tms.model_tms_waybill
+#: model:ir.model.fields,field_description:tms.field_tms_expense__waybill_ids
+#: model:ir.model.fields,field_description:tms.field_tms_travel__waybill_ids
+#: model:ir.ui.menu,name:tms.menu_tms_waybill
+#: model_terms:ir.actions.act_window,help:tms.action_tms_waybill_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_expense_form
+#: model_terms:ir.ui.view,arch_db:tms.view_tms_travel_form
 #: model_terms:ir.ui.view,arch_db:tms.view_tms_waybill_calendar
 msgid "Waybills"
 msgstr "Cartas Porte"
@@ -3302,9 +3708,12 @@ msgstr "Mensajes del Sitio Web"
 #. module: tms
 #: model:ir.model.fields,help:tms.field_fleet_vehicle_insurance__website_message_ids
 #: model:ir.model.fields,help:tms.field_hr_employee_driver_license__website_message_ids
-#: model:ir.model.fields,help:tms.field_tms_advance__website_message_ids model:ir.model.fields,help:tms.field_tms_expense__website_message_ids
-#: model:ir.model.fields,help:tms.field_tms_fuel__website_message_ids model:ir.model.fields,help:tms.field_tms_route__website_message_ids
-#: model:ir.model.fields,help:tms.field_tms_travel__website_message_ids model:ir.model.fields,help:tms.field_tms_unit_kit__website_message_ids
+#: model:ir.model.fields,help:tms.field_tms_advance__website_message_ids
+#: model:ir.model.fields,help:tms.field_tms_expense__website_message_ids
+#: model:ir.model.fields,help:tms.field_tms_fuel__website_message_ids
+#: model:ir.model.fields,help:tms.field_tms_route__website_message_ids
+#: model:ir.model.fields,help:tms.field_tms_travel__website_message_ids
+#: model:ir.model.fields,help:tms.field_tms_unit_kit__website_message_ids
 #: model:ir.model.fields,help:tms.field_tms_waybill__website_message_ids
 msgid "Website communication history"
 msgstr "Historial de comunicaciones del sitio web"
@@ -3346,7 +3755,8 @@ msgstr "¡No se pueden tener dos factores con la misma ruta y cliente!"
 #. module: tms
 #: model:ir.model.constraint,message:tms.constraint_fleet_vehicle_economic_number_company_uniq
 msgid "You can not have two vehicles for the same company and economic number"
-msgstr "No se pueden tener dos vehículos para la misma empresa y número económico"
+msgstr ""
+"No se pueden tener dos vehículos para la misma empresa y número económico"
 
 #. module: tms
 #: code:addons/tms/models/tms_travel.py:0
@@ -3379,8 +3789,12 @@ msgstr "Solo se pueden facturar cartas porte confirmadas."
 #. module: tms
 #: code:addons/tms/models/tms_travel_stage.py:0
 #, python-format
-msgid "You cannot archive a stage that is in use. Please move your travels to another stage first."
-msgstr "No puede archivar una etapa que está en uso. Por favor, mueva sus viajes a otra etapa primero."
+msgid ""
+"You cannot archive a stage that is in use. Please move your travels to "
+"another stage first."
+msgstr ""
+"No puede archivar una etapa que está en uso. Por favor, mueva sus viajes a "
+"otra etapa primero."
 
 #. module: tms
 #: code:addons/tms/models/tms_expense.py:0
@@ -3391,8 +3805,12 @@ msgstr "No se puede cancelar un gasto que ha sido pagado."
 #. module: tms
 #: code:addons/tms/models/tms_waybill.py:0
 #, python-format
-msgid "You cannot unlink the invoice of this waybill because the invoice is still valid, please check it."
-msgstr "No puede desvincular la factura de esta Carta Porte porque la factura aún es válida, verifíquela."
+msgid ""
+"You cannot unlink the invoice of this waybill because the invoice is still "
+"valid, please check it."
+msgstr ""
+"No puede desvincular la factura de esta Carta Porte porque la factura aún es"
+" válida, verifíquela."
 
 #. module: tms
 #: code:addons/tms/models/tms_travel.py:0
@@ -3403,8 +3821,12 @@ msgstr "Debe agregar al menos una Carta Porte."
 #. module: tms
 #: code:addons/tms/models/tms_expense.py:0
 #, python-format
-msgid "You must create a product for the driver salary with the Salary TMS Product Category"
-msgstr "Debe crear un producto para el salario del conductor con la categoría de producto salario"
+msgid ""
+"You must create a product for the driver salary with the Salary TMS Product "
+"Category"
+msgstr ""
+"Debe crear un producto para el salario del conductor con la categoría de "
+"producto salario"
 
 #. module: tms
 #: code:addons/tms/models/hr_employee.py:0
@@ -3415,20 +3837,28 @@ msgstr "Debe definir una dirección particular para este conductor"
 #. module: tms
 #: code:addons/tms/models/tms_travel.py:0
 #, python-format
-msgid "You need to cancel the advances or fuel logs related to this travel before canceling it."
-msgstr "Debe cancelar los anticipos o registros de combustible relacionados con este viaje antes de cancelarlo."
+msgid ""
+"You need to cancel the advances or fuel logs related to this travel before "
+"canceling it."
+msgstr ""
+"Debe cancelar los anticipos o registros de combustible relacionados con este"
+" viaje antes de cancelarlo."
 
 #. module: tms
 #: code:addons/tms/models/tms_advance.py:0
 #, python-format
-msgid "You need to configure the advance account in the Settings of TMS Module."
-msgstr "Debe configurar la cuenta de anticipos en la configuración del módulo TMS."
+msgid ""
+"You need to configure the advance account in the Settings of TMS Module."
+msgstr ""
+"Debe configurar la cuenta de anticipos en la configuración del módulo TMS."
 
 #. module: tms
 #: code:addons/tms/models/tms_advance.py:0
 #, python-format
-msgid "You need to configure the advance journal in the Settins of TMS Module."
-msgstr "Debe configurar el diario de anticipos en la configuración del módulo TMS."
+msgid ""
+"You need to configure the advance journal in the Settins of TMS Module."
+msgstr ""
+"Debe configurar el diario de anticipos en la configuración del módulo TMS."
 
 #. module: tms
 #: code:addons/tms/models/tms_advance.py:0

@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name" />
-                <field name="unit_id" />
+                <field name="unit_ids" widget="many2many_tags" />
                 <field name="partner_id" />
                 <field name="emission_date" />
                 <field name="expiration_date" />
@@ -33,7 +33,6 @@
                     <group>
                         <group>
                             <field name="partner_id" />
-                            <field name="unit_id" />
                         </group>
                         <group>
                             <label for="emission_date" string="Validity" />
@@ -53,6 +52,11 @@
                             <field name="days_to_expire" />
                         </group>
                     </group>
+                    <notebook>
+                        <page name="units" string="Units">
+                            <field name="unit_ids" nolabel="1" />"
+                        </page>
+                    </notebook>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers" />

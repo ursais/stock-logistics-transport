@@ -2,140 +2,31 @@
 <odoo>
     <record id="fleet_vehicle_insurance_01" model="fleet.vehicle.insurance">
         <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_01" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_02" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_02" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_03" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_03" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_04" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_04" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_05" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_05" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_06" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_06" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_07" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_07" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_08" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_08" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_09" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_09" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_10" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_10" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_11" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_11" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_12" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_12" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_13" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_13" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_14" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_14" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_15" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_15" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_16" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_16" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_17" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_17" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_18" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_18" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_19" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_19" />
-        <field name="partner_id" ref="base.res_partner_10" />
-        <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
-        <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />
-    </record>
-    <record id="fleet_vehicle_insurance_20" model="fleet.vehicle.insurance">
-        <field name="name">1234642</field>
-        <field name="unit_id" ref="tms_fleet_vehicle_20" />
+        <field
+            name="unit_ids"
+            eval="[
+            (4, ref('tms_fleet_vehicle_01')),
+            (4, ref('tms_fleet_vehicle_02')),
+            (4, ref('tms_fleet_vehicle_03')),
+            (4, ref('tms_fleet_vehicle_04')),
+            (4, ref('tms_fleet_vehicle_05')),
+            (4, ref('tms_fleet_vehicle_06')),
+            (4, ref('tms_fleet_vehicle_07')),
+            (4, ref('tms_fleet_vehicle_08')),
+            (4, ref('tms_fleet_vehicle_09')),
+            (4, ref('tms_fleet_vehicle_10')),
+            (4, ref('tms_fleet_vehicle_11')),
+            (4, ref('tms_fleet_vehicle_12')),
+            (4, ref('tms_fleet_vehicle_13')),
+            (4, ref('tms_fleet_vehicle_14')),
+            (4, ref('tms_fleet_vehicle_15')),
+            (4, ref('tms_fleet_vehicle_16')),
+            (4, ref('tms_fleet_vehicle_17')),
+            (4, ref('tms_fleet_vehicle_18')),
+            (4, ref('tms_fleet_vehicle_19')),
+            (4, ref('tms_fleet_vehicle_20'))
+        ]"
+        />
         <field name="partner_id" ref="base.res_partner_10" />
         <field name="emission_date" eval="datetime.now()+timedelta(days=-2)" />
         <field name="expiration_date" eval="datetime.now()+timedelta(days=365)" />

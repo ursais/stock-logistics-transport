@@ -14,7 +14,7 @@ class FleetVehicle(models.Model):
         string="Unit Fleet Type",
     )
     economic_number = fields.Char(copy=False)
-    policy_ids = fields.One2many("fleet.vehicle.insurance", "unit_id", string="Policies")
+    policy_ids = fields.Many2many("fleet.vehicle.insurance", string="Policies")
     insurance_policy_expiration_date = fields.Date(
         compute="_compute_insurance_policy_expiration_date",
         store=True,
@@ -24,7 +24,6 @@ class FleetVehicle(models.Model):
         "fleet.vehicle.insurance",
         compute="_compute_active_insurance_policy_id",
     )
-    insurance_ids = fields.One2many("fleet.vehicle.insurance", "unit_id", string="Insurances")
     analytic_account_id = fields.Many2one(
         "account.analytic.account", company_dependent=True, check_company=True, copy=False
     )
@@ -43,8 +42,8 @@ class FleetVehicle(models.Model):
         action = self.env["ir.actions.actions"]._for_xml_id("tms.fleet_vehicle_insurance_action")
         action.update(
             {
-                "context": {"default_unit_id": self.id},
-                "domain": [("unit_id", "=", self.id)],
+                "context": {"default_unit_ids": self.id},
+                "domain": [("unit_ids", "=", self.id)],
             }
         )
         return action

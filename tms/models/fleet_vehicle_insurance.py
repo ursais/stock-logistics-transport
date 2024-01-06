@@ -9,11 +9,11 @@ class FleetVehicleInsurance(models.Model):
     _name = "fleet.vehicle.insurance"
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Vehicle Insurance"
-    _order = "expiration_date desc, unit_id asc"
+    _order = "expiration_date desc"
 
     name = fields.Char(string="Insurance Policy", required=True)
-    partner_id = fields.Many2one("res.partner", required=True)
-    unit_id = fields.Many2one("fleet.vehicle", required=True)
+    partner_id = fields.Many2one("res.partner", required=True, string="Insurer")
+    unit_ids = fields.Many2many("fleet.vehicle", string="Units")
     days_to_expire = fields.Integer(compute="_compute_days_to_expire")
     emission_date = fields.Date(required=True)
     expiration_date = fields.Date(required=True)
