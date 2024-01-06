@@ -395,7 +395,7 @@ class TmsExpense(models.Model):
 
     def unlink(self):
         if self.filtered(lambda rec: rec.state != "draft"):
-            raise UserError(_("You can only delete expenses in draft state."))
+            raise UserError(_("You can only delete expenses in draft state."))  # pylint: disable=no-raise-unlink
         for rec in self:
             travels = self.env["tms.travel"].search([("expense_id", "=", rec.id)])
             travels.write({"expense_id": False, "state": "done"})

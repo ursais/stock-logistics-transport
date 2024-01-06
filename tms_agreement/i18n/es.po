@@ -228,7 +228,7 @@ msgstr "Nombre mostrado"
 #. module: tms_agreement
 #: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement_wizard__dolly_id
 msgid "Dolly"
-msgstr "Dolly"
+msgstr ""
 
 #. module: tms_agreement
 #: model:ir.model.fields.selection,name:tms_agreement.selection__tms_agreement__state__draft
@@ -540,7 +540,7 @@ msgstr "Tráiler 2"
 #. module: tms_agreement
 #: model:ir.model.fields,field_description:tms_agreement.field_tms_agreement__transportable_id
 msgid "Transportable"
-msgstr "Transportable"
+msgstr ""
 
 #. module: tms_agreement
 #: model:ir.model,name:tms_agreement.model_tms_travel

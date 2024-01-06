@@ -268,6 +268,7 @@ class TmsLoan(models.Model):
         for rec in self:
             rec.state = "draft"
 
+    # pylint: disable=no-raise-unlink
     def unlink(self):
         for rec in self:
             if rec.state in ["confirmed", "closed"]:

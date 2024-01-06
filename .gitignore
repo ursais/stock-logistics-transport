@@ -84,3 +84,4 @@ node_modules/
 bandit*.yaml
 doc8.ini
 pyproject.toml
+.oca_hooks*
