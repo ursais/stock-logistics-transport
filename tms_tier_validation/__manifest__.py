@@ -3,7 +3,7 @@
 
 {
     "name": "Tier Validation for TMS",
-    "version": "15.0.1.0.0",
+    "version": "17.0.1.0.0",
     "category": "Transport",
     "author": "Jarsa",
     "website": "https://www.jarsa.com.mx/page/transport-management-system",
@@ -13,5 +13,5 @@
     ],
     "summary": "Allow to validate TMS records with Tier Validation",
     "license": "LGPL-3",
-    "installable": True,
+    "installable": False,
 }

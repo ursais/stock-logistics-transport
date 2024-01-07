@@ -3,7 +3,7 @@
 
 {
     "name": "Freight Management",
-    "version": "15.0.2.0.5",
+    "version": "17.0.2.0.5",
     "category": "Transport",
     "author": "Jarsa",
     "website": "https://www.jarsa.com.mx/page/transport-management-system",
@@ -64,5 +64,5 @@
         "demo/tms_waybill_transportable_line.xml",
     ],
     "application": True,
-    "installable": True,
+    "installable": False,
 }
