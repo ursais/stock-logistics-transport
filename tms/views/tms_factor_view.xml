@@ -28,21 +28,19 @@
                         <group
                             name="customer_information"
                             string="Customer Information"
-                            attrs="{'invisible': [('category', '!=', 'customer')]}"
+                            invisible="category != 'customer'"
                         >
                             <field
                                 name="partner_id"
-                                attrs="{
-                                    'invisible': [('category', '!=', 'customer')],
-                                    'required': [('category', '=', 'customer')],
-                                }"
+                                invisible="category != 'customer'"
+                                required="category == 'customer'"
                                 options="{'no_create': True}"
                             />
                         </group>
                         <group
                             name="driver_information"
                             string="Driver Information"
-                            attrs="{'invisible': [('category', '!=', 'driver')]}"
+                            invisible="category != 'driver'"
                         >
                             <field
                                 name="driver_ids"
@@ -52,22 +50,22 @@
                         </group>
                         <group>
                             <span
-                                attrs="{'invisible': [('category', '!=', 'driver')]}"
+                                invisible="category != 'driver'"
                             >Drivers to apply this factor.<br
                                 /> If you leave it empty, it will be applied to all drivers.</span>
                         </group>
-                        <group attrs="{'invisible': [('category', '!=', 'customer')]}">
+                        <group invisible="category != 'customer'">
                             <field
                                 name="departure_address_id"
-                                attrs="{'required': [('category', '=', 'customer')]}"
+                                required="category == 'customer'"
                                 domain="[('parent_id', '=', partner_id), ('type', '=', 'delivery'), ('id', '!=', arrival_address_id)]"
                                 context="{'default_type': 'delivery', 'default_parent_id': partner_id, 'default_company_type': 'person'}"
                             />
                         </group>
-                        <group attrs="{'invisible': [('category', '!=', 'customer')]}">
+                        <group invisible="category != 'customer'">
                             <field
                                 name="arrival_address_id"
-                                attrs="{'required': [('category', '=', 'customer')]}"
+                                required="category == 'customer'"
                                 domain="[('parent_id', '=', partner_id), ('type', '=', 'delivery'), ('id', '!=', departure_address_id)]"
                                 context="{'default_type': 'delivery', 'default_parent_id': partner_id, 'default_company_type': 'person'}"
                             />
@@ -77,32 +75,26 @@
                             <field name="category" invisible="1" />
                             <field name="name" />
                             <field
-                                attrs="{
-                                    'invisible' :[('factor_type', 'in', ['travel','amount_driver'])],
-                                    'required': [('factor_type', 'in', ['distance','weight','qty','volume','percent'])],
-                                }"
+                                invisible="factor_type in ('travel', 'amount_driver')"
+                                required="factor_type in ('distance', 'weight', 'qty', 'volume', 'percent')"
                                 name="factor"
                             />
                             <field
-                                attrs="{
-                                    'invisible': [('factor_type', 'in', ['travel', 'percent','amount_driver'])],
-                                    'required': [('factor_type', 'in', ['distance','weight','qty','volume'])],
-                                }"
+                                invisible="factor_type in ('travel', 'percent', 'amount_driver')"
+                                required="factor_type in ('distance', 'weight', 'qty', 'volume')"    
                                 name="range_start"
                             />
                             <field
-                                attrs="{
-                                    'invisible': [('factor_type', 'in', ['travel', 'percent', 'amount_driver'])],
-                                    'required': [('factor_type', 'in', ['distance', 'weight', 'qty', 'volume'])],
-                                }"
+                                invisible="factor_type in ('travel', 'percent', 'amount_driver')"
+                                required="factor_type in ('distance', 'weight', 'qty', 'volume')"
                                 name="range_end"
                             />
                             <field
-                                attrs="{'invisible' :[('factor_type', 'in', ['travel', 'amount_driver'])]}"
+                                invisible="factor_type in ('travel', 'amount_driver')"
                                 name="mixed"
                             />
                             <field
-                                attrs="{'invisible' :[('mixed', '!=', True), '|', ('factor_type', '!=', 'travel'), ('mixed', '!=', False)]}"
+                                invisible="not mixed and (factor_type != 'travel' or mixed)"
                                 name="fixed_amount"
                             />
                         </group>

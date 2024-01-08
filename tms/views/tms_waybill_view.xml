@@ -52,7 +52,7 @@
                         name="action_invoice"
                         string="Create Invoice"
                         type="object"
-                        attrs="{'invisible': ['|', ('state', '!=', 'confirmed'), ('move_id', '!=', False)]}"
+                        invisible="not move_id or state != 'confirmed'"
                     />
                     <button
                         icon="fa-reply"
@@ -79,25 +79,25 @@
                             type="object"
                             class="oe_stat_button"
                             icon="fa-pencil-square-o"
-                            attrs="{'invisible': [('move_id', '=', False)]}"
+                            invisible="not move_id"
                         >
                             <div class="o_field_widget o_stat_info">
                                 <span class="o_stat_text">View Invoice</span>
                             </div>
                         </button>
                     </div>
-                    <widget name="web_ribbon" title="Paid" attrs="{'invisible': [('payment_state', '!=', 'paid')]}" />
+                    <widget name="web_ribbon" title="Paid" invisible="payment_state != 'paid'" />
                     <widget
                         name="web_ribbon"
                         title="Partial"
                         bg_color="bg-warning"
-                        attrs="{'invisible': [('payment_state', '!=', 'partial')]}"
+                        invisible="payment_state != 'partial'"
                     />
                     <widget
                         name="web_ribbon"
                         title="Not Paid"
                         bg_color="bg-danger"
-                        attrs="{'invisible': [('payment_state', '!=', 'not_paid')]}"
+                        invisible="payment_state != 'not_paid'"
                     />
                     <field name="payment_state" invisible="1" />
                     <div class="oe_title">
@@ -110,39 +110,40 @@
                         <group name="left_waybill">
                             <field
                                 name="partner_id"
-                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
+                                readonly="state in ('confirmed', 'cancel')"
                                 widget="res_partner_many2one"
                                 context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"
                                 options="{'no_create': True}"
                             />
                             <field
                                 name="partner_order_id"
-                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
+                                readonly="state in ('confirmed', 'cancel')"
                                 domain="[('parent_id','=',partner_id), ('type', '=', 'contact')]"
                                 context="{'search_default_customer':1, 'show_address': 1}"
                                 options="{'no_create': True, 'no_open': True}"
                             />
                             <field
                                 name="invoice_partner_id"
-                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
+                                readonly="state in ('confirmed', 'cancel')"
                                 context="{'search_default_customer':1, 'show_address': 1}"
                                 domain="['|', ('id', '=', partner_id), '&amp;', ('parent_id', '=', partner_id), ('type', '=', 'invoice')]"
                                 options="{'no_create': True, 'no_open': True}"
                             />
                             <field
                                 name="travel_id"
-                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])], 'invisible': [('partner_id', '=', False)]}"
+                                readonly="state in ('confirmed', 'cancel')"
+                                invisible="not partner_id"
                                 domain="[('state', 'not in', ['cancel','closed']), ('partner_ids', 'in', [partner_id])]"
                                 options="{'no_create': True}"
                             />
                         </group>
                         <group name="right_waybill">
-                            <field name="date" attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}" />
-                            <field name="user_id" attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}" />
+                            <field name="date" readonly="state in ('confirmed', 'cancel')" />
+                            <field name="user_id" readonly="state in ('confirmed', 'cancel')" />
                             <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" />
                             <field
                                 name="currency_id"
-                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
+                                readonly="state in ('confirmed', 'cancel')"
                                 groups="base.group_multi_currency"
                                 options="{'no_create': True, 'no_open': True}"
                             />
@@ -153,7 +154,7 @@
                             <label for="transportable_line_ids" />
                             <field
                                 name="transportable_line_ids"
-                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
+                                readonly="state in ('confirmed', 'cancel')"
                                 nolabel="1"
                             >
                                 <tree editable="bottom">
@@ -172,7 +173,7 @@
                             </field>
                             <label for="waybill_line_ids" />
                             <field
-                                attrs="{'readonly':[('state','in',['confirmed', 'cancel'])]}"
+                                readonly="state in ('confirmed', 'cancel')"
                                 name="waybill_line_ids"
                                 nolabel="1"
                             >

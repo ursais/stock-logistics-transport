@@ -54,7 +54,7 @@
                         name="action_register_payment"
                         icon="fa-usd"
                         class="oe_highlight"
-                        attrs="{'invisible': ['|', ('state', '!=', 'confirmed'), ('payment_state', '=', 'paid')]}"
+                        invisible="state != 'confirmed' or payment_state == 'paid'"
                         string="Register Payment"
                         type="object"
                     />
@@ -82,7 +82,7 @@
                             class="oe_stat_button"
                             icon="fa-bars"
                             string="Related Moves"
-                            attrs="{'invisible': [('move_id', '=', False)]}"
+                            invisible="not move_id"
                         />
                         <button
                             name="action_open_payments"
@@ -90,23 +90,23 @@
                             class="oe_stat_button"
                             icon="fa-bars"
                             string="Payments"
-                            attrs="{'invisible': [('payment_ids', '=', [])]}"
+                            invisible="not payment_ids"
                         />
                         <field name="move_id" invisible="1" />
                         <field name="payment_ids" invisible="1" />
                     </div>
-                    <widget name="web_ribbon" title="Paid" attrs="{'invisible': [('payment_state', '!=', 'paid')]}" />
+                    <widget name="web_ribbon" title="Paid" invisible="payment_state != 'paid'" />
                     <widget
                         name="web_ribbon"
                         title="Partial"
                         bg_color="bg-warning"
-                        attrs="{'invisible': [('payment_state', '!=', 'partial')]}"
+                        invisible="payment_state != 'partial'"
                     />
                     <widget
                         name="web_ribbon"
                         title="Not Paid"
                         bg_color="bg-danger"
-                        attrs="{'invisible': [('payment_state', '!=', 'not_paid')]}"
+                        invisible="payment_state != 'not_paid'"
                     />
                     <field name="payment_state" invisible="1" />
                     <div class="oe_title">
@@ -119,30 +119,30 @@
                         <group name="loan_left">
                             <field
                                 name="driver_id"
-                                attrs="{'readonly':[('state', '!=', 'draft')]}"
+                                readonly="state != 'draft'"
                                 options="{'no_create': True}"
                             />
                             <field
                                 name="product_id"
-                                attrs="{'readonly':[('state', '!=', 'draft')]}"
+                                readonly="state != 'draft'"
                                 options="{'no_create': True}"
                             />
-                            <field name="amount" attrs="{'readonly':[('state', '!=', 'draft')]}" />
-                            <field name="amount_residual" attrs="{'invisible': [('amount_residual', '=', 0)]}" />
+                            <field name="amount" readonly="state != 'draft'" />
+                            <field name="amount_residual" invisible="amount_residual == 0" />
                             <field
                                 name="amount_residual_driver"
-                                attrs="{'invisible': [('amount_residual_driver', '=', 0)]}"
+                                invisible="amount_residual_driver == 0"
                             />
                         </group>
                         <group name="loan_right">
-                            <field name="date" attrs="{'readonly':[('state', '!=', 'draft')]}" />
+                            <field name="date" readonly="state != 'draft'" />
                             <field
                                 name="currency_id"
-                                attrs="{'readonly':[('state', '!=', 'draft')]}"
+                                readonly="state != 'draft'"
                                 groups="base.group_multi_currency"
                                 options="{'no_create': True, 'no_open': True}"
                             />
-                            <field name="date_confirmed" attrs="{'invisible': [('date_confirmed', '=', False)]}" />
+                            <field name="date_confirmed" invisible="not date_confirmed" />
                             <field name="active" widget="boolean_toggle" />
                         </group>
                     </group>
@@ -150,16 +150,16 @@
                         <page string="Loan Details" name="loan_details">
                             <group>
                                 <group>
-                                    <field name="discount_type" attrs="{'readonly':[('state', '!=', 'draft')]}" />
-                                    <field name="discount_factor" attrs="{'readonly':[('state', '!=', 'draft')]}" />
-                                    <field name="discount_method" attrs="{'readonly':[('state', '!=', 'draft')]}" />
+                                    <field name="discount_type" readonly="state != 'draft'" />
+                                    <field name="discount_factor" readonly="state != 'draft'" />
+                                    <field name="discount_method" readonly="state != 'draft'" />
                                 </group>
                             </group>
                         </page>
                         <page
                             string="Expense Lines"
                             name="expense_lines"
-                            attrs="{'invisible': [('expense_line_ids', '=', [])]}"
+                            invisible="not expense_line_ids"
                         >
                             <field name="expense_line_ids" nolabel="1">
                                 <tree>

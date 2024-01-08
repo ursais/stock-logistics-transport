@@ -54,7 +54,7 @@
                 <field name="amount" sum="Amount Total" />
                 <field name="amount_residual" sum="Amount Remaining" optional="hide" />
                 <field name="product_id" />
-                <field name="auto_expense" widget="boolean_toggle" attrs="{'readonly':[('state', '!=', 'draft')]}" />
+                <field name="auto_expense" widget="boolean_toggle" readonly="state != 'draft'" />
                 <field
                     name="payment_state"
                     widget="badge"
@@ -94,7 +94,7 @@
                         name="action_register_payment"
                         icon="fa-usd"
                         class="oe_highlight"
-                        attrs="{'invisible': ['|', ('state', '!=', 'confirmed'), ('payment_state', '=', 'paid')]}"
+                        invisible="state != 'confirmed' or payment_state = 'paid'"
                         string="Register Payment"
                         type="object"
                     />
@@ -122,7 +122,7 @@
                             class="oe_stat_button"
                             icon="fa-bars"
                             string="Related Moves"
-                            attrs="{'invisible': [('move_id', '=', False)]}"
+                            invisible="not move_id"
                         />
                         <button
                             name="action_open_payments"
@@ -130,23 +130,23 @@
                             class="oe_stat_button"
                             icon="fa-bars"
                             string="Payments"
-                            attrs="{'invisible': [('payment_ids', '=', [])]}"
+                            invisible="not payment_ids"
                         />
                         <field name="move_id" invisible="1" />
                         <field name="payment_ids" invisible="1" />
                     </div>
-                    <widget name="web_ribbon" title="Paid" attrs="{'invisible': [('payment_state', '!=', 'paid')]}" />
+                    <widget name="web_ribbon" title="Paid" invisible="payment_state != 'paid'" />
                     <widget
                         name="web_ribbon"
                         title="Partial"
                         bg_color="bg-warning"
-                        attrs="{'invisible': [('payment_state', '!=', 'partial')]}"
+                        invisible="payment_state != 'partial'"
                     />
                     <widget
                         name="web_ribbon"
                         title="Not Paid"
                         bg_color="bg-danger"
-                        attrs="{'invisible': [('payment_state', '!=', 'not_paid')]}"
+                        invisible="payment_state != 'not_paid'"
                     />
                     <field name="payment_state" invisible="1" />
                     <div class="oe_title">
@@ -159,7 +159,7 @@
                         <group>
                             <field
                                 name="travel_id"
-                                attrs="{'readonly':[('state', '!=', 'draft')]}"
+                                readonly="state != 'draft'"
                                 domain="[('state', 'not in', ['cancel', 'closed', 'done'])]"
                                 options="{'no_create': True}"
                             />
@@ -167,17 +167,17 @@
                             <field name="driver_id" />
                         </group>
                         <group>
-                            <field name="date" attrs="{'readonly':[('state', '!=', 'draft')]}" />
+                            <field name="date" readonly="state != 'draft'" />
                             <field
                                 name="currency_id"
-                                attrs="{'readonly':[('state', '!=', 'draft')]}"
+                                readonly="state != 'draft'"
                                 groups="base.group_multi_currency"
                                 options="{'no_create': True, 'no_open': True}"
                             />
                             <field
                                 name="auto_expense"
                                 widget="boolean_toggle"
-                                attrs="{'readonly':[('state', '!=', 'draft')]}"
+                                readonly="state != 'draft'"
                             />
                         </group>
                     </group>
@@ -185,11 +185,11 @@
                         <group>
                             <field
                                 name="product_id"
-                                attrs="{'readonly':[('state', '!=', 'draft')]}"
+                                readonly="state != 'draft'"
                                 options="{'no_create': True}"
                             />
-                            <field name="amount" attrs="{'readonly':[('state', '!=', 'draft')]}" />
-                            <field name="amount_residual" attrs="{'invisible': [('amount_residual', '=', 0)]}" />
+                            <field name="amount" readonly="state != 'draft'" />
+                            <field name="amount_residual" invisible="amount_residual == 0" />
                         </group>
                     </group>
                     <group>

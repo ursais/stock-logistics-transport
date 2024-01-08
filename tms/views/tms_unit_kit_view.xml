@@ -54,7 +54,7 @@
                         name="web_ribbon"
                         title="Archived"
                         bg_color="bg-danger"
-                        attrs="{'invisible': [('active', '=', True)]}"
+                        invisible="active"
                     />
                     <field name="active" invisible="1" />
                     <div class="oe_title">
@@ -67,7 +67,7 @@
                         <group>
                             <field name="unit_id" />
                             <field
-                                attrs="{'required':[('trailer2_id','!=',False)]}"
+                                required="trailer2_id"
                                 domain="[('fleet_type','=','dolly')]"
                                 name="dolly_id"
                             />
@@ -90,12 +90,13 @@
                                 />
                             </div>
                             <field
-                                attrs="{'required':['|', ('dolly_id','!=',False),('trailer2_id','!=',False)]}"
+                                required="dolly_id or trailer2_id"
                                 domain="[('id','!=',trailer2_id), ('fleet_type','=','trailer')]"
                                 name="trailer1_id"
                             />
                             <field
-                                attrs="{'required':[('dolly_id','!=',False)], 'invisible': [('dolly_id', '=', False)]}"
+                                required="dolly_id"
+                                invisible="not dolly_id"
                                 domain="[('id','!=',trailer1_id), ('fleet_type','=','trailer')]"
                                 name="trailer2_id"
                             />

@@ -13,18 +13,18 @@
                         <field
                             name="trailer1_id"
                             options="{'no_create': 1}"
-                            attrs="{'required':['|', ('dolly_id','!=',False),('trailer2_id','!=',False)]}"
+                            required="dolly_id or trailer2_id"
                             domain="[('id','!=',trailer2_id)]"
                         />
                         <field
                             name="dolly_id"
                             options="{'no_create': 1}"
-                            attrs="{'required':[('trailer2_id','!=',False)]}"
+                            required="trailer2_id"
                         />
                         <field
                             name="trailer2_id"
                             options="{'no_create': 1}"
-                            attrs="{'required':[('dolly_id','!=',False)]}"
+                            required="dolly_id"
                             domain="[('id','!=',trailer1_id)]"
                         />
                     </group>

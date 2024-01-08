@@ -12,7 +12,7 @@
                     class="oe_stat_button"
                     icon="fa-bars"
                     string="Waybill"
-                    attrs="{'invisible': [('waybill_id', '=', False)]}"
+                    invisible="not waybill_id"
                 />
                 <button
                     name="action_open_travel"
@@ -20,7 +20,7 @@
                     class="oe_stat_button"
                     icon="fa-truck"
                     string="Travel"
-                    attrs="{'invisible': [('travel_id', '=', False)]}"
+                    invisible="not travel_id"
                 />
                 <field name="waybill_id" invisible="1" />
                 <field name="travel_id" invisible="1" />

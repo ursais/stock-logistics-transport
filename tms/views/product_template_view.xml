@@ -11,72 +11,72 @@
                     <field
                         name="apply_for_salary"
                         groups="base.group_no_one"
-                        attrs="{'invisible': ['|', ('tms_product_category', 'in', ('real_expense', 'made_up_expense', 'salary', 'salary_retention', 'salary_discount', 'fuel', 'indirect_expense', 'other_income', 'refund', 'negative_balance', 'fuel_cash')), ('tms_product_category', '=', False)]}"
+                        invisible="not tms_product_category or tms_product_category in ('real_expense', 'made_up_expense', 'salary', 'salary_retention', 'salary_discount', 'fuel', 'indirect_expense', 'other_income', 'refund', 'negative_balance', 'fuel_cash')"
                     />
                     <div groups="base.group_no_one">
-                        <p attrs="{'invisible': [('tms_product_category', '!=', 'freight')]}">
+                        <p invisible="tms_product_category != 'freight'">
                             A product configured with this category will be used to compute the freight amount in the Waybill.<br
                             />
                             You can configure only one product with this category.
                         </p>
-                        <p attrs="{'invisible': [('tms_product_category', '!=', 'move')]}">
+                        <p invisible="tms_product_category != 'move'">
                             A product configured with this category will be used to compute the move amount in the Waybill.<br
                             />
                             You can configure only one product with this category.
                         </p>
-                        <p attrs="{'invisible': [('tms_product_category', '!=', 'insurance')]}">
+                        <p invisible="tms_product_category != 'insurance'">
                             A product configured with this category will be used to compute the insurance amount in the Waybill.<br
                             />
                             You can configure only one product with this category.
                         </p>
-                        <p attrs="{'invisible': [('tms_product_category', '!=', 'tolls')]}">
+                        <p invisible="tms_product_category != 'tolls'">
                             A product configured with this category will be used to compute the tolls amount in the Waybill.<br
                             />
                             You can configure only one product with this category.
                         </p>
-                        <p attrs="{'invisible': [('tms_product_category', '!=', 'other')]}">
+                        <p invisible="tms_product_category != 'other'">
                             A product configured with this category will be used to compute the other amount in the Waybill.<br
                             />
                             You can configure only one product with this category.
                         </p>
-                        <p attrs="{'invisible': [('tms_product_category', '!=', 'real_expense')]}">
+                        <p invisible="tms_product_category != 'real_expense'">
                             The products in this category can be used in an Advance and in the Expense.
                         </p>
-                        <p attrs="{'invisible': [('tms_product_category', '!=', 'indirect_expense')]}">
+                        <p invisible="tms_product_category != 'indirect_expense'">
                             The products in this category can be used in the Expense.<br />
                             The expenses that are on this category will be considered in the total of the expense, but it won't affect drivers salary.
                         </p>
-                        <p attrs="{'invisible': [('tms_product_category', '!=', 'salary')]}">
+                        <p invisible="tms_product_category != 'salary'">
                             A product configured with this category will be used to compute the salary in the Expense.<br
                             />
                             You can configure only one product with this category.
                         </p>
                         <p
-                            attrs="{'invisible': [('tms_product_category', 'not in', ['salary_retention', 'salary_discount'])]}"
+                            invisible="tms_product_category noin', ['salary_retention', 'salary_discount'}"
                         >
                             The products in this category can be used in the Expense.<br />
                             If you set a product of this category, this will deduce the salary.
                         </p>
-                        <p attrs="{'invisible': [('tms_product_category', '!=', 'fuel')]}">
+                        <p invisible="tms_product_category != 'fuel'">
                             A product configured with this category will be used in Fuel Vouchers and in the Expense.
                         </p>
-                        <p attrs="{'invisible': [('tms_product_category', '!=', 'indirect_expense')]}">
+                        <p invisible="tms_product_category != 'indirect_expense'">
                             The products in this category can be used in the Expense.<br />
                             If you set a product of this category, this will affect the balance of the Expense.
                         </p>
-                        <p attrs="{'invisible': [('tms_product_category', '!=', 'other_income')]}">
+                        <p invisible="tms_product_category != 'other_income'">
                             This product will be used in the Expense, to add an extra income to the driver.
                         </p>
-                        <p attrs="{'invisible': [('tms_product_category', '!=', 'refund')]}">
+                        <p invisible="tms_product_category != 'refund'">
                             This product will be used in the Expense, to add a refund to the driver.
                         </p>
-                        <p attrs="{'invisible': [('tms_product_category', '!=', 'negative_balance')]}">
+                        <p invisible="tms_product_category != 'negative_balance'">
                             This product will be used in the Expense, to add a negative balance to the driver.
                         </p>
-                        <p attrs="{'invisible': [('tms_product_category', '!=', 'fuel_cash')]}">
+                        <p invisible="tms_product_category != 'fuel_cash'">
                             This product will be used in the Expense, to add a fuel in cash to the driver.
                         </p>
-                        <p attrs="{'invisible': [('tms_product_category', '!=', 'tollstations')]}">
+                        <p invisible="tms_product_category != 'tollstations'">
                             This product will be used in the Expense, to add a tollstation expense to the driver.
                         </p>
                     </div>

@@ -11,7 +11,7 @@
                 </page>
             </xpath>
             <xpath expr="//field[@name='amount_salary_retention']" position="after">
-                <field name="amount_loan" attrs="{'invisible': [('amount_loan', '=', 0)]}" />
+                <field name="amount_loan" invisible="amount_loan == 0" />
             </xpath>
         </field>
     </record>

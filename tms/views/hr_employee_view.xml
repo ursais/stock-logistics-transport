@@ -10,9 +10,9 @@
                         name="license_expiration_date"
                         widget="statinfo"
                         string="Driver License"
-                        attrs="{'invisible':[('license_ids','=',[])]}"
+                        invisible="not license_ids"
                     />
-                    <label for="license_ids" string="Driver License" attrs="{'invisible':[('license_ids','!=',[])]}" />
+                    <label for="license_ids" string="Driver License" invisible="not license_ids" />
                     <field name="license_ids" invisible="1" />
                 </button>
             </xpath>
@@ -22,10 +22,13 @@
                         <field name="driver" />
                     </group>
                     <group name="tms_right">
-                        <field name="property_tms_advance_account_id" attrs="{'invisible':[('driver','=',False)] }" />
+                        <field
+                            name="property_tms_advance_account_id"
+                            invisible="not driver"
+                        />
                         <field
                             name="property_tms_expense_negative_account_id"
-                            attrs="{'invisible':[('driver','=',False)] }"
+                            invisible="not driver"
                         />
                     </group>
                 </page>

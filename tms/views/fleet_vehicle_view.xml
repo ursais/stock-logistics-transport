@@ -30,9 +30,9 @@
                     <field
                         name="insurance_policy_expiration_date"
                         string="Insurance"
-                        attrs="{'invisible':[('policy_ids','=',[])]}"
+                        invisible="not policy_ids"
                     />
-                    <label for="policy_ids" string="Insurance" attrs="{'invisible':[('policy_ids','!=',[])]}" />
+                    <label for="policy_ids" string="Insurance" invisible="not policy_ids" />
                     <field name="policy_ids" invisible="1" />
                 </button>
             </xpath>
@@ -40,13 +40,13 @@
                 <field
                     name="analytic_account_id"
                     groups="analytic.group_analytic_accounting"
-                    attrs="{'invisible': [('fleet_type', '!=', 'tractor')]}"
+                    invisible="fleet_type != 'tractor'"
                 />
                 <field
                     name="analytic_tag_ids"
                     widget="many2many_tags"
                     groups="analytic.group_analytic_tags"
-                    attrs="{'invisible': [('fleet_type', '!=', 'tractor')]}"
+                    invisible="fleet_type != 'tractor'"
                 />
             </xpath>
         </field>
