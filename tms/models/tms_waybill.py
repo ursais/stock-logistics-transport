@@ -421,7 +421,9 @@ class TmsWaybillLine(models.Model):
         string="Unit of Measure",
         required=True,
     )
-    price_unit = fields.Monetary(default=0.0)
+    price_unit = fields.Monetary(
+        digits='Product Price',
+    )
     amount_untaxed = fields.Monetary(
         compute="_compute_amount_line",
         string="Subtotal",
