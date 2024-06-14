@@ -422,7 +422,7 @@ class TmsWaybillLine(models.Model):
         required=True,
     )
     price_unit = fields.Monetary(
-        digits='Product Price',
+        digits="Product Price",
     )
     amount_untaxed = fields.Monetary(
         compute="_compute_amount_line",
