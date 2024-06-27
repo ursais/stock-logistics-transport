@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_order_tms_user,sale.order.tms.user,model_sale_order,tms.group_tms_user,1,0,0,0

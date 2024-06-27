@@ -1,0 +1,101 @@
+<odoo>
+    <record id="sale_order_view_form" model="ir.ui.view">
+        <field name="name">sale.order.view.form.tms.sale</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_invoice']" position="before">
+                <button
+                    type="object"
+                    name="action_view_tms_order"
+                    class="oe_stat_button"
+                    icon="fa-car"
+                    invisible="tms_order_count == 0"
+                    groups="tms.group_tms_user"
+                >
+                    <field
+                        name="tms_order_count"
+                        widget="statinfo"
+                        string="Transport Orders"
+                    />
+                </button>
+            </xpath>
+            <xpath expr="//group[@name='order_details']" position="after">
+                <field name="has_tms_order" invisible="1" />
+                <group
+                    invisible="not has_tms_order"
+                    name="tms_route_group"
+                    string="Route"
+                    groups="tms.group_tms_route"
+                >
+                    <field name="tms_route_flag" />
+                    <field
+                        name="tms_route_id"
+                        invisible="not tms_route_flag"
+                        required="tms_route_flag"
+                        readonly="state in ['sale', 'cancel']"
+                    />
+                    <field
+                        name="tms_origin_id"
+                        invisible="tms_route_flag"
+                        required="has_tms_order and not tms_route_flag"
+                        readonly="state in ['sale', 'cancel']"
+                    />
+                    <field
+                        name="tms_destination_id"
+                        invisible="tms_route_flag"
+                        required="has_tms_order and not tms_route_flag"
+                        readonly="state in ['sale', 'cancel']"
+                    />
+                </group>
+                <group
+                    invisible="not has_tms_order"
+                    name="tms_route"
+                    string="Route"
+                    groups="!tms.group_tms_route"
+                >
+                    <field
+                        name="tms_origin_id"
+                        required="has_tms_order"
+                        readonly="state in ['sale', 'cancel']"
+                    />
+                    <field
+                        name="tms_destination_id"
+                        required="has_tms_order"
+                        readonly="state in ['sale', 'cancel']"
+                    />
+
+                </group>
+                <group
+                    name="tms_schedule"
+                    string="Schedule"
+                    invisible="not has_tms_order"
+                >
+                    <field
+                        name="tms_scheduled_date_start"
+                        required="has_tms_order"
+                        readonly="state in ['sale', 'cancel']"
+                    />
+                    <field
+                        name="tms_scheduled_date_end"
+                        required="has_tms_order"
+                        readonly="state in ['sale', 'cancel']"
+                    />
+                </group>
+            </xpath>
+            <xpath expr="//tree//field[@name='product_uom_qty']" position="after">
+                <field
+                    name="tms_factor_type"
+                    string="Factor Type"
+                    column_invisible="not parent.has_tms_order"
+                />
+                <field
+                    name="tms_factor"
+                    string="Factor"
+                    readonly="not tms_factor_type"
+                    column_invisible="not parent.has_tms_order"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
