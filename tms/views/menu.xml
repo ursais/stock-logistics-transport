@@ -1,0 +1,108 @@
+<odoo>
+
+    <!-- Main Menu -->
+    <menuitem
+        id="root"
+        name="Transportation Management Service"
+        sequence="10"
+        web_icon="tms,static/description/icon.png"
+    />
+
+    <!-- Menus -->
+    <menuitem id="dashboard" name="Dashboard" sequence="10" parent="root" />
+    <menuitem id="operations" name="Operations" sequence="20" parent="root" />
+    <menuitem id="data" name="Master Data" sequence="30" parent="root" />
+    <menuitem id="reporting" name="Reporting" sequence="40" parent="root" />
+    <menuitem id="config" name="Configuration" sequence="100" parent="root" />
+
+    <!-- Dashboard Menu -->
+    <menuitem
+        id="menu_tms_dash_team"
+        name="Teams"
+        action="action_tms_dash_team"
+        parent="dashboard"
+        sequence="10"
+    />
+
+    <!-- Operations Menu -->
+    <menuitem
+        id="menu_tms_operation_trip"
+        name="All Trips"
+        action="action_tms_operation_trip"
+        parent="operations"
+        sequence="10"
+    />
+
+    <!-- Master Data Menu -->
+    <menuitem
+        id="menu_tms_vehicle"
+        name="Vehicles"
+        action="action_tms_vehicle"
+        parent="data"
+        sequence="10"
+    />
+    <menuitem
+        id="menu_tms_driver"
+        name="Drivers"
+        action="action_tms_driver"
+        parent="data"
+        sequence="20"
+    />
+    <menuitem
+        id="menu_tms_location"
+        name="Locations"
+        action="action_tms_location"
+        parent="data"
+        sequence="30"
+    />
+
+<!--    &lt;!&ndash; Reporting Menu &ndash;&gt;-->
+<!--    <menuitem-->
+<!--        id="menu_tms_report_trip"-->
+<!--        name="Trips"-->
+<!--        action="action_tms_report_trip"-->
+<!--        parent="reporting"-->
+<!--        sequence="10"-->
+<!--    />-->
+
+<!--    &lt;!&ndash; Configuration Menu &ndash;&gt;-->
+<!--    <menuitem-->
+<!--        id="settings"-->
+<!--        name="Settings"-->
+<!--        action="action_tms_config"-->
+<!--        parent="config"-->
+<!--        sequence="10"-->
+<!--    />-->
+<!--    <menuitem-->
+<!--        id="menu_tms_config_team"-->
+<!--        name="Teams"-->
+<!--        action="action_tms_config_team"-->
+<!--        parent="config"-->
+<!--        sequence="20"-->
+<!--    />-->
+
+<!--    &lt;!&ndash; Config / Stages &ndash;&gt;-->
+<!--    <menuitem id="menu_fsm_config_stage" name="Stages" parent="config" sequence="30" />-->
+<!--    <menuitem-->
+<!--        id="menu_tms_config_stage_travel"-->
+<!--        name="Travels"-->
+<!--        action="action_tms_config_stage_travel"-->
+<!--        parent="menu_tms_config_stage"-->
+<!--        sequence="10"-->
+<!--    />-->
+<!--    <menuitem-->
+<!--        id="menu_tms_config_stage_driver"-->
+<!--        name="Drivers"-->
+<!--        action="action_tms_config_stage_driver"-->
+<!--        parent="menu_tms_config_stage"-->
+<!--        sequence="20"-->
+<!--    />-->
+<!--    <menuitem-->
+<!--        id="menu_tms_config_stage_vehicle"-->
+<!--        name="Vehicles"-->
+<!--        action="action_tms_config_stage_vehicle"-->
+<!--        parent="menu_tms_config_stage"-->
+<!--        sequence="30"-->
+<!--    />-->
+
+</odoo>

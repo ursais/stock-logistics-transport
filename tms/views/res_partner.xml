@@ -1,0 +1,9 @@
+<odoo>
+
+    <record id="action_tms_driver" model="ir.actions.act_window">
+        <field name="name">Teams</field>
+        <field name="res_model">tms.team</field>
+        <field name="view_mode">kanban,gantt,activity</field>
+    </record>
+
+</odoo>

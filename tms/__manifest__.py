@@ -9,7 +9,12 @@
     "author": "Open Source Integrators, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-transport",
     "depends": ["base"],
-    "data": [],
+    "data": [
+        "views/menu.xml",
+        "views/tms_order.xml",
+        "views/tms_team.xml",
+        "views/tms_vehicle.xml",
+    ],
     "demo": [],
     "application": True,
     "development_status": "Alpha",

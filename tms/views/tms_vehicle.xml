@@ -1,0 +1,9 @@
+<odoo>
+
+    <record id="action_tms_vehicle" model="ir.actions.act_window">
+        <field name="name">Vehicles</field>
+        <field name="res_model">tms.vehicle</field>
+        <field name="view_mode">kanban,tree</field>
+    </record>
+
+</odoo>
