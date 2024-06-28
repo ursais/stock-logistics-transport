@@ -1,9 +1,21 @@
 <odoo>
 
     <record id="action_tms_driver" model="ir.actions.act_window">
-        <field name="name">Teams</field>
-        <field name="res_model">tms.team</field>
-        <field name="view_mode">kanban,gantt,activity</field>
+        <field name="name">Drivers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_tms_location" model="ir.actions.act_window">
+        <field name="name">Locations</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_tms_config_stage_driver" model="ir.actions.act_window">
+        <field name="name">Drivers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
     </record>
 
 </odoo>

@@ -3,7 +3,19 @@
     <record id="action_tms_operation_trip" model="ir.actions.act_window">
         <field name="name">Trips</field>
         <field name="res_model">tms.order</field>
-        <field name="view_mode">tree,form,map</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_tms_report_trip" model="ir.actions.act_window">
+        <field name="name">Trips</field>
+        <field name="res_model">tms.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_tms_config_stage_travel" model="ir.actions.act_window">
+        <field name="name">Stages</field>
+        <field name="res_model">tms.order</field>
+        <field name="view_mode">tree,form</field>
     </record>
 
 </odoo>

@@ -7,7 +7,7 @@ from odoo import fields, models
 class TMSTeam(models.Model):
     _name = "tms.team"
     _description = "Transport Management System Team"
-    _inherit = ["mail.thread", "mail.activity.mixin"]
+    # _inherit = ["mail.thread", "mail.activity.mixin"]
 
     # -------------------------------------
     #                  Fields

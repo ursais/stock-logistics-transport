@@ -1,9 +1,16 @@
 <odoo>
 
-    <record id="action_tsm_dash_team" model="ir.actions.act_window">
+    <record id="action_tms_dash_team" model="ir.actions.act_window">
         <field name="name">Teams</field>
         <field name="res_model">tms.team</field>
-        <field name="view_mode">kanban,gantt,activity</field>
+        <field name="view_mode">tree,form</field>
     </record>
+
+    <record id="action_tms_config_team" model="ir.actions.act_window">
+        <field name="name">Teams</field>
+        <field name="res_model">tms.team</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
 
 </odoo>

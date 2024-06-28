@@ -8,7 +8,7 @@ from odoo import _, fields, models
 class TMSOrder(models.Model):
     _name = "tms.order"
     _description = "Transport Management System Order"
-    _inherit = ["mail.thread", "mail.activity.mixin"]
+    # _inherit = ["mail.thread", "mail.activity.mixin"]
 
     # -------------------------------------
     #                  Fields

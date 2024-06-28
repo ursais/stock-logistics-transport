@@ -3,7 +3,13 @@
     <record id="action_tms_vehicle" model="ir.actions.act_window">
         <field name="name">Vehicles</field>
         <field name="res_model">tms.vehicle</field>
-        <field name="view_mode">kanban,tree</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_tms_config_stage_vehicle" model="ir.actions.act_window">
+        <field name="name">Vehicles</field>
+        <field name="res_model">tms.vehicle</field>
+        <field name="view_mode">tree,form</field>
     </record>
 
 </odoo>

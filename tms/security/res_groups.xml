@@ -1,0 +1,13 @@
+<odoo>
+    <!-- TMS Groups -->
+    <record id="group_tms_admin" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="tms" />
+        <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+    </record>
+
+
+</odoo>
