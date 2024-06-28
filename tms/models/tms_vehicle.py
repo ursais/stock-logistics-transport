@@ -14,3 +14,11 @@ class TMSVehicle(models.Model):
 
     name = fields.Char(required=True)
     description = fields.Text()
+    company_id = fields.Many2one(
+        "res.company",
+        string="Company",
+        required=True,
+        index=True,
+        default=lambda self: self.env.company,
+        help="Company related to this order",
+    )

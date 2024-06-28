@@ -18,3 +18,11 @@ class TMSOrder(models.Model):
         required=True, index=True, copy=False, default=lambda self: _("New")
     )
     description = fields.Text()
+    company_id = fields.Many2one(
+        "res.company",
+        string="Company",
+        required=True,
+        index=True,
+        default=lambda self: self.env.company,
+        help="Company related to this order",
+    )

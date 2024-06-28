@@ -11,6 +11,8 @@
     "depends": ["base"],
     "data": [
         "security/res_groups.xml",
+        "security/ir.model.access.csv",
+        "security/ir_rule.xml",
         "views/res_config_settings.xml",
         "views/res_partner.xml",
         "views/tms_order.xml",
