@@ -20,9 +20,12 @@
                     />
                 </button>
             </xpath>
-            <xpath expr="//notebook" position="inside">
+            <xpath expr="//page[@name='tracking_page']" position="before">
                 <page string="Purchase">
-                    <field name="purchase_ids" context="{'tree_view_ref': 'tms_purchase.tms_custom_purchase_order_tree'}"/>
+                    <field
+                        name="purchase_ids"
+                        context="{'tree_view_ref': 'tms_purchase.tms_custom_purchase_order_tree'}"
+                    />
                 </page>
             </xpath>
         </field>

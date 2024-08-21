@@ -36,4 +36,3 @@ class TMSOrder(models.Model):
             for purchase in order.purchase_ids:
                 purchase.trip_id = order
         return order
-
