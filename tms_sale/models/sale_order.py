@@ -29,43 +29,6 @@ class SaleOrder(models.Model):
             "view_type": "form",
         }
 
-    @api.onchange("order_line")
-    def _onchange_sale_order_line_tms(self):
-        for line in self.order_line:
-            if line.product_template_id.tms_factor_distance_uom:
-                line.tms_factor_uom = (
-                    line.product_template_id.tms_factor_distance_uom.name
-                )
-                if line.tms_route_id.distance:
-                    line.tms_factor = line.tms_route_id.distance
-                    line.tms_factor_uom = line.tms_route_id.distance_uom.name
-            elif line.product_template_id.tms_factor_weight_uom:
-                line.tms_factor_uom = (
-                    line.product_template_id.tms_factor_weight_uom.name
-                )
-            else:
-                line.tms_factor_uom = False
-
-            line.has_trip_product = (
-                line.product_template_id.trip_product_type == "trip"
-                and line.product_template_id.tms_trip
-                and line.product_template_id.detailed_type == "service"
-            ) or (
-                line.product_id.trip_product_type == "trip"
-                and line.product_id.tms_trip
-                and line.product_id.detailed_type == "service"
-            )
-
-            line.seat_ticket = (
-                line.product_template_id.trip_product_type == "seat"
-                and line.product_template_id.tms_trip
-                and line.product_template_id.detailed_type == "service"
-            ) or (
-                line.product_id.trip_product_type == "seat"
-                and line.product_id.tms_trip
-                and line.product_id.detailed_type == "service"
-            )
-
     @api.depends("order_line")
     def _compute_has_tms_order(self):
         for sale in self:
