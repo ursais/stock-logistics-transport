@@ -9,13 +9,13 @@ class SaleOrderLineTrip(models.TransientModel):
     route = fields.Many2one("tms.route")
     origin = fields.Many2one(
         "res.partner",
-        domain="[('tms_type', '=', 'location')]",
-        context={"default_tms_type": "location"},
+        domain="[('tms_location', '=', 'True')]",
+        context={"default_tms_location": True},
     )
     destination = fields.Many2one(
         "res.partner",
-        domain="[('tms_type', '=', 'location')]",
-        context={"default_tms_type": "location"},
+        domain="[('tms_location', '=', 'True')]",
+        context={"default_tms_location": True},
     )
     start = fields.Datetime(string="Scheduled start")
     end = fields.Datetime(string="Scheduled end")

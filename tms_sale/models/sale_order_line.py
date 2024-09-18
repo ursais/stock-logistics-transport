@@ -30,14 +30,14 @@ class SaleOrderLine(models.Model):
     tms_origin_id = fields.Many2one(
         "res.partner",
         string="Origin",
-        domain="[('tms_type', '=', 'location')]",
-        context={"default_tms_type": "location"},
+        domain="[('tms_location', '=', 'True')]",
+        context={"default_tms_location": True},
     )
     tms_destination_id = fields.Many2one(
         "res.partner",
         string="Destination",
-        domain="[('tms_type', '=', 'location')]",
-        context={"default_tms_type": "location"},
+        domain="[('tms_location', '=', 'True')]",
+        context={"default_tms_location": True},
     )
 
     tms_scheduled_date_start = fields.Datetime(string="Scheduled Start")
