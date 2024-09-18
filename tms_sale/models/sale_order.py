@@ -62,11 +62,12 @@ class SaleOrder(models.Model):
         new_tms_orders = self.env["tms.order"]
 
         for line in new_tms_sol:
-            for qty in range(int(line.product_uom_qty) - len(line.tms_order_ids)):
+            for i in range(int(line.product_uom_qty) - len(line.tms_order_ids)):
                 vals = line._prepare_line_tms_values(line)
                 tms_by_line = self.env["tms.order"].sudo().create(vals)
                 line.write({"tms_order_ids": [(4, tms_by_line.id)]})
                 new_tms_orders |= tms_by_line
+                i = i  # pre-commit
 
         return new_tms_orders
 
