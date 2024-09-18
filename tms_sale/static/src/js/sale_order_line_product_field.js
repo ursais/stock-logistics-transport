@@ -1,9 +1,7 @@
 /** @odoo-module **/
 
-import {patch} from "@web/core/utils/patch";
 import {SaleOrderLineProductField} from "@sale/js/sale_product_field";
-//import { TicketLinesComponent } from './update_tickets_controller';
-import {useService} from "@web/core/utils/hooks";
+import {patch} from "@web/core/utils/patch";
 
 function formatDateForOdoo(dateString) {
     const date = new Date(dateString);
@@ -15,7 +13,7 @@ function formatDateForOdoo(dateString) {
     const seconds = ("0" + date.getSeconds()).slice(-2);
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
-//
+
 patch(SaleOrderLineProductField.prototype, {
     async _onProductUpdate() {
         super._onProductUpdate(...arguments);
@@ -52,7 +50,7 @@ patch(SaleOrderLineProductField.prototype, {
     },
 
     async _openTripConfigurator() {
-        let actionContext = {
+        const actionContext = {
             default_product_template_id: this.props.record.data.product_template_id[0],
         };
         if (this.props.record.data.tms_origin_id) {
@@ -86,7 +84,7 @@ patch(SaleOrderLineProductField.prototype, {
             additionalContext: actionContext,
             onClose: async (closeInfo) => {
                 if (!closeInfo || closeInfo.special) {
-                    // wizard popup closed or 'Cancel' button triggered
+                    // Wizard popup closed or 'Cancel' button triggered
                     if (
                         (!this.props.record.data.tms_origin_id &&
                             !this.props.record.data.tms_route_flag) ||
@@ -97,7 +95,7 @@ patch(SaleOrderLineProductField.prototype, {
                         (!this.props.record.data.tms_route_id &&
                             this.props.record.data.tms_route_flag)
                     ) {
-                        // remove product if trip configuration was cancelled.
+                        // Remove product if trip configuration was cancelled.
                         this.props.record.update({
                             [this.props.name]: undefined,
                         });
@@ -113,7 +111,7 @@ patch(SaleOrderLineProductField.prototype, {
     async _openTicketConfigurator() {
         console.log("Data:  ", this.props.record.data);
         console.log("tms_ticket_ids:", typeof this.props.record.data.tms_ticket_ids);
-        let actionContext = {
+        const actionContext = {
             default_product_template_id: this.props.record.data.product_template_id[0],
         };
         if (this.props.record.data.tms_trip_ticket_id) {
@@ -132,7 +130,7 @@ patch(SaleOrderLineProductField.prototype, {
             onClose: async (closeInfo) => {
                 if (!closeInfo || closeInfo.special) {
                     if (!this.props.record.data.tms_trip_ticket_id) {
-                        // remove product if trip configuration was cancelled.
+                        // Remove product if trip configuration was cancelled.
                         this.props.record.update({
                             [this.props.name]: undefined,
                         });
