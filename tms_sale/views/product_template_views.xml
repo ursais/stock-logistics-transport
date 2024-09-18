@@ -8,12 +8,10 @@
                 <field name="tms_trip" invisible="1" />
                 <field
                     name="trip_product_type"
-                    string="Trip product type"
+                    string="Transport product type"
                     invisible="not tms_trip"
                     required="tms_trip"
                 />
-            </xpath>
-            <xpath expr="//div[@name='pricing']" position="after">
                 <field
                     name="tms_factor_type"
                     string="Factor Type"

@@ -19,7 +19,7 @@
                 </button>
             </xpath>
             <xpath expr="//page[@name='planning_page']" position="after">
-                <page name="tickets_page" string="Tickets">
+                <page name="seats_page" string="Seats">
                     <field name="seat_ticket_ids" />
                 </page>
             </xpath>
