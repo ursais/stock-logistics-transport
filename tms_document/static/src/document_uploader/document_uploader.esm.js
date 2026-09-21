@@ -3,12 +3,13 @@
  * License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). */
 
 import {_t} from "@web/core/l10n/translation";
+import { NotificationPlugin } from "@web/core/notifications/notification_plugin";
 import {registry} from "@web/core/registry";
 import {useService} from "@web/core/utils/hooks";
 import {FileUploader} from "@web/views/fields/file_handler";
 import {standardWidgetProps} from "@web/views/widgets/standard_widget_props";
 
-import {Component} from "@odoo/owl";
+import { Component, usePlugin } from "@odoo/owl";
 
 export class TmsDocumentUploader extends Component {
     static template = "tms_document.TmsDocumentUploader";
@@ -24,7 +25,7 @@ export class TmsDocumentUploader extends Component {
 
     setup() {
         this.orm = useService("orm");
-        this.notification = useService("notification");
+        this.notification = usePlugin(NotificationPlugin);
         this.attachmentIdsToProcess = [];
     }
 
@@ -86,7 +87,7 @@ export class TmsDocumentFileReplace extends Component {
 
     setup() {
         this.orm = useService("orm");
-        this.notification = useService("notification");
+        this.notification = usePlugin(NotificationPlugin);
         this.attachmentId = false;
     }
 

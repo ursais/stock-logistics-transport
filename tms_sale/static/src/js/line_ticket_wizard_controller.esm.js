@@ -1,11 +1,12 @@
+import { usePlugin } from "@odoo/owl";
 import {formView} from "@web/views/form/form_view";
 import {registry} from "@web/core/registry";
-import {useService} from "@web/core/utils/hooks";
+import { ActionManagerPlugin } from "@web/webclient/actions/action_plugin";
 
 export class TicketConfiguratorController extends formView.Controller {
     setup() {
         super.setup();
-        this.action = useService("action");
+        this.action = usePlugin(ActionManagerPlugin);
     }
 
     async onRecordSaved(record) {

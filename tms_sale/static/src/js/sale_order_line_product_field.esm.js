@@ -1,7 +1,8 @@
+import { usePlugin } from "@odoo/owl";
 import {SaleOrderLineProductField} from "@sale/js/sale_product_field";
 import {x2ManyCommands} from "@web/core/orm_service";
-import {useService} from "@web/core/utils/hooks";
 import {patch} from "@web/core/utils/patch";
+import { ActionManagerPlugin } from "@web/webclient/actions/action_plugin";
 
 function formatDateForOdoo(dateString) {
     const date = new Date(dateString);
@@ -17,7 +18,7 @@ function formatDateForOdoo(dateString) {
 patch(SaleOrderLineProductField.prototype, {
     setup() {
         super.setup(...arguments);
-        this.action = useService("action");
+        this.action = usePlugin(ActionManagerPlugin);
     },
 
     async _onProductUpdate() {

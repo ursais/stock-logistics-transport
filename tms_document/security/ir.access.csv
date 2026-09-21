@@ -1,0 +1,4 @@
+id,name,model_id,group_id/id,operation,domain
+access_tms_document_user,tms.document.user,tms_document.model_tms_document,tms.group_tms_user,r,
+access_tms_document_manager,tms.document.manager,tms_document.model_tms_document,tms_document.group_tms_document,crud,
+tms_document_company_rule,TMS Document: multi-company,model_tms_document,,crud,"[('company_id', 'in', company_ids)]"
