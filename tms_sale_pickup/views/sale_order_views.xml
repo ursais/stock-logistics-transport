@@ -5,7 +5,7 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="tms_sale.sale_order_view_form" />
         <field name="arch" type="xml">
-            <xpath expr="//group[@string='Cargo']" position="attributes">
+            <xpath expr="//group[@name='tms_cargo']" position="attributes">
                 <attribute
                     name="invisible"
                 >tms_factor_type not in ('weight', 'volume')</attribute>
